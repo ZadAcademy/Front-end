@@ -1,0 +1,14 @@
+{
+  "IndexPage": {
+    "title": "مرحبا بالعالم!",
+   "button":{
+      "loading":"تحميل",
+      "submit":"إرسال",
+      "cancel":"إلغاء",
+      "save":"حفظ",
+      "delete":"حذف",
+      "confirm":"تأكيد"
+    },
+    "badge":"شارة"
+  }
+}

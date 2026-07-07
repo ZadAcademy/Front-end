@@ -1,0 +1,14 @@
+{
+  "IndexPage": {
+    "title": "Hello world!",
+    "badge":"Badge",
+    "button":{
+      "loading":"Loading",
+      "submit":"Submit",
+      "cancel":"Cancel",
+      "save":"Save",
+      "delete":"Delete",
+      "confirm":"Confirm"
+    }
+  }
+}
