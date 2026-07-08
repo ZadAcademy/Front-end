@@ -3,6 +3,11 @@ import HeroSection from './components/hero/hero-section';
 import NumbersSection from './components/hero/numbers-section';
 import CoursesSection from './components/courses/courses-section';
 import ExpertsSection from './components/experts/experts-section';
+import TestimonialsSection from './components/testimonials/testimonials-section';
+import WhyUsSection from './components/why-us/why-us-section';
+import FAQSection from './components/faq/faq-section';
+import CtaSection from './components/cta/cta-section';
+import Footer from './components/footer/footer';
 
 /**
  * LandingPage — Root component for the landing page.
@@ -26,15 +31,21 @@ export default function LandingPage() {
 
       {/* ─── Experts Section ─── */}
       <ExpertsSection />
-            <div className="h-16" />
 
+      {/* ─── Testimonials Section ─── */}
+      <TestimonialsSection />
 
-      {/* Future sections will be added here:
-          - Testimonials
-          - Why Us
-          - FAQ
-          - Contact / Footer
-      */}
+      {/* ─── Why Us Section ─── */}
+      <WhyUsSection />
+
+      {/* ─── FAQ Section ─── */}
+      <FAQSection />
+
+      {/* ─── CTA Section ─── */}
+      <CtaSection />
+
+      {/* ─── Footer ─── */}
+      <Footer />
     </>
   );
 }

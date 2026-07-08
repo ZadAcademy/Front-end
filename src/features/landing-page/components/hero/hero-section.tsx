@@ -24,7 +24,7 @@ export default function HeroSection() {
 
         {/* ═══════════════════════════════════ TEXT CONTENT (end side — right in LTR, left in RTL) ═══════════════════════════════════ */}
         {/* TEXT CARD: full width on mobile, 7/12 on desktop, full height only on desktop */}
-        <div className="w-full lg:w-7/12 flex flex-col lg:gap-10 gap-4 bg-blueLightHover border border-white rounded-[16px] p-4 pt-2">
+        <div className="w-full lg:w-7/12 flex flex-col lg:gap-10 gap-4 bg-blueLightHover border border-white rounded-[16px] p-6 ">
           <div className="flex flex-col gap-6  ">
 
             {/* ─── Main heading ─── */}
