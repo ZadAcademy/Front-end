@@ -1,6 +1,8 @@
 import Navbar from './components/navbar/navbar';
 import HeroSection from './components/hero/hero-section';
 import NumbersSection from './components/hero/numbers-section';
+import CoursesSection from './components/courses/courses-section';
+import ExpertsSection from './components/experts/experts-section';
 
 /**
  * LandingPage — Root component for the landing page.
@@ -19,9 +21,15 @@ export default function LandingPage() {
       <NumbersSection />
       <div className="h-16" />
 
+      {/* ─── Courses Section ─── */}
+      <CoursesSection />
+
+      {/* ─── Experts Section ─── */}
+      <ExpertsSection />
+            <div className="h-16" />
+
+
       {/* Future sections will be added here:
-          - Courses
-          - Experts
           - Testimonials
           - Why Us
           - FAQ

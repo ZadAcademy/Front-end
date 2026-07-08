@@ -14,6 +14,7 @@ export default function HeroSection() {
 
   return (
     <section id="home" className="py-10 lg:py-16">
+      <div className="mx-auto max-w-[1450px] px-4 sm:px-6 lg:px-8">
       {/* 
         By using items-stretch and no fixed height, the text block and the 
         image block will automatically stretch to be the exact same height! 
@@ -21,16 +22,14 @@ export default function HeroSection() {
       <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-4 mt-10">
 
 
-        {/* ═══════════════════════════════════
-            TEXT CONTENT (end side — right in LTR, left in RTL)
-            ═══════════════════════════════════ */}
+        {/* ═══════════════════════════════════ TEXT CONTENT (end side — right in LTR, left in RTL) ═══════════════════════════════════ */}
         {/* TEXT CARD: full width on mobile, 7/12 on desktop, full height only on desktop */}
         <div className="w-full lg:w-7/12 flex flex-col lg:gap-10 gap-4 bg-blueLightHover border border-white rounded-[16px] p-4 pt-2">
           <div className="flex flex-col gap-6  ">
 
             {/* ─── Main heading ─── */}
             <h1 className="font-cairo-regular-4xl xl:font-cairo-regular-5xl lg:font-cairo-regular-5xl leading-tight">
-              {t('title')}{' '}
+              {t('title')}{' '}<br/>
               {/* Highlighted words in orange */}
               <span className="text-orangeNormal">{t('highlight')}</span>
             </h1>
@@ -63,14 +62,13 @@ export default function HeroSection() {
             </Button>
           </div>
         </div>
-        {/* ═══════════════════════════════════
-            IMAGE SWIPER (start side — left in LTR, right in RTL)
-            ═══════════════════════════════════ */}
+        {/* ═══════════════════════════════════ IMAGE SWIPER (start side — left in LTR, right in RTL)═══════════════════════════════════ */}
 
         <div className="w-full lg:w-5/12">
           <HeroSwiper />
         </div>
 
+      </div>
       </div>
     </section>
   );

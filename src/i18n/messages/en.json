@@ -37,6 +37,20 @@
       "topicsCount": "+20",
       "courses": "Course",
       "coursesCount": "+50"
+    },
+    "coursesSection": {
+      "title": "Our Courses",
+      "description": "We offer you the best courses in the fields of mechanical engineering to help you achieve your goals and reach the best companies in the labor market, whether local or global, with periodic follow-up and performance measurement tests.",
+      "seeMore": "See more courses",
+      "lectures": "lectures",
+      "hours": "h",
+      "instructor": "Lecturer"
+    },
+    "expertsSection": {
+      "title": "Get to know our experts",
+      "description": "The courses are presented by engineers with high professional and educational experience in their fields, as they help you understand everything and ensure that you reach the best understanding.",
+      "role": "Mechanical Engineer",
+      "experience": "10+ Years Experience"
     }
   }
 }

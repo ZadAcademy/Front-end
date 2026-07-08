@@ -16,7 +16,8 @@ export default function NumbersSection() {
   ] as const;
 
   return (
-    <section className="bg-blueNormal rounded-2xl py-2 px-2 lg:px-3 lg:py-4 mt-8">
+    <section className="mx-auto max-w-[1450px] px-4 sm:px-6 lg:px-8">
+      <div className="bg-blueNormal rounded-2xl py-2 px-2 lg:px-3 lg:py-4 mt-8">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
         {stats.map((stat) => (
           <div key={stat.labelKey} className="flex flex-col items-center gap-1">
@@ -30,6 +31,7 @@ export default function NumbersSection() {
             </span>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

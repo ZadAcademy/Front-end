@@ -13,8 +13,8 @@ const geistSans = Geist({
 });
 
 const sarabun = Sarabun({
-  subsets: ['latin' , 'thai'],
-  weight: ['400', '500' , '600', '700'],
+  subsets: ['latin', 'thai'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-sarabun'
 });
 
@@ -40,19 +40,19 @@ export const metadata: Metadata = {
   description: "A store specializing in selling flowers",
 };
 
-interface Props  {
+interface Props {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: Promise<{ locale: string }>;
 };
 
-export default async function LocaleLayout({children, params}: Props) {
+export default async function LocaleLayout({ children, params }: Props) {
 
- const {locale} = await params;
- if (!hasLocale(routing.locales, locale)) {
-   notFound();
- }
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
- const fontClassSwitches = locale === 'ar' ? tajawal.variable : sarabun.variable ;
+  const fontClassSwitches = locale === 'ar' ? tajawal.variable : sarabun.variable;
 
   return (
     <html
@@ -63,15 +63,15 @@ export default async function LocaleLayout({children, params}: Props) {
     >
       <body suppressHydrationWarning
         className="min-h-full flex flex-col bg-gradient-to-r from-[#CADCEA] via-[#F5F5F5] to-[#D9E6F0]">
-       <Providers>
+        <Providers>
           <ThemeProvider attribute='data-theme' defaultTheme='system' enableSystem disableTransitionOnChange storageKey='theme'>
-              {/* Global content container — all pages get centered + constrained */}
-              <main className="flex-1 mx-auto w-full max-w-[1450px] px-4 sm:px-6 lg:px-8">
-                {children}
-              </main>
+              {/* Global content wrapper — sections manage their own max-width */}
+              <main className="flex-1 w-full">
+              {children}
+            </main>
           </ThemeProvider>
-       </Providers>
-        </body>
+        </Providers>
+      </body>
     </html>
   );
 }
