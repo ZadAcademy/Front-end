@@ -10,5 +10,33 @@
       "delete":"Delete",
       "confirm":"Confirm"
     }
+  },
+  "LandingPage": {
+    "navbar": {
+      "home":"Home",
+      "courses": "Our Courses",
+      "experts": "Our Experts",
+      "testimonials": "Testimonials",
+      "whyUs": "Why Us",
+      "faq": "FAQ",
+      "login": "Login",
+      "create-account": "Create Account"
+    },
+    "hero": {
+      "title": "Learn Mechanical Engineering with a practical approach that prepares you for the job market in a",
+      "highlight": "strong and distinguished",
+      "description": "Specialized training programs that combine fundamentals and practical application to help you acquire the skills that a professional engineer needs.",
+      "browseCourses": "Browse Courses",
+      "startNow": "Start Now",
+      "imageAlt": "Mechanical Engineering"
+    },
+    "numbers": {
+      "students": "student",
+      "studentsCount": "+1000",
+      "topics": "Explained Topic",
+      "topicsCount": "+20",
+      "courses": "Course",
+      "coursesCount": "+50"
+    }
   }
 }

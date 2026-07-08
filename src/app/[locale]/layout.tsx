@@ -62,10 +62,13 @@ export default async function LocaleLayout({children, params}: Props) {
       className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} ${fontClassSwitches} h-full antialiased`}
     >
       <body suppressHydrationWarning
-        className="min-h-full flex flex-col">
+        className="min-h-full flex flex-col bg-gradient-to-r from-[#CADCEA] via-[#F5F5F5] to-[#D9E6F0]">
        <Providers>
           <ThemeProvider attribute='data-theme' defaultTheme='system' enableSystem disableTransitionOnChange storageKey='theme'>
-              {children}
+              {/* Global content container — all pages get centered + constrained */}
+              <main className="flex-1 mx-auto w-full max-w-[1450px] px-4 sm:px-6 lg:px-8">
+                {children}
+              </main>
           </ThemeProvider>
        </Providers>
         </body>
