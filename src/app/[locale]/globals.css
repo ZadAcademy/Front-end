@@ -3,179 +3,174 @@
 @import "shadcn/tailwind.css";
 
 
-@layer utilities {
-  /* Regiler */
-  .font-sarabun-regular-7xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 72px; }
-  .font-sarabun-regular-6xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 60px; }
-  .font-sarabun-regular-5xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 48px; }
-  .font-sarabun-regular-4xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 36px; }
-  .font-sarabun-regular-3xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 30px; }
-  .font-sarabun-regular-2xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 24px; }
-  .font-sarabun-regular-xl   { font-family: var(--font-sarabun); font-weight: 400; font-size: 20px; }
-  .font-sarabun-regular-lg   { font-family: var(--font-sarabun); font-weight: 400; font-size: 18px; }
-  .font-sarabun-regular-base { font-family: var(--font-sarabun); font-weight: 400; font-size: 16px; }
-  .font-sarabun-regular-sm   { font-family: var(--font-sarabun); font-weight: 400; font-size: 14px; }
-  .font-sarabun-regular-xs   { font-family: var(--font-sarabun); font-weight: 400; font-size: 12px; }
+/* ─── SARABUN REGULAR (400) ─── */
+@utility font-sarabun-regular-7xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 72px; }
+@utility font-sarabun-regular-6xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 60px; }
+@utility font-sarabun-regular-5xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 48px; }
+@utility font-sarabun-regular-4xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 36px; }
+@utility font-sarabun-regular-3xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 30px; }
+@utility font-sarabun-regular-2xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 24px; }
+@utility font-sarabun-regular-xl   { font-family: var(--font-sarabun); font-weight: 400; font-size: 20px; }
+@utility font-sarabun-regular-lg   { font-family: var(--font-sarabun); font-weight: 400; font-size: 18px; }
+@utility font-sarabun-regular-base { font-family: var(--font-sarabun); font-weight: 400; font-size: 16px; }
+@utility font-sarabun-regular-sm   { font-family: var(--font-sarabun); font-weight: 400; font-size: 14px; }
+@utility font-sarabun-regular-xs   { font-family: var(--font-sarabun); font-weight: 400; font-size: 12px; }
 
-  /* ─── MEDIUM (500) ─── */
-  .font-sarabun-medium-7xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 72px; }
-  .font-sarabun-medium-6xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 60px; }
-  .font-sarabun-medium-5xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 48px; }
-  .font-sarabun-medium-4xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 36px; }
-  .font-sarabun-medium-3xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 30px; }
-  .font-sarabun-medium-2xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 24px; }
-  .font-sarabun-medium-xl   { font-family: var(--font-sarabun); font-weight: 500; font-size: 20px; }
-  .font-sarabun-medium-lg   { font-family: var(--font-sarabun); font-weight: 500; font-size: 18px; }
-  .font-sarabun-medium-base { font-family: var(--font-sarabun); font-weight: 500; font-size: 16px; }
-  .font-sarabun-medium-sm   { font-family: var(--font-sarabun); font-weight: 500; font-size: 14px; }
-  .font-sarabun-medium-xs   { font-family: var(--font-sarabun); font-weight: 500; font-size: 12px; }
+/* ─── SARABUN MEDIUM (500) ─── */
+@utility font-sarabun-medium-7xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 72px; }
+@utility font-sarabun-medium-6xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 60px; }
+@utility font-sarabun-medium-5xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 48px; }
+@utility font-sarabun-medium-4xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 36px; }
+@utility font-sarabun-medium-3xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 30px; }
+@utility font-sarabun-medium-2xl  { font-family: var(--font-sarabun); font-weight: 500; font-size: 24px; }
+@utility font-sarabun-medium-xl   { font-family: var(--font-sarabun); font-weight: 500; font-size: 20px; }
+@utility font-sarabun-medium-lg   { font-family: var(--font-sarabun); font-weight: 500; font-size: 18px; }
+@utility font-sarabun-medium-base { font-family: var(--font-sarabun); font-weight: 500; font-size: 16px; }
+@utility font-sarabun-medium-sm   { font-family: var(--font-sarabun); font-weight: 500; font-size: 14px; }
+@utility font-sarabun-medium-xs   { font-family: var(--font-sarabun); font-weight: 500; font-size: 12px; }
 
-  /* ─── SEMIBOLD (600) ─── */
-  .font-sarabun-semibold-7xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 72px; }
-  .font-sarabun-semibold-6xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 60px; }
-  .font-sarabun-semibold-5xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 48px; }
-  .font-sarabun-semibold-4xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 36px; }
-  .font-sarabun-semibold-3xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 30px; }
-  .font-sarabun-semibold-2xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 24px; }
-  .font-sarabun-semibold-xl   { font-family: var(--font-sarabun); font-weight: 600; font-size: 20px; }
-  .font-sarabun-semibold-lg   { font-family: var(--font-sarabun); font-weight: 600; font-size: 18px; }
-  .font-sarabun-semibold-base { font-family: var(--font-sarabun); font-weight: 600; font-size: 16px; }
-  .font-sarabun-semibold-sm   { font-family: var(--font-sarabun); font-weight: 600; font-size: 14px; }
-  .font-sarabun-semibold-xs   { font-family: var(--font-sarabun); font-weight: 600; font-size: 12px; }
+/* ─── SARABUN SEMIBOLD (600) ─── */
+@utility font-sarabun-semibold-7xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 72px; }
+@utility font-sarabun-semibold-6xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 60px; }
+@utility font-sarabun-semibold-5xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 48px; }
+@utility font-sarabun-semibold-4xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 36px; }
+@utility font-sarabun-semibold-3xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 30px; }
+@utility font-sarabun-semibold-2xl  { font-family: var(--font-sarabun); font-weight: 600; font-size: 24px; }
+@utility font-sarabun-semibold-xl   { font-family: var(--font-sarabun); font-weight: 600; font-size: 20px; }
+@utility font-sarabun-semibold-lg   { font-family: var(--font-sarabun); font-weight: 600; font-size: 18px; }
+@utility font-sarabun-semibold-base { font-family: var(--font-sarabun); font-weight: 600; font-size: 16px; }
+@utility font-sarabun-semibold-sm   { font-family: var(--font-sarabun); font-weight: 600; font-size: 14px; }
+@utility font-sarabun-semibold-xs   { font-family: var(--font-sarabun); font-weight: 600; font-size: 12px; }
 
-  /* ─── BOLD (700) ─── */
-  .font-sarabun-bold-7xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 72px; }
-  .font-sarabun-bold-6xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 60px; }
-  .font-sarabun-bold-5xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 48px; }
-  .font-sarabun-bold-4xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 36px; }
-  .font-sarabun-bold-3xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 30px; }
-  .font-sarabun-bold-2xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 24px; }
-  .font-sarabun-bold-xl   { font-family: var(--font-sarabun); font-weight: 700; font-size: 20px; }
-  .font-sarabun-bold-lg   { font-family: var(--font-sarabun); font-weight: 700; font-size: 18px; }
-  .font-sarabun-bold-base { font-family: var(--font-sarabun); font-weight: 700; font-size: 16px; }
-  .font-sarabun-bold-sm   { font-family: var(--font-sarabun); font-weight: 700; font-size: 14px; }
-  .font-sarabun-bold-xs   { font-family: var(--font-sarabun); font-weight: 700; font-size: 12px; }
- /* --------------------------------------------- */
+/* ─── SARABUN BOLD (700) ─── */
+@utility font-sarabun-bold-7xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 72px; }
+@utility font-sarabun-bold-6xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 60px; }
+@utility font-sarabun-bold-5xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 48px; }
+@utility font-sarabun-bold-4xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 36px; }
+@utility font-sarabun-bold-3xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 30px; }
+@utility font-sarabun-bold-2xl  { font-family: var(--font-sarabun); font-weight: 700; font-size: 24px; }
+@utility font-sarabun-bold-xl   { font-family: var(--font-sarabun); font-weight: 700; font-size: 20px; }
+@utility font-sarabun-bold-lg   { font-family: var(--font-sarabun); font-weight: 700; font-size: 18px; }
+@utility font-sarabun-bold-base { font-family: var(--font-sarabun); font-weight: 700; font-size: 16px; }
+@utility font-sarabun-bold-sm   { font-family: var(--font-sarabun); font-weight: 700; font-size: 14px; }
+@utility font-sarabun-bold-xs   { font-family: var(--font-sarabun); font-weight: 700; font-size: 12px; }
 
- /* ─── TAJAWAL REGULAR (400) ─── */
- .font-tajawal-regular-7xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 72px; }
- .font-tajawal-regular-6xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 60px; }
- .font-tajawal-regular-5xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 48px; }
- .font-tajawal-regular-4xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 36px; }
- .font-tajawal-regular-3xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 30px; }
- .font-tajawal-regular-2xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 24px; }
- .font-tajawal-regular-xl   { font-family: var(--font-tajawal); font-weight: 400; font-size: 20px; }
- .font-tajawal-regular-lg   { font-family: var(--font-tajawal); font-weight: 400; font-size: 18px; }
- .font-tajawal-regular-base { font-family: var(--font-tajawal); font-weight: 400; font-size: 16px; }
- .font-tajawal-regular-sm   { font-family: var(--font-tajawal); font-weight: 400; font-size: 14px; }
- .font-tajawal-regular-xs   { font-family: var(--font-tajawal); font-weight: 400; font-size: 12px; }
+/* ─── TAJAWAL REGULAR (400) ─── */
+@utility font-tajawal-regular-7xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 72px; }
+@utility font-tajawal-regular-6xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 60px; }
+@utility font-tajawal-regular-5xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 48px; }
+@utility font-tajawal-regular-4xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 36px; }
+@utility font-tajawal-regular-3xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 30px; }
+@utility font-tajawal-regular-2xl  { font-family: var(--font-tajawal); font-weight: 400; font-size: 24px; }
+@utility font-tajawal-regular-xl   { font-family: var(--font-tajawal); font-weight: 400; font-size: 20px; }
+@utility font-tajawal-regular-lg   { font-family: var(--font-tajawal); font-weight: 400; font-size: 18px; }
+@utility font-tajawal-regular-base { font-family: var(--font-tajawal); font-weight: 400; font-size: 16px; }
+@utility font-tajawal-regular-sm   { font-family: var(--font-tajawal); font-weight: 400; font-size: 14px; }
+@utility font-tajawal-regular-xs   { font-family: var(--font-tajawal); font-weight: 400; font-size: 12px; }
 
- /* ─── TAJAWAL MEDIUM (500) ─── */
- .font-tajawal-medium-7xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 72px; }
- .font-tajawal-medium-6xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 60px; }
- .font-tajawal-medium-5xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 48px; }
- .font-tajawal-medium-4xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 36px; }
- .font-tajawal-medium-3xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 30px; }
- .font-tajawal-medium-2xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 24px; }
- .font-tajawal-medium-xl   { font-family: var(--font-tajawal); font-weight: 500; font-size: 20px; }
- .font-tajawal-medium-lg   { font-family: var(--font-tajawal); font-weight: 500; font-size: 18px; }
- .font-tajawal-medium-base { font-family: var(--font-tajawal); font-weight: 500; font-size: 16px; }
- .font-tajawal-medium-sm   { font-family: var(--font-tajawal); font-weight: 500; font-size: 14px; }
- .font-tajawal-medium-xs   { font-family: var(--font-tajawal); font-weight: 500; font-size: 12px; }
+/* ─── TAJAWAL MEDIUM (500) ─── */
+@utility font-tajawal-medium-7xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 72px; }
+@utility font-tajawal-medium-6xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 60px; }
+@utility font-tajawal-medium-5xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 48px; }
+@utility font-tajawal-medium-4xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 36px; }
+@utility font-tajawal-medium-3xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 30px; }
+@utility font-tajawal-medium-2xl  { font-family: var(--font-tajawal); font-weight: 500; font-size: 24px; }
+@utility font-tajawal-medium-xl   { font-family: var(--font-tajawal); font-weight: 500; font-size: 20px; }
+@utility font-tajawal-medium-lg   { font-family: var(--font-tajawal); font-weight: 500; font-size: 18px; }
+@utility font-tajawal-medium-base { font-family: var(--font-tajawal); font-weight: 500; font-size: 16px; }
+@utility font-tajawal-medium-sm   { font-family: var(--font-tajawal); font-weight: 500; font-size: 14px; }
+@utility font-tajawal-medium-xs   { font-family: var(--font-tajawal); font-weight: 500; font-size: 12px; }
 
- /* ─── TAJAWAL BOLD (700) ─── */
- .font-tajawal-bold-7xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 72px; }
- .font-tajawal-bold-6xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 60px; }
- .font-tajawal-bold-5xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 48px; }
- .font-tajawal-bold-4xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 36px; }
- .font-tajawal-bold-3xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 30px; }
- .font-tajawal-bold-2xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 24px; }
- .font-tajawal-bold-xl   { font-family: var(--font-tajawal); font-weight: 700; font-size: 20px; }
- .font-tajawal-bold-lg   { font-family: var(--font-tajawal); font-weight: 700; font-size: 18px; }
- .font-tajawal-bold-base { font-family: var(--font-tajawal); font-weight: 700; font-size: 16px; }
- .font-tajawal-bold-sm   { font-family: var(--font-tajawal); font-weight: 700; font-size: 14px; }
- .font-tajawal-bold-xs   { font-family: var(--font-tajawal); font-weight: 700; font-size: 12px; }
+/* ─── TAJAWAL BOLD (700) ─── */
+@utility font-tajawal-bold-7xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 72px; }
+@utility font-tajawal-bold-6xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 60px; }
+@utility font-tajawal-bold-5xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 48px; }
+@utility font-tajawal-bold-4xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 36px; }
+@utility font-tajawal-bold-3xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 30px; }
+@utility font-tajawal-bold-2xl  { font-family: var(--font-tajawal); font-weight: 700; font-size: 24px; }
+@utility font-tajawal-bold-xl   { font-family: var(--font-tajawal); font-weight: 700; font-size: 20px; }
+@utility font-tajawal-bold-lg   { font-family: var(--font-tajawal); font-weight: 700; font-size: 18px; }
+@utility font-tajawal-bold-base { font-family: var(--font-tajawal); font-weight: 700; font-size: 16px; }
+@utility font-tajawal-bold-sm   { font-family: var(--font-tajawal); font-weight: 700; font-size: 14px; }
+@utility font-tajawal-bold-xs   { font-family: var(--font-tajawal); font-weight: 700; font-size: 12px; }
 
+/* ─── TAJAWAL EXTRABOLD (800) ─── */
+@utility font-tajawal-extrabold-7xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 72px; }
+@utility font-tajawal-extrabold-6xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 60px; }
+@utility font-tajawal-extrabold-5xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 48px; }
+@utility font-tajawal-extrabold-4xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 36px; }
+@utility font-tajawal-extrabold-3xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 30px; }
+@utility font-tajawal-extrabold-2xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 24px; }
+@utility font-tajawal-extrabold-xl   { font-family: var(--font-tajawal); font-weight: 800; font-size: 20px; }
+@utility font-tajawal-extrabold-lg   { font-family: var(--font-tajawal); font-weight: 800; font-size: 18px; }
+@utility font-tajawal-extrabold-base { font-family: var(--font-tajawal); font-weight: 800; font-size: 16px; }
+@utility font-tajawal-extrabold-sm   { font-family: var(--font-tajawal); font-weight: 800; font-size: 14px; }
+@utility font-tajawal-extrabold-xs   { font-family: var(--font-tajawal); font-weight: 800; font-size: 12px; }
 
- /* ─── TAJAWAL EXTRABOLD (800) ─── */
- .font-tajawal-extrabold-7xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 72px; }
- .font-tajawal-extrabold-6xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 60px; }
- .font-tajawal-extrabold-5xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 48px; }
- .font-tajawal-extrabold-4xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 36px; }
- .font-tajawal-extrabold-3xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 30px; }
- .font-tajawal-extrabold-2xl  { font-family: var(--font-tajawal); font-weight: 800; font-size: 24px; }
- .font-tajawal-extrabold-xl   { font-family: var(--font-tajawal); font-weight: 800; font-size: 20px; }
- .font-tajawal-extrabold-lg   { font-family: var(--font-tajawal); font-weight: 800; font-size: 18px; }
- .font-tajawal-extrabold-base { font-family: var(--font-tajawal); font-weight: 800; font-size: 16px; }
- .font-tajawal-extrabold-sm   { font-family: var(--font-tajawal); font-weight: 800; font-size: 14px; }
- .font-tajawal-extrabold-xs   { font-family: var(--font-tajawal); font-weight: 800; font-size: 12px; }
+/* ─── CAIRO REGULAR (400) ─── */
+@utility font-cairo-regular-7xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 72px; }
+@utility font-cairo-regular-6xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 60px; }
+@utility font-cairo-regular-5xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 48px; }
+@utility font-cairo-regular-4xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 36px; }
+@utility font-cairo-regular-3xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 30px; }
+@utility font-cairo-regular-2xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 24px; }
+@utility font-cairo-regular-xl   { font-family: var(--font-cairo); font-weight: 400; font-size: 20px; }
+@utility font-cairo-regular-lg   { font-family: var(--font-cairo); font-weight: 400; font-size: 18px; }
+@utility font-cairo-regular-base { font-family: var(--font-cairo); font-weight: 400; font-size: 16px; }
+@utility font-cairo-regular-sm   { font-family: var(--font-cairo); font-weight: 400; font-size: 14px; }
+@utility font-cairo-regular-xs   { font-family: var(--font-cairo); font-weight: 400; font-size: 12px; }
 
- /* --------------------------------------------- */
- /* ─── CAIRO REGULAR (400) ─── */
- .font-cairo-regular-7xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 72px; }
- .font-cairo-regular-6xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 60px; }
- .font-cairo-regular-5xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 48px; }
- .font-cairo-regular-4xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 36px; }
- .font-cairo-regular-3xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 30px; }
- .font-cairo-regular-2xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 24px; }
- .font-cairo-regular-xl   { font-family: var(--font-cairo); font-weight: 400; font-size: 20px; }
- .font-cairo-regular-lg   { font-family: var(--font-cairo); font-weight: 400; font-size: 18px; }
- .font-cairo-regular-base { font-family: var(--font-cairo); font-weight: 400; font-size: 16px; }
- .font-cairo-regular-sm   { font-family: var(--font-cairo); font-weight: 400; font-size: 14px; }
- .font-cairo-regular-xs   { font-family: var(--font-cairo); font-weight: 400; font-size: 12px; }
+/* ─── CAIRO MEDIUM (500) ─── */
+@utility font-cairo-medium-7xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 72px; }
+@utility font-cairo-medium-6xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 60px; }
+@utility font-cairo-medium-5xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 48px; }
+@utility font-cairo-medium-4xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 36px; }
+@utility font-cairo-medium-3xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 30px; }
+@utility font-cairo-medium-2xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 24px; }
+@utility font-cairo-medium-xl   { font-family: var(--font-cairo); font-weight: 500; font-size: 20px; }
+@utility font-cairo-medium-lg   { font-family: var(--font-cairo); font-weight: 500; font-size: 18px; }
+@utility font-cairo-medium-base { font-family: var(--font-cairo); font-weight: 500; font-size: 16px; }
+@utility font-cairo-medium-sm   { font-family: var(--font-cairo); font-weight: 500; font-size: 14px; }
+@utility font-cairo-medium-xs   { font-family: var(--font-cairo); font-weight: 500; font-size: 12px; }
 
- /* ─── CAIRO MEDIUM (500) ─── */
- .font-cairo-medium-7xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 72px; }
- .font-cairo-medium-6xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 60px; }
- .font-cairo-medium-5xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 48px; }
- .font-cairo-medium-4xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 36px; }
- .font-cairo-medium-3xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 30px; }
- .font-cairo-medium-2xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 24px; }
- .font-cairo-medium-xl   { font-family: var(--font-cairo); font-weight: 500; font-size: 20px; }
- .font-cairo-medium-lg   { font-family: var(--font-cairo); font-weight: 500; font-size: 18px; }
- .font-cairo-medium-base { font-family: var(--font-cairo); font-weight: 500; font-size: 16px; }
- .font-cairo-medium-sm   { font-family: var(--font-cairo); font-weight: 500; font-size: 14px; }
- .font-cairo-medium-xs   { font-family: var(--font-cairo); font-weight: 500; font-size: 12px; }
+/* ─── CAIRO SEMIBOLD (600) ─── */
+@utility font-cairo-semibold-7xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 72px; }
+@utility font-cairo-semibold-6xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 60px; }
+@utility font-cairo-semibold-5xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 48px; }
+@utility font-cairo-semibold-4xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 36px; }
+@utility font-cairo-semibold-3xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 30px; }
+@utility font-cairo-semibold-2xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 24px; }
+@utility font-cairo-semibold-xl   { font-family: var(--font-cairo); font-weight: 600; font-size: 20px; }
+@utility font-cairo-semibold-lg   { font-family: var(--font-cairo); font-weight: 600; font-size: 18px; }
+@utility font-cairo-semibold-base { font-family: var(--font-cairo); font-weight: 600; font-size: 16px; }
+@utility font-cairo-semibold-sm   { font-family: var(--font-cairo); font-weight: 600; font-size: 14px; }
+@utility font-cairo-semibold-xs   { font-family: var(--font-cairo); font-weight: 600; font-size: 12px; }
 
- /* ─── CAIRO SEMIBOLD (600) ─── */
- .font-cairo-semibold-7xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 72px; }
- .font-cairo-semibold-6xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 60px; }
- .font-cairo-semibold-5xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 48px; }
- .font-cairo-semibold-4xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 36px; }
- .font-cairo-semibold-3xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 30px; }
- .font-cairo-semibold-2xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 24px; }
- .font-cairo-semibold-xl   { font-family: var(--font-cairo); font-weight: 600; font-size: 20px; }
- .font-cairo-semibold-lg   { font-family: var(--font-cairo); font-weight: 600; font-size: 18px; }
- .font-cairo-semibold-base { font-family: var(--font-cairo); font-weight: 600; font-size: 16px; }
- .font-cairo-semibold-sm   { font-family: var(--font-cairo); font-weight: 600; font-size: 14px; }
- .font-cairo-semibold-xs   { font-family: var(--font-cairo); font-weight: 600; font-size: 12px; }
+/* ─── CAIRO BOLD (700) ─── */
+@utility font-cairo-bold-7xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 72px; }
+@utility font-cairo-bold-6xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 60px; }
+@utility font-cairo-bold-5xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 48px; }
+@utility font-cairo-bold-4xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 36px; }
+@utility font-cairo-bold-3xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 30px; }
+@utility font-cairo-bold-2xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 24px; }
+@utility font-cairo-bold-xl   { font-family: var(--font-cairo); font-weight: 700; font-size: 20px; }
+@utility font-cairo-bold-lg   { font-family: var(--font-cairo); font-weight: 700; font-size: 18px; }
+@utility font-cairo-bold-base { font-family: var(--font-cairo); font-weight: 700; font-size: 16px; }
+@utility font-cairo-bold-sm   { font-family: var(--font-cairo); font-weight: 700; font-size: 14px; }
+@utility font-cairo-bold-xs   { font-family: var(--font-cairo); font-weight: 700; font-size: 12px; }
 
- /* ─── CAIRO BOLD (700) ─── */
- .font-cairo-bold-7xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 72px; }
- .font-cairo-bold-6xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 60px; }
- .font-cairo-bold-5xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 48px; }
- .font-cairo-bold-4xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 36px; }
- .font-cairo-bold-3xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 30px; }
- .font-cairo-bold-2xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 24px; }
- .font-cairo-bold-xl   { font-family: var(--font-cairo); font-weight: 700; font-size: 20px; }
- .font-cairo-bold-lg   { font-family: var(--font-cairo); font-weight: 700; font-size: 18px; }
- .font-cairo-bold-base { font-family: var(--font-cairo); font-weight: 700; font-size: 16px; }
- .font-cairo-bold-sm   { font-family: var(--font-cairo); font-weight: 700; font-size: 14px; }
- .font-cairo-bold-xs   { font-family: var(--font-cairo); font-weight: 700; font-size: 12px; }
-
- /* ─── CAIRO EXTRABOLD (800) ─── */
- .font-cairo-extrabold-7xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 72px; }
- .font-cairo-extrabold-6xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 60px; }
- .font-cairo-extrabold-5xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 48px; }
- .font-cairo-extrabold-4xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 36px; }
- .font-cairo-extrabold-3xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 30px; }
- .font-cairo-extrabold-2xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 24px; }
- .font-cairo-extrabold-xl   { font-family: var(--font-cairo); font-weight: 800; font-size: 20px; }
- .font-cairo-extrabold-lg   { font-family: var(--font-cairo); font-weight: 800; font-size: 18px; }
- .font-cairo-extrabold-base { font-family: var(--font-cairo); font-weight: 800; font-size: 16px; }
- .font-cairo-extrabold-sm   { font-family: var(--font-cairo); font-weight: 800; font-size: 14px; }
- .font-cairo-extrabold-xs   { font-family: var(--font-cairo); font-weight: 800; font-size: 12px; }
-}
+/* ─── CAIRO EXTRABOLD (800) ─── */
+@utility font-cairo-extrabold-7xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 72px; }
+@utility font-cairo-extrabold-6xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 60px; }
+@utility font-cairo-extrabold-5xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 48px; }
+@utility font-cairo-extrabold-4xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 36px; }
+@utility font-cairo-extrabold-3xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 30px; }
+@utility font-cairo-extrabold-2xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 24px; }
+@utility font-cairo-extrabold-xl   { font-family: var(--font-cairo); font-weight: 800; font-size: 20px; }
+@utility font-cairo-extrabold-lg   { font-family: var(--font-cairo); font-weight: 800; font-size: 18px; }
+@utility font-cairo-extrabold-base { font-family: var(--font-cairo); font-weight: 800; font-size: 16px; }
+@utility font-cairo-extrabold-sm   { font-family: var(--font-cairo); font-weight: 800; font-size: 14px; }
+@utility font-cairo-extrabold-xs   { font-family: var(--font-cairo); font-weight: 800; font-size: 12px; }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
