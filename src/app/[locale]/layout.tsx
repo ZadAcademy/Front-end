@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Sarabun, Tajawal } from "next/font/google";
+import { Geist, Geist_Mono, Sarabun, Tajawal, Cairo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from '@/shared/theme/theme-provider';
 import { hasLocale } from "next-intl";
@@ -25,13 +25,18 @@ const tajawal = Tajawal({
 
 });
 
+const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-cairo'
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Rose App",
+  title: "zad-academy",
   description: "A store specializing in selling flowers",
 };
 
@@ -54,7 +59,7 @@ export default async function LocaleLayout({children, params}: Props) {
       suppressHydrationWarning
       lang={locale}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      className={`${geistSans.variable} ${geistMono.variable} ${fontClassSwitches} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} ${fontClassSwitches} h-full antialiased`}
     >
       <body suppressHydrationWarning
         className="min-h-full flex flex-col">

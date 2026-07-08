@@ -109,6 +109,72 @@
  .font-tajawal-extrabold-base { font-family: var(--font-tajawal); font-weight: 800; font-size: 16px; }
  .font-tajawal-extrabold-sm   { font-family: var(--font-tajawal); font-weight: 800; font-size: 14px; }
  .font-tajawal-extrabold-xs   { font-family: var(--font-tajawal); font-weight: 800; font-size: 12px; }
+
+ /* --------------------------------------------- */
+ /* ─── CAIRO REGULAR (400) ─── */
+ .font-cairo-regular-7xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 72px; }
+ .font-cairo-regular-6xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 60px; }
+ .font-cairo-regular-5xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 48px; }
+ .font-cairo-regular-4xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 36px; }
+ .font-cairo-regular-3xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 30px; }
+ .font-cairo-regular-2xl  { font-family: var(--font-cairo); font-weight: 400; font-size: 24px; }
+ .font-cairo-regular-xl   { font-family: var(--font-cairo); font-weight: 400; font-size: 20px; }
+ .font-cairo-regular-lg   { font-family: var(--font-cairo); font-weight: 400; font-size: 18px; }
+ .font-cairo-regular-base { font-family: var(--font-cairo); font-weight: 400; font-size: 16px; }
+ .font-cairo-regular-sm   { font-family: var(--font-cairo); font-weight: 400; font-size: 14px; }
+ .font-cairo-regular-xs   { font-family: var(--font-cairo); font-weight: 400; font-size: 12px; }
+
+ /* ─── CAIRO MEDIUM (500) ─── */
+ .font-cairo-medium-7xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 72px; }
+ .font-cairo-medium-6xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 60px; }
+ .font-cairo-medium-5xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 48px; }
+ .font-cairo-medium-4xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 36px; }
+ .font-cairo-medium-3xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 30px; }
+ .font-cairo-medium-2xl  { font-family: var(--font-cairo); font-weight: 500; font-size: 24px; }
+ .font-cairo-medium-xl   { font-family: var(--font-cairo); font-weight: 500; font-size: 20px; }
+ .font-cairo-medium-lg   { font-family: var(--font-cairo); font-weight: 500; font-size: 18px; }
+ .font-cairo-medium-base { font-family: var(--font-cairo); font-weight: 500; font-size: 16px; }
+ .font-cairo-medium-sm   { font-family: var(--font-cairo); font-weight: 500; font-size: 14px; }
+ .font-cairo-medium-xs   { font-family: var(--font-cairo); font-weight: 500; font-size: 12px; }
+
+ /* ─── CAIRO SEMIBOLD (600) ─── */
+ .font-cairo-semibold-7xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 72px; }
+ .font-cairo-semibold-6xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 60px; }
+ .font-cairo-semibold-5xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 48px; }
+ .font-cairo-semibold-4xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 36px; }
+ .font-cairo-semibold-3xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 30px; }
+ .font-cairo-semibold-2xl  { font-family: var(--font-cairo); font-weight: 600; font-size: 24px; }
+ .font-cairo-semibold-xl   { font-family: var(--font-cairo); font-weight: 600; font-size: 20px; }
+ .font-cairo-semibold-lg   { font-family: var(--font-cairo); font-weight: 600; font-size: 18px; }
+ .font-cairo-semibold-base { font-family: var(--font-cairo); font-weight: 600; font-size: 16px; }
+ .font-cairo-semibold-sm   { font-family: var(--font-cairo); font-weight: 600; font-size: 14px; }
+ .font-cairo-semibold-xs   { font-family: var(--font-cairo); font-weight: 600; font-size: 12px; }
+
+ /* ─── CAIRO BOLD (700) ─── */
+ .font-cairo-bold-7xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 72px; }
+ .font-cairo-bold-6xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 60px; }
+ .font-cairo-bold-5xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 48px; }
+ .font-cairo-bold-4xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 36px; }
+ .font-cairo-bold-3xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 30px; }
+ .font-cairo-bold-2xl  { font-family: var(--font-cairo); font-weight: 700; font-size: 24px; }
+ .font-cairo-bold-xl   { font-family: var(--font-cairo); font-weight: 700; font-size: 20px; }
+ .font-cairo-bold-lg   { font-family: var(--font-cairo); font-weight: 700; font-size: 18px; }
+ .font-cairo-bold-base { font-family: var(--font-cairo); font-weight: 700; font-size: 16px; }
+ .font-cairo-bold-sm   { font-family: var(--font-cairo); font-weight: 700; font-size: 14px; }
+ .font-cairo-bold-xs   { font-family: var(--font-cairo); font-weight: 700; font-size: 12px; }
+
+ /* ─── CAIRO EXTRABOLD (800) ─── */
+ .font-cairo-extrabold-7xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 72px; }
+ .font-cairo-extrabold-6xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 60px; }
+ .font-cairo-extrabold-5xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 48px; }
+ .font-cairo-extrabold-4xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 36px; }
+ .font-cairo-extrabold-3xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 30px; }
+ .font-cairo-extrabold-2xl  { font-family: var(--font-cairo); font-weight: 800; font-size: 24px; }
+ .font-cairo-extrabold-xl   { font-family: var(--font-cairo); font-weight: 800; font-size: 20px; }
+ .font-cairo-extrabold-lg   { font-family: var(--font-cairo); font-weight: 800; font-size: 18px; }
+ .font-cairo-extrabold-base { font-family: var(--font-cairo); font-weight: 800; font-size: 16px; }
+ .font-cairo-extrabold-sm   { font-family: var(--font-cairo); font-weight: 800; font-size: 14px; }
+ .font-cairo-extrabold-xs   { font-family: var(--font-cairo); font-weight: 800; font-size: 12px; }
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
@@ -119,6 +185,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-cairo: var(--font-cairo);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -157,36 +224,42 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  
+  --color-orangeLight: rgb(255, 240, 230);
+  --color-orangeLightHover: rgb(255, 233, 217);
+  --color-orangeLightActive: rgb(255, 209, 176);
+  --color-orangeNormal: rgb(255, 106, 0);
+  --color-orangeNormalHover: rgb(230, 95, 0);
+  --color-orangeNormalActive: rgb(204, 85, 0);
+  --color-orangeDark: rgb(191, 80, 0);
+  --color-orangeDarkHover: rgb(153, 64, 0);
+  --color-orangeDarkActive: rgb(115, 48, 0);
+  --color-orangeDarker: rgb(89, 37, 0);
 
-  --color-maroon-50: rgb(253 242 242);
-  --color-maroon-100: rgb(248 215 215);
-  --color-maroon-200: rgb(241 174 176);
-  --color-maroon-300: rgb(230 120 123);
-  --color-maroon-400: rgb(215 84 88);
-  --color-maroon-500: rgb(205 64 51);
-  --color-maroon-600: rgb(179 43 48);
-  --color-maroon-700: rgb(150 32 37);
-  --color-maroon-800: rgb(99 22 26);
-  --color-maroon-900: rgb(64 15 18);
-  --color-maroon-950: rgb(32 9 12);
+  --color-blueLight: rgb(230, 239, 245);
+  --color-blueLightHover: rgb(217, 230, 240);
+  --color-blueLightActive: rgb(176, 204, 225);
+  --color-blueNormal: rgb(0, 91, 158);
+  --color-blueNormalHover: rgb(0, 82, 142);
+  --color-blueNormalActive: rgb(0, 73, 126);
+  --color-blueDark: rgb(0, 68, 119);
+  --color-blueDarkHover: rgb(0, 55, 95);
+  --color-blueDarkActive: rgb(0, 41, 71);
+  --color-blueDarker: rgb(0, 32, 55);
 
-
-
-  --color-soft-pink-50: rgb(255 241 245);
-  --color-soft-pink-100: rgb(255 224 233);
-  --color-soft-pink-200: rgb(255 194 208);
-  --color-soft-pink-300: rgb(255 163 185);
-  --color-soft-pink-400: rgb(255 133 162);
-  --color-soft-pink-500: rgb(255 102 139);
-  --color-soft-pink-600: rgb(230 80 115);
-  --color-soft-pink-700: rgb(204 58 91);
-  --color-soft-pink-800: rgb(179 36 67);
-  --color-soft-pink-900: rgb(153 16 44);
-  --color-soft-pink-950: rgb(89 4 20);
+  --color-greyLight: rgb(236, 236, 236);
+  --color-greyLightHover: rgb(226, 226, 226);
+  --color-greyLightActive: rgb(196, 196, 196);
+  --color-greyNormal: rgb(64, 64, 64);
+  --color-greyNormalHover: rgb(58, 58, 58);
+  --color-greyNormalActive: rgb(51, 51, 51);
+  --color-greyDark: rgb(48, 48, 48);
+  --color-greyDarkHover: rgb(38, 38, 38);
+  --color-greyDarkActive: rgb(29, 29, 29);
+  --color-greyDarker: rgb(22, 22, 22);
 
   --font-sarabun: var(--font-sarabun);
-  --font-tajawal: var(--font-tajawal)
+  --font-tajawal: var(--font-tajawal);
+  --font-cairo: var(--font-cairo)
 };
 
 :root {
@@ -197,13 +270,13 @@
    --bg-soft: var(--color-zinc-200);
    --bg-default: var(--color-zinc-500);
    --bg-inverse: var(--color-zinc-800);
-   --bg-primary: var(--color-maroon-800);
+   --bg-primary: var(--color-orangeNormal);
    --bg-elevated: rgb(7, 7, 9);
    --bg-overlay: rgb(127, 127, 127);
  
    /* Primary Background */
-   --bg-primary-faint: var(--color-maroon-100);
-   --bg-primary-fade: var(--color-maroon-50);
+   --bg-primary-faint: var(--color-orangeLightHover);
+   --bg-primary-fade: var(--color-orangeLight);
  
    /* Info Background */
    --bg-info: var(--color-blue-600);
@@ -240,9 +313,9 @@
    --border-inverse: var(--color-white);
  
    /* Primary Borders */
-   --border-primary: var(--color-maroon-800);
-   --border-primary-faint: var(--color-maroon-100);
-   --border-primary-fade: var(--color-maroon-50);
+   --border-primary: var(--color-orangeNormal);
+   --border-primary-faint: var(--color-orangeLightHover);
+   --border-primary-fade: var(--color-orangeLight);
  
    /* Info Borders */
    --border-info: var(--color-blue-600);
@@ -279,9 +352,9 @@
    --text-inverse: var(--color-white);
  
    /* Primary Text */
-   --text-primary: var(--color-maroon-800);
-   --text-primary-faint: var(--color-maroon-100);
-   --text-primary-fade: var(--color-maroon-50);
+   --text-primary: var(--color-orangeNormal);
+   --text-primary-faint: var(--color-orangeLightHover);
+   --text-primary-fade: var(--color-orangeLight);
  
    /* Info Text */
    --text-info: var(--color-blue-600);
@@ -373,10 +446,10 @@
    --bg-elevated: rgb(7,7,9);
    --bg-overlay: rgb(4,4,5);
    
-   --bg-primary: var(--color-soft-pink-300);
-   --bg-primary-saturated: var(--color-soft-pink-200);
-   --bg-primary-faint: rgb(193,124,142);
-   --bg-primary-fade: rgb(71,48,54);
+   --bg-primary: var(--color-orangeNormal);
+   --bg-primary-saturated: var(--color-orangeNormalHover);
+   --bg-primary-faint: var(--color-orangeDarkActive);
+   --bg-primary-fade: var(--color-orangeDarker);
  
    --bg-info: var(--color-blue-500);
    --bg-info-faint: rgb(18,39,72);
@@ -407,9 +480,9 @@
    --border-default: var(--color-zinc-500);
    --border-inverse: var(--color-zinc-800);
  
-   --border-primary: var(--color-soft-pink-300);
-   --border-primary-faint: rgb(193, 124, 142);
-   --border-primary-fade: rgb(71, 48, 54);
+   --border-primary: var(--color-orangeNormal);
+   --border-primary-faint: var(--color-orangeDarkActive);
+   --border-primary-fade: var(--color-orangeDarker);
  
    --border-info: var(--color-blue-500);
    --border-info-faint: rgb(18, 39, 72);
@@ -439,9 +512,9 @@
    --text-default: var(--color-zinc-200);
    --text-inverse: var(--color-zinc-800);
  
-   --text-primary: var(--color-soft-pink-300);
-   --text-primary-faint: rgb(193, 124, 142);
-   --text-primary-fade: rgb(71, 48, 54);
+   --text-primary: var(--color-orangeNormal);
+   --text-primary-faint: var(--color-orangeDarkActive);
+   --text-primary-fade: var(--color-orangeDarker);
  
    --text-info: var(--color-blue-500);
    --text-info-faint: rgb(18,39,72);
