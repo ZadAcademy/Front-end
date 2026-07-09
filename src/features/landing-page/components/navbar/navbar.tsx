@@ -86,8 +86,8 @@ export default function Navbar() {
       className={`
         fixed top-0 left-0 right-0 z-50
         transition-all duration-300 ease-in-out
-        ${isScrolled 
-          ? 'bg-white/60 backdrop-blur-md border-b border-white/20 shadow-sm' 
+        ${isScrolled
+          ? 'bg-white/60 backdrop-blur-md border-b border-white/20 shadow-sm'
           : 'bg-transparent'
         }
       `}
@@ -100,7 +100,7 @@ export default function Navbar() {
           {/* ═══════════════════════════════════
               LOGO
               ═══════════════════════════════════ */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <span className="font-cairo-bold-2xl text-black cursor-pointer select-none">
               زاد
             </span>
@@ -125,7 +125,7 @@ export default function Navbar() {
               RIGHT SIDE ACTIONS (Language + CTA / Mobile Menu)
               ═══════════════════════════════════ */}
           <div className="flex items-center gap-2 lg:gap-4">
-            
+
             {/* ─── Language Toggle Button (Visible on all devices) ─── */}
             <button
               onClick={toggleLanguage}
@@ -139,9 +139,9 @@ export default function Navbar() {
             {/* ─── DESKTOP CTA BUTTONS (hidden on mobile) ─── */}
             <div className="hidden lg:flex gap-4 items-center">
               <Button
-                variant="outline"
+                variant="primary"
                 size="lg"
-                className="font-cairo-semibold-sm text-black bg-transparent border-black hover:bg-greyLight rounded-lg px-4 cursor-pointer"
+                className="font-cairo-semibold-sm  text-white  bg-greyDark hover:bg-greyDarker  rounded-lg px-4 cursor-pointer"
                 onClick={() => scrollToSection('contact')}
               >
                 {t('login')}
@@ -181,27 +181,40 @@ export default function Navbar() {
           Only rendered when open.
           ═══════════════════════════════════ */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden mobile-menu-enter bg-blueNormal border-t border-white/10">
+        <div className="lg:hidden mobile-menu-enter bg-white/95 backdrop-blur-md border-t border-black/5 shadow-lg">
           <div className="px-4 py-4 flex flex-col gap-2">
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.key}
                 onClick={() => scrollToSection(item.sectionId)}
-                className="nav-link w-full text-start font-cairo-medium-base text-white/90 hover:text-white hover:bg-white/10 rounded-lg px-4 py-3 transition-colors duration-200 cursor-pointer bg-transparent border-none"
+                className="nav-link w-full text-start font-cairo-medium-base text-black hover:bg-black/5 rounded-lg px-4 py-3 transition-colors duration-200 cursor-pointer bg-transparent border-none"
               >
                 {t(item.key)}
               </button>
             ))}
 
-            {/* ─── Mobile CTA ─── */}
-            <Button
-              variant="primary"
-              size="lg"
-              className="mt-2 w-full bg-orangeNormal hover:bg-orangeNormalHover active:bg-orangeNormalActive font-cairo-semibold-sm text-white rounded-lg"
-              onClick={() => scrollToSection('contact')}
-            >
-              {t('create-account')}
-            </Button>
+            {/* ─── Mobile CTA Buttons (same style as desktop) ─── */}
+            <div className="flex flex-col gap-3 mt-3 pt-3 border-t border-black/10">
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full font-cairo-semibold-sm text-white  bg-greyDark hover:bg-greyDarker  rounded-lg px-4 cursor-pointer"
+                onClick={() => scrollToSection('contact')}
+              >
+                {t('login')}
+                <CircleChevronRight />
+              </Button>
+
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-full font-cairo-semibold-sm text-white rounded-lg px-4 cursor-pointer"
+                onClick={() => scrollToSection('contact')}
+              >
+                {t('create-account')}
+                <CirclePlus />
+              </Button>
+            </div>
           </div>
         </div>
       )}

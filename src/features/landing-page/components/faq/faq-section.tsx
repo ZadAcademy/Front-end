@@ -1,66 +1,105 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/shared/components/ui/accordion';
+import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 
 /**
- * FAQSection — Client component for the Frequently Asked Questions section.
- * Uses shadcn Accordion to display Q&A interactively.
+ * FAQSection — Lightweight FAQ accordion built with plain HTML/CSS.
+ * No external UI library — just useState for toggling.
+ * Fully supports RTL and LTR layouts.
  */
 export default function FAQSection() {
   const t = useTranslations('LandingPage.faqSection');
-  const locale=useLocale();
+  const locale = useLocale();
   const isRTL = locale === 'ar';
 
-  // We read the items array directly from translations
-  // Since next-intl doesn't return objects well for arrays in all setups, 
-  // we will map over an array of indices or use t.raw if configured.
-  // Alternatively, we use a predefined array of keys.
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  };
+
   const faqIndices = [0, 1, 2, 3];
 
   return (
     <section id="faq" className="py-16 lg:py-24 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-1/3 h-[400px] bg-blueNormal/5 blur-3xl rounded-full -z-10 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-1/4 h-[300px] bg-orangeNormal/5 blur-3xl rounded-full -z-10 pointer-events-none" />
+    
 
       <div className="mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* ─── Header ─── */}
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="font-cairo-bold-4xl md:font-cairo-bold-5xl text-black">
+          <h2 className="font-cairo-bold-4xl md:font-cairo-bold-5xl" style={{ color: '#000' }}>
             {t('title')}
           </h2>
         </div>
 
         {/* ─── Accordion ─── */}
-        <div className="max-w-7xl mx-auto">
-          <Accordion dir={isRTL?"rtl":"ltr"} className="w-full flex flex-col gap-5">
-            {faqIndices.map((index) => (
-              <AccordionItem
+        <div className="max-w-7xl mx-auto flex flex-col gap-5" dir={isRTL ? 'rtl' : 'ltr'}>
+          {faqIndices.map((index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
                 key={index}
-                value={`item-${index}`}
-                className="bg-white rounded-2xl border-none shadow-sm transition-all duration-300 hover:shadow-md px-6 py-1"
+                className="bg-white rounded-2xl shadow-sm hover:shadow-md px-6 py-1"
+                style={{ transition: 'box-shadow 0.3s ease' }}
               >
-                <AccordionTrigger className="font-cairo-bold-2xl cursor-pointer text-[#3A3F46] hover:no-underline py-4 flex items-center justify-between [&_svg]:size-6 [&_svg]:text-[#3A3F46] [&_svg]:stroke-2">
+                {/* Trigger button */}
+                <button
+                  type="button"
+                  onClick={() => toggle(index)}
+                  className="w-full cursor-pointer bg-transparent border-none py-4 flex items-center justify-between gap-4"
+                  aria-expanded={isOpen}
+                >
                   <div className="flex items-center gap-4">
-                    <span className="w-10 h-10 shrink-0 rounded-xl bg-[#3A3F46] text-white flex items-center justify-center font-cairo-bold-xl">
+                    <span
+                      className="w-8 h-8 shrink-0 rounded-xl text-white flex items-center justify-center font-cairo-bold-lg"
+                      style={{ backgroundColor: '#3A3F46' }}
+                    >
                       {index + 1}
                     </span>
-                    <span>{t(`items.${index}.question`)}</span>
+                    <span className="font-cairo-bold-lg text-start" style={{ color: '#3A3F46' }}>
+                      {t(`items.${index}.question`)}
+                    </span>
                   </div>
-                </AccordionTrigger>
-                <AccordionContent className="font-cairo-medium-lg text-[#6B7280] leading-relaxed pb-6 pt-2 pl-13 text-right">
-                  {t(`items.${index}.answer`)}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+
+                  {/* Arrow icon — rotates on open, works in both RTL and LTR */}
+                  <ChevronDown
+                    className="shrink-0 size-6"
+                    strokeWidth={2.5}
+                    style={{
+                      color: '#3A3F46',
+                      transition: 'transform 0.25s ease',
+                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                    }}
+                  />
+                </button>
+
+                {/* Content panel — uses grid trick for smooth height animation */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateRows: isOpen ? '1fr' : '0fr',
+                    transition: 'grid-template-rows 0.25s ease',
+                  }}
+                >
+                  <div style={{ overflow: 'hidden' }}>
+                    <div
+                      className="font-cairo-medium-lg leading-relaxed pb-6 pt-2"
+                      style={{
+                        color: '#6B7280',
+                        paddingInlineStart: '3.5rem', /* aligns with text after the number badge */
+                      }}
+                    >
+                      {t(`items.${index}.answer`)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
