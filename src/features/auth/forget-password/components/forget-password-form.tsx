@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Step1Email from './step1-email';
 import Step2Otp from './step2-otp';
 import Step3Reset from './step3-reset';
-import { Step1FormData, Step2FormData, Step3FormData } from '../hooks/use-forget-password-forms';
+import { Step1FormData, Step3FormData } from '../hooks/use-forget-password-forms';
+import { OtpFormData } from '@/features/auth/shared/hooks/use-otp-form';
 
 export default function ForgetPasswordForm() {
   const [step, setStep] = useState(1);
@@ -16,7 +17,7 @@ export default function ForgetPasswordForm() {
     setStep(2);
   };
 
-  const handleStep2Submit = (data: Step2FormData) => {
+  const handleStep2Submit = (data: OtpFormData) => {
     console.log('Step 2 Data:', data);
     setStep(3);
   };

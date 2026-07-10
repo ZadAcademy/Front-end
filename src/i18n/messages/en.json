@@ -138,7 +138,7 @@
         "noAccount": "Don't have an account?",
         "register": "Create account now"
       },
-      "step2": {
+      "otp": {
         "title": "Enter OTP Verification Code",
         "description": "We have sent a 6-digit code to",
         "edit": "Edit",
@@ -158,6 +158,65 @@
         "otpInvalid": "OTP must be 6 digits",
         "passwordMin": "Password must be at least 6 characters",
         "passwordMismatch": "Passwords do not match"
+      }
+    },
+    "register": {
+      "title": "Create New Account",
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Mahmoud",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Emad",
+      "email": "Email",
+      "emailPlaceholder": "example24@gmail.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+201010584465",
+      "experience": "Years of Experience",
+      "experiencePlaceholder": "Select years of experience",
+      "specialization": "Specialization",
+      "specializationPlaceholder": "Select specialization",
+      "submit": "Create Account",
+      "submitting": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "experienceOptions": {
+        "student": "Student",
+        "freshGraduate": "Fresh Graduate",
+        "lessThanYear": "Less than a year",
+        "1to3": "1 - 3 years",
+        "4to7": "4 - 7 years",
+        "8to12": "8 - 12 years",
+        "moreThan12": "More than 12 years"
+      },
+      "specializationOptions": {
+        "siteEngineer": "Site Engineer",
+        "constructionEngineer": "Construction Engineer",
+        "qcInspector": "QC Inspector",
+        "qaEngineer": "QA Engineer",
+        "pipingEngineer": "Piping Engineer",
+        "designEngineer": "Design Engineer",
+        "maintenanceEngineer": "Maintenance Engineer",
+        "projectEngineer": "Project Engineer",
+        "planningEngineer": "Planning Engineer",
+        "freelancer": "Freelancer",
+        "other": "Other"
+      },
+      "otp": {
+        "title": "Enter OTP Verification Code",
+        "description": "We have sent a 6-digit code to",
+        "edit": "Edit",
+        "submit": "Verify Account"
+      },
+      "errors": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "phoneRequired": "Phone number is required",
+        "phoneInvalid": "Invalid phone number",
+        "experienceRequired": "Years of experience is required",
+        "specializationRequired": "Specialization is required",
+        "otpInvalid": "OTP must be 6 digits",
+        "generic": "Something went wrong. Try again"
       }
     }
   }

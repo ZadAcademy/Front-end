@@ -154,7 +154,7 @@ export default function Navbar() {
                 variant="primary"
                 size="lg"
                 className=" font-cairo-semibold-sm text-white rounded-lg px-4 cursor-pointer"
-                onClick={() => scrollToSection('contact')}
+                onClick={() => router.push('/register')}
               >
                 {t('create-account')}
                 <CirclePlus />
@@ -211,7 +211,7 @@ export default function Navbar() {
                 variant="primary"
                 size="lg"
                 className="w-full font-cairo-semibold-sm text-white rounded-lg px-4 cursor-pointer"
-                onClick={() => scrollToSection('contact')}
+                onClick={() => { setIsMobileMenuOpen(false); router.push('/register'); }}
               >
                 {t('create-account')}
                 <CirclePlus />
