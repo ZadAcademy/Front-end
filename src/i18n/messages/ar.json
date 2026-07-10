@@ -106,5 +106,59 @@
       "subscribe": "اشترك",
       "rights": "جميع الحقوق محفوظة لأكاديمية زاد © 2026"
     }
+  },
+  "Auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "example24@gmail.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "••••••••••••",
+      "forgotPassword": "هل نسيت كلمة السر ؟",
+      "submit": "دخول",
+      "submitting": "جاري الدخول...",
+      "noAccount": "ليس لديك حساب ؟",
+      "register": "أنشئ حساب",
+      "errors": {
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "البريد الإلكتروني غير صالح",
+        "passwordRequired": "كلمة المرور مطلوبة",
+        "passwordMin": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+        "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+        "generic": "حدث خطأ ما. حاول مرة أخرى"
+      }
+    },
+    "forgetPassword": {
+      "step1": {
+        "title": "هل نسيت كلمة السر ؟",
+        "description": "لا تقلق، سنرسل لك تعليمات لمساعدتك في إعادة ضبطه.",
+        "email": "البريد الإلكتروني",
+        "emailPlaceholder": "example24@gmail.com",
+        "submit": "أكمل",
+        "noAccount": "لا تملك حساب ؟",
+        "register": "أنشئ حساب الآن"
+      },
+      "step2": {
+        "title": "ادخل رمز التحقق OTP",
+        "description": "لقد أرسلنا رمز من 6 أرقام الي",
+        "edit": "تعديل",
+        "submit": "ادخل ال OTP"
+      },
+      "step3": {
+        "title": "انشاء كلمة مرور جديدة",
+        "password": "كلمة المرور",
+        "passwordPlaceholder": "••••••••••••",
+        "confirmPassword": "تأكيد كلمة المرور",
+        "confirmPasswordPlaceholder": "••••••••••••",
+        "submit": "إعادة تعيين كلمة المرور"
+      },
+      "errors": {
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "البريد الإلكتروني غير صالح",
+        "otpInvalid": "رمز التحقق يجب أن يكون 6 أرقام",
+        "passwordMin": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+        "passwordMismatch": "كلمتا المرور غير متطابقتين"
+      }
+    }
   }
 }

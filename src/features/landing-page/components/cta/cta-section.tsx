@@ -18,7 +18,7 @@ export default function CtaSection() {
           </div>
 
           {/* Title */}
-          <h2 className="font-cairo-bold-4xl md:font-cairo-bold-5xl text-white mb-6 max-w-2xl">
+          <h2 className="font-cairo-bold-3xl md:font-cairo-bold-4xl text-white mb-6 max-w-2xl">
             {t('title')}
           </h2>
 
