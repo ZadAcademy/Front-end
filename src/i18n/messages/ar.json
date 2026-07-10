@@ -138,7 +138,7 @@
         "noAccount": "لا تملك حساب ؟",
         "register": "أنشئ حساب الآن"
       },
-      "step2": {
+      "otp": {
         "title": "ادخل رمز التحقق OTP",
         "description": "لقد أرسلنا رمز من 6 أرقام الي",
         "edit": "تعديل",
@@ -158,6 +158,65 @@
         "otpInvalid": "رمز التحقق يجب أن يكون 6 أرقام",
         "passwordMin": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
         "passwordMismatch": "كلمتا المرور غير متطابقتين"
+      }
+    },
+    "register": {
+      "title": "إنشاء حساب جديد",
+      "firstName": "الاسم الأول",
+      "firstNamePlaceholder": "محمود",
+      "lastName": "الاسم الثاني",
+      "lastNamePlaceholder": "عماد",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "example24@gmail.com",
+      "phone": "رقم الهاتف",
+      "phonePlaceholder": "+201010584465",
+      "experience": "عدد سنين خبرتك",
+      "experiencePlaceholder": "اختر عدد سنين الخبرة",
+      "specialization": "التخصص",
+      "specializationPlaceholder": "اختر التخصص",
+      "submit": "إنشاء حساب",
+      "submitting": "جاري إنشاء الحساب...",
+      "hasAccount": "لديك حساب بالفعل ؟",
+      "login": "تسجيل الدخول",
+      "experienceOptions": {
+        "student": "طالب",
+        "freshGraduate": "حديث التخرج",
+        "lessThanYear": "أقل من سنة",
+        "1to3": "1 - 3 سنوات",
+        "4to7": "4 - 7 سنوات",
+        "8to12": "8 - 12 سنة",
+        "moreThan12": "أكثر من 12 سنة"
+      },
+      "specializationOptions": {
+        "siteEngineer": "Site Engineer",
+        "constructionEngineer": "Construction Engineer",
+        "qcInspector": "QC Inspector",
+        "qaEngineer": "QA Engineer",
+        "pipingEngineer": "Piping Engineer",
+        "designEngineer": "Design Engineer",
+        "maintenanceEngineer": "Maintenance Engineer",
+        "projectEngineer": "Project Engineer",
+        "planningEngineer": "Planning Engineer",
+        "freelancer": "Freelancer",
+        "other": "Other"
+      },
+      "otp": {
+        "title": "ادخل رمز التحقق OTP",
+        "description": "لقد أرسلنا رمز من 6 أرقام الي",
+        "edit": "تعديل",
+        "submit": "تأكيد الحساب"
+      },
+      "errors": {
+        "firstNameRequired": "الاسم الأول مطلوب",
+        "lastNameRequired": "الاسم الثاني مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "البريد الإلكتروني غير صالح",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "phoneInvalid": "رقم الهاتف غير صالح",
+        "experienceRequired": "عدد سنين الخبرة مطلوب",
+        "specializationRequired": "التخصص مطلوب",
+        "otpInvalid": "رمز التحقق يجب أن يكون 6 أرقام",
+        "generic": "حدث خطأ ما. حاول مرة أخرى"
       }
     }
   }

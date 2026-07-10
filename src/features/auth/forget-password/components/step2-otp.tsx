@@ -1,96 +1,25 @@
 'use client';
 
-import { Controller } from 'react-hook-form';
-import { useTranslations } from 'next-intl';
-import { Button } from '@/shared/ui/button';
-import { Field, FieldGroup, FieldError } from '@/shared/ui/field';
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from '@/shared/components/ui/input-otp';
-import { useStep2Form, Step2FormData } from '../hooks/use-forget-password-forms';
+import OtpVerification from '@/features/auth/shared/components/otp-verification';
+import { OtpFormData } from '@/features/auth/shared/hooks/use-otp-form';
 
 interface Step2OtpProps {
   email: string;
   onEditEmail: () => void;
-  onSubmit: (data: Step2FormData) => void;
+  onSubmit: (data: OtpFormData) => void;
 }
 
+/**
+ * Step2Otp — Thin wrapper around the shared OtpVerification component.
+ * Passes the forgetPassword translation namespace.
+ */
 export default function Step2Otp({ email, onEditEmail, onSubmit }: Step2OtpProps) {
-  const t = useTranslations('Auth.forgetPassword');
-  
-  const form = useStep2Form();
-  const { isSubmitting } = form.formState;
-
   return (
-    <div className="animate-in fade-in zoom-in-95 duration-300">
-      <h2 className="lg:font-cairo-bold-3xl font-cairo-bold-lg text-center text-greyDarker mb-2">
-        {t('step2.title')}
-      </h2>
-      <div className="text-center text-greyNormal font-cairo-medium-sm mb-8 flex items-center justify-center gap-1 flex-wrap">
-        <span>{t('step2.description')}</span>
-        <span className="font-cairo-bold-sm text-greyDarker" dir="ltr">{email}</span>
-        <button 
-          type="button"
-          onClick={onEditEmail} 
-          className="text-orangeNormal hover:underline font-cairo-bold-sm ms-1 cursor-pointer"
-        >
-          {t('step2.edit')}
-        </button>
-      </div>
-
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-8 flex flex-col items-center">
-        <FieldGroup className="w-full">
-          <Controller
-            name="otp"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={!!fieldState.error} className="flex flex-col items-center">
-                <div dir="ltr" className="w-full flex justify-center">
-                  <div className="flex gap-2 justify-center" dir="ltr">
-                    <InputOTP
-                      maxLength={6}
-                      value={field.value}
-                      onChange={field.onChange}
-                      dir="ltr"
-                    >
-                      <InputOTPGroup className="gap-2">
-                        {[0, 1, 2, 3, 4, 5].map((index) => (
-                          <InputOTPSlot 
-                            key={index} 
-                            index={index} 
-                            className={`w-12 h-14 text-center border rounded-lg text-xl font-bold transition-colors focus:ring-0 text-greyDark ${
-                              fieldState.error 
-                                ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500' 
-                                : 'border-orange-400 focus:border-orangeNormal focus:ring-1 focus:ring-orangeNormal'
-                            }`}
-                          />
-                        ))}
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </div>
-                </div>
-                {fieldState.error && (
-                  <FieldError className="mt-2 text-center w-full">
-                    {t(`errors.${fieldState.error.message}`)}
-                  </FieldError>
-                )}
-              </Field>
-            )}
-          />
-
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            loading={isSubmitting}
-            className="w-full h-12 font-cairo-bold-lg text-white rounded-lg cursor-pointer mt-4"
-          >
-            {t('step2.submit')}
-          </Button>
-        </FieldGroup>
-      </form>
-    </div>
+    <OtpVerification
+      email={email}
+      onEditEmail={onEditEmail}
+      onSubmit={onSubmit}
+      translationNamespace="Auth.forgetPassword"
+    />
   );
 }
