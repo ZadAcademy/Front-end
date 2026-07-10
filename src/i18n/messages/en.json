@@ -106,5 +106,59 @@
       "subscribe": "Subscribe",
       "rights": "All rights reserved Zad Academy © 2026"
     }
+  },
+  "Auth": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "emailPlaceholder": "example24@gmail.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••••••",
+      "forgotPassword": "Forgot your password?",
+      "submit": "Login",
+      "submitting": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "register": "Create Account",
+      "errors": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "passwordRequired": "Password is required",
+        "passwordMin": "Password must be at least 6 characters",
+        "invalidCredentials": "Invalid email or password",
+        "generic": "Something went wrong. Try again"
+      }
+    },
+    "forgetPassword": {
+      "step1": {
+        "title": "Forgot Password?",
+        "description": "Don't worry, we will send you instructions to help you reset it.",
+        "email": "Email",
+        "emailPlaceholder": "example24@gmail.com",
+        "submit": "Continue",
+        "noAccount": "Don't have an account?",
+        "register": "Create account now"
+      },
+      "step2": {
+        "title": "Enter OTP Verification Code",
+        "description": "We have sent a 6-digit code to",
+        "edit": "Edit",
+        "submit": "Enter OTP"
+      },
+      "step3": {
+        "title": "Create New Password",
+        "password": "Password",
+        "passwordPlaceholder": "••••••••••••",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordPlaceholder": "••••••••••••",
+        "submit": "Reset Password"
+      },
+      "errors": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "otpInvalid": "OTP must be 6 digits",
+        "passwordMin": "Password must be at least 6 characters",
+        "passwordMismatch": "Passwords do not match"
+      }
+    }
   }
 }

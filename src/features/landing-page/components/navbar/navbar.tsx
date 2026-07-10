@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { CircleChevronRight, CirclePlus, Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { usePathname, useRouter } from '@/i18n/navigation';
+import LoginModal from '@/features/auth/login/components/login-modal';
 import './navbar.css';
 
 /* ============================================================
@@ -30,6 +31,7 @@ export default function Navbar() {
   /* ─── State ─── */
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   /* ─── Track scroll to toggle solid background ─── */
   useEffect(() => {
@@ -141,8 +143,8 @@ export default function Navbar() {
               <Button
                 variant="primary"
                 size="lg"
-                className="font-cairo-semibold-sm  text-white  bg-greyDark hover:bg-greyDarker  rounded-lg px-4 cursor-pointer"
-                onClick={() => scrollToSection('contact')}
+                className="font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
+                onClick={() => setIsLoginModalOpen(true)}
               >
                 {t('login')}
                 <CircleChevronRight />
@@ -198,8 +200,8 @@ export default function Navbar() {
               <Button
                 variant="primary"
                 size="lg"
-                className="w-full font-cairo-semibold-sm text-white  bg-greyDark hover:bg-greyDarker  rounded-lg px-4 cursor-pointer"
-                onClick={() => scrollToSection('contact')}
+                className="w-full font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
+                onClick={() => { setIsMobileMenuOpen(false); setIsLoginModalOpen(true); }}
               >
                 {t('login')}
                 <CircleChevronRight />
@@ -218,6 +220,12 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* ─── Login Modal ─── */}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </nav>
   );
 }
