@@ -44,9 +44,20 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           <FieldGroup>
             {/* ─── Root error (server/auth error) ─── */}
             {errors.root && (
-              <FieldError className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 font-cairo-medium-sm text-center">
-                {errors.root.message}
-              </FieldError>
+              <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-center mb-4 flex flex-col items-center gap-2">
+                <FieldError className="font-cairo-medium-sm">
+                  {errors.root.message === 'unverifiedEmail' 
+                    ? t('errors.unverifiedEmail') 
+                    : errors.root.message}
+                </FieldError>
+                {errors.root.message === 'unverifiedEmail' && (
+                  <Link href={`/home`}>
+                    <button type="button" className="mt-2 text-black  underline cursor-pointer font-cairo-semibold-sm">
+                      {t('errors.verifyEmailButton')}
+                    </button>
+                  </Link>
+                )}
+              </div>
             )}
 
             {/* ─── Email Field ─── */}

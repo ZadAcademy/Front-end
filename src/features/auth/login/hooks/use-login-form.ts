@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
@@ -19,6 +20,7 @@ import { loginSchema, type LoginFormValues } from '../lib/schema/login.schema';
  */
 export function useLoginForm(onSuccess?: () => void) {
   const t = useTranslations('Auth.login.errors');
+  const router = useRouter();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -31,20 +33,32 @@ export function useLoginForm(onSuccess?: () => void) {
   const onSubmit = async (data: LoginFormValues) => {
     try {
       const result = await signIn('credentials', {
-        username: data.email,
+        email: data.email,
         password: data.password,
         redirect: false,
       });
 
       if (result?.error) {
-        form.setError('root', {
-          message: t('invalidCredentials'),
-        });
+        if (result.error.toLowerCase().includes('not confirmed') || result.error.toLowerCase().includes('verify')) {
+          form.setError('root', {
+            message: 'unverifiedEmail',
+          });
+        } else {
+          form.setError('root', {
+            message: t('invalidCredentials'),
+          });
+        }
         return;
       }
 
       // Success
-      onSuccess?.();
+      if (onSuccess) {
+        onSuccess();
+      }
+      
+      // Use replace instead of push so they can't click the browser 'back' button to go to login
+      router.replace('/home');
+      router.refresh();
     } catch {
       form.setError('root', {
         message: t('generic'),

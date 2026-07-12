@@ -9,6 +9,8 @@ declare module "next-auth" {
   interface User {
     user: IUserData;
     accessToken: string;
+    refreshToken: string;
+    expiresIn: number;
   }
 
   /**

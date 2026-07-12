@@ -3,27 +3,46 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRegisterForm } from '../hooks/use-register-form';
+import { useRegisterMutation } from '../hooks/use-register-mutation';
 import { RegisterFormData } from '../libs/schema/register-schema';
 import RegisterFields from './register-fields';
 import OtpVerification from '@/features/auth/shared/components/otp-verification';
 import { OtpFormData } from '@/features/auth/shared/hooks/use-otp-form';
+import { useVerifyOtpMutation } from '@/features/auth/shared/hooks/use-verify-otp-mutation';
 
 export default function RegisterForm() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
+  const [otpError, setOtpError] = useState<string | null>(null);
   const form = useRegisterForm();
+  
+  const { mutate: register, isPending } = useRegisterMutation();
+  const { mutate: verifyOtp, isPending: isVerifyingOtp } = useVerifyOtpMutation();
 
   const handleRegisterSubmit = (data: RegisterFormData) => {
-    console.log('Register Data:', data);
-    setEmail(data.email);
-    setStep(2);
+    
+    register(data, {
+      onSuccess: () => {
+        setEmail(data.email);
+        setStep(2);
+      },
+      onError: (error) => {
+        form.setError('root', { message: error.message });
+      }
+    });
   };
 
   const handleOtpSubmit = (data: OtpFormData) => {
-    console.log('OTP Data:', data);
-    // After OTP verification, redirect to login page
-    router.push('/login');
+    setOtpError(null);
+    verifyOtp({ email, otp: data.otp }, {
+      onSuccess: () => {
+        router.push('/login');
+      },
+      onError: (error) => {
+        setOtpError(error.message);
+      }
+    });
   };
 
   return (
@@ -33,6 +52,7 @@ export default function RegisterForm() {
           <RegisterFields
             form={form}
             onSubmit={handleRegisterSubmit}
+            isPending={isPending}
           />
         )}
 
@@ -42,6 +62,8 @@ export default function RegisterForm() {
             onEditEmail={() => setStep(1)}
             onSubmit={handleOtpSubmit}
             translationNamespace="Auth.register"
+            error={otpError}
+            isPending={isVerifyingOtp}
           />
         )}
       </div>

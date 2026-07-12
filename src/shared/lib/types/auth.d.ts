@@ -1,6 +1,8 @@
 import { IUserData } from "./user";
 
-export interface ILoginResponse{
-    user:IUserData,
-    token:string
+export interface ILoginResponse {
+    accessToken: string;
+    refreshToken: string;
+    expiresIn: number;
+    user: IUserData;
 }

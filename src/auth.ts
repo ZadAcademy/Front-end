@@ -14,29 +14,38 @@ export const authOptions: NextAuthOptions = {
         Credentials({
             name: "Credentials",
             credentials: {
-                username: {},
+                email: {},
                 password: {},
             },
             authorize: async (credentials) => {
                 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await fetch(`${baseUrl}/api/auth/login`, {
+
+                const response = await fetch(`${baseUrl}api/v1/auth/login`, {
                     method: "POST",
                     body: JSON.stringify({
-                        username: credentials?.username,
+                        email: credentials?.email,
                         password: credentials?.password,
                     }),
                     headers: {
                         "content-Type": "application/json",
                     },
                 });
+
+                if (!response.ok) {
+                    const errorText = await response.clone().text();
+                    console.error("BACKEND ERROR DETAILS:", errorText);
+                }
+
                 const responseData: IApiResponse<ILoginResponse> = await response.json();
-                if (!responseData.status) {
+                if (!responseData.isSuccess) {
                     throw new Error(responseData.message);
                 }
-                const loginData = responseData.payload!;
+                const loginData = responseData.data;
                 return {
                     id: loginData.user.id,
-                    accessToken: loginData.token,
+                    accessToken: loginData.accessToken,
+                    refreshToken: loginData.refreshToken,
+                    expiresIn: loginData.expiresIn,
                     user: loginData.user,
                 };
             },
@@ -47,6 +56,8 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token.user = user.user;
                 token.token = user.accessToken;
+                token.refreshToken = user.refreshToken;
+                token.expiresIn = user.expiresIn;
             }
             return token;
         },
