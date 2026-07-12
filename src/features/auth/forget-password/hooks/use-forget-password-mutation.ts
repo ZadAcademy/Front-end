@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { forgetPassword, ForgetPasswordPayload } from '../api/forget-password';
+import { forgetPassword } from '../api/forget-password';
+import { ForgetPasswordPayload } from '../lib/types/forget-password';
 
 export const useForgetPasswordMutation = () => {
   return useMutation({
