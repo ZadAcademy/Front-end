@@ -3,24 +3,18 @@
 export type IApiResponse<T> = IErrorResponse | ISuccessResponse<T>
 
 export interface IErrorResponse{
-    status:false,
-    code:number,
-    message:string,
-    errors?:Array<{
-       path: string,
-       message?:string,
-       messages?:Array<string>
-    }>
+    isSuccess: false,
+    code: number,
+    message: string,
+    errors?: Array<string>,
+    statusCode: number
 }
 
 export interface ISuccessResponse<T>{
-    status:true,
-    code:number,
-    message?:string,
-    payload:T,
+    isSuccess: true,
+    statusCode: number,
+    message: string,
+    data: T,
+    errors?: Array<string>
 }
 
-export interface IDocumentFields {
-  createdAt: string;
-  updatedAt: string;
-}

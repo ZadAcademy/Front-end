@@ -20,6 +20,8 @@ interface OtpVerificationProps {
   onSubmit: (data: OtpFormData) => void;
   /** Translation namespace — defaults to 'Auth.forgetPassword' */
   translationNamespace?: string;
+  error?: string | null;
+  isPending?: boolean;
 }
 
 /**
@@ -31,11 +33,14 @@ export default function OtpVerification({
   onEditEmail,
   onSubmit,
   translationNamespace = 'Auth.forgetPassword',
+  error,
+  isPending,
 }: OtpVerificationProps) {
   const t = useTranslations(translationNamespace);
 
   const form = useOtpForm();
   const { isSubmitting } = form.formState;
+  const loading = isPending || isSubmitting;
 
   return (
     <div className="animate-in fade-in zoom-in-95 duration-300">
@@ -58,6 +63,11 @@ export default function OtpVerification({
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-8 flex flex-col items-center">
         <FieldGroup className="w-full">
+          {error && (
+            <FieldError className="text-center w-full bg-red-50 border border-red-200 rounded-lg px-4 py-3 font-cairo-medium-sm mb-4">
+              {error}
+            </FieldError>
+          )}
           <Controller
             name="otp"
             control={form.control}
@@ -100,7 +110,7 @@ export default function OtpVerification({
             type="submit"
             variant="primary"
             size="lg"
-            loading={isSubmitting}
+            loading={loading}
             className="w-full h-12 font-cairo-bold-lg text-white rounded-lg cursor-pointer mt-4"
           >
             {t('otp.submit')}

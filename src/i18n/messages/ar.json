@@ -125,6 +125,8 @@
         "passwordRequired": "كلمة المرور مطلوبة",
         "passwordMin": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
         "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+        "unverifiedEmail": "البريد الإلكتروني غير مؤكد. يجب عليك تأكيده للتمكن من الدخول.",
+        "verifyEmailButton": "اضغط هنا للذهاب لصفحة تأكيد البريد الإلكتروني",
         "generic": "حدث خطأ ما. حاول مرة أخرى"
       }
     },
@@ -169,6 +171,8 @@
       "email": "البريد الإلكتروني",
       "emailPlaceholder": "example24@gmail.com",
       "phone": "رقم الهاتف",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "••••••••••••",
       "phonePlaceholder": "+201010584465",
       "experience": "عدد سنين خبرتك",
       "experiencePlaceholder": "اختر عدد سنين الخبرة",
@@ -178,14 +182,14 @@
       "submitting": "جاري إنشاء الحساب...",
       "hasAccount": "لديك حساب بالفعل ؟",
       "login": "تسجيل الدخول",
+      "loading": "جاري التحميل...",
       "experienceOptions": {
-        "student": "طالب",
-        "freshGraduate": "حديث التخرج",
-        "lessThanYear": "أقل من سنة",
-        "1to3": "1 - 3 سنوات",
-        "4to7": "4 - 7 سنوات",
-        "8to12": "8 - 12 سنة",
-        "moreThan12": "أكثر من 12 سنة"
+        "Student": "طالب",
+        "Graduate": "حديث التخرج",
+        "From0To2": "من 0 إلى 2 سنوات",
+        "From2To5": "من 2 إلى 5 سنوات",
+        "From5To10": "من 5 إلى 10 سنوات",
+        "MoreThan10": "أكثر من 10 سنوات"
       },
       "specializationOptions": {
         "siteEngineer": "Site Engineer",
@@ -207,6 +211,11 @@
         "submit": "تأكيد الحساب"
       },
       "errors": {
+        "passwordRequired": "كلمة المرور مطلوبة.",
+        "passwordMin": "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
+        "passwordUppercase": "كلمة المرور يجب أن تحتوي على حرف كبير واحد على الأقل.",
+        "passwordNumber": "كلمة المرور يجب أن تحتوي على رقم واحد على الأقل.",
+        "passwordSpecial": "كلمة المرور يجب أن تحتوي على رمز خاص واحد على الأقل.",
         "firstNameRequired": "الاسم الأول مطلوب",
         "lastNameRequired": "الاسم الثاني مطلوب",
         "emailRequired": "البريد الإلكتروني مطلوب",

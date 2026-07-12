@@ -6,17 +6,21 @@ import { useTranslations } from 'next-intl';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { Field, FieldGroup, FieldLabel, FieldError } from '@/shared/ui/field';
-import { useStep3Form, Step3FormData } from '../hooks/use-forget-password-forms';
+import { useStep3Form } from '../hooks/use-forget-password-forms';
+import { ForgetPasswordFormData } from '../lib/schema/forget-password.schema';
 
 interface Step3ResetProps {
-  onSubmit: (data: Step3FormData) => void;
+  onSubmit: (data: ForgetPasswordFormData) => void;
+  error?: string | null;
+  isPending?: boolean;
 }
 
-export default function Step3Reset({ onSubmit }: Step3ResetProps) {
+export default function Step3Reset({ onSubmit, error, isPending }: Step3ResetProps) {
   const t = useTranslations('Auth.forgetPassword');
   
   const form = useStep3Form();
   const { isSubmitting } = form.formState;
+  const loading = isPending || isSubmitting;
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -29,6 +33,11 @@ export default function Step3Reset({ onSubmit }: Step3ResetProps) {
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
         <FieldGroup>
+          {error && (
+            <FieldError className="w-full bg-red-50 border border-red-200 rounded-lg px-4 py-3 font-cairo-medium-sm mb-4">
+              {error}
+            </FieldError>
+          )}
           {/* Password Field */}
           <Controller
             name="password"
@@ -125,7 +134,7 @@ export default function Step3Reset({ onSubmit }: Step3ResetProps) {
             type="submit"
             variant="primary"
             size="lg"
-            loading={isSubmitting}
+            loading={loading}
             className="w-full h-12 font-cairo-bold-lg text-white rounded-lg cursor-pointer mt-2"
           >
             {t('step3.submit')}
