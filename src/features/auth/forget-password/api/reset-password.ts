@@ -10,6 +10,7 @@ export const resetPassword = async (data: ResetPasswordPayload) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
+    credentials: 'include',
   });
 
   if (!response.ok) {

@@ -13,6 +13,7 @@ interface Step3ResetProps {
   onSubmit: (data: ForgetPasswordFormData) => void;
   error?: string | null;
   isPending?: boolean;
+ 
 }
 
 export default function Step3Reset({ onSubmit, error, isPending }: Step3ResetProps) {
