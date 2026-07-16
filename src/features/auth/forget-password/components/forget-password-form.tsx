@@ -6,24 +6,25 @@ import Step1Email from './step1-email';
 import Step2Otp from './step2-otp';
 import Step3Reset from './step3-reset';
 import { OtpFormData } from '@/features/auth/shared/hooks/use-otp-form';
-import { useVerifyOtpMutation } from '@/features/auth/shared/hooks/use-verify-otp-mutation';
 import { useForgetPasswordMutation } from '../hooks/use-forget-password-mutation';
 import { useResetPasswordMutation } from '../hooks/use-reset-password-mutation';
 import { ForgetPasswordFormData } from '../lib/schema/forget-password.schema';
 import { EmailVerifyFormData } from '../lib/schema/email-verify.scehma';
+import { useVerifyOtpForgetPasswordMutation } from '../hooks/use-verify-otp-forgetpassword-mutation';
 
 export default function ForgetPasswordForm() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
+  const [resetTokenOtp,setResetTokenOtp]=useState('');
   
   const [emailError, setEmailError] = useState<string | null>(null);
   const [otpError, setOtpError] = useState<string | null>(null);
   const [resetError, setResetError] = useState<string | null>(null);
 
   const { mutate: sendEmail, isPending: isSendingEmail } = useForgetPasswordMutation();
-  const { mutate: verifyOtp, isPending: isVerifyingOtp } = useVerifyOtpMutation();
+  const { mutate:verifyOtpForget, isPending: isVerifyingOtp } = useVerifyOtpForgetPasswordMutation();
   const { mutate: resetPassword, isPending: isResettingPassword } = useResetPasswordMutation();
 
   const handleStep1Submit = (data: EmailVerifyFormData) => {
@@ -41,14 +42,20 @@ export default function ForgetPasswordForm() {
 
   const handleStep2Submit = (data: OtpFormData) => {
     setOtpError(null);
-        setOtp(data.otp);
+    verifyOtpForget({ email, otp: data.otp }, {
+      onSuccess: (data) => {
+        setResetTokenOtp(data.resetToken);
         setStep(3);
-     
+      },
+      onError: (error) => {
+        setOtpError(error.message);
+      }
+    });
   };
 
   const handleStep3Submit = (data: ForgetPasswordFormData) => {
     setResetError(null);
-    resetPassword({ email, otp, newPassword: data.confirmPassword }, {
+    resetPassword({ resetToken:resetTokenOtp, newPassword: data.confirmPassword }, {
       onSuccess: () => {
         router.push('/login');
       },
@@ -85,6 +92,7 @@ export default function ForgetPasswordForm() {
             onSubmit={handleStep3Submit}
             error={resetError}
             isPending={isResettingPassword}
+            
           />
         )}
       </div>

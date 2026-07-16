@@ -1,5 +1,4 @@
 export interface ResetPasswordPayload {
-  email: string;
-  otp: string;
+  resetToken: string;
   newPassword: string;
 }

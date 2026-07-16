@@ -46,12 +46,12 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             {errors.root && (
               <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-center mb-4 flex flex-col items-center gap-2">
                 <FieldError className="font-cairo-medium-sm">
-                  {errors.root.message === 'unverifiedEmail' 
-                    ? t('errors.unverifiedEmail') 
+                  {errors.root.message === 'unverifiedEmail'
+                    ? t('errors.unverifiedEmail')
                     : errors.root.message}
                 </FieldError>
                 {errors.root.message === 'unverifiedEmail' && (
-                  <Link href={`/home`}>
+                  <Link href={`/verify-account?email=${encodeURIComponent(form.getValues('email'))}`}>
                     <button type="button" className="mt-2 text-black  underline cursor-pointer font-cairo-semibold-sm">
                       {t('errors.verifyEmailButton')}
                     </button>

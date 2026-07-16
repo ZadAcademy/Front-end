@@ -81,12 +81,12 @@ export default function OtpVerification({
                       onChange={field.onChange}
                       dir="ltr"
                     >
-                      <InputOTPGroup className="gap-2">
+                      <InputOTPGroup className="gap-1 sm:gap-2">
                         {[0, 1, 2, 3, 4, 5].map((index) => (
                           <InputOTPSlot
                             key={index}
                             index={index}
-                            className={`w-12 h-14 text-center border rounded-lg text-xl font-bold transition-colors focus:ring-0 text-greyDark ${
+                            className={`w-10 h-12 sm:w-12 sm:h-14 text-center border rounded-lg text-lg sm:text-xl font-bold transition-colors focus:ring-0 text-greyDark ${
                               fieldState.error
                                 ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500'
                                 : 'border-orange-400 focus:border-orangeNormal focus:ring-1 focus:ring-orangeNormal'
