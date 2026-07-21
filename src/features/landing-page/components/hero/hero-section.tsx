@@ -1,8 +1,10 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { CircleChevronRight } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import HeroSwiper from './hero-swiper';
 import Link from 'next/link';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
 
 /**
  * HeroSection — Server component for the hero area.
@@ -10,8 +12,9 @@ import Link from 'next/link';
  * The swiper is a separate client component for interactivity.
  * Layout: text on the end side, images on the start side (flips in RTL).
  */
-export default function HeroSection() {
-  const t = useTranslations('LandingPage.hero');
+export default async function HeroSection() {
+  const t = await getTranslations('LandingPage.hero');
+  const session = await getServerSession(authOptions);
 
   return (
     <section id="home" className="py-10 lg:py-16">
@@ -46,7 +49,7 @@ export default function HeroSection() {
 
 
               {/* Secondary CTA — Start Now */}
-              <Link href="/login" passHref>
+              <Link href={session ? "/home" : "/login"} passHref>
                 <Button
                   variant="primary"
                   size="lg"

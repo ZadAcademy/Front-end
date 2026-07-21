@@ -1,8 +1,12 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
 
-export default function CtaSection() {
-  const t = useTranslations('LandingPage.ctaSection');
+export default async function CtaSection() {
+  const t = await getTranslations('LandingPage.ctaSection');
+  const session = await getServerSession(authOptions);
 
   return (
     <section id="cta" className="py-16 lg:py-24">
@@ -28,14 +32,16 @@ export default function CtaSection() {
           </p>
 
           {/* Button */}
-          <button className="bg-orangeNormal hover:bg-orangeNormal/90 text-white font-cairo-bold-xl px-10 py-4 rounded-xl flex items-center justify-center gap-3 transition-colors">
-            <span>{t('button')}</span>
-            <div className="w-6 h-6 rounded-full border-2 border-white/80 flex items-center justify-center">
-              {/* Using ChevronLeft which points left (forward in RTL) */}
-              <ChevronLeft className="size-4 rtl:block ltr:hidden" strokeWidth={3} />
-              <ChevronRight className="size-4 ltr:block rtl:hidden" strokeWidth={3} />
-            </div>
-          </button>
+          <Link href={session ? "/home" : "/login"} passHref>
+            <button className="bg-orangeNormal hover:bg-orangeNormal/90 text-white font-cairo-bold-xl px-10 py-4 rounded-xl flex items-center justify-center gap-3 transition-colors cursor-pointer">
+              <span>{t('button')}</span>
+              <div className="w-6 h-6 rounded-full border-2 border-white/80 flex items-center justify-center">
+                {/* Using ChevronLeft which points left (forward in RTL) */}
+                <ChevronLeft className="size-4 rtl:block ltr:hidden" strokeWidth={3} />
+                <ChevronRight className="size-4 ltr:block rtl:hidden" strokeWidth={3} />
+              </div>
+            </button>
+          </Link>
 
         </div>
       </div>
