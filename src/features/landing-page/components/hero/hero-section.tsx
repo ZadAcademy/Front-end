@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { CircleChevronRight } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import HeroSwiper from './hero-swiper';
+import Link from 'next/link';
 
 /**
  * HeroSection — Server component for the hero area.
@@ -45,22 +46,26 @@ export default function HeroSection() {
 
 
               {/* Secondary CTA — Start Now */}
-              <Button
-                variant="primary"
-                size="lg"
-                className="font-cairo-semibold-sm text-white  bg-greyDark hover:bg-greyDarker  rounded-lg px-6 cursor-pointer"
-              >
-                {t('startNow')}
-                <CircleChevronRight className="size-5" />
-              </Button>
+              <Link href="/login" passHref>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="font-cairo-semibold-sm text-white  bg-greyDark hover:bg-greyDarker  rounded-lg px-6 cursor-pointer"
+                >
+                  {t('startNow')}
+                  <CircleChevronRight className="size-5" />
+                </Button>
+              </Link>
               {/* Primary CTA — Browse Courses */}
-              <Button
-                variant="primary"
-                size="lg"
-                className="font-cairo-semibold-sm text-white  rounded-lg px-6 cursor-pointer"
-              >
-                {t('browseCourses')}
-              </Button>
+              <Link href="#courses" passHref>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="font-cairo-semibold-sm text-white  rounded-lg px-6 cursor-pointer"
+                >
+                  {t('browseCourses')}
+                </Button>
+              </Link>
             </div>
           </div>
           {/* ═══════════════════════════════════ IMAGE SWIPER (start side — left in LTR, right in RTL)═══════════════════════════════════ */}

@@ -7,7 +7,7 @@ const intlMiddleware = createMiddleware(routing);
 
 const authPages = ['/login', '/register', '/forgot-password'];
 
-const protectedRoutes = ['/dashboard', '/profile', '/settings'];
+const protectedRoutes = ['/dashboard', '/profile', '/settings','/home'];
 
 export async function proxy(req: NextRequest) {
   const token = await getToken({
