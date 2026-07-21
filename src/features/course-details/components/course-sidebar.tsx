@@ -69,8 +69,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-cairo-bold-md text-blueNormal">{course.lecturer}</span>
-                  <span className="font-cairo-medium-sm text-greyNormal">مدرب محترف</span>
+                  <span className="font-cairo-bold-lg text-blueNormal">{course.lecturer}</span>
                 </div>
               </div>
             </div>
@@ -82,7 +81,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
               <ul className="flex flex-col gap-3 font-cairo-medium-sm text-greyDark">
                 <li className="flex items-center justify-between pb-3 border-b border-black/5">
                   <div className="flex items-center gap-2">
-                    <BarChart className="size-4 text-blueNormal" />
+                    <BarChart className="size-6 text-blueNormal" />
                     <span>{t('level')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">{course.level}</span>
@@ -90,7 +89,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
 
                 <li className="flex items-center justify-between pb-3 border-b border-black/5">
                   <div className="flex items-center gap-2">
-                    <Calendar className="size-4 text-blueNormal" />
+                    <Calendar className="size-6 text-blueNormal" />
                     <span>{t('lastUpdated')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">{course.lastUpdated}</span>
@@ -98,7 +97,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
 
                 <li className="flex items-center justify-between pb-3 border-b border-black/5">
                   <div className="flex items-center gap-2">
-                    <Award className="size-4 text-blueNormal" />
+                    <Award className="size-6 text-blueNormal" />
                     <span>{t('certificate')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">
@@ -108,7 +107,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
 
                 <li className="flex items-center justify-between pb-3 border-b border-black/5">
                   <div className="flex items-center gap-2">
-                    <Star className="size-4 text-yellow-500 fill-yellow-500" />
+                    <Star className="size-6 text-yellow-500 fill-yellow-500" />
                     <span>{t('rating')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">{course.rating}</span>
@@ -116,7 +115,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
 
                 <li className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Users className="size-4 text-blueNormal" />
+                    <Users className="size-6 text-blueNormal" />
                     <span>{t('students')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">{course.studentsCount}</span>

@@ -33,14 +33,14 @@ export default function CourseHeader({ title, description, level, isRTL }: Cours
           href="/home"
           className="flex items-center gap-2 text-white/80 hover:text-white transition-colors w-fit"
         >
-          <BackIcon className="size-5" />
-          <span className="font-cairo-medium-base">{t('backToCourses')}</span>
+          <BackIcon className="size-6" />
+          <span className="font-cairo-medium-lg">{t('backToCourses')}</span>
         </Link>
 
         {/* Course Info */}
-        <div className="max-w-3xl flex flex-col gap-3 sm:gap-4 mt-6 sm:mt-8">
+        <div className="max-w-4xl flex flex-col gap-3 sm:gap-4 mt-6 sm:mt-8">
           {/* Badge */}
-          <div className="self-start px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-cairo-semibold-sm rounded-lg border border-white/30">
+          <div className="self-start px-3 py-1 bg-blueNormal backdrop-blur-sm text-white font-cairo-semibold-sm rounded-lg border border-white/30">
             {level}
           </div>
 
@@ -50,7 +50,7 @@ export default function CourseHeader({ title, description, level, isRTL }: Cours
           </h1>
 
           {/* Description — full text, no clamp */}
-          <p className="font-cairo-medium-base sm:font-cairo-medium-lg text-white/90 leading-relaxed max-w-2xl">
+          <p className="font-cairo-medium-base sm:font-cairo-medium-lg text-white/90 leading-relaxed ">
             {description}
           </p>
         </div>

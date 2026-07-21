@@ -6,6 +6,7 @@ import { CircleChevronRight, CirclePlus, Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import LoginModal from '@/features/auth/login/components/login-modal';
+import { useSession } from 'next-auth/react';
 import './navbar.css';
 
 /* ============================================================
@@ -32,6 +33,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { data: session } = useSession();
 
   /* ─── Track scroll to toggle solid background ─── */
   useEffect(() => {
@@ -140,25 +142,39 @@ export default function Navbar() {
 
             {/* ─── DESKTOP CTA BUTTONS (hidden on mobile) ─── */}
             <div className="hidden lg:flex gap-4 items-center">
-              <Button
-                variant="primary"
-                size="lg"
-                className="font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
-                onClick={() => setIsLoginModalOpen(true)}
-              >
-                {t('login')}
-                <CircleChevronRight />
-              </Button>
+              {session ? (
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
+                  onClick={() => router.push('/home')}
+                >
+                  {t('home')}
+                  <CircleChevronRight />
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
+                    onClick={() => setIsLoginModalOpen(true)}
+                  >
+                    {t('login')}
+                    <CircleChevronRight />
+                  </Button>
 
-              <Button
-                variant="primary"
-                size="lg"
-                className=" font-cairo-semibold-sm text-white rounded-lg px-4 cursor-pointer"
-                onClick={() => router.push('/register')}
-              >
-                {t('create-account')}
-                <CirclePlus />
-              </Button>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className=" font-cairo-semibold-sm text-white rounded-lg px-4 cursor-pointer"
+                    onClick={() => router.push('/register')}
+                  >
+                    {t('create-account')}
+                    <CirclePlus />
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* ─── MOBILE MENU TOGGLE (hidden on desktop) ─── */}
@@ -197,25 +213,39 @@ export default function Navbar() {
 
             {/* ─── Mobile CTA Buttons (same style as desktop) ─── */}
             <div className="flex flex-col gap-3 mt-3 pt-3 border-t border-black/10">
-              <Button
-                variant="primary"
-                size="lg"
-                className="w-full font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
-                onClick={() => { setIsMobileMenuOpen(false); setIsLoginModalOpen(true); }}
-              >
-                {t('login')}
-                <CircleChevronRight />
-              </Button>
+              {session ? (
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="w-full font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
+                  onClick={() => { setIsMobileMenuOpen(false); router.push('/home'); }}
+                >
+                  {t('home')}
+                  <CircleChevronRight />
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full font-cairo-semibold-sm text-white bg-greyDark hover:bg-greyDarker rounded-lg px-4 cursor-pointer"
+                    onClick={() => { setIsMobileMenuOpen(false); setIsLoginModalOpen(true); }}
+                  >
+                    {t('login')}
+                    <CircleChevronRight />
+                  </Button>
 
-              <Button
-                variant="primary"
-                size="lg"
-                className="w-full font-cairo-semibold-sm text-white rounded-lg px-4 cursor-pointer"
-                onClick={() => { setIsMobileMenuOpen(false); router.push('/register'); }}
-              >
-                {t('create-account')}
-                <CirclePlus />
-              </Button>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full font-cairo-semibold-sm text-white rounded-lg px-4 cursor-pointer"
+                    onClick={() => { setIsMobileMenuOpen(false); router.push('/register'); }}
+                  >
+                    {t('create-account')}
+                    <CirclePlus />
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
