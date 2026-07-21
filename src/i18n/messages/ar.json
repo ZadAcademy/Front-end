@@ -228,5 +228,60 @@
         "generic": "حدث خطأ ما. حاول مرة أخرى"
       }
     }
+  },
+  "HomePage": {
+    "authNavbar": {
+      "notifications": "الإشعارات",
+      "profile": "الملف الشخصي",
+      "dashboard": "لوحة التحكم",
+      "logout": "تسجيل الخروج",
+      "language": "اللغة"
+    },
+    "filter": {
+      "customSearch": "اضغط للبحث المخصص",
+      "level": "المستوى",
+      "beginner": "مبتدئ",
+      "intermediate": "متوسط",
+      "expert": "خبير",
+      "price": "السعر",
+      "free": "مجاني",
+      "paid": "مدفوع",
+      "rating": "التقييم",
+      "stars": "نجوم",
+      "reset": "إعادة تعيين",
+      "allLevels": "الكل",
+      "allPrices": "الكل",
+      "allRatings": "الكل"
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "title": "جميع الدورات"
+  },
+  "CourseDetails": {
+    "header": {
+      "backToCourses": "العودة للدورات"
+    },
+    "sidebar": {
+      "instructor": "المدرب",
+      "courseInfo": "معلومات عن الكورس",
+      "level": "مستوى الكورس",
+      "lastUpdated": "آخر تحديث",
+      "certificate": "هل يوجد شهادة",
+      "certificateYes": "نعم",
+      "rating": "تقييم الكورس",
+      "students": "عدد الطلاب",
+      "subscribeNow": "اشترك الآن"
+    },
+    "content": {
+      "whatYouWillLearn": "ما الذي يقدمه الكورس",
+      "skills": "ماذا سوف تتعلم ؟",
+      "syllabus": "محتوى الكورس",
+      "requirements": "المطلوب قبل بدأ الكورس",
+      "sections": "قسم",
+      "lectures": "درس",
+      "hours": "ساعة"
+    }
   }
 }

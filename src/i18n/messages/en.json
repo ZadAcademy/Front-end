@@ -226,5 +226,60 @@
         "generic": "Something went wrong. Try again"
       }
     }
+  },
+  "HomePage": {
+    "authNavbar": {
+      "notifications": "Notifications",
+      "profile": "Profile",
+      "dashboard": "Dashboard",
+      "logout": "Logout",
+      "language": "Language"
+    },
+    "filter": {
+      "customSearch": "Click for Custom Search",
+      "level": "Level",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "expert": "Expert",
+      "price": "Price",
+      "free": "Free",
+      "paid": "Paid",
+      "rating": "Rating",
+      "stars": "stars",
+      "reset": "Reset",
+      "allLevels": "All",
+      "allPrices": "All",
+      "allRatings": "All"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "title": "All Courses"
+  },
+  "CourseDetails": {
+    "header": {
+      "backToCourses": "Back to Courses"
+    },
+    "sidebar": {
+      "instructor": "Instructor",
+      "courseInfo": "Course Information",
+      "level": "Course Level",
+      "lastUpdated": "Last Updated",
+      "certificate": "Certificate Included",
+      "certificateYes": "Yes",
+      "rating": "Course Rating",
+      "students": "Students Count",
+      "subscribeNow": "Subscribe Now"
+    },
+    "content": {
+      "whatYouWillLearn": "What you will learn",
+      "skills": "Skills you will gain",
+      "syllabus": "Course Content",
+      "requirements": "Requirements before starting",
+      "sections": "sections",
+      "lectures": "lectures",
+      "hours": "hours"
+    }
   }
 }

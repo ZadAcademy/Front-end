@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { CourseCard } from '@/shared/components/course-card';
 import Image from 'next/image';
+import Link from 'next/link';
 
 /**
  * CoursesSection — Server component for displaying the available courses.
@@ -73,9 +74,9 @@ export default function CoursesSection() {
 
           {/* Header row: "See more courses" link aligned to end */}
           <div className="flex justify-end">
-            <button className="text-blueNormal font-cairo-bold-lg border-b-2 border-blueNormal pb-1 hover:text-blueNormalHover transition-colors cursor-pointer bg-transparent">
+            <Link href="/home" className="text-blueNormal font-cairo-bold-lg hover:border-b-2 border-blueNormal pb-1 hover:text-blueNormalHover transition-colors cursor-pointer bg-transparent">
               {t('seeMore')}
-            </button>
+            </Link>
           </div>
 
           {/* Grid of Courses */}

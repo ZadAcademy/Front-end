@@ -32,7 +32,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="w-full max-w-[480px] mx-auto">
+    <div className="w-full max-w-120 mx-auto">
       {/* Card container */}
       <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-10">
         {/* Title */}
