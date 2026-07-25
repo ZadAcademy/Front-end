@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { PlayCircle } from 'lucide-react';
-import type { CourseDetailsApiResponse } from '../lib/api/course-details-api';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/shared/components/ui/accordion';
+import { CourseDetailsApiResponse } from '../lib/types/course-details-api';
 
 interface CourseSyllabusProps {
   course: CourseDetailsApiResponse;
@@ -16,7 +16,7 @@ export default function CourseSyllabus({ course }: CourseSyllabusProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      
+
       {/* Header & Stats */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-black/5 pb-4">
         <h2 className="font-cairo-bold-2xl text-greyDark">{t('syllabus')}</h2>

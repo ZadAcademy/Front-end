@@ -1,28 +1,39 @@
-'use client';
 
+import { useTranslations } from 'next-intl';
 import { CourseCard } from '@/shared/components/course-card';
-import { useCourses } from '../hooks/use-courses';
-import { type FilterState } from './course-filter';
+import { CourseCardSkeleton } from '@/shared/skeletons/course-card-skeleton';
+import { CoursesApiResponse } from '../lib/types/course-card-api';
 
 interface CoursesGridProps {
-  currentPage: number;
-  filters: FilterState;
+  courseData?: CoursesApiResponse;
+  isLoading?: boolean;
+  isError?: boolean;
   onTotalPagesChange: (totalPages: number) => void;
 }
 
-/**
- * CoursesGrid — Displays a paginated grid of CourseCard components.
- * Powered by the useCourses TanStack Query hook.
- *
- * When the API is ready, the data will automatically flow through
- * the hook → API service → this grid. No changes needed here.
- */
-export default function CoursesGrid({ currentPage, filters, onTotalPagesChange }: CoursesGridProps) {
-  const { data, isLoading, isError } = useCourses(currentPage, filters);
+export default function CoursesGrid({courseData ,isLoading,isError, onTotalPagesChange }: CoursesGridProps) {
+  const t = useTranslations('HomePage.filter');
+
+  const getTranslatedLevel = (level: string) => {
+    switch (String(level).toLowerCase()) {
+      case '0':
+      case 'beginner':
+        return t('beginner');
+      case '1':
+      case 'intermediate':
+        return t('intermediate');
+      case '2':
+      case 'advanced':
+      case 'expert':
+        return t('expert');
+      default:
+        return level; // Fallback to raw string if unknown
+    }
+  };
 
   /* ─── Notify parent of total pages when data arrives ─── */
-  if (data && data.totalPages) {
-    onTotalPagesChange(data.totalPages);
+  if (courseData && courseData.totalPages) {
+    onTotalPagesChange(courseData.totalPages);
   }
 
   /* ─── Loading state ─── */
@@ -30,20 +41,7 @@ export default function CoursesGrid({ currentPage, filters, onTotalPagesChange }
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="bg-white rounded-2xl shadow-sm border border-black/5 p-2.5 animate-pulse"
-          >
-            {/* Image placeholder */}
-            <div className="w-full aspect-4/3 rounded-xl bg-gray-200" />
-            {/* Content placeholder */}
-            <div className="flex flex-col gap-3 mt-3">
-              <div className="w-24 h-6 rounded-lg bg-gray-200" />
-              <div className="w-3/4 h-5 rounded bg-gray-200" />
-              <div className="w-full h-12 rounded bg-gray-100" />
-              <div className="w-28 h-7 rounded-lg bg-gray-200" />
-            </div>
-          </div>
+          <CourseCardSkeleton key={i} />
         ))}
       </div>
     );
@@ -54,18 +52,18 @@ export default function CoursesGrid({ currentPage, filters, onTotalPagesChange }
     return (
       <div className="flex items-center justify-center py-16">
         <p className="font-cairo-medium-lg text-red-500">
-          Something went wrong. Please try again.
+          {t('error')}
         </p>
       </div>
     );
   }
 
   /* ─── Empty state ─── */
-  if (!data?.data?.length) {
+  if (!courseData?.items?.length) {
     return (
       <div className="flex items-center justify-center py-16">
         <p className="font-cairo-medium-lg text-greyNormal">
-          No courses found.
+          {t('noCoursesFound')}
         </p>
       </div>
     );
@@ -73,14 +71,19 @@ export default function CoursesGrid({ currentPage, filters, onTotalPagesChange }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {data.data.map((course) => (
+      {courseData.items?.map((course) => (
         <CourseCard
           key={course.id}
-          category={course.category}
+          courseId={course.id}
+          level={getTranslatedLevel(course.level)}
           title={course.title}
-          description={course.description}
-          lecturer={course.lecturer}
-          stats={course.stats}
+          shortDescription={course.shortDescription}
+          instructorName={course.instructorName}
+          numberOfLessons={course.numberOfLessons}
+          numberOfStudents={course.numberOfStudents}
+          rating={course.rating}
+          courseHours={course.courseHours}
+          price={course.price}
         />
       ))}
     </div>

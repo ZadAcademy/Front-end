@@ -3,21 +3,20 @@
 import { useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { Search, ChevronDown, Star, RotateCcw, GraduationCap, DollarSign, Trophy } from 'lucide-react';
+import { LevelFilter, PriceFilter, RatingFilter } from '../lib/types/filter';
 
-/* ─── Filter option types ─── */
-type LevelFilter = 'all' | 'beginner' | 'intermediate' | 'expert';
-type PriceFilter = 'all' | 'free' | 'paid';
-type RatingFilter = 'all' | 2 | 3 | 4 | 5;
 
-export interface FilterState {
+
+interface CourseFilterProps {
   level: LevelFilter;
   price: PriceFilter;
   rating: RatingFilter;
-}
-
-interface CourseFilterProps {
-  filters: FilterState;
-  onFiltersChange: (filters: FilterState) => void;
+  search: string;
+  onLevelChange: (value: LevelFilter) => void;
+  onPriceChange: (value: PriceFilter) => void;
+  onRatingChange: (value: RatingFilter) => void;
+  onSearchChange: (value: string) => void;
+  onReset: () => void;
 }
 
 /**
@@ -25,41 +24,52 @@ interface CourseFilterProps {
  * Shows a "Click for Custom Search" button that reveals filter fields:
  * level, price (free/paid), and rating (star-based).
  *
- * Architecture note: The filter state is lifted to the parent (HomePage).
- * When the API is ready, the parent will pass these filters to the
- * TanStack Query hook as query params — no changes needed here.
+ * Each filter is an independent prop pair (value + setter),
+ * making it easy to add new filters without touching existing code.
  */
-export default function CourseFilter({ filters, onFiltersChange }: CourseFilterProps) {
+export default function CourseFilter({
+  level,
+  price,
+  rating,
+  search,
+  onLevelChange,
+  onPriceChange,
+  onRatingChange,
+  onSearchChange,
+  onReset,
+}: CourseFilterProps) {
   const t = useTranslations('HomePage.filter');
   const [isOpen, setIsOpen] = useState(false);
 
-  /* ─── Update a single filter field ─── */
-  const updateFilter = useCallback(
-    <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
-      onFiltersChange({ ...filters, [key]: value });
-    },
-    [filters, onFiltersChange]
-  );
-
-  /* ─── Reset all filters ─── */
-  const resetFilters = useCallback(() => {
-    onFiltersChange({ level: 'all', price: 'all', rating: 'all' });
-  }, [onFiltersChange]);
-
   /* ─── Check if any filter is active ─── */
-  const hasActiveFilters = filters.level !== 'all' || filters.price !== 'all' || filters.rating !== 'all';
+  const hasActiveFilters = level !== 'all' || price !== 'all' || rating !== 'all' || search.trim() !== '';
 
   /* ─── Count active filters for the badge ─── */
   const activeCount = [
-    filters.level !== 'all',
-    filters.price !== 'all',
-    filters.rating !== 'all',
+    level !== 'all',
+    price !== 'all',
+    rating !== 'all',
   ].filter(Boolean).length;
 
   return (
     <div className="w-full">
-      {/* ═══════════ Toggle Button + Reset Row ═══════════ */}
-      <div className="flex items-center gap-3 flex-wrap">
+      {/* ═══════════ Search & Toggle Button Row ═══════════ */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        {/* ─── Search Input ─── */}
+        <div className="relative flex-1">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+            <Search className="size-5 text-blueNormal/50" />
+          </div>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder={t('searchCourses') || "Search by title..."}
+            className="w-full pl-11 pr-4 py-3 bg-white border border-blueNormal/20 rounded-xl font-cairo-medium-sm text-greyDark focus:outline-none focus:border-blueNormal focus:ring-2 focus:ring-blueNormal/20 transition-all shadow-sm hover:border-blueNormal/40"
+          />
+        </div>
+
+        {/* ─── Toggle Button ─── */}
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className={`
@@ -87,7 +97,7 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
         {/* Reset button — shown beside toggle when filters are active and panel is closed */}
         {hasActiveFilters && !isOpen && (
           <button
-            onClick={resetFilters}
+            onClick={onReset}
             className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl
                        text-red-500 font-cairo-medium-xs border border-red-200
                        hover:bg-red-50 transition-all duration-200 cursor-pointer bg-white"
@@ -116,7 +126,7 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                 </p>
                 {hasActiveFilters && (
                   <button
-                    onClick={resetFilters}
+                    onClick={onReset}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg
                                text-red-500 font-cairo-medium-xs
                                hover:bg-red-50 transition-colors cursor-pointer bg-white/80 border border-red-200"
@@ -145,12 +155,12 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                   </div>
                   {/* Chips */}
                   <div className="flex flex-wrap gap-2">
-                    {(['all', 'beginner', 'intermediate', 'expert'] as LevelFilter[]).map((level) => {
-                      const isActive = filters.level === level;
+                    {(['all', 'beginner', 'intermediate', 'expert'] as LevelFilter[]).map((lvl) => {
+                      const isActive = level === lvl;
                       return (
                         <button
-                          key={level}
-                          onClick={() => updateFilter('level', level)}
+                          key={lvl}
+                          onClick={() => onLevelChange(lvl)}
                           className={`
                             px-3.5 py-2 rounded-xl font-cairo-medium-xs
                             transition-all duration-200 cursor-pointer
@@ -160,7 +170,7 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                             }
                           `}
                         >
-                          {level === 'all' ? t('allLevels') : t(level)}
+                          {lvl === 'all' ? t('allLevels') : t(lvl)}
                         </button>
                       );
                     })}
@@ -180,12 +190,12 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                   </div>
                   {/* Chips */}
                   <div className="flex flex-wrap gap-2">
-                    {(['all', 'free', 'paid'] as PriceFilter[]).map((price) => {
-                      const isActive = filters.price === price;
+                    {(['all', 'free', 'paid'] as PriceFilter[]).map((p) => {
+                      const isActive = price === p;
                       return (
                         <button
-                          key={price}
-                          onClick={() => updateFilter('price', price)}
+                          key={p}
+                          onClick={() => onPriceChange(p)}
                           className={`
                             px-3.5 py-2 rounded-xl font-cairo-medium-xs
                             transition-all duration-200 cursor-pointer
@@ -195,7 +205,7 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                             }
                           `}
                         >
-                          {price === 'all' ? t('allPrices') : t(price)}
+                          {p === 'all' ? t('allPrices') : t(p)}
                         </button>
                       );
                     })}
@@ -217,11 +227,11 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                   <div className="flex flex-wrap gap-2">
                     {/* "All" chip */}
                     <button
-                      onClick={() => updateFilter('rating', 'all')}
+                      onClick={() => onRatingChange('all')}
                       className={`
                         px-3.5 py-2 rounded-xl font-cairo-medium-xs
                         transition-all duration-200 cursor-pointer
-                        ${filters.rating === 'all'
+                        ${rating === 'all'
                           ? 'bg-yellow-500 text-white shadow-md shadow-yellow-500/20 border border-yellow-500'
                           : 'bg-yellow-50 text-greyDark hover:bg-yellow-100 border border-transparent hover:border-yellow-300'
                         }
@@ -231,11 +241,11 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                     </button>
                     {/* Star rating chips — 5 down to 2 */}
                     {([5, 4, 3, 2] as const).map((stars) => {
-                      const isActive = filters.rating === stars;
+                      const isActive = rating === stars;
                       return (
                         <button
                           key={stars}
-                          onClick={() => updateFilter('rating', stars)}
+                          onClick={() => onRatingChange(stars)}
                           className={`
                             flex items-center gap-1.5 px-3 py-2 rounded-xl font-cairo-medium-xs
                             transition-all duration-200 cursor-pointer
@@ -247,6 +257,7 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                         >
                           {/* Render star icons */}
                           <div className="flex items-center gap-0.5">
+                            
                             {Array.from({ length: stars }).map((_, i) => (
                               <Star
                                 key={i}
@@ -256,7 +267,7 @@ export default function CourseFilter({ filters, onFiltersChange }: CourseFilterP
                               />
                             ))}
                           </div>
-                          <span>{t('stars', { count: stars })}</span>
+                          <span>{stars}</span>
                         </button>
                       );
                     })}

@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Info, CheckCircle2 } from 'lucide-react';
-import type { CourseDetailsApiResponse } from '../lib/api/course-details-api';
+import { CourseDetailsApiResponse } from '../lib/types/course-details-api';
 
 interface CourseRequirementsProps {
   course: CourseDetailsApiResponse;
@@ -17,10 +17,10 @@ export default function CourseRequirements({ course }: CourseRequirementsProps) 
       </div>
       
       <ul className="flex flex-col gap-3.5 bg-white p-4 rounded-lg shadow-md">
-        {course.requirements.map((req, index) => (
-          <li key={index} className="flex items-start gap-3">
+        {course.prerequisites.map((req) => (
+          <li key={req.id} className="flex items-start gap-3">
             <CheckCircle2 className="size-5 text-orangeNormal shrink-0 mt-0.5" />
-            <span className="font-cairo-medium-base text-greyDark">{req}</span>
+            <span className="font-cairo-medium-base text-greyDark">{req.description}</span>
           </li>
         ))}
       </ul>

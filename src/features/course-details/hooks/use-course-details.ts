@@ -1,11 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchCourseDetails, type CourseDetailsApiResponse } from '../lib/api/course-details-api';
+import { fetchCourseDetails,   } from '../lib/api/course-details-api';
+import { CourseDetailsApiResponse } from '../lib/types/course-details-api';
 
-/**
- * useCourseDetails — TanStack Query hook for course details.
- *
- * Fetches the course data based on the given courseId.
- */
+
 export function useCourseDetails(courseId: string) {
   return useQuery<CourseDetailsApiResponse>({
     queryKey: ['courseDetails', courseId],
