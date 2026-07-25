@@ -95,7 +95,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                     <span>{t('certificate')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">
-                    {course.certificate ? t('certificateYes') : ''}
+                    {/* {course.certificate ? t('certificateYes') : ''} */}
                   </span>
                 </li>
 
