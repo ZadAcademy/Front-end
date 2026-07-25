@@ -5,7 +5,7 @@ import { useCourseDetails } from './hooks/use-course-details';
 import CourseHeader from './components/course-header';
 import CourseSidebar from './components/course-sidebar';
 import CourseObjectives from './components/course-objectives';
-import CourseSyllabus from './components/course-syllabus';
+// import CourseSyllabus from './components/course-syllabus';
 import CourseRequirements from './components/course-requirements';
 import { Loader2 } from 'lucide-react';
 

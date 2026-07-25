@@ -13,28 +13,40 @@ export default function CoursesSection() {
   // Hardcoded sample data for the course cards to match the design
   const DUMMY_COURSES = [
     {
-      id: 1,
-      category: '#Artificial Intelligence',
+      courseId: 1,
+      level: '1',
       title: 'Piping Design Using AutoCAD Plant 3D',
-      description: 'كورس من خلاله سوف تتعلم قواعد التصميم والانشاء من خلال مدربين علي مستوي خبره عالية وتطبيق عملي بشكل مباشر',
-      lecturer: 'محاضر/عبدالحليم',
-      stats: { users: '(1,250)', hours: '45h', lectures: '136 lectures' },
+      shortDescription: 'كورس من خلاله سوف تتعلم قواعد التصميم والانشاء من خلال مدربين علي مستوي خبره عالية وتطبيق عملي بشكل مباشر',
+      instructorName: 'محاضر/عبدالحليم',
+      numberOfLessons: 136,
+      numberOfStudents: 1250,
+      rating: 4.5,
+      courseHours: 45,
+      price: 99.99,
     },
     {
-      id: 2,
-      category: '#Artificial Intelligence',
-      title: 'Piping Design Using AutoCAD Plant 3D',
-      description: 'كورس من خلاله سوف تتعلم قواعد التصميم والانشاء من خلال مدربين علي مستوي خبره عالية وتطبيق عملي بشكل مباشر',
-      lecturer: 'محاضر/عبدالحليم',
-      stats: { users: '(1,250)', hours: '45h', lectures: '136 lectures' },
+      courseId: 2,
+      level: '2',
+      title: 'Advanced React and Next.js Patterns',
+      shortDescription: 'Learn advanced techniques for building scalable web applications with React and Next.js.',
+      instructorName: 'Jane Doe',
+      numberOfLessons: 85,
+      numberOfStudents: 3400,
+      rating: 4.9,
+      courseHours: 32,
+      price: 149.99,
     },
     {
-      id: 3,
-      category: '#Artificial Intelligence',
-      title: 'Piping Design Using AutoCAD Plant 3D',
-      description: 'كورس من خلاله سوف تتعلم قواعد التصميم والانشاء من خلال مدربين علي مستوي خبره عالية وتطبيق عملي بشكل مباشر',
-      lecturer: 'محاضر/عبدالحليم',
-      stats: { users: '(1,250)', hours: '45h', lectures: '136 lectures' },
+      courseId: 3,
+      level: '0',
+      title: 'Introduction to Artificial Intelligence',
+      shortDescription: 'A beginner-friendly introduction to the core concepts of AI and Machine Learning.',
+      instructorName: 'John Smith',
+      numberOfLessons: 42,
+      numberOfStudents: 850,
+      rating: 4.7,
+      courseHours: 15,
+      price: 0,
     },
   ];
 
@@ -83,12 +95,17 @@ export default function CoursesSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {DUMMY_COURSES.map((course) => (
               <CourseCard
-                key={course.id}
-                category={course.category}
+                key={course.courseId}
+                courseId={course.courseId}
+                level={course.level}
                 title={course.title}
-                description={course.description}
-                lecturer={course.lecturer}
-                stats={course.stats}
+                shortDescription={course.shortDescription}
+                instructorName={course.instructorName}
+                numberOfLessons={course.numberOfLessons}
+                numberOfStudents={course.numberOfStudents}
+                rating={course.rating}
+                courseHours={course.courseHours}
+                price={course.price}
               />
             ))}
           </div>

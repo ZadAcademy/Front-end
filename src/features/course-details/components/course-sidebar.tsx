@@ -112,7 +112,10 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                     <Users className="size-6 text-blueNormal" />
                     <span>{t('students')}</span>
                   </div>
-                  <span className="font-cairo-bold-sm text-blueNormal">{course.studentsCount}</span>
+                  <span className="font-cairo-bold-sm text-blueNormal">
+                    {/* {course.studentsCount} */}
+                    00
+                    </span>
                 </li>
               </ul>
             </div>
