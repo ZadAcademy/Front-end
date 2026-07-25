@@ -1,11 +1,12 @@
 export interface CourseCardProps {
-  category: string;
+  courseId: number;
+  level: string;
   title: string;
-  description: string;
-  lecturer: string;
-  stats: {
-    users: string;
-    hours: string;
-    lectures: string;
-  };
+  shortDescription: string;
+  instructorName: string;
+  numberOfLessons: number;
+  numberOfStudents: number;
+  rating: number;
+  courseHours: number;
+  price?:number;
 }

@@ -13,7 +13,7 @@
   },
   "LandingPage": {
     "navbar": {
-      "home":" الرئيسية", 
+      "home":" جميع الدورات", 
       "courses": "دوراتنا",
       "experts": "خبراؤنا",
       "testimonials": "آراء طلابنا",
@@ -235,7 +235,8 @@
       "profile": "الملف الشخصي",
       "dashboard": "لوحة التحكم",
       "logout": "تسجيل الخروج",
-      "language": "اللغة"
+      "language": "اللغة",
+      "home": "الرئيسية"
     },
     "filter": {
       "customSearch": "اضغط للبحث المخصص",
@@ -251,13 +252,22 @@
       "reset": "إعادة تعيين",
       "allLevels": "الكل",
       "allPrices": "الكل",
-      "allRatings": "الكل"
+      "allRatings": "الكل",
+      "searchCourses": "بحث عن دورة"
     },
     "pagination": {
       "previous": "السابق",
       "next": "التالي"
     },
-    "title": "جميع الدورات"
+    "title": "جميع الدورات",
+    "noCoursesFound": "لا يوجد دورات",
+    "error": "حدث خطأ ما. حاول مرة أخرى",
+    "loading": "جاري التحميل..."
+  },
+  "CourseCard": {
+    "subscribeNow": "اشترك الآن",
+    "freeCourse":"كورس مجاني"
+
   },
   "CourseDetails": {
     "header": {
@@ -282,6 +292,100 @@
       "sections": "قسم",
       "lectures": "درس",
       "hours": "ساعة"
+    }
+  },
+  "Dashboard": {
+    "navbar": {
+      "title": "لوحة التحكم",
+      "backToSite": "العودة للموقع"
+    },
+    "sidebar": {
+      "dashboard": "لوحة التحكم",
+      "courses": "الدورات",
+      "listCourses": "جميع الدورات",
+      "addCourse": "إضافة دورة"
+    },
+    "pages": {
+      "dashboard": "لوحة التحكم",
+      "listCourses": "جميع الدورات",
+      "addCourse": "إضافة دورة جديدة"
+    },
+    "addCourse": {
+      "basicInfo": {
+        "title": "المعلومات الأساسية",
+        "description": "أدخل التفاصيل الرئيسية للدورة.",
+        "courseTitle": "عنوان الدورة",
+        "courseTitlePlaceholder": "مثال: مقدمة في Next.js",
+        "courseDescription": "وصف الدورة",
+        "courseDescriptionPlaceholder": "وصف مفصل لما تغطيه الدورة...",
+        "shortDescription": "وصف قصير",
+        "shortDescriptionPlaceholder": "ملخص موجز لبطاقة الدورة...",
+        "price": "السعر (دولار)",
+        "pricePlaceholder": "مثال: 49.99",
+        "discountPrice": "سعر الخصم (اختياري)",
+        "discountPricePlaceholder": "مثال: 29.99",
+        "instructorName": "اسم المدرب",
+        "instructorNamePlaceholder": "مثال: أحمد محمد",
+        "level": "مستوى الدورة",
+        "levelPlaceholder": "اختر المستوى",
+        "levels": {
+          "beginner": "مبتدئ",
+          "intermediate": "متوسط",
+          "advanced": "متقدم"
+        },
+        "learningOutcomes": {
+          "title": "مخرجات التعلم",
+          "description": "ماذا سيتعلم الطلاب في هذه الدورة؟ يمكنك السحب والإفلات لإعادة الترتيب.",
+          "addOutcome": "إضافة مخرج",
+          "placeholder": "مثال: بناء تطبيق ويب متكامل",
+          "remove": "حذف"
+        },
+        "prerequisites": {
+          "title": "المتطلبات الأساسية",
+          "description": "ما الذي يجب أن يعرفه الطلاب قبل البدء؟ يمكنك السحب والإفلات لإعادة الترتيب.",
+          "addPrerequisite": "إضافة متطلب",
+          "placeholder": "مثال: معرفة أساسية بـ HTML و CSS",
+          "remove": "حذف"
+        },
+        "submit": "حفظ ومتابعة"
+      },
+      "localizedPrices": {
+        "title": "الأسعار المخصصة",
+        "description": "قم بتعيين أسعار مختلفة بناءً على الدولة.",
+        "country": "الدولة",
+        "countryPlaceholder": "اختر الدولة",
+        "price": "السعر",
+        "pricePlaceholder": "0.00",
+        "discountPrice": "سعر التخفيض",
+        "discountPricePlaceholder": "تخفيض اختياري",
+        "addPrice": "إضافة سعر",
+        "remove": "حذف",
+        "submit": "حفظ الأسعار"
+      },
+      "coursePreview": {
+        "title": "معاينة الدورة",
+        "description": "أضف مقاطع فيديو ترويجية أو دروس معاينة مجانية. يمكنك السحب والإفلات لإعادة الترتيب.",
+        "videoTitlePlaceholder": "مثال: مقدمة الدورة",
+        "videoUrlPlaceholder": "https://youtube.com/...",
+        "addVideo": "إضافة فيديو",
+        "remove": "حذف",
+        "submit": "حفظ المعاينة"
+      },
+      "errors": {
+        "titleRequired": "عنوان الدورة مطلوب.",
+        "descriptionRequired": "وصف الدورة مطلوب.",
+        "priceRequired": "السعر مطلوب.",
+        "priceInvalid": "السعر يجب أن يكون رقم إيجابي.",
+        "levelRequired": "مستوى الدورة مطلوب.",
+        "outcomeRequired": "وصف المخرج التعليمي لا يمكن أن يكون فارغاً.",
+        "prerequisiteRequired": "وصف المتطلب لا يمكن أن يكون فارغاً.",
+        "countryRequired": "يرجى اختيار دولة.",
+        "currencyRequired": "العملة مطلوبة.",
+        "atLeastOnePriceRequired": "يجب إضافة سعر مخصص واحد على الأقل.",
+        "videoTitleRequired": "عنوان الفيديو مطلوب.",
+        "videoUrlRequired": "رابط الفيديو مطلوب.",
+        "invalidVideoUrl": "الرجاء إدخال رابط صحيح."
+      }
     }
   }
 }

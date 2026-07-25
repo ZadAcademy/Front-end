@@ -4,25 +4,19 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
-import type { CourseDetailsApiResponse } from '../lib/api/course-details-api';
+import { CourseDetailsApiResponse } from '../lib/types/course-details-api';
 
 interface CourseSidebarProps {
   course: CourseDetailsApiResponse;
 }
 
-/* ─── Dummy free preview videos ─── */
-const PREVIEW_VIDEOS = [
-  { id: 1, title: 'مقدمة في الكورس وماذا ستتعلم', duration: '4:30', active: true },
-  { id: 2, title: 'كيفية تثبيت البيئة المطلوبة', duration: '8:15', active: false },
-  { id: 3, title: 'أول مشروع تطبيقي عملي', duration: '12:00', active: false },
-  { id: 4, title: 'شرح الأدوات الأساسية', duration: '6:45', active: false },
-  { id: 5, title: 'نظرة عامة على محتوى الكورس', duration: '3:20', active: false },
-];
-
 export default function CourseSidebar({ course }: CourseSidebarProps) {
   const t = useTranslations('CourseDetails.sidebar');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const [activeVideoId, setActiveVideoId] = useState(1);
+  const previewVideos = course.previewVideos || [];
+  const [activeVideoId, setActiveVideoId] = useState<string | null>(
+    previewVideos.length > 0 ? previewVideos[0].id : null
+  );
 
   return (
     <>
@@ -35,7 +29,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
             onClick={() => setIsVideoModalOpen(true)}
           >
             <Image
-              src="/images/courses/course-cover.jpg"
+              src={course.imageUrl}
               alt={course.title}
               fill
               className="object-cover"
@@ -63,13 +57,13 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                 <div className="w-12 h-12 rounded-full overflow-hidden bg-blueLight relative shrink-0">
                   <Image
                     src="/images/courses/course-cover.jpg"
-                    alt={course.lecturer}
+                    alt={course.instructorName}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-cairo-bold-lg text-blueNormal">{course.lecturer}</span>
+                  <span className="font-cairo-bold-lg text-blueNormal">{course.instructorName}</span>
                 </div>
               </div>
             </div>
@@ -92,7 +86,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                     <Calendar className="size-6 text-blueNormal" />
                     <span>{t('lastUpdated')}</span>
                   </div>
-                  <span className="font-cairo-bold-sm text-blueNormal">{course.lastUpdated}</span>
+                  <span className="font-cairo-bold-sm text-blueNormal">{course.updatedAt}</span>
                 </li>
 
                 <li className="flex items-center justify-between pb-3 border-b border-black/5">
@@ -101,7 +95,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                     <span>{t('certificate')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">
-                    {course.certificate ? t('certificateYes') : ''}
+                    {/* {course.certificate ? t('certificateYes') : ''} */}
                   </span>
                 </li>
 
@@ -118,7 +112,10 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                     <Users className="size-6 text-blueNormal" />
                     <span>{t('students')}</span>
                   </div>
-                  <span className="font-cairo-bold-sm text-blueNormal">{course.studentsCount}</span>
+                  <span className="font-cairo-bold-sm text-blueNormal">
+                    {/* {course.studentsCount} */}
+                    00
+                    </span>
                 </li>
               </ul>
             </div>
@@ -174,11 +171,8 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
               {/* Current video info */}
               <div className="p-4 bg-[#1a1a2e]">
                 <h4 className="font-cairo-bold-md text-white">
-                  {PREVIEW_VIDEOS.find(v => v.id === activeVideoId)?.title}
+                  {previewVideos.find(v => v.id === activeVideoId)?.title}
                 </h4>
-                <span className="font-cairo-medium-sm text-white/50 mt-1">
-                  {PREVIEW_VIDEOS.find(v => v.id === activeVideoId)?.duration}
-                </span>
               </div>
             </div>
 
@@ -186,11 +180,11 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
             <div className="w-full md:w-1/3 bg-[#16162a] border-t md:border-t-0 md:border-s border-white/10 flex flex-col max-h-[300px] md:max-h-none">
               <div className="p-4 border-b border-white/10">
                 <h4 className="font-cairo-bold-sm text-white">الفيديوهات المجانية</h4>
-                <span className="font-cairo-medium-xs text-white/40">{PREVIEW_VIDEOS.length} فيديوهات</span>
+                <span className="font-cairo-medium-xs text-white/40">{previewVideos.length} فيديوهات</span>
               </div>
               <div className="overflow-y-auto flex-1">
                 <ul className="flex flex-col">
-                  {PREVIEW_VIDEOS.map((video) => (
+                  {previewVideos.map((video) => (
                     <li
                       key={video.id}
                       onClick={() => setActiveVideoId(video.id)}
@@ -217,7 +211,6 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                         }`}>
                           {video.title}
                         </span>
-                        <span className="font-cairo-medium-xs text-white/40 mt-1">{video.duration}</span>
                       </div>
                     </li>
                   ))}

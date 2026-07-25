@@ -13,7 +13,7 @@
   },
   "LandingPage": {
     "navbar": {
-      "home":"Home",
+      "home":"All courses",
       "courses": "Our Courses",
       "experts": "Our Experts",
       "testimonials": "Testimonials",
@@ -233,7 +233,8 @@
       "profile": "Profile",
       "dashboard": "Dashboard",
       "logout": "Logout",
-      "language": "Language"
+      "language": "Language",
+      "home": "Home"
     },
     "filter": {
       "customSearch": "Click for Custom Search",
@@ -249,13 +250,22 @@
       "reset": "Reset",
       "allLevels": "All",
       "allPrices": "All",
-      "allRatings": "All"
+      "allRatings": "All",
+      "searchCourses": "Search Courses"
     },
     "pagination": {
       "previous": "Previous",
       "next": "Next"
     },
-    "title": "All Courses"
+    "title": "All Courses",
+    "noCoursesFound": "No courses found",
+    "error": "Something went wrong. Try again",
+    "loading": "Loading..."
+  },
+  "CourseCard": {
+    "subscribeNow": "Subscribe Now",
+        "freeCourse":"Free Course "
+
   },
   "CourseDetails": {
     "header": {
@@ -280,6 +290,100 @@
       "sections": "sections",
       "lectures": "lectures",
       "hours": "hours"
+    }
+  },
+  "Dashboard": {
+    "navbar": {
+      "title": "Dashboard",
+      "backToSite": "Back to Site"
+    },
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "courses": "Courses",
+      "listCourses": "All Courses",
+      "addCourse": "Add Course"
+    },
+    "pages": {
+      "dashboard": "Dashboard",
+      "listCourses": "All Courses",
+      "addCourse": "Add New Course"
+    },
+    "addCourse": {
+      "basicInfo": {
+        "title": "Basic Information",
+        "description": "Provide the main details of the course.",
+        "courseTitle": "Course Title",
+        "courseTitlePlaceholder": "e.g. Introduction to Next.js",
+        "courseDescription": "Course Description",
+        "courseDescriptionPlaceholder": "Detailed description about what the course covers...",
+        "shortDescription": "Short Description",
+        "shortDescriptionPlaceholder": "A brief summary for the course card...",
+        "price": "Price (USD)",
+        "pricePlaceholder": "e.g. 49.99",
+        "discountPrice": "Discount Price (Optional)",
+        "discountPricePlaceholder": "e.g. 29.99",
+        "instructorName": "Instructor Name",
+        "instructorNamePlaceholder": "e.g. John Doe",
+        "level": "Course Level",
+        "levelPlaceholder": "Select level",
+        "levels": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced"
+        },
+        "learningOutcomes": {
+          "title": "Learning Outcomes",
+          "description": "What will students learn in this course? You can drag and drop to reorder.",
+          "addOutcome": "Add Outcome",
+          "placeholder": "e.g. Build a full-stack application",
+          "remove": "Remove"
+        },
+        "prerequisites": {
+          "title": "Prerequisites",
+          "description": "What should students know before starting? You can drag and drop to reorder.",
+          "addPrerequisite": "Add Prerequisite",
+          "placeholder": "e.g. Basic knowledge of HTML and CSS",
+          "remove": "Remove"
+        },
+        "submit": "Save & Continue"
+      },
+      "localizedPrices": {
+        "title": "Localized Prices",
+        "description": "Set specific pricing for different countries.",
+        "country": "Country",
+        "countryPlaceholder": "Select a country",
+        "price": "Price",
+        "pricePlaceholder": "0.00",
+        "discountPrice": "Discount Price",
+        "discountPricePlaceholder": "Optional discount",
+        "addPrice": "Add Price",
+        "remove": "Remove",
+        "submit": "Save Prices"
+      },
+      "coursePreview": {
+        "title": "Course Preview",
+        "description": "Add promotional videos or free preview lessons. You can drag and drop to reorder.",
+        "videoTitlePlaceholder": "e.g. Course Introduction",
+        "videoUrlPlaceholder": "https://youtube.com/...",
+        "addVideo": "Add Video",
+        "remove": "Remove",
+        "submit": "Save Preview"
+      },
+      "errors": {
+        "titleRequired": "Course title is required.",
+        "descriptionRequired": "Course description is required.",
+        "priceRequired": "Price is required.",
+        "priceInvalid": "Price must be a positive number.",
+        "levelRequired": "Course level is required.",
+        "outcomeRequired": "Outcome description cannot be empty.",
+        "prerequisiteRequired": "Prerequisite description cannot be empty.",
+        "countryRequired": "Please select a country.",
+        "currencyRequired": "Currency is required.",
+        "atLeastOnePriceRequired": "You must add at least one localized price.",
+        "videoTitleRequired": "Video title is required.",
+        "videoUrlRequired": "Video URL is required.",
+        "invalidVideoUrl": "Please enter a valid URL."
+      }
     }
   }
 }

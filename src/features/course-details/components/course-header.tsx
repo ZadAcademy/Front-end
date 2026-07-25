@@ -4,14 +4,14 @@ import Link from 'next/link';
 
 interface CourseHeaderProps {
   title: string;
-  description: string;
+  shortDescription: string;
   level: string;
   isRTL: boolean;
+  imageUrl: string;
 }
 
-export default function CourseHeader({ title, description, level, isRTL }: CourseHeaderProps) {
+export default function CourseHeader({ title, shortDescription, level, isRTL, imageUrl }: CourseHeaderProps) {
   const t = useTranslations('CourseDetails.header');
-
   const BackIcon = isRTL ? ArrowRight : ArrowLeft;
 
   return (
@@ -19,7 +19,7 @@ export default function CourseHeader({ title, description, level, isRTL }: Cours
       {/* Background Image (Using placeholder for now) */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/courses/course-cover.jpg')" }}
+        style={{ backgroundImage: `url(${imageUrl})` }}
       />
       
       {/* Dark overlay for readability */}
@@ -51,7 +51,7 @@ export default function CourseHeader({ title, description, level, isRTL }: Cours
 
           {/* Description — full text, no clamp */}
           <p className="font-cairo-medium-base sm:font-cairo-medium-lg text-white/90 leading-relaxed ">
-            {description}
+            {shortDescription}
           </p>
         </div>
       </div>

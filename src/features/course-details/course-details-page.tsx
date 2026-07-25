@@ -5,7 +5,7 @@ import { useCourseDetails } from './hooks/use-course-details';
 import CourseHeader from './components/course-header';
 import CourseSidebar from './components/course-sidebar';
 import CourseObjectives from './components/course-objectives';
-import CourseSyllabus from './components/course-syllabus';
+// import CourseSyllabus from './components/course-syllabus';
 import CourseRequirements from './components/course-requirements';
 import { Loader2 } from 'lucide-react';
 
@@ -17,6 +17,7 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
   const locale = useLocale();
   const isRTL = locale === 'ar';
   const t = useTranslations('CourseDetails.sidebar');
+
 
   const { data: course, isLoading, isError } = useCourseDetails(courseId);
 
@@ -42,9 +43,10 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
       {/* ─── Hero Section ─── */}
       <CourseHeader
         title={course.title}
-        description={course.description}
-        level={course.category}
+        shortDescription={course.shortDescription}
+        level={course.level}
         isRTL={isRTL}
+        imageUrl={course.imageUrl}
       />
 
       {/* ─── Main Content Layout ─── */}
@@ -54,14 +56,14 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 relative items-start">
 
           {/* Main Content (What you'll learn, Syllabus, Requirements) */}
-          <div className="flex-1 flex flex-col gap-12 order-2 lg:order-none min-w-0">
+          <div className="flex-1 flex flex-col gap-12 order-2 lg:order-0 min-w-0">
             <CourseObjectives course={course} />
-            <CourseSyllabus course={course} />
+            {/* <CourseSyllabus course={course} /> */}
             <CourseRequirements course={course} />
           </div>
 
           {/* Sidebar — sticky on desktop, normal flow on mobile */}
-          <div className="order-1 lg:order-none w-full lg:w-auto">
+          <div className="order-1 lg:order-0 w-full lg:w-auto">
             <CourseSidebar course={course} />
           </div>
 
