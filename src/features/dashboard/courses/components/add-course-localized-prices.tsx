@@ -179,7 +179,7 @@ export function AddCourseLocalizedPrices() {
 
         <Button
           type="button"
-          variant="outline"
+          variant="primary"
           className="mt-4 gap-2 font-cairo-semibold-sm cursor-pointer"
           onClick={() => appendPrice({ id: uuidv4(), countryCode: '', currencyCode: '', price: 0, discountPrice: null })}
         >
@@ -188,7 +188,7 @@ export function AddCourseLocalizedPrices() {
         </Button>
 
         <div className="pt-6 flex justify-end border-t border-black/5">
-          <Button type="submit" size="lg" className="font-cairo-bold-base px-8 h-12 cursor-pointer">
+          <Button variant="dark" type="submit" size="lg" className="font-cairo-bold-base px-8 h-12 cursor-pointer">
             {t('submit')}
           </Button>
         </div>

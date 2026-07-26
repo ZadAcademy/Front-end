@@ -302,7 +302,7 @@ export function AddCourseBasicInfo() {
 
             <Button
               type="button"
-              variant="outline"
+              variant="primary"
               className="mt-4 gap-2 font-cairo-semibold-sm cursor-pointer"
               onClick={() => appendOutcome({ id: uuidv4(), description: '', sortOrder: outcomeFields.length + 1 })}
             >
@@ -346,7 +346,7 @@ export function AddCourseBasicInfo() {
 
             <Button
               type="button"
-              variant="outline"
+              variant="primary"
               className="mt-4 gap-2 font-cairo-semibold-sm cursor-pointer"
               onClick={() => appendPrereq({ id: uuidv4(), description: '', sortOrder: prereqFields.length + 1 })}
             >
@@ -357,7 +357,7 @@ export function AddCourseBasicInfo() {
         </div>
 
         <div className="pt-6 flex justify-end border-t border-black/5">
-          <Button type="submit" size="lg" className="font-cairo-bold-base px-8 h-12 cursor-pointer">
+          <Button variant="dark" type="submit" size="lg" className="font-cairo-bold-base px-8 h-12 cursor-pointer">
             {t('submit')}
           </Button>
         </div>
