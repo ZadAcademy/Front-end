@@ -5,7 +5,7 @@ export const courseBasicInfoSchema = z.object({
   description: z.string().min(1, 'descriptionRequired'),
   shortDescription: z.string().nullable().optional(),
   price: z.coerce.number().min(0, 'priceInvalid'),
-  discountPrice: z.coerce.number().nullable().optional(),
+  discountPrice: z.coerce.number().min(0, 'discountPriceInvalid').nullable().optional(),
   instructorName: z.string().nullable().optional(),
   level: z.coerce.number().min(0, 'levelRequired').max(2, 'levelRequired'),
   learningOutcomes: z.array(
@@ -22,6 +22,17 @@ export const courseBasicInfoSchema = z.object({
       sortOrder: z.number(),
     })
   ).default([]),
-});
+}).refine(
+  (data) => {
+    if (data.discountPrice != null && data.price != null && data.discountPrice >= data.price) {
+      return false;
+    }
+    return true;
+  },
+  {
+    message: 'discountPriceMustBeLessThanPrice',
+    path: ['discountPrice'],
+  }
+);
 
 export type CourseBasicInfoFormData = z.infer<typeof courseBasicInfoSchema>;

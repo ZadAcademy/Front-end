@@ -140,7 +140,7 @@ export function AddCourseLocalizedPrices() {
                           {...field}
                           type="number"
                           min="0"
-                          step="0.01"
+                          step="1"
                           placeholder={t('pricePlaceholder')}
                           className={inputClasses(!!priceError)}
                         />
@@ -162,7 +162,7 @@ export function AddCourseLocalizedPrices() {
                           {...field}
                           type="number"
                           min="0"
-                          step="0.01"
+                          step="1"
                           value={field.value ?? ''}
                           placeholder={t('discountPricePlaceholder')}
                           className={inputClasses(!!discountError)}
