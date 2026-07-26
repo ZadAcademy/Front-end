@@ -374,6 +374,8 @@
         "descriptionRequired": "Course description is required.",
         "priceRequired": "Price is required.",
         "priceInvalid": "Price must be a positive number.",
+        "discountPriceInvalid": "Discount price must be a positive number.",
+        "discountPriceMustBeLessThanPrice": "Discount price must be less than the original price.",
         "levelRequired": "Course level is required.",
         "outcomeRequired": "Outcome description cannot be empty.",
         "prerequisiteRequired": "Prerequisite description cannot be empty.",
