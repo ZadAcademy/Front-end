@@ -83,7 +83,8 @@ export default function CoursesGrid({courseData ,isLoading,isError, onTotalPages
           numberOfStudents={course.numberOfStudents}
           rating={course.rating}
           courseHours={course.courseHours}
-          price={course.price}
+          price={course.resolvedPrice?.price ?? course.price ?? undefined}
+          currencyCode={course.resolvedPrice?.currencyCode}
         />
       ))}
     </div>

@@ -30,20 +30,19 @@ export interface localizedPrices{
   discountPrice?:number
 }
 export interface CourseDetailsApiResponse {
-  id: number;
+  id: string;
   title: string;
   instructorName: string;
   shortDescription:string;
   imageUrl:string;
-  price:string;
-  discountPrice?:string;
+  resolvedPrice?: { price: number; discountPrice?: number | null; currencyCode: string; } | null;
   level:string;
   rating: number;
   description: string;
   totalReviews:number;
   createdAt: string;
   updatedAt: string;
-  status:number;
+  status:string;
 
   prerequisites: prerequisitesAndLearningOutcomes[];
   learningOutcomes: prerequisitesAndLearningOutcomes[];

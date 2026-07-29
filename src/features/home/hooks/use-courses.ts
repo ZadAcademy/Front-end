@@ -50,7 +50,6 @@ export function useCourses(pageSize = 6) {
     placeholderData: keepPreviousData,
     staleTime: 30 * 1000,
   });
-  console.log(courseData)
 
   /* ─── Filter handlers (each resets page to 1) ─── */
   const handleLevelChange = useCallback((value: LevelFilter) => {

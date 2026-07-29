@@ -251,7 +251,8 @@
       "allLevels": "All",
       "allPrices": "All",
       "allRatings": "All",
-      "searchCourses": "Search Courses"
+      "searchCourses": "Search Courses",
+      "noCoursesFound":"No Courses Found"
     },
     "pagination": {
       "previous": "Previous",
@@ -309,6 +310,14 @@
       "addCourse": "Add New Course"
     },
     "addCourse": {
+      "createNewCourse": "Create New Course",
+      "image": {
+        "title": "Course Image",
+        "description": "Upload a cover image for your course.",
+        "label": "Image File",
+        "uploadPlaceholder": "Click or drag to upload",
+        "submit": "Save and Continue"
+      },
       "basicInfo": {
         "title": "Basic Information",
         "description": "Provide the main details of the course.",
@@ -326,6 +335,7 @@
         "instructorNamePlaceholder": "e.g. John Doe",
         "level": "Course Level",
         "levelPlaceholder": "Select level",
+        "canPreview": "Can Preview",
         "levels": {
           "beginner": "Beginner",
           "intermediate": "Intermediate",
@@ -345,7 +355,8 @@
           "placeholder": "e.g. Basic knowledge of HTML and CSS",
           "remove": "Remove"
         },
-        "submit": "Save & Continue"
+        "submit": "Save & Continue",
+        "update": "Update Course"
       },
       "localizedPrices": {
         "title": "Localized Prices",
@@ -367,11 +378,15 @@
         "videoUrlPlaceholder": "https://youtube.com/...",
         "addVideo": "Add Video",
         "remove": "Remove",
+        "loading": "Loading...",
         "submit": "Save Preview"
       },
       "errors": {
+        "basicInfoRequiredWarning": "Please complete and submit the Basic Information first.",
         "titleRequired": "Course title is required.",
         "descriptionRequired": "Course description is required.",
+        "imageRequired": "Course image is required.",
+        "imageInvalidUrl": "Invalid image URL.",
         "priceRequired": "Price is required.",
         "priceInvalid": "Price must be a positive number.",
         "discountPriceInvalid": "Discount price must be a positive number.",
@@ -385,6 +400,17 @@
         "videoTitleRequired": "Video title is required.",
         "videoUrlRequired": "Video URL is required.",
         "invalidVideoUrl": "Please enter a valid URL."
+      },
+      "toasts": {
+        "previewVideoDeleted": "Preview video deleted successfully",
+        "previewVideoDeleteFailed": "Failed to delete video",
+        "previewVideosUpdated": "Preview videos updated successfully",
+        "previewVideosUpdateFailed": "Failed to update preview videos",
+        "localizedPriceDeleted": "Localized price deleted successfully",
+        "localizedPriceDeleteFailed": "Failed to delete price",
+        "localizedPricesUpdated": "Localized prices updated successfully",
+        "localizedPricesUpdateFailed": "Failed to update localized prices",
+        "missingCourseId": "No courseId found in URL parameters."
       }
     }
   }

@@ -11,6 +11,11 @@ export interface CourseApiItem {
   numberOfStudents:number;
   level:string;
   rating:number;
+  resolvedPrice?: {
+    price: number;
+    discountPrice: number | null;
+    currencyCode: string;
+  };
   localizedPrices: Array<{
     id:number,
     countryCode:string,

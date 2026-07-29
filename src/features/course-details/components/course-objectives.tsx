@@ -1,9 +1,9 @@
 import { useTranslations } from 'next-intl';
 import { CheckCircle2 } from 'lucide-react';
-import { CourseDetailsApiResponse } from '../lib/types/course-details-api';
+import { CourseDetails } from '@/features/dashboard/courses/api/get-course-by-id-api';
 
 interface CourseObjectivesProps {
-  course: CourseDetailsApiResponse;
+  course: CourseDetails;
 }
 
 export default function CourseObjectives({ course }: CourseObjectivesProps) {

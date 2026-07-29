@@ -17,6 +17,7 @@ interface SortableVideoItemProps {
   titlePlaceholder: string;
   urlPlaceholder: string;
   removeText: string;
+  disabled?: boolean;
 }
 
 export function SortableVideoItem({
@@ -30,6 +31,7 @@ export function SortableVideoItem({
   titlePlaceholder,
   urlPlaceholder,
   removeText,
+  disabled,
 }: SortableVideoItemProps) {
   const tErrors = useTranslations('Dashboard.addCourse.errors');
 
@@ -82,6 +84,7 @@ export function SortableVideoItem({
             placeholder={titlePlaceholder}
             aria-invalid={!!titleError}
             className={inputClasses(!!titleError)}
+            disabled={disabled}
           />
           {titleError && (
             <FieldError className="mt-1">
@@ -98,6 +101,7 @@ export function SortableVideoItem({
             placeholder={urlPlaceholder}
             aria-invalid={!!urlError}
             className={inputClasses(!!urlError)}
+            disabled={disabled}
           />
           {urlError && (
             <FieldError className="mt-1">
@@ -113,6 +117,7 @@ export function SortableVideoItem({
         onClick={onRemove}
         className="mt-3.5 p-2 text-red-400 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors"
         aria-label={removeText}
+        disabled={disabled}
       >
         <Trash2 className="size-5" />
       </button>
