@@ -18,7 +18,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { v4 as uuidv4 } from 'uuid';
-import { Plus } from 'lucide-react';
+import { Plus, Loader2 } from 'lucide-react';
 
 import { Button } from '@/shared/ui/button';
 import { Field, FieldLabel, FieldError } from '@/shared/ui/field';
@@ -36,7 +36,7 @@ import { SortableListItem } from './sortable-list-item';
 export function AddCourseBasicInfo() {
   const t = useTranslations('Dashboard.addCourse.basicInfo');
   const tErrors = useTranslations('Dashboard.addCourse.errors');
-  
+
   const {
     form,
     outcomeFields,
@@ -48,8 +48,10 @@ export function AddCourseBasicInfo() {
     removePrereq,
     movePrereq,
     onSubmit,
+    isPending,
+    courseId,
   } = useCourseBasicInfoForm();
-  
+
   const { errors } = form.formState;
 
   // Dnd-kit sensors setup
@@ -242,9 +244,8 @@ export function AddCourseBasicInfo() {
                   onValueChange={(val) => field.onChange(Number(val))}
                 >
                   <SelectTrigger
-                    className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none ${
-                      fieldState.error ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
-                    }`}
+                    className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none ${fieldState.error ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
+                      }`}
                   >
                     <SelectValue placeholder={t('levelPlaceholder')}>
                       {field.value === 0 && t('levels.beginner')}
@@ -259,6 +260,30 @@ export function AddCourseBasicInfo() {
                   </SelectContent>
                 </Select>
                 {fieldState.error && <FieldError>{tErrors(fieldState.error.message || 'generic')}</FieldError>}
+              </Field>
+            )}
+          />
+          
+          {/* Can Preview */}
+          <Controller
+            name="canPreview"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={!!fieldState.error} className="flex flex-row items-center justify-between p-4 border rounded-lg h-12 bg-white">
+                <FieldLabel className="font-cairo-semibold-base text-greyDarker mb-0 cursor-pointer" htmlFor="canPreviewToggle">
+                  {t('canPreview')}
+                </FieldLabel>
+                <label htmlFor="canPreviewToggle" className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    id="canPreviewToggle"
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orangeNormal"></div>
+                </label>
+                {fieldState.error && <FieldError className="absolute -bottom-6">{tErrors(fieldState.error.message || 'generic')}</FieldError>}
               </Field>
             )}
           />
@@ -357,8 +382,8 @@ export function AddCourseBasicInfo() {
         </div>
 
         <div className="pt-6 flex justify-end border-t border-black/5">
-          <Button variant="dark" type="submit" size="lg" className="font-cairo-bold-base px-8 h-12 cursor-pointer">
-            {t('submit')}
+          <Button variant="dark" type="submit" size="lg" disabled={isPending} className="font-cairo-bold-base px-8 h-12 cursor-pointer">
+            {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : courseId ? t('update', { defaultValue: 'Update' }) : t('submit')}
           </Button>
         </div>
       </form>

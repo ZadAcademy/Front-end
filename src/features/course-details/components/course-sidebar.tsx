@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
-import { CourseDetailsApiResponse } from '../lib/types/course-details-api';
+import { CourseDetails } from '@/features/dashboard/courses/api/get-course-by-id-api';
 
 interface CourseSidebarProps {
-  course: CourseDetailsApiResponse;
+  course: CourseDetails;
 }
 
 export default function CourseSidebar({ course }: CourseSidebarProps) {
@@ -29,7 +29,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
             onClick={() => setIsVideoModalOpen(true)}
           >
             <Image
-              src={course.imageUrl}
+              src={course.imageUrl || '/images/courses/course-cover.jpg'}
               alt={course.title}
               fill
               className="object-cover"
@@ -57,7 +57,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                 <div className="w-12 h-12 rounded-full overflow-hidden bg-blueLight relative shrink-0">
                   <Image
                     src="/images/courses/course-cover.jpg"
-                    alt={course.instructorName}
+                    alt={"cover"}
                     fill
                     className="object-cover"
                   />
@@ -121,9 +121,25 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
             </div>
 
             {/* ─── Subscribe CTA (desktop only — mobile has sticky bar) ─── */}
-            <button className="hidden lg:block w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 cursor-pointer">
-              {t('subscribeNow')}
-            </button>
+            <div className="hidden lg:flex flex-col gap-4 mt-2">
+              {course.resolvedPrice ? (
+                <div className="flex items-center gap-3">
+                  {course.resolvedPrice.discountPrice ? (
+                    <>
+                      <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.discountPrice} {course.resolvedPrice.currencyCode}</span>
+                      <span className="font-cairo-medium-lg text-greyNormal line-through">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                    </>
+                  ) : (
+                    <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                  )}
+                </div>
+              ) : (
+                <span className="font-cairo-bold-2xl text-greyDark">مجاناً</span>
+              )}
+              <button className="w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 cursor-pointer">
+                {t('subscribeNow')}
+              </button>
+            </div>
 
           </div>
         </div>

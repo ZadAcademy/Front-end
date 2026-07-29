@@ -253,7 +253,8 @@
       "allLevels": "الكل",
       "allPrices": "الكل",
       "allRatings": "الكل",
-      "searchCourses": "بحث عن دورة"
+      "searchCourses": "بحث عن دورة",
+      "noCoursesFound": "لا يوجد دورات"
     },
     "pagination": {
       "previous": "السابق",
@@ -311,6 +312,14 @@
       "addCourse": "إضافة دورة جديدة"
     },
     "addCourse": {
+      "createNewCourse": "إنشاء دورة جديدة",
+      "image": {
+        "title": "صورة الدورة",
+        "description": "قم برفع صورة الغلاف للدورة.",
+        "label": "ملف الصورة",
+        "uploadPlaceholder": "اضغط أو اسحب الملف للرفع",
+        "submit": "حفظ ومتابعة"
+      },
       "basicInfo": {
         "title": "المعلومات الأساسية",
         "description": "أدخل التفاصيل الرئيسية للدورة.",
@@ -328,6 +337,7 @@
         "instructorNamePlaceholder": "مثال: أحمد محمد",
         "level": "مستوى الدورة",
         "levelPlaceholder": "اختر المستوى",
+        "canPreview": "يمكن معاينته",
         "levels": {
           "beginner": "مبتدئ",
           "intermediate": "متوسط",
@@ -347,7 +357,8 @@
           "placeholder": "مثال: معرفة أساسية بـ HTML و CSS",
           "remove": "حذف"
         },
-        "submit": "حفظ ومتابعة"
+        "submit": "حفظ ومتابعة",
+        "update": "تحديث الدورة"
       },
       "localizedPrices": {
         "title": "الأسعار المخصصة",
@@ -369,11 +380,17 @@
         "videoUrlPlaceholder": "https://youtube.com/...",
         "addVideo": "إضافة فيديو",
         "remove": "حذف",
+        "loading": "جاري التحميل...",
         "submit": "حفظ المعاينة"
       },
       "errors": {
+        "basicInfoRequiredWarning": "يرجى إكمال وإرسال المعلومات الأساسية أولاً.",
+        "outcomeRequired": "مخرجات التعلم مطلوبة.",
+        "prerequisiteRequired": "المتطلب السابق مطلوب.",
         "titleRequired": "عنوان الدورة مطلوب.",
         "descriptionRequired": "وصف الدورة مطلوب.",
+        "imageRequired": "صورة الدورة مطلوبة.",
+        "imageInvalidUrl": "رابط الصورة غير صالح.",
         "priceRequired": "السعر مطلوب.",
         "priceInvalid": "السعر يجب أن يكون رقم إيجابي.",
         "discountPriceInvalid": "سعر الخصم يجب أن يكون رقم إيجابي.",
@@ -387,6 +404,17 @@
         "videoTitleRequired": "عنوان الفيديو مطلوب.",
         "videoUrlRequired": "رابط الفيديو مطلوب.",
         "invalidVideoUrl": "الرجاء إدخال رابط صحيح."
+      },
+      "toasts": {
+        "previewVideoDeleted": "تم حذف الفيديو التعريفي بنجاح",
+        "previewVideoDeleteFailed": "فشل في حذف الفيديو",
+        "previewVideosUpdated": "تم تحديث الفيديوهات التعريفية بنجاح",
+        "previewVideosUpdateFailed": "فشل في تحديث الفيديوهات التعريفية",
+        "localizedPriceDeleted": "تم حذف السعر المخصص بنجاح",
+        "localizedPriceDeleteFailed": "فشل في حذف السعر",
+        "localizedPricesUpdated": "تم تحديث الأسعار المخصصة بنجاح",
+        "localizedPricesUpdateFailed": "فشل في تحديث الأسعار المخصصة",
+        "missingCourseId": "لم يتم العثور على معرف الدورة في مسار الرابط."
       }
     }
   }

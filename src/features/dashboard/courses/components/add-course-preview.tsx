@@ -25,7 +25,8 @@ import { SortableVideoItem } from './sortable-video-item';
 
 export function AddCoursePreview() {
   const t = useTranslations('Dashboard.addCourse.coursePreview');
-  
+  const tErrors = useTranslations('Dashboard.addCourse.errors');
+
   const {
     form,
     videoFields,
@@ -33,6 +34,9 @@ export function AddCoursePreview() {
     removeVideo,
     moveVideo,
     onSubmit,
+    courseId,
+    isPending,
+    isDeleting,
   } = useCoursePreviewForm();
 
   // Dnd-kit sensors setup
@@ -67,7 +71,7 @@ export function AddCoursePreview() {
                 {videoFields.map((fieldItem, index) => {
                   const titleError = form.formState.errors?.videos?.[index]?.title?.message;
                   const urlError = form.formState.errors?.videos?.[index]?.videoUrl?.message;
-                  
+
                   return (
                     <SortableVideoItem
                       key={fieldItem.id}
@@ -81,6 +85,7 @@ export function AddCoursePreview() {
                       titlePlaceholder={t('videoTitlePlaceholder')}
                       urlPlaceholder={t('videoUrlPlaceholder')}
                       removeText={t('remove')}
+                      disabled={!courseId || isDeleting}
                     />
                   );
                 })}
@@ -93,17 +98,38 @@ export function AddCoursePreview() {
             variant="primary"
             className="mt-4 gap-2 font-cairo-semibold-sm cursor-pointer"
             onClick={() => appendVideo({ id: uuidv4(), title: '', videoUrl: '', sortOrder: videoFields.length + 1 })}
+            disabled={!courseId || isPending || isDeleting}
           >
-            <Plus className="size-4" />
-            {t('addVideo')}
+            {isPending ? (
+              <div className="flex items-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                {t('loading')}
+              </div>
+            ) : (
+              <>
+                <Plus className="size-4" />
+                {t('addVideo')}
+              </>
+            )}
           </Button>
         </div>
 
         <div className="pt-6 flex justify-end border-t border-black/5">
-          <Button variant="dark" type="submit" size="lg" className="font-cairo-bold-base px-8 h-12 cursor-pointer">
-            {t('submit')}
+          <Button
+            variant="dark"
+            type="submit"
+            size="lg"
+            className="font-cairo-bold-base px-8 h-12 cursor-pointer"
+            disabled={!courseId || isPending || isDeleting}
+          >
+            {isPending || isDeleting ? t('loading') : t('submit')}
           </Button>
         </div>
+        {!courseId && (
+          <p className="text-red-500 text-sm mt-2 text-end">
+            {tErrors('basicInfoRequiredWarning')}
+          </p>
+        )}
       </form>
     </div>
   );

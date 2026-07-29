@@ -6,6 +6,7 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Providers from "@/shared/providers/global/providers";
+import { Toaster } from "@/shared/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,6 +72,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             </main>
           </ThemeProvider>
         </Providers>
+        <Toaster />
       </body>
     </html>
   );

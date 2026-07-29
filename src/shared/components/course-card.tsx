@@ -15,18 +15,19 @@ export function CourseCard({
   rating,
   courseHours,
   price,
+  currencyCode,
   courseId
 }: CourseCardProps) {
-  const t=useTranslations('CourseCard')
+  const t = useTranslations('CourseCard')
 
   return (
-    <Link 
-      href={`/courses/${courseId}`} 
+    <Link
+      href={`/courses/${courseId}`}
       className="bg-white rounded-2xl shadow-sm border border-black/5 p-2.5 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer group"
     >
       {/* ─── Image Placeholder ─── */}
       <div className="w-full aspect-4/3 rounded-xl flex items-center justify-center overflow-hidden">
-        <Image 
+        <Image
           src="/images/courses/course-cover.jpg"
           alt="Courses Section"
           width={600}
@@ -74,7 +75,7 @@ export function CourseCard({
           <SquarePlay className="size-4" />
           <span className="font-cairo-medium-xs">{numberOfLessons}</span>
         </div>
-         <div className="flex items-center gap-1.5 border border-black/10 rounded-md px-2.5 py-1 text-black/70">
+        <div className="flex items-center gap-1.5 border border-black/10 rounded-md px-2.5 py-1 text-black/70">
           <Star className="size-4" />
           <span className="font-cairo-medium-xs">{rating}</span>
         </div>
@@ -82,8 +83,13 @@ export function CourseCard({
 
       {/* ─── Action Button ─── */}
       <div className="pt-4 mt-auto">
-        <div className="w-full bg-orangeNormal text-white font-cairo-bold-sm py-2 rounded-lg group-hover:bg-orangeNormalHover transition-colors flex items-center justify-center">
-          {price !== 0 ? t('subscribeNow') : t("freeCourse")}
+        <div className="w-full bg-orangeNormal text-white font-cairo-bold-sm py-2 rounded-lg group-hover:bg-orangeNormalHover transition-colors flex items-center justify-center gap-2">
+          {price === undefined || price === null 
+            ? t('subscribeNow') 
+            : price === 0 
+              ? t('freeCourse') 
+              : <span>{price} {currencyCode || ''}</span>
+          }
         </div>
       </div>
     </Link>

@@ -20,6 +20,7 @@ declare module "next-auth" {
 
   interface Session {
     user: IUserData;
+    error?: string;
   }
 }
 
@@ -29,5 +30,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     user: IUserData;
     token: string;
+    error?: string;
+    expiresAt?: number;
   }
 }

@@ -41,28 +41,52 @@ export const authOptions: NextAuthOptions = {
                     throw new Error(responseData.message);
                 }
                 const loginData = responseData.data;
+                const backendUser = loginData.user as any;
+                
+                const mappedUser = {
+                    id: backendUser.userId,
+                    firstName: backendUser.firstName,
+                    lastName: backendUser.lastName,
+                    email: backendUser.email,
+                    phone: backendUser.phoneNumber,
+                    role: backendUser.role,
+                };
+
                 return {
-                    id: loginData.user.id,
+                    id: mappedUser.id,
                     accessToken: loginData.accessToken,
                     refreshToken: loginData.refreshToken,
                     expiresIn: loginData.expiresIn,
-                    user: loginData.user,
+                    user: mappedUser,
                 };
             },
         }),
     ],
     callbacks: {
         jwt: ({ token, user }) => {
+            // Initial sign in
             if (user) {
                 token.user = user.user;
                 token.token = user.accessToken;
                 token.refreshToken = user.refreshToken;
-                token.expiresIn = user.expiresIn;
+                // user.expiresIn is presumably in seconds
+                token.expiresAt = Date.now() + (user.expiresIn * 1000);
             }
-            return token;
+
+            // Return previous token if the access token has not expired yet
+            if (token.expiresAt && Date.now() < (token.expiresAt as number)) {
+                return token;
+            }
+
+            // Access token has expired
+            return {
+                ...token,
+                error: "RefreshAccessTokenError",
+            };
         },
         session: ({ session, token }) => {
             session.user = token.user;
+            session.error = token.error;
             return session;
         },
     },

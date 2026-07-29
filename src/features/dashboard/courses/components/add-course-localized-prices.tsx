@@ -40,6 +40,9 @@ export function AddCourseLocalizedPrices() {
     appendPrice,
     removePrice,
     onSubmit,
+    courseId,
+    isPending,
+    isDeleting,
   } = useCourseLocalizedPricesForm();
 
   const inputClasses = (hasError: boolean) => `
@@ -78,6 +81,7 @@ export function AddCourseLocalizedPrices() {
                     onClick={() => removePrice(index)}
                     className="p-2 text-red-400 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors"
                     aria-label={t('remove')}
+                    disabled={!courseId || isDeleting}
                   >
                     <Trash2 className="size-5" />
                   </button>
@@ -102,6 +106,7 @@ export function AddCourseLocalizedPrices() {
                               form.setValue(`prices.${index}.currencyCode`, country.currency);
                             }
                           }}
+                          disabled={!courseId}
                         >
                           <SelectTrigger
                             className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none ${
@@ -143,6 +148,7 @@ export function AddCourseLocalizedPrices() {
                           step="1"
                           placeholder={t('pricePlaceholder')}
                           className={inputClasses(!!priceError)}
+                          disabled={!courseId}
                         />
                         {priceError && <FieldError>{tErrors(priceError.message || 'generic')}</FieldError>}
                       </Field>
@@ -166,6 +172,7 @@ export function AddCourseLocalizedPrices() {
                           value={field.value ?? ''}
                           placeholder={t('discountPricePlaceholder')}
                           className={inputClasses(!!discountError)}
+                          disabled={!courseId}
                         />
                         {discountError && <FieldError>{tErrors(discountError.message || 'generic')}</FieldError>}
                       </Field>
@@ -182,16 +189,37 @@ export function AddCourseLocalizedPrices() {
           variant="primary"
           className="mt-4 gap-2 font-cairo-semibold-sm cursor-pointer"
           onClick={() => appendPrice({ id: uuidv4(), countryCode: '', currencyCode: '', price: 0, discountPrice: null })}
+          disabled={!courseId || isPending || isDeleting}
         >
-          <Plus className="size-4" />
-          {t('addPrice')}
+          {isPending ? (
+            <div className="flex items-center gap-2">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              {t('loading')}
+            </div>
+          ) : (
+            <>
+              <Plus className="size-4" />
+              {t('addPrice')}
+            </>
+          )}
         </Button>
 
         <div className="pt-6 flex justify-end border-t border-black/5">
-          <Button variant="dark" type="submit" size="lg" className="font-cairo-bold-base px-8 h-12 cursor-pointer">
-            {t('submit')}
+          <Button 
+            variant="dark" 
+            type="submit" 
+            size="lg" 
+            className="font-cairo-bold-base px-8 h-12 cursor-pointer"
+            disabled={!courseId || isPending || isDeleting}
+          >
+            {isPending || isDeleting ? t('loading') : t('submit')}
           </Button>
         </div>
+        {!courseId && (
+          <p className="text-red-500 text-sm mt-2 text-end">
+            {tErrors('basicInfoRequiredWarning')}
+          </p>
+        )}
       </form>
     </div>
   );

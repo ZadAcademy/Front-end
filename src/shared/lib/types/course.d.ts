@@ -8,5 +8,6 @@ export interface CourseCardProps {
   numberOfStudents: number;
   rating: number;
   courseHours: number;
-  price?:number;
+  price?: number;
+  currencyCode?: string;
 }

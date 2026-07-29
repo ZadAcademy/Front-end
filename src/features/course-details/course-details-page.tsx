@@ -43,10 +43,10 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
       {/* ─── Hero Section ─── */}
       <CourseHeader
         title={course.title}
-        shortDescription={course.shortDescription}
+        shortDescription={course.shortDescription || ''}
         level={course.level}
         isRTL={isRTL}
-        imageUrl={course.imageUrl}
+        imageUrl={course.imageUrl || '/images/courses/course-cover.jpg'}
       />
 
       {/* ─── Main Content Layout ─── */}
@@ -73,7 +73,20 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
       {/* ─── Mobile Sticky Bottom CTA (like Udemy) ─── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black/10 px-4 py-3 z-50 flex items-center justify-between shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.1)]">
         <div className="flex flex-col">
-          <span className="font-cairo-bold-xl text-greyDark">مجاناً</span>
+          {course.resolvedPrice ? (
+            <div className="flex items-center gap-2">
+              {course.resolvedPrice.discountPrice ? (
+                <>
+                  <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.discountPrice} {course.resolvedPrice.currencyCode}</span>
+                  <span className="font-cairo-medium-sm text-greyNormal line-through">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                </>
+              ) : (
+                <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+              )}
+            </div>
+          ) : (
+            <span className="font-cairo-bold-xl text-greyDark">مجاناً</span>
+          )}
           <span className="font-cairo-medium-xs text-greyNormal">شاملة الشهادة</span>
         </div>
         <button className="px-8 py-3 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg shadow-lg shadow-blueNormal/20 cursor-pointer transition-colors">

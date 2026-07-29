@@ -7,6 +7,7 @@ export const courseBasicInfoSchema = z.object({
   price: z.coerce.number().min(0, 'priceInvalid'),
   discountPrice: z.coerce.number().min(0, 'discountPriceInvalid').nullable().optional(),
   instructorName: z.string().nullable().optional(),
+  canPreview: z.boolean().default(false),
   level: z.coerce.number().min(0, 'levelRequired').max(2, 'levelRequired'),
   learningOutcomes: z.array(
     z.object({
