@@ -10,7 +10,7 @@ export interface uploadCourseImageResponse {
 
 export const uploadCourseImage = async (courseId: string, formData: FormData) => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   const decodedToken = await decode({
     token,
     secret: process.env.NEXTAUTH_SECRET!,

@@ -6,7 +6,7 @@ import { CoursesApiResponse, CoursesQueryParams } from "../types/course-card-api
 
 export async function fetchCourses(params: CoursesQueryParams): Promise<CoursesApiResponse> {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   let decodedToken = null;
   if (token) {
     decodedToken = await decode({

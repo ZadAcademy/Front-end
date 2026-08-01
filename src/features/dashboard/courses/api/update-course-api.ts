@@ -11,7 +11,7 @@ export interface UpdateCourseResponse {
 
 export const updateCourse = async (courseId: string, data: CreateCoursePayload) => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   const decodedToken = await decode({
     token,
     secret: process.env.NEXTAUTH_SECRET!,

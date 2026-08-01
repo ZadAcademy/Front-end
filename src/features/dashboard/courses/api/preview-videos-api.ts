@@ -19,7 +19,7 @@ export interface CreatePreviewVideosPayload {
 
 export const updatePreviewVideos = async (courseId: string, data: CreatePreviewVideosPayload) => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   const decodedToken = await decode({
     token,
     secret: process.env.NEXTAUTH_SECRET!,
@@ -51,7 +51,7 @@ export const updatePreviewVideos = async (courseId: string, data: CreatePreviewV
 
 export const deletePreviewVideo = async (courseId: string, videoId: string) => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   const decodedToken = await decode({
     token,
     secret: process.env.NEXTAUTH_SECRET!,
