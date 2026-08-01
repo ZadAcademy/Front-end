@@ -23,7 +23,7 @@ export const uploadCourseImage = async (courseId: string, formData: FormData) =>
     headers: {
       ...(decodedToken?.token ? { 'Authorization': `Bearer ${decodedToken.token}` } : {})
     },
-    body: formData, 
+    body: formData,
   });
 
   if (!response.ok) {

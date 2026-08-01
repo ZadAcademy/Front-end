@@ -46,7 +46,7 @@ export const updateLocalizedPrices = async (courseId: string, data: CreateLocali
   if (!resultData.isSuccess) {
     throw new Error(resultData.message || 'Failed to update localized prices');
   }
-  
+
   return resultData.data;
 };
 
