@@ -20,7 +20,7 @@ export interface CreateLocalizedPricesPayload {
 
 export const updateLocalizedPrices = async (courseId: string, data: CreateLocalizedPricesPayload) => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   const decodedToken = await decode({
     token,
     secret: process.env.NEXTAUTH_SECRET!,
@@ -52,7 +52,7 @@ export const updateLocalizedPrices = async (courseId: string, data: CreateLocali
 
 export const deleteLocalizedPrice = async (courseId: string, priceId: string) => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   const decodedToken = await decode({
     token,
     secret: process.env.NEXTAUTH_SECRET!,

@@ -29,7 +29,7 @@ export interface CourseDetails {
 
 export const getCourseById = async (courseId: string): Promise<CourseDetails> => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("next-auth.session-token")?.value;
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
   let decodedToken = null;
   if (token) {
     decodedToken = await decode({
