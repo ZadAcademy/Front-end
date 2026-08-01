@@ -21,7 +21,6 @@ export default function HomePage() {
     currentPage,
     totalPages,
     handlePageChange,
-    handleTotalPagesChange,
     courseData,
     isLoading,
     isError,
@@ -55,7 +54,6 @@ export default function HomePage() {
             courseData={courseData}
             isLoading={isLoading}
             isError={isError}
-            onTotalPagesChange={handleTotalPagesChange}
           />
 
           {/* ─── Pagination ─── */}

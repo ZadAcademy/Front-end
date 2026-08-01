@@ -414,7 +414,42 @@
         "missingCourseId": "No courseId found in URL parameters.",
         "courseCreated": "Course created successfully",
         "courseUpdated": "Course updated successfully",
-        "courseUpdateFailed": "Failed to create or update course. Please try again."
+        "courseUpdateFailed": "Failed to create or update course. Please try again.",
+        "statusUpdated": "Course status updated successfully",
+        "statusUpdateFailed": "Failed to update course status",
+        "previewUpdated": "Course preview setting updated successfully",
+        "previewUpdateFailed": "Failed to update course preview setting",
+        "courseDeleted": "Course deleted successfully",
+        "courseDeleteFailed": "Failed to delete course"
+      }
+    },
+    "courseList": {
+      "table": {
+        "image": "Image",
+        "title": "Title",
+        "instructor": "Instructor",
+        "price": "Price",
+        "level": "Level",
+        "status": "Status",
+        "preview": "Preview",
+        "actions": "Actions"
+      },
+      "status": {
+        "pending": "Pending",
+        "published": "Published",
+        "draft": "Draft"
+      },
+      "actions": {
+        "update": "Edit Course",
+        "delete": "Delete Course",
+        "confirmDelete": "Are you sure you want to delete this course?",
+        "noCourses": "No courses found."
+      },
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "of": "of"
       }
     }
   }

@@ -9,10 +9,9 @@ interface CoursesGridProps {
   courseData?: CoursesApiResponse;
   isLoading?: boolean;
   isError?: boolean;
-  onTotalPagesChange: (totalPages: number) => void;
 }
 
-export default function CoursesGrid({courseData ,isLoading,isError, onTotalPagesChange }: CoursesGridProps) {
+export default function CoursesGrid({courseData ,isLoading,isError }: CoursesGridProps) {
   const t = useTranslations('HomePage.filter');
   const { status } = useSession();
   const isAuth = status === 'authenticated';
@@ -33,11 +32,6 @@ export default function CoursesGrid({courseData ,isLoading,isError, onTotalPages
         return level; // Fallback to raw string if unknown
     }
   };
-
-  /* ─── Notify parent of total pages when data arrives ─── */
-  if (courseData && courseData.totalPages) {
-    onTotalPagesChange(courseData.totalPages);
-  }
 
   /* ─── Loading state ─── */
   if (isLoading) {

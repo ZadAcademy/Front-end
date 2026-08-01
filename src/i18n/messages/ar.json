@@ -416,7 +416,42 @@
         "missingCourseId": "لم يتم العثور على معرف الدورة في مسار الرابط.",
         "courseCreated": "تمت الإضافة بنجاح",
         "courseUpdated": "تم التعديل بنجاح",
-        "courseUpdateFailed": "حدث خطأ، يرجى المحاولة مرة أخرى"
+        "courseUpdateFailed": "حدث خطأ، يرجى المحاولة مرة أخرى",
+        "statusUpdated": "تم تحديث حالة الدورة بنجاح",
+        "statusUpdateFailed": "فشل في تحديث حالة الدورة",
+        "previewUpdated": "تم تحديث إعداد المعاينة بنجاح",
+        "previewUpdateFailed": "فشل في تحديث إعداد المعاينة",
+        "courseDeleted": "تم حذف الدورة بنجاح",
+        "courseDeleteFailed": "فشل في حذف الدورة"
+      }
+    },
+    "courseList": {
+      "table": {
+        "image": "الصورة",
+        "title": "العنوان",
+        "instructor": "المدرب",
+        "price": "السعر",
+        "level": "المستوى",
+        "status": "الحالة",
+        "preview": "معاينة",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "pending": "قيد الانتظار",
+        "published": "منشور",
+        "draft": "مسودة"
+      },
+      "actions": {
+        "update": "تعديل الدورة",
+        "delete": "حذف الدورة",
+        "confirmDelete": "هل أنت متأكد من حذف هذه الدورة؟",
+        "noCourses": "لا يوجد دورات متاحة."
+      },
+      "pagination": {
+        "previous": "السابق",
+        "next": "التالي",
+        "page": "صفحة",
+        "of": "من"
       }
     }
   }
