@@ -8,6 +8,7 @@ import CourseObjectives from './components/course-objectives';
 // import CourseSyllabus from './components/course-syllabus';
 import CourseRequirements from './components/course-requirements';
 import { Loader2 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 interface CourseDetailsPageProps {
   courseId: string;
@@ -17,6 +18,8 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
   const locale = useLocale();
   const isRTL = locale === 'ar';
   const t = useTranslations('CourseDetails.sidebar');
+  const { status } = useSession();
+  const isAuth = status === 'authenticated';
 
 
   const { data: course, isLoading, isError } = useCourseDetails(courseId);
@@ -73,7 +76,7 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
       {/* ─── Mobile Sticky Bottom CTA (like Udemy) ─── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black/10 px-4 py-3 z-50 flex items-center justify-between shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.1)]">
         <div className="flex flex-col">
-          {course.resolvedPrice ? (
+          {isAuth && course.resolvedPrice ? (
             <div className="flex items-center gap-2">
               {course.resolvedPrice.discountPrice ? (
                 <>
@@ -84,9 +87,9 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
                 <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
               )}
             </div>
-          ) : (
+          ) : isAuth && !course.resolvedPrice ? (
             <span className="font-cairo-bold-xl text-greyDark">مجاناً</span>
-          )}
+          ) : null}
           <span className="font-cairo-medium-xs text-greyNormal">شاملة الشهادة</span>
         </div>
         <button className="px-8 py-3 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg shadow-lg shadow-blueNormal/20 cursor-pointer transition-colors">

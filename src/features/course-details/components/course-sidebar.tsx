@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { CourseDetails } from '@/features/dashboard/courses/api/get-course-by-id-api';
 
 interface CourseSidebarProps {
@@ -12,6 +13,8 @@ interface CourseSidebarProps {
 
 export default function CourseSidebar({ course }: CourseSidebarProps) {
   const t = useTranslations('CourseDetails.sidebar');
+  const { status } = useSession();
+  const isAuth = status === 'authenticated';
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const previewVideos = course.previewVideos || [];
   const [activeVideoId, setActiveVideoId] = useState<string | null>(
@@ -122,7 +125,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
 
             {/* ─── Subscribe CTA (desktop only — mobile has sticky bar) ─── */}
             <div className="hidden lg:flex flex-col gap-4 mt-2">
-              {course.resolvedPrice ? (
+              {isAuth && course.resolvedPrice ? (
                 <div className="flex items-center gap-3">
                   {course.resolvedPrice.discountPrice ? (
                     <>
@@ -133,9 +136,9 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                     <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
                   )}
                 </div>
-              ) : (
+              ) : isAuth && !course.resolvedPrice ? (
                 <span className="font-cairo-bold-2xl text-greyDark">مجاناً</span>
-              )}
+              ) : null}
               <button className="w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 cursor-pointer">
                 {t('subscribeNow')}
               </button>

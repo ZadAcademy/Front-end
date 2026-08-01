@@ -3,7 +3,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { Controller } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Loader2 } from 'lucide-react';
 
 import { Button } from '@/shared/ui/button';
 import { Field, FieldLabel, FieldError } from '@/shared/ui/field';
@@ -86,7 +86,7 @@ export function AddCourseLocalizedPrices() {
                     <Trash2 className="size-5" />
                   </button>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 md:pt-0 md:pe-12">
                   {/* Country Selection */}
                   <Controller
@@ -109,12 +109,11 @@ export function AddCourseLocalizedPrices() {
                           disabled={!courseId}
                         >
                           <SelectTrigger
-                            className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none ${
-                              countryError ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
-                            }`}
+                            className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none ${countryError ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
+                              }`}
                           >
                             <SelectValue placeholder={t('countryPlaceholder')}>
-                              {field.value && SUPPORTED_COUNTRIES.find(c => c.code === field.value) 
+                              {field.value && SUPPORTED_COUNTRIES.find(c => c.code === field.value)
                                 ? `${isAr ? SUPPORTED_COUNTRIES.find(c => c.code === field.value)?.nameAr : SUPPORTED_COUNTRIES.find(c => c.code === field.value)?.nameEn} (${SUPPORTED_COUNTRIES.find(c => c.code === field.value)?.currency})`
                                 : undefined}
                             </SelectValue>
@@ -205,14 +204,19 @@ export function AddCourseLocalizedPrices() {
         </Button>
 
         <div className="pt-6 flex justify-end border-t border-black/5">
-          <Button 
-            variant="dark" 
-            type="submit" 
-            size="lg" 
+          <Button
+            variant="dark"
+            type="submit"
+            size="lg"
             className="font-cairo-bold-base px-8 h-12 cursor-pointer"
             disabled={!courseId || isPending || isDeleting}
           >
-            {isPending || isDeleting ? t('loading') : t('submit')}
+            {isPending || isDeleting ? (
+              <div className="flex items-center gap-2">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {t('loading', { defaultValue: 'Loading...' })}
+              </div>
+            ) : t('submit')}
           </Button>
         </div>
         {!courseId && (

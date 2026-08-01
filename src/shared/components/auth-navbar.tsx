@@ -17,7 +17,7 @@ const SCROLL_THRESHOLD = 50;
  */
 export default function AuthNavbar() {
   const t = useTranslations('HomePage.authNavbar');
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -106,122 +106,127 @@ export default function AuthNavbar() {
               <span className="hidden sm:block font-cairo-medium-sm">{t('home')}</span>
             </Link>
 
-            {/* ─── Notification Bell ─── */}
-            <button
-              className="relative flex items-center justify-center w-10 h-10 rounded-full
-                         hover:bg-black/5 transition-colors cursor-pointer bg-transparent border-none"
-              aria-label={t('notifications')}
-            >
-              <Bell className="size-5 text-greyDark" />
-              {/* Notification dot indicator */}
-              <span className="absolute top-2 right-2 w-2 h-2 bg-orangeNormal rounded-full" />
-            </button>
-
-            {/* ─── User Profile Dropdown ─── */}
-            <div className="relative" ref={dropdownRef}>
-              {/* Trigger button — avatar + name + chevron */}
-              <button
-                onClick={() => setIsDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-2 px-2 py-1.5 rounded-xl
-                           hover:bg-black/5 transition-colors cursor-pointer
-                           bg-transparent border-none"
-                aria-expanded={isDropdownOpen}
-                aria-haspopup="true"
-              >
-                {/* User name — hidden on small screens */}
-                <span className="hidden sm:block font-cairo-medium-sm text-greyDark max-w-[120px] truncate">
-                  {userName}
-                </span>
-                {/* User avatar circle */}
-                <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center">
-                  <span className="font-cairo-bold-sm text-white leading-none">
-                    {userInitials}
-                  </span>
-                </div>
-                <ChevronDown
-                  className={`size-4 text-greyNormal transition-transform duration-200 ${
-                    isDropdownOpen ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-
-              {/* ─── Dropdown Menu ─── */}
-              {isDropdownOpen && (
-                <div
-                  className="absolute top-full mt-2 end-0 w-56
-                             bg-white rounded-xl shadow-lg border border-black/10
-                             py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+            {/* ─── Notification Bell & User Dropdown (Auth Only) ─── */}
+            {status === 'authenticated' && (
+              <>
+                {/* ─── Notification Bell ─── */}
+                <button
+                  className="relative flex items-center justify-center w-10 h-10 rounded-full
+                             hover:bg-black/5 transition-colors cursor-pointer bg-transparent border-none"
+                  aria-label={t('notifications')}
                 >
-                  {/* User info header */}
-                  <div className="px-4 py-2 border-b border-black/5">
-                    <p className="font-cairo-semibold-sm text-greyDark truncate">{userName}</p>
-                    <p className="font-cairo-regular-xs text-greyNormal truncate">
-                      {session?.user?.email ?? ''}
-                    </p>
-                  </div>
+                  <Bell className="size-5 text-greyDark" />
+                  {/* Notification dot indicator */}
+                  <span className="absolute top-2 right-2 w-2 h-2 bg-orangeNormal rounded-full" />
+                </button>
 
-                  {/* Menu items */}
-                  <div className="py-1">
-                    {/* Profile link */}
-                    <button
-                      onClick={() => { setIsDropdownOpen(false); router.push('/profile'); }}
-                      className="w-full flex items-center gap-3 px-4 py-2.5
-                                 hover:bg-black/5 transition-colors cursor-pointer
-                                 bg-transparent border-none text-start"
-                    >
-                      <User className="size-4 text-greyNormal" />
-                      <span className="font-cairo-medium-sm text-greyDark">
-                        {t('profile')}
+                {/* ─── User Profile Dropdown ─── */}
+                <div className="relative" ref={dropdownRef}>
+                  {/* Trigger button — avatar + name + chevron */}
+                  <button
+                    onClick={() => setIsDropdownOpen((prev) => !prev)}
+                    className="flex items-center gap-2 px-2 py-1.5 rounded-xl
+                               hover:bg-black/5 transition-colors cursor-pointer
+                               bg-transparent border-none"
+                    aria-expanded={isDropdownOpen}
+                    aria-haspopup="true"
+                  >
+                    {/* User name — hidden on small screens */}
+                    <span className="hidden sm:block font-cairo-medium-sm text-greyDark max-w-[120px] truncate">
+                      {userName}
+                    </span>
+                    {/* User avatar circle */}
+                    <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center">
+                      <span className="font-cairo-bold-sm text-white leading-none">
+                        {userInitials}
                       </span>
-                    </button>
-                    
-                    {/* Language toggle */}
-                    <button
-                      onClick={toggleLanguage}
-                      className="w-full flex items-center gap-3 px-4 py-2.5
-                                 hover:bg-black/5 transition-colors cursor-pointer
-                                 bg-transparent border-none text-start"
+                    </div>
+                    <ChevronDown
+                      className={`size-4 text-greyNormal transition-transform duration-200 ${
+                        isDropdownOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {/* ─── Dropdown Menu ─── */}
+                  {isDropdownOpen && (
+                    <div
+                      className="absolute top-full mt-2 end-0 w-56
+                                 bg-white rounded-xl shadow-lg border border-black/10
+                                 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     >
-                      <Globe className="size-4 text-greyNormal" />
-                      <span className="font-cairo-medium-sm text-greyDark">
-                        {locale === 'ar' ? 'English' : 'العربية'}
-                      </span>
-                    </button>
+                      {/* User info header */}
+                      <div className="px-4 py-2 border-b border-black/5">
+                        <p className="font-cairo-semibold-sm text-greyDark truncate">{userName}</p>
+                        <p className="font-cairo-regular-xs text-greyNormal truncate">
+                          {session?.user?.email ?? ''}
+                        </p>
+                      </div>
+
+                      {/* Menu items */}
+                      <div className="py-1">
+                        {/* Profile link */}
+                        <button
+                          onClick={() => { setIsDropdownOpen(false); router.push('/profile'); }}
+                          className="w-full flex items-center gap-3 px-4 py-2.5
+                                     hover:bg-black/5 transition-colors cursor-pointer
+                                     bg-transparent border-none text-start"
+                        >
+                          <User className="size-4 text-greyNormal" />
+                          <span className="font-cairo-medium-sm text-greyDark">
+                            {t('profile')}
+                          </span>
+                        </button>
+                        
+                        {/* Language toggle */}
+                        <button
+                          onClick={toggleLanguage}
+                          className="w-full flex items-center gap-3 px-4 py-2.5
+                                     hover:bg-black/5 transition-colors cursor-pointer
+                                     bg-transparent border-none text-start"
+                        >
+                          <Globe className="size-4 text-greyNormal" />
+                          <span className="font-cairo-medium-sm text-greyDark">
+                            {locale === 'ar' ? 'English' : 'العربية'}
+                          </span>
+                        </button>
 
 
-                    {/* Dashboard link — visible for Admin/SuperAdmin */}
-                    {(session?.user?.role === 'Admin' || session?.user?.role === 'SuperAdmin') && (
-                      <button
-                        onClick={() => { setIsDropdownOpen(false); router.push('/dashboard'); }}
-                        className="w-full flex items-center gap-3 px-4 py-2.5
-                                   hover:bg-black/5 transition-colors cursor-pointer
-                                   bg-transparent border-none text-start"
-                      >
-                        <LayoutDashboard className="size-4 text-greyNormal" />
-                        <span className="font-cairo-medium-sm text-greyDark">
-                          {t('dashboard')}
-                        </span>
-                      </button>
-                    )}
-                  </div>
+                        {/* Dashboard link — visible for Admin/SuperAdmin */}
+                        {(session?.user?.role === 'Admin' || session?.user?.role === 'SuperAdmin') && (
+                          <button
+                            onClick={() => { setIsDropdownOpen(false); router.push('/dashboard'); }}
+                            className="w-full flex items-center gap-3 px-4 py-2.5
+                                       hover:bg-black/5 transition-colors cursor-pointer
+                                       bg-transparent border-none text-start"
+                          >
+                            <LayoutDashboard className="size-4 text-greyNormal" />
+                            <span className="font-cairo-medium-sm text-greyDark">
+                              {t('dashboard')}
+                            </span>
+                          </button>
+                        )}
+                      </div>
 
-                  {/* Logout — separated with border */}
-                  <div className="border-t border-black/5 pt-1">
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-4 py-2.5
-                                 hover:bg-red-50 transition-colors cursor-pointer
-                                 bg-transparent border-none text-start"
-                    >
-                      <LogOut className="size-4 text-red-500" />
-                      <span className="font-cairo-medium-sm text-red-500">
-                        {t('logout')}
-                      </span>
-                    </button>
-                  </div>
+                      {/* Logout — separated with border */}
+                      <div className="border-t border-black/5 pt-1">
+                        <button
+                          onClick={handleLogout}
+                          className="w-full flex items-center gap-3 px-4 py-2.5
+                                     hover:bg-red-50 transition-colors cursor-pointer
+                                     bg-transparent border-none text-start"
+                        >
+                          <LogOut className="size-4 text-red-500" />
+                          <span className="font-cairo-medium-sm text-red-500">
+                            {t('logout')}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>

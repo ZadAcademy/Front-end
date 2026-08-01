@@ -1,19 +1,19 @@
 {
   "IndexPage": {
     "title": "Hello world!",
-    "badge":"Badge",
-    "button":{
-      "loading":"Loading",
-      "submit":"Submit",
-      "cancel":"Cancel",
-      "save":"Save",
-      "delete":"Delete",
-      "confirm":"Confirm"
+    "badge": "Badge",
+    "button": {
+      "loading": "Loading",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete",
+      "confirm": "Confirm"
     }
   },
   "LandingPage": {
     "navbar": {
-      "home":"All courses",
+      "home": "All courses",
       "courses": "Our Courses",
       "experts": "Our Experts",
       "testimonials": "Testimonials",
@@ -252,7 +252,7 @@
       "allPrices": "All",
       "allRatings": "All",
       "searchCourses": "Search Courses",
-      "noCoursesFound":"No Courses Found"
+      "noCoursesFound": "No Courses Found"
     },
     "pagination": {
       "previous": "Previous",
@@ -265,8 +265,7 @@
   },
   "CourseCard": {
     "subscribeNow": "Subscribe Now",
-        "freeCourse":"Free Course "
-
+    "freeCourse": "Free Course "
   },
   "CourseDetails": {
     "header": {
@@ -356,7 +355,8 @@
           "remove": "Remove"
         },
         "submit": "Save & Continue",
-        "update": "Update Course"
+        "update": "Update Course",
+        "loading": "Loading..."
       },
       "localizedPrices": {
         "title": "Localized Prices",
@@ -369,7 +369,8 @@
         "discountPricePlaceholder": "Optional discount",
         "addPrice": "Add Price",
         "remove": "Remove",
-        "submit": "Save Prices"
+        "submit": "Save Prices",
+        "loading": "Loading..."
       },
       "coursePreview": {
         "title": "Course Preview",
@@ -410,7 +411,10 @@
         "localizedPriceDeleteFailed": "Failed to delete price",
         "localizedPricesUpdated": "Localized prices updated successfully",
         "localizedPricesUpdateFailed": "Failed to update localized prices",
-        "missingCourseId": "No courseId found in URL parameters."
+        "missingCourseId": "No courseId found in URL parameters.",
+        "courseCreated": "Course created successfully",
+        "courseUpdated": "Course updated successfully",
+        "courseUpdateFailed": "Failed to create or update course. Please try again."
       }
     }
   }
