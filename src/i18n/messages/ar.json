@@ -1,25 +1,25 @@
 {
   "IndexPage": {
     "title": "مرحبا بالعالم!",
-   "button":{
-      "loading":"تحميل",
-      "submit":"إرسال",
-      "cancel":"إلغاء",
-      "save":"حفظ",
-      "delete":"حذف",
-      "confirm":"تأكيد"
+    "button": {
+      "loading": "تحميل",
+      "submit": "إرسال",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "delete": "حذف",
+      "confirm": "تأكيد"
     },
-    "badge":"شارة"
+    "badge": "شارة"
   },
   "LandingPage": {
     "navbar": {
-      "home":" جميع الدورات", 
+      "home": " جميع الدورات",
       "courses": "دوراتنا",
       "experts": "خبراؤنا",
       "testimonials": "آراء طلابنا",
       "whyUs": "لماذا نحن",
       "faq": "الأسئلة الشائعة",
-      "login":"تسجيل الدخول",
+      "login": "تسجيل الدخول",
       "create-account": "أنشئ حساب"
     },
     "hero": {
@@ -267,8 +267,7 @@
   },
   "CourseCard": {
     "subscribeNow": "اشترك الآن",
-    "freeCourse":"كورس مجاني"
-
+    "freeCourse": "كورس مجاني"
   },
   "CourseDetails": {
     "header": {
@@ -358,7 +357,8 @@
           "remove": "حذف"
         },
         "submit": "حفظ ومتابعة",
-        "update": "تحديث الدورة"
+        "update": "تحديث الدورة",
+        "loading": "جاري التحميل..."
       },
       "localizedPrices": {
         "title": "الأسعار المخصصة",
@@ -371,7 +371,8 @@
         "discountPricePlaceholder": "تخفيض اختياري",
         "addPrice": "إضافة سعر",
         "remove": "حذف",
-        "submit": "حفظ الأسعار"
+        "submit": "حفظ الأسعار",
+        "loading": "جاري التحميل..."
       },
       "coursePreview": {
         "title": "معاينة الدورة",
@@ -385,8 +386,8 @@
       },
       "errors": {
         "basicInfoRequiredWarning": "يرجى إكمال وإرسال المعلومات الأساسية أولاً.",
-        "outcomeRequired": "مخرجات التعلم مطلوبة.",
-        "prerequisiteRequired": "المتطلب السابق مطلوب.",
+        "outcomeRequired": "وصف المخرج التعليمي لا يمكن أن يكون فارغاً.",
+        "prerequisiteRequired": "وصف المتطلب لا يمكن أن يكون فارغاً.",
         "titleRequired": "عنوان الدورة مطلوب.",
         "descriptionRequired": "وصف الدورة مطلوب.",
         "imageRequired": "صورة الدورة مطلوبة.",
@@ -396,8 +397,6 @@
         "discountPriceInvalid": "سعر الخصم يجب أن يكون رقم إيجابي.",
         "discountPriceMustBeLessThanPrice": "سعر الخصم يجب أن يكون أقل من السعر الأصلي.",
         "levelRequired": "مستوى الدورة مطلوب.",
-        "outcomeRequired": "وصف المخرج التعليمي لا يمكن أن يكون فارغاً.",
-        "prerequisiteRequired": "وصف المتطلب لا يمكن أن يكون فارغاً.",
         "countryRequired": "يرجى اختيار دولة.",
         "currencyRequired": "العملة مطلوبة.",
         "atLeastOnePriceRequired": "يجب إضافة سعر مخصص واحد على الأقل.",
@@ -414,7 +413,45 @@
         "localizedPriceDeleteFailed": "فشل في حذف السعر",
         "localizedPricesUpdated": "تم تحديث الأسعار المخصصة بنجاح",
         "localizedPricesUpdateFailed": "فشل في تحديث الأسعار المخصصة",
-        "missingCourseId": "لم يتم العثور على معرف الدورة في مسار الرابط."
+        "missingCourseId": "لم يتم العثور على معرف الدورة في مسار الرابط.",
+        "courseCreated": "تمت الإضافة بنجاح",
+        "courseUpdated": "تم التعديل بنجاح",
+        "courseUpdateFailed": "حدث خطأ، يرجى المحاولة مرة أخرى",
+        "statusUpdated": "تم تحديث حالة الدورة بنجاح",
+        "statusUpdateFailed": "فشل في تحديث حالة الدورة",
+        "previewUpdated": "تم تحديث إعداد المعاينة بنجاح",
+        "previewUpdateFailed": "فشل في تحديث إعداد المعاينة",
+        "courseDeleted": "تم حذف الدورة بنجاح",
+        "courseDeleteFailed": "فشل في حذف الدورة"
+      }
+    },
+    "courseList": {
+      "table": {
+        "image": "الصورة",
+        "title": "العنوان",
+        "instructor": "المدرب",
+        "price": "السعر",
+        "level": "المستوى",
+        "status": "الحالة",
+        "preview": "معاينة",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "pending": "قيد الانتظار",
+        "published": "منشور",
+        "draft": "مسودة"
+      },
+      "actions": {
+        "update": "تعديل الدورة",
+        "delete": "حذف الدورة",
+        "confirmDelete": "هل أنت متأكد من حذف هذه الدورة؟",
+        "noCourses": "لا يوجد دورات متاحة."
+      },
+      "pagination": {
+        "previous": "السابق",
+        "next": "التالي",
+        "page": "صفحة",
+        "of": "من"
       }
     }
   }

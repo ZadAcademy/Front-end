@@ -3,16 +3,18 @@ import { useTranslations } from 'next-intl';
 import { CourseCard } from '@/shared/components/course-card';
 import { CourseCardSkeleton } from '@/shared/skeletons/course-card-skeleton';
 import { CoursesApiResponse } from '../lib/types/course-card-api';
+import { useSession } from 'next-auth/react';
 
 interface CoursesGridProps {
   courseData?: CoursesApiResponse;
   isLoading?: boolean;
   isError?: boolean;
-  onTotalPagesChange: (totalPages: number) => void;
 }
 
-export default function CoursesGrid({courseData ,isLoading,isError, onTotalPagesChange }: CoursesGridProps) {
+export default function CoursesGrid({courseData ,isLoading,isError }: CoursesGridProps) {
   const t = useTranslations('HomePage.filter');
+  const { status } = useSession();
+  const isAuth = status === 'authenticated';
 
   const getTranslatedLevel = (level: string) => {
     switch (String(level).toLowerCase()) {
@@ -30,11 +32,6 @@ export default function CoursesGrid({courseData ,isLoading,isError, onTotalPages
         return level; // Fallback to raw string if unknown
     }
   };
-
-  /* ─── Notify parent of total pages when data arrives ─── */
-  if (courseData && courseData.totalPages) {
-    onTotalPagesChange(courseData.totalPages);
-  }
 
   /* ─── Loading state ─── */
   if (isLoading) {
@@ -83,8 +80,8 @@ export default function CoursesGrid({courseData ,isLoading,isError, onTotalPages
           numberOfStudents={course.numberOfStudents}
           rating={course.rating}
           courseHours={course.courseHours}
-          price={course.resolvedPrice?.price ?? course.price ?? undefined}
-          currencyCode={course.resolvedPrice?.currencyCode}
+          price={isAuth ? (course.resolvedPrice?.price ?? course.price ?? undefined) : undefined}
+          currencyCode={isAuth ? course.resolvedPrice?.currencyCode : undefined}
         />
       ))}
     </div>

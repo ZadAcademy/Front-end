@@ -30,7 +30,6 @@ export function useCourses(pageSize = 6) {
 
   /* ─── Pagination state ─── */
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   /* ─── Build query params for the API ─── */
   const queryParams: CoursesQueryParams = {
@@ -86,10 +85,6 @@ export function useCourses(pageSize = 6) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const handleTotalPagesChange = useCallback((pages: number) => {
-    setTotalPages(pages);
-  }, []);
-
   return {
     /* Filter values */
     level,
@@ -106,9 +101,8 @@ export function useCourses(pageSize = 6) {
 
     /* Pagination */
     currentPage,
-    totalPages,
+    totalPages: courseData?.totalPages || 1,
     handlePageChange,
-    handleTotalPagesChange,
 
     /* Query data */
     courseData,

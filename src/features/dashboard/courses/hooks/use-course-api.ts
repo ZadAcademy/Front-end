@@ -5,6 +5,9 @@ import { updateLocalizedPrices, deleteLocalizedPrice, CreateLocalizedPricesPaylo
 import { updatePreviewVideos, deletePreviewVideo, CreatePreviewVideosPayload } from '../api/preview-videos-api';
 import { uploadCourseImage } from '../api/upload-course-image-api';
 import { getCourseById } from '../api/get-course-by-id-api';
+import { updateCourseStatus } from '../api/update-course-status-api';
+import { updateCoursePreview } from '../api/update-course-preview-api';
+import { deleteCourse } from '../api/delete-course-api';
 import { CreateCoursePayload } from '../lib/types/course-basics';
 
 // ==========================================
@@ -56,6 +59,46 @@ export const useUploadCourseImageMutation = () => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
     }
+  });
+};
+
+export const useUpdateCourseStatusMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ courseId, newStatus }: { courseId: string; newStatus: number }) =>
+      updateCourseStatus(courseId, newStatus),
+    onSuccess: (_, { courseId }) => {
+      console.log('updateCourseStatus mutation success', courseId);
+      queryClient.invalidateQueries({ queryKey: ['course', courseId] });
+      queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+    },
+  });
+};
+
+export const useUpdateCoursePreviewMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ courseId, canPreview }: { courseId: string; canPreview: boolean }) =>
+      updateCoursePreview(courseId, canPreview),
+    onSuccess: (_, { courseId }) => {
+      console.log('updateCoursePreview mutation success', courseId);
+      queryClient.invalidateQueries({ queryKey: ['course', courseId] });
+      queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+    },
+  });
+};
+
+export const useDeleteCourseMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ courseId }: { courseId: string }) => deleteCourse(courseId),
+    onSuccess: () => {
+      // Invalidate the course list query after successful deletion
+      queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+    },
   });
 };
 

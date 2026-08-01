@@ -1,54 +1,47 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { CourseCard } from '@/shared/components/course-card';
 import Image from 'next/image';
 import Link from 'next/link';
+import { fetchCourses } from '@/features/home/lib/api/courses-api';
+import { cookies } from 'next/headers';
 
 /**
  * CoursesSection — Server component for displaying the available courses.
  * Includes a dark banner at the top and a grid of course cards below.
  */
-export default function CoursesSection() {
-  const t = useTranslations('LandingPage.coursesSection');
+export default async function CoursesSection() {
+  const t = await getTranslations('LandingPage.coursesSection');
+  const tFilter = await getTranslations('HomePage.filter');
 
-  // Hardcoded sample data for the course cards to match the design
-  const DUMMY_COURSES = [
-    {
-      courseId: 1,
-      level: '1',
-      title: 'Piping Design Using AutoCAD Plant 3D',
-      shortDescription: 'كورس من خلاله سوف تتعلم قواعد التصميم والانشاء من خلال مدربين علي مستوي خبره عالية وتطبيق عملي بشكل مباشر',
-      instructorName: 'محاضر/عبدالحليم',
-      numberOfLessons: 136,
-      numberOfStudents: 1250,
-      rating: 4.5,
-      courseHours: 45,
-      price: 99.99,
-    },
-    {
-      courseId: 2,
-      level: '2',
-      title: 'Advanced React and Next.js Patterns',
-      shortDescription: 'Learn advanced techniques for building scalable web applications with React and Next.js.',
-      instructorName: 'Jane Doe',
-      numberOfLessons: 85,
-      numberOfStudents: 3400,
-      rating: 4.9,
-      courseHours: 32,
-      price: 149.99,
-    },
-    {
-      courseId: 3,
-      level: '0',
-      title: 'Introduction to Artificial Intelligence',
-      shortDescription: 'A beginner-friendly introduction to the core concepts of AI and Machine Learning.',
-      instructorName: 'John Smith',
-      numberOfLessons: 42,
-      numberOfStudents: 850,
-      rating: 4.7,
-      courseHours: 15,
-      price: 0,
-    },
-  ];
+  const getTranslatedLevel = (level: string) => {
+    switch (String(level).toLowerCase()) {
+      case '0':
+      case 'beginner':
+        return tFilter('beginner');
+      case '1':
+      case 'intermediate':
+        return tFilter('intermediate');
+      case '2':
+      case 'advanced':
+      case 'expert':
+        return tFilter('expert');
+      default:
+        return level;
+    }
+  };
+
+  let courses: any[] = [];
+  try {
+    const res = await fetchCourses({ page: 1, pageSize: 20 });
+    // Filter to ensure only courses with canPreview=true are shown on the landing page
+    courses = (res.items || []).filter(course => course.canPreview === true).slice(0, 6);
+  } catch (error) {
+    console.error("Failed to fetch preview courses:", error);
+  }
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
+  const isAuth = !!token;
 
   return (
     <section id="courses" className="py-12 lg:py-16">
@@ -93,11 +86,11 @@ export default function CoursesSection() {
 
             {/* Grid of Courses */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {DUMMY_COURSES.map((course) => (
+              {courses.map((course) => (
                 <CourseCard
-                  key={course.courseId}
-                  courseId={course.courseId}
-                  level={course.level}
+                  key={course.id}
+                  courseId={course.id}
+                  level={getTranslatedLevel(course.level)}
                   title={course.title}
                   shortDescription={course.shortDescription}
                   instructorName={course.instructorName}
@@ -105,7 +98,8 @@ export default function CoursesSection() {
                   numberOfStudents={course.numberOfStudents}
                   rating={course.rating}
                   courseHours={course.courseHours}
-                  price={course.price}
+                  price={isAuth ? (course.resolvedPrice?.price ?? course.price ?? undefined) : undefined}
+                  currencyCode={isAuth ? course.resolvedPrice?.currencyCode : undefined}
                 />
               ))}
             </div>

@@ -48,11 +48,11 @@ export const useCourseBasicInfoForm = () => {
         instructorName: courseData.instructorName || '',
         canPreview: courseData.canPreview ?? false,
         level: courseData.level === 'Advanced' ? 2 : courseData.level === 'Intermediate' ? 1 : 0,
-        learningOutcomes: courseData.learningOutcomes?.length > 0 
-          ? courseData.learningOutcomes 
+        learningOutcomes: courseData.learningOutcomes?.length > 0
+          ? courseData.learningOutcomes
           : [{ id: uuidv4(), description: '', sortOrder: 1 }],
-        prerequisites: courseData.prerequisites?.length > 0 
-          ? courseData.prerequisites 
+        prerequisites: courseData.prerequisites?.length > 0
+          ? courseData.prerequisites
           : [{ id: uuidv4(), description: '', sortOrder: 1 }],
       });
     }
@@ -77,7 +77,7 @@ export const useCourseBasicInfoForm = () => {
 
   const onSubmit = async (data: CourseBasicInfoFormData) => {
     console.log("coursebasicdata", data);
-    
+
     try {
       const payload = {
         ...data,

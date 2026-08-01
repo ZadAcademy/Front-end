@@ -24,6 +24,8 @@ export interface CourseApiItem {
     discountPrice:number|null;
 
   }>;
+  canPreview?: boolean;
+  status?: string | number;
 }
 
 

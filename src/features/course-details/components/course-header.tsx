@@ -19,7 +19,7 @@ export default function CourseHeader({ title, shortDescription, level, isRTL, im
       {/* Background Image (Using placeholder for now) */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${imageUrl})` }}
+        style={{ backgroundImage: `url('${imageUrl}')` }}
       />
       
       {/* Dark overlay for readability */}
