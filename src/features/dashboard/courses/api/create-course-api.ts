@@ -28,7 +28,7 @@ export const createCourse = async (data: CreateCoursePayload) => {
     },
     body: JSON.stringify(data),
   });
-
+  console.log("response from server", response);
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
     throw new Error(errorData?.message || 'Failed to create course. Please try again.');
@@ -38,6 +38,5 @@ export const createCourse = async (data: CreateCoursePayload) => {
   if (!resultData.isSuccess) {
     throw new Error(resultData.message || 'Failed to create course');
   }
-  console.log("result from server",resultData);
   return resultData.data;
 };

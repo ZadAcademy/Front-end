@@ -244,7 +244,7 @@ export function AddCourseBasicInfo() {
                   onValueChange={(val) => field.onChange(Number(val))}
                 >
                   <SelectTrigger
-                    className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none ${fieldState.error ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
+                    className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none text-greyDarker font-cairo-regular-base ${fieldState.error ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
                       }`}
                   >
                     <SelectValue placeholder={t('levelPlaceholder')}>

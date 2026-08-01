@@ -24,7 +24,7 @@ export async function fetchCourses(params: CoursesQueryParams): Promise<CoursesA
   if (params.IsFree !== undefined) url.searchParams.set('IsFree', String(params.IsFree));
   if (params.SearchTerm) url.searchParams.set('search', params.SearchTerm);
 
-   const response = await fetch(url, {
+  const response = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
