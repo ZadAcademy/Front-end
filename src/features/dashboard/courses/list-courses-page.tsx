@@ -57,7 +57,7 @@ export default function ListCoursesPage() {
           {/* Pagination Controls */}
           <div className="flex items-center justify-center gap-2 pt-4">
             <Button
-              variant="outline"
+              variant="primary"
               disabled={currentPage <= 1}
               onClick={() => handlePageChange(currentPage - 1)}
               className="font-cairo-semibold-sm flex items-center gap-1 cursor-pointer disabled:cursor-not-allowed"
@@ -73,7 +73,7 @@ export default function ListCoursesPage() {
             </span>
             
             <Button
-              variant="outline"
+              variant="primary"
               disabled={currentPage >= totalPages || totalPages === 0}
               onClick={() => handlePageChange(currentPage + 1)}
               className="font-cairo-semibold-sm flex items-center gap-1 cursor-pointer disabled:cursor-not-allowed"
