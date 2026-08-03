@@ -88,7 +88,7 @@ export const authOptions: NextAuthOptions = {
                 }
                 const loginData = responseData.data;
                 const backendUser = loginData.user as any;
-                
+
                 const mappedUser = {
                     id: backendUser.userId,
                     firstName: backendUser.firstName,

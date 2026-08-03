@@ -385,6 +385,16 @@
         "loading": "جاري التحميل...",
         "submit": "حفظ المعاينة"
       },
+      "sections": {
+        "title": "أقسام الدورة التدريبية",
+        "description": "إدارة هيكل الدورة التدريبية عن طريق إضافة وترتيب الأقسام.",
+        "addSection": "إضافة قسم جديد",
+        "sectionNamePlaceholder": "مثال: مقدمة في الدورة",
+        "save": "حفظ القسم",
+        "remove": "إزالة",
+        "loading": "جاري التحميل...",
+        "noSections": "لم تتم إضافة أقسام بعد."
+      },
       "errors": {
         "basicInfoRequiredWarning": "يرجى إكمال وإرسال المعلومات الأساسية أولاً.",
         "outcomeRequired": "وصف المخرج التعليمي لا يمكن أن يكون فارغاً.",
@@ -423,7 +433,10 @@
         "previewUpdated": "تم تحديث إعداد المعاينة بنجاح",
         "previewUpdateFailed": "فشل في تحديث إعداد المعاينة",
         "courseDeleted": "تم حذف الدورة بنجاح",
-        "courseDeleteFailed": "فشل في حذف الدورة"
+        "courseDeleteFailed": "فشل في حذف الدورة",
+        "sectionCreated": "تم إنشاء القسم بنجاح",
+        "sectionUpdated": "تم تحديث القسم بنجاح",
+        "sectionDeleted": "تم حذف القسم بنجاح"
       }
     },
     "courseList": {
