@@ -109,13 +109,13 @@ export function AddCourseLocalizedPrices() {
                           disabled={!courseId}
                         >
                           <SelectTrigger
-                            className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none ${countryError ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
+                            className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-orangeNormal outline-none text-greyDarker font-cairo-regular-base ${countryError ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-orangeNormal'
                               }`}
                           >
                             <SelectValue placeholder={t('countryPlaceholder')}>
                               {field.value && SUPPORTED_COUNTRIES.find(c => c.code === field.value)
                                 ? `${isAr ? SUPPORTED_COUNTRIES.find(c => c.code === field.value)?.nameAr : SUPPORTED_COUNTRIES.find(c => c.code === field.value)?.nameEn} (${SUPPORTED_COUNTRIES.find(c => c.code === field.value)?.currency})`
-                                : undefined}
+                                : null}
                             </SelectValue>
                           </SelectTrigger>
                           <SelectContent>

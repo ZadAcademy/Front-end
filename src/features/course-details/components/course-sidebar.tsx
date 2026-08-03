@@ -7,6 +7,19 @@ import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { CourseDetails } from '@/features/dashboard/courses/api/get-course-by-id-api';
 
+/** Extract YouTube video ID from various URL formats */
+function getYouTubeId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtu\.be\/|youtube\.com\/v\/)([a-zA-Z0-9_-]{11})/,
+    /^([a-zA-Z0-9_-]{11})$/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+}
+
 interface CourseSidebarProps {
   course: CourseDetails;
 }
@@ -16,10 +29,18 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
   const { status } = useSession();
   const isAuth = status === 'authenticated';
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const previewVideos = course.previewVideos || [];
+  const previewVideos = [...(course.previewVideos || [])].sort((a, b) => a.sortOrder - b.sortOrder);
   const [activeVideoId, setActiveVideoId] = useState<string | null>(
     previewVideos.length > 0 ? previewVideos[0].id : null
   );
+  const [videoError, setVideoError] = useState(false);
+
+  const activeVideo = previewVideos.find(v => v.id === activeVideoId);
+
+  const handleVideoChange = (videoId: string) => {
+    setActiveVideoId(videoId);
+    setVideoError(false);
+  };
 
   return (
     <>
@@ -118,7 +139,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                   <span className="font-cairo-bold-sm text-blueNormal">
                     {/* {course.studentsCount} */}
                     00
-                    </span>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -174,23 +195,58 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                 </button>
               </div>
 
-              {/* Video placeholder */}
-              <div className="w-full aspect-video relative flex items-center justify-center">
-                <Image
-                  src="/images/courses/course-cover.jpg"
-                  alt={course.title}
-                  fill
-                  className="object-cover opacity-40"
-                />
-                <button className="relative z-10 w-20 h-20 bg-blueNormal hover:bg-blueNormalHover rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-all shadow-xl shadow-blueNormal/30">
-                  <Play className="size-10 text-white fill-white ms-1" />
-                </button>
+              {/* Video Player */}
+              <div className="w-full aspect-video bg-black relative flex items-center justify-center overflow-hidden">
+                {(() => {
+                  if (!activeVideo?.videoUrl) {
+                    return (
+                      <div className="text-white/50 font-cairo-medium-sm flex flex-col items-center gap-4">
+                        <Play className="size-12 text-white/20" />
+                        <span>لا يوجد فيديو متاح</span>
+                      </div>
+                    );
+                  }
+                  const ytId = getYouTubeId(activeVideo.videoUrl);
+                  if (ytId) {
+                    return (
+                      <iframe
+                        key={activeVideoId}
+                        src={`https://www.youtube.com/embed/${ytId}?autoplay=0&rel=0`}
+                        title={activeVideo.title}
+                        className="w-full h-full absolute inset-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      />
+                    );
+                  }
+                  // Not a YouTube URL — try as direct video file
+                  if (activeVideo.videoUrl.match(/\.(mp4|webm|ogg)($|\?)/i)) {
+                    return (
+                      <video
+                        key={activeVideoId}
+                        src={activeVideo.videoUrl}
+                        controls
+                        className="w-full h-full"
+                      />
+                    );
+                  }
+                  // Unknown/invalid URL
+                  return (
+                    <div className="text-white/50 font-cairo-medium-sm flex flex-col items-center gap-4">
+                      <Play className="size-12 text-white/20" />
+                      <span>رابط الفيديو غير صالح</span>
+                      <span className="text-white/30 font-cairo-regular-xs text-center px-4 break-all">
+                        {activeVideo.videoUrl}
+                      </span>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Current video info */}
               <div className="p-4 bg-[#1a1a2e]">
                 <h4 className="font-cairo-bold-md text-white">
-                  {previewVideos.find(v => v.id === activeVideoId)?.title}
+                  {activeVideo?.title}
                 </h4>
               </div>
             </div>
@@ -206,28 +262,18 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                   {previewVideos.map((video) => (
                     <li
                       key={video.id}
-                      onClick={() => setActiveVideoId(video.id)}
-                      className={`flex items-center gap-3 p-3.5 cursor-pointer transition-colors border-b border-white/5 ${
-                        video.id === activeVideoId
+                      onClick={() => handleVideoChange(video.id)}
+                      className={`flex items-center gap-3 p-3.5 cursor-pointer transition-colors border-b border-white/5 ${video.id === activeVideoId
                           ? 'bg-blueNormal/20 border-s-2 border-s-blueNormal'
                           : 'hover:bg-white/5'
-                      }`}
+                        }`}
                     >
-                      <div className="relative w-20 aspect-video bg-gray-800 rounded-lg overflow-hidden shrink-0">
-                        <Image
-                          src="/images/courses/course-cover.jpg"
-                          alt="thumbnail"
-                          fill
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                          <Play className="size-3.5 text-white fill-white" />
-                        </div>
+                      <div className="relative w-20 aspect-video bg-gray-800 rounded-lg overflow-hidden shrink-0 flex items-center justify-center">
+                        <Play className="size-5 text-white/60 fill-white/60" />
                       </div>
                       <div className="flex flex-col flex-1 min-w-0">
-                        <span className={`font-cairo-medium-sm line-clamp-2 leading-snug ${
-                          video.id === activeVideoId ? 'text-blueNormal' : 'text-white/80'
-                        }`}>
+                        <span className={`font-cairo-medium-sm line-clamp-2 leading-snug ${video.id === activeVideoId ? 'text-blueNormal' : 'text-white/80'
+                          }`}>
                           {video.title}
                         </span>
                       </div>
