@@ -4,6 +4,7 @@ import { AddCourseBasicInfo } from './components/add-course-basic-info';
 import { AddCourseImage } from './components/add-course-image';
 import { AddCourseLocalizedPrices } from './components/add-course-localized-prices';
 import { AddCoursePreview } from './components/add-course-preview';
+import { AddCourseSections } from './components/add-course-sections';
 import { CreateNewCourseButton } from './components/create-new-course-button';
 
 /**
@@ -33,6 +34,9 @@ export default function AddCoursePage() {
 
       {/* Course Preview Block (Step 3) */}
       <AddCoursePreview />
+
+      {/* Course Sections / Curriculum */}
+      <AddCourseSections />
     </div>
   );
 }

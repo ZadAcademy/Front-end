@@ -383,6 +383,16 @@
         "loading": "Loading...",
         "submit": "Save Preview"
       },
+      "sections": {
+        "title": "Course Curriculum Sections",
+        "description": "Manage the curriculum structure by adding and reordering sections.",
+        "addSection": "Add New Section",
+        "sectionNamePlaceholder": "e.g. Introduction to Course",
+        "save": "Save Section",
+        "remove": "Remove",
+        "loading": "Loading...",
+        "noSections": "No sections added yet."
+      },
       "errors": {
         "basicInfoRequiredWarning": "Please complete and submit the Basic Information first.",
         "titleRequired": "Course title is required.",
@@ -421,7 +431,10 @@
         "previewUpdated": "Course preview setting updated successfully",
         "previewUpdateFailed": "Failed to update course preview setting",
         "courseDeleted": "Course deleted successfully",
-        "courseDeleteFailed": "Failed to delete course"
+        "courseDeleteFailed": "Failed to delete course",
+        "sectionCreated": "Section created successfully",
+        "sectionUpdated": "Section updated successfully",
+        "sectionDeleted": "Section deleted successfully"
       }
     },
     "courseList": {
