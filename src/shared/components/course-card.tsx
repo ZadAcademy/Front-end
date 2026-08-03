@@ -15,16 +15,18 @@ export function CourseCard({
   rating,
   courseHours,
   price,
+  discountPrice,
   currencyCode,
-  courseId
+  courseId,
+  isAuth = true,
 }: CourseCardProps) {
-  const t = useTranslations('CourseCard')
+  const t = useTranslations('CourseCard');
 
   return (
-    <Link
-      href={`/courses/${courseId}`}
-      className="bg-white rounded-2xl shadow-sm border border-black/5 p-2.5 flex flex-col transition-all duration-300 hover:shadow-md cursor-pointer group"
+    <div
+      className="bg-white rounded-2xl shadow-sm border border-black/5 p-2.5 flex flex-col transition-all duration-300 hover:shadow-md group h-full"
     >
+      <Link href={`/courses/${courseId}`} className="contents">
       {/* ─── Image Placeholder ─── */}
       <div className="w-full aspect-4/3 rounded-xl flex items-center justify-center overflow-hidden">
         <Image
@@ -81,17 +83,29 @@ export function CourseCard({
         </div>
       </div>
 
+      </Link>
+
       {/* ─── Action Button ─── */}
       <div className="pt-4 mt-auto">
-        <div className="w-full bg-orangeNormal text-white font-cairo-bold-sm py-2 rounded-lg group-hover:bg-orangeNormalHover transition-colors flex items-center justify-center gap-2">
+        <Link 
+          href={isAuth ? `/courses/${courseId}` : '/login'}
+          className="w-full bg-orangeNormal text-white font-cairo-bold-sm py-2 rounded-lg hover:bg-orangeNormalHover transition-colors flex items-center justify-center gap-2"
+        >
           {price === undefined || price === null 
             ? t('subscribeNow') 
             : price === 0 
               ? t('freeCourse') 
-              : <span>{price} {currencyCode || ''}</span>
+              : discountPrice ? (
+                <div className="flex items-center gap-2">
+                  <span>{discountPrice} {currencyCode || ''}</span>
+                  <span className="text-white/60 line-through font-cairo-medium-xs">{price} {currencyCode || ''}</span>
+                </div>
+              ) : (
+                <span>{price} {currencyCode || ''}</span>
+              )
           }
-        </div>
+        </Link>
       </div>
-    </Link>
+    </div>
   );
 }

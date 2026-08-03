@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { CourseDetails } from '@/features/dashboard/courses/api/get-course-by-id-api';
@@ -160,9 +161,12 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
               ) : isAuth && !course.resolvedPrice ? (
                 <span className="font-cairo-bold-2xl text-greyDark">مجاناً</span>
               ) : null}
-              <button className="w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 cursor-pointer">
+              <Link 
+                href={isAuth ? '#' : '/login'}
+                className="w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 flex items-center justify-center"
+              >
                 {t('subscribeNow')}
-              </button>
+              </Link>
             </div>
 
           </div>

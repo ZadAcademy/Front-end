@@ -99,7 +99,9 @@ export default async function CoursesSection() {
                   rating={course.rating}
                   courseHours={course.courseHours}
                   price={isAuth ? (course.resolvedPrice?.price ?? course.price ?? undefined) : undefined}
+                  discountPrice={isAuth ? (course.resolvedPrice?.discountPrice ?? course.discountPrice ?? undefined) : undefined}
                   currencyCode={isAuth ? course.resolvedPrice?.currencyCode : undefined}
+                  isAuth={isAuth}
                 />
               ))}
             </div>

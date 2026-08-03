@@ -9,5 +9,7 @@ export interface CourseCardProps {
   rating: number;
   courseHours: number;
   price?: number;
+  discountPrice?: number | null;
   currencyCode?: string;
+  isAuth?: boolean;
 }
