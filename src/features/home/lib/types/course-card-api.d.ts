@@ -48,4 +48,5 @@ export interface CoursesQueryParams {
   MinRating?:number;
   IsFree?:boolean;
   SearchTerm?:string;
+  Status?:string | number;
 }

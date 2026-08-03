@@ -11,7 +11,7 @@ interface CoursesGridProps {
   isError?: boolean;
 }
 
-export default function CoursesGrid({courseData ,isLoading,isError }: CoursesGridProps) {
+export default function CoursesGrid({ courseData, isLoading, isError }: CoursesGridProps) {
   const t = useTranslations('HomePage.filter');
   const { status } = useSession();
   const isAuth = status === 'authenticated';

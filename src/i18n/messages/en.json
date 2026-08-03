@@ -265,7 +265,8 @@
   },
   "CourseCard": {
     "subscribeNow": "Subscribe Now",
-    "freeCourse": "Free Course "
+    "freeCourse": "Free Course ",
+    "moreDetails": "Know more details"
   },
   "CourseDetails": {
     "header": {

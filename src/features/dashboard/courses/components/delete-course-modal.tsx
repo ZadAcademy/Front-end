@@ -74,14 +74,14 @@ export function DeleteCourseModal({ isOpen, onClose, onConfirm, isDeleting }: De
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
               variant="outline"
-              className="flex-1 font-cairo-semibold-sm"
+              className="flex-1 font-cairo-semibold-sm cursor-pointer"
               onClick={onClose}
               disabled={isDeleting}
             >
               الغاء
             </Button>
             <Button
-              className="flex-1 bg-red-600 hover:bg-red-700 text-white font-cairo-semibold-sm border-transparent"
+              className="flex-1 bg-red-600 hover:bg-red-700 text-white font-cairo-semibold-sm border-transparent cursor-pointer"
               onClick={onConfirm}
               disabled={isDeleting}
             >

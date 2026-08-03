@@ -83,27 +83,35 @@ export function CourseCard({
         </div>
       </div>
 
+      {/* ─── Price Section ─── */}
+      <div className="mt-auto pt-4 flex items-center">
+        {(price !== undefined && price !== null) && (
+          price === 0 ? (
+            <span className="font-cairo-bold-xl text-green-600">{t('freeCourse')}</span>
+          ) : (
+            <div className="flex items-center gap-2">
+              {discountPrice ? (
+                <>
+                  <span className="font-cairo-bold-2xl text-blueNormal">{discountPrice} <span className="font-cairo-bold-md">{currencyCode || ''}</span></span>
+                  <span className="text-black/40 line-through font-cairo-medium-sm">{price} {currencyCode || ''}</span>
+                </>
+              ) : (
+                <span className="font-cairo-bold-2xl text-blueNormal">{price} <span className="font-cairo-bold-md">{currencyCode || ''}</span></span>
+              )}
+            </div>
+          )
+        )}
+      </div>
+
       </Link>
 
       {/* ─── Action Button ─── */}
-      <div className="pt-4 mt-auto">
+      <div className="pt-3">
         <Link 
           href={isAuth ? `/courses/${courseId}` : '/login'}
-          className="w-full bg-orangeNormal text-white font-cairo-bold-sm py-2 rounded-lg hover:bg-orangeNormalHover transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-orangeNormal text-white font-cairo-bold-base py-2.5 rounded-lg hover:bg-orangeNormalHover transition-colors flex items-center justify-center gap-2"
         >
-          {price === undefined || price === null 
-            ? t('subscribeNow') 
-            : price === 0 
-              ? t('freeCourse') 
-              : discountPrice ? (
-                <div className="flex items-center gap-2">
-                  <span>{discountPrice} {currencyCode || ''}</span>
-                  <span className="text-white/60 line-through font-cairo-medium-xs">{price} {currencyCode || ''}</span>
-                </div>
-              ) : (
-                <span>{price} {currencyCode || ''}</span>
-              )
-          }
+          {t('moreDetails')}
         </Link>
       </div>
     </div>

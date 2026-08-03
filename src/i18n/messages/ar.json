@@ -267,7 +267,8 @@
   },
   "CourseCard": {
     "subscribeNow": "اشترك الآن",
-    "freeCourse": "كورس مجاني"
+    "freeCourse": "كورس مجاني",
+    "moreDetails": "اعرف تفاصيل اكثر"
   },
   "CourseDetails": {
     "header": {

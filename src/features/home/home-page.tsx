@@ -24,7 +24,7 @@ export default function HomePage() {
     courseData,
     isLoading,
     isError,
-  } = useCourses();
+  } = useCourses(6, "Published");
 
   return (
     <div className="pt-20 pb-12">

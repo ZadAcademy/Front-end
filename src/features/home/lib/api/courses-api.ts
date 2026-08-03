@@ -23,6 +23,7 @@ export async function fetchCourses(params: CoursesQueryParams): Promise<CoursesA
   if (params.MinRating !== undefined) url.searchParams.set('MinRating', String(params.MinRating));
   if (params.IsFree !== undefined) url.searchParams.set('IsFree', String(params.IsFree));
   if (params.SearchTerm) url.searchParams.set('search', params.SearchTerm);
+  if (params.Status !== undefined) url.searchParams.set('Status', String(params.Status));
 
   const response = await fetch(url, {
     method: 'GET',
