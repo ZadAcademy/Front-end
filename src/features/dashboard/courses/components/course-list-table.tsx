@@ -197,7 +197,7 @@ export function CourseListTable({ data }: CourseListTableProps) {
           <Button
             variant="outline"
             size="sm"
-            className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-500 border-red-200 cursor-pointer"
+            className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-500 border-red-300 cursor-pointer"
             onClick={() => setCourseToDelete(String(info.row.original.id))}
             disabled={isDeleting}
             title={t('actions.delete')}

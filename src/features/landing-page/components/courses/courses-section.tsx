@@ -32,7 +32,7 @@ export default async function CoursesSection() {
 
   let courses: any[] = [];
   try {
-    const res = await fetchCourses({ page: 1, pageSize: 20 });
+    const res = await fetchCourses({ page: 1, pageSize: 20, Status: "Published" });
     // Filter to ensure only courses with canPreview=true are shown on the landing page
     courses = (res.items || []).filter(course => course.canPreview === true).slice(0, 6);
   } catch (error) {

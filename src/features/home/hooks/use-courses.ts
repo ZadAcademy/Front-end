@@ -12,7 +12,7 @@ const LEVEL_MAP: Record<string, string> = {
 };
 
 
-export function useCourses(pageSize = 6) {
+export function useCourses(pageSize = 6, defaultStatus: string | null = null) {
   /* ─── Filter states ─── */
   const [level, setLevel] = useState<LevelFilter>('all');
   const [price, setPrice] = useState<PriceFilter>('all');
@@ -39,6 +39,7 @@ export function useCourses(pageSize = 6) {
     ...(rating !== 'all' && { MinRating: rating }),
     ...(price !== 'all' && { IsFree: price === 'free' }),
     ...(debouncedSearch && { SearchTerm: debouncedSearch }),
+    ...(defaultStatus && { Status: defaultStatus }),
   };
 
   /* ─── TanStack Query ─── */
@@ -49,6 +50,7 @@ export function useCourses(pageSize = 6) {
     placeholderData: keepPreviousData,
     staleTime: 30 * 1000,
   });
+  console.log(courseData?.items);
 
   /* ─── Filter handlers (each resets page to 1) ─── */
   const handleLevelChange = useCallback((value: LevelFilter) => {
