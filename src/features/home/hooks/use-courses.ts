@@ -44,7 +44,7 @@ export function useCourses(pageSize = 6) {
   /* ─── TanStack Query ─── */
   const { data: courseData, isLoading, isError } = useQuery<CoursesApiResponse>({
 
-    queryKey: ['coursesCard', currentPage, level, price, rating, debouncedSearch],
+    queryKey: ['coursesCard', currentPage, pageSize, level, price, rating, debouncedSearch],
     queryFn: () => fetchCourses(queryParams),
     placeholderData: keepPreviousData,
     staleTime: 30 * 1000,
