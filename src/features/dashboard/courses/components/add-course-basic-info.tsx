@@ -269,7 +269,7 @@ export function AddCourseBasicInfo() {
             name="canPreview"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field data-invalid={!!fieldState.error} className="flex flex-row items-center justify-between p-4 border rounded-lg h-12 bg-white">
+              <Field data-invalid={!!fieldState.error} className="flex flex-row items-center justify-between p-4 border border-gray-200 rounded-lg h-12 bg-white">
                 <FieldLabel className="font-cairo-semibold-base text-greyDarker mb-0 cursor-pointer" htmlFor="canPreviewToggle">
                   {t('canPreview')}
                 </FieldLabel>
@@ -281,7 +281,7 @@ export function AddCourseBasicInfo() {
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orangeNormal"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-solid after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orangeNormal"></div>
                 </label>
                 {fieldState.error && <FieldError className="absolute -bottom-6">{tErrors(fieldState.error.message || 'generic')}</FieldError>}
               </Field>
