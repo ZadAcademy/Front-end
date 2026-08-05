@@ -264,6 +264,49 @@ export function AddCourseBasicInfo() {
             )}
           />
 
+          {/* Start Date */}
+          <Controller
+            name="startDate"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={!!fieldState.error}>
+                <FieldLabel className="font-cairo-semibold-base text-greyDarker">
+                  {t('startDate', { defaultValue: 'تاريخ البدء' })}
+                </FieldLabel>
+                <input
+                  {...field}
+                  type="date"
+                  value={field.value ? field.value.split('T')[0] : ''}
+                  onChange={(e) => field.onChange(e.target.value || null)}
+                  className={inputClasses(!!fieldState.error)}
+                />
+                {fieldState.error && <FieldError>{tErrors(fieldState.error.message || 'generic')}</FieldError>}
+              </Field>
+            )}
+          />
+
+          {/* Initial Students Count */}
+          <Controller
+            name="initialStudentsCount"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={!!fieldState.error}>
+                <FieldLabel className="font-cairo-semibold-base text-greyDarker">
+                  {t('initialStudentsCount', { defaultValue: 'عدد الطلاب المبدئي' })}
+                </FieldLabel>
+                <input
+                  {...field}
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder={t('initialStudentsCountPlaceholder', { defaultValue: '0' })}
+                  className={inputClasses(!!fieldState.error)}
+                />
+                {fieldState.error && <FieldError>{tErrors(fieldState.error.message || 'generic')}</FieldError>}
+              </Field>
+            )}
+          />
+
           {/* Can Preview */}
           <Controller
             name="canPreview"

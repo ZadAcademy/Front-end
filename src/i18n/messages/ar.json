@@ -279,6 +279,7 @@
       "courseInfo": "معلومات عن الكورس",
       "level": "مستوى الكورس",
       "lastUpdated": "آخر تحديث",
+      "startDate": "تاريخ البدء",
       "certificate": "هل يوجد شهادة",
       "certificateYes": "نعم",
       "rating": "تقييم الكورس",
@@ -338,6 +339,9 @@
         "level": "مستوى الدورة",
         "levelPlaceholder": "اختر المستوى",
         "canPreview": "يمكن معاينته",
+        "startDate": "تاريخ البدء",
+        "initialStudentsCount": "عدد الطلاب المبدئي",
+        "initialStudentsCountPlaceholder": "0",
         "levels": {
           "beginner": "مبتدئ",
           "intermediate": "متوسط",

@@ -28,6 +28,8 @@ export const useCourseBasicInfoForm = () => {
       instructorName: '',
       canPreview: false,
       level: 0,
+      startDate: null,
+      initialStudentsCount: 0,
       learningOutcomes: [
         { id: uuidv4(), description: '', sortOrder: 1 }
       ],
@@ -48,6 +50,8 @@ export const useCourseBasicInfoForm = () => {
         instructorName: courseData.instructorName || '',
         canPreview: courseData.canPreview ?? false,
         level: courseData.level === 'Advanced' ? 2 : courseData.level === 'Intermediate' ? 1 : 0,
+        startDate: courseData.startDate || null,
+        initialStudentsCount: courseData.initialStudentsCount || 0,
         learningOutcomes: courseData.learningOutcomes?.length > 0
           ? courseData.learningOutcomes
           : [{ id: uuidv4(), description: '', sortOrder: 1 }],

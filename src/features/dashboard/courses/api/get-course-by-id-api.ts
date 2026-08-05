@@ -21,6 +21,8 @@ export interface CourseDetails {
   status: string;
   createdAt?: string;
   updatedAt?: string;
+  startDate?: string | null;
+  initialStudentsCount?: number | null;
   learningOutcomes: { id: string; description: string; sortOrder: number }[];
   prerequisites: { id: string; description: string; sortOrder: number }[];
   localizedPrices?: { id: string; countryCode: string; currencyCode: string; price: number; discountPrice?: number | null }[];
