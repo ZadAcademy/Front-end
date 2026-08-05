@@ -277,6 +277,7 @@
       "courseInfo": "Course Information",
       "level": "Course Level",
       "lastUpdated": "Last Updated",
+      "startDate": "Start Date",
       "certificate": "Certificate Included",
       "certificateYes": "Yes",
       "rating": "Course Rating",
@@ -336,6 +337,9 @@
         "level": "Course Level",
         "levelPlaceholder": "Select level",
         "canPreview": "Can Preview",
+        "startDate": "Start Date",
+        "initialStudentsCount": "Initial Students Count",
+        "initialStudentsCountPlaceholder": "e.g. 0",
         "levels": {
           "beginner": "Beginner",
           "intermediate": "Intermediate",

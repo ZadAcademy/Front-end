@@ -9,8 +9,6 @@ declare module "next-auth" {
   interface User {
     user: IUserData;
     accessToken: string;
-    refreshToken: string;
-    expiresIn: number;
   }
 
   /**
@@ -30,8 +28,6 @@ declare module "next-auth/jwt" {
   interface JWT {
     user: IUserData;
     token: string;
-    refreshToken: string;
     error?: string;
-    expiresAt?: number;
   }
 }

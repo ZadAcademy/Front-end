@@ -114,6 +114,16 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                   <span className="font-cairo-bold-sm text-blueNormal">{course.updatedAt}</span>
                 </li>
 
+                {course.startDate && (
+                  <li className="flex items-center justify-between pb-3 border-b border-black/5">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="size-6 text-blueNormal" />
+                      <span>{t('startDate', { defaultValue: 'تاريخ البدء' })}</span>
+                    </div>
+                    <span className="font-cairo-bold-sm text-blueNormal">{course.startDate.split('T')[0]}</span>
+                  </li>
+                )}
+
                 <li className="flex items-center justify-between pb-3 border-b border-black/5">
                   <div className="flex items-center gap-2">
                     <Award className="size-6 text-blueNormal" />
