@@ -7,10 +7,10 @@ interface CourseHeaderProps {
   shortDescription: string;
   level: string;
   isRTL: boolean;
-  imageUrl: string;
+  detailImageUrl: string;
 }
 
-export default function CourseHeader({ title, shortDescription, level, isRTL, imageUrl }: CourseHeaderProps) {
+export default function CourseHeader({ title, shortDescription, level, isRTL, detailImageUrl }: CourseHeaderProps) {
   const t = useTranslations('CourseDetails.header');
   const BackIcon = isRTL ? ArrowRight : ArrowLeft;
 
@@ -19,7 +19,7 @@ export default function CourseHeader({ title, shortDescription, level, isRTL, im
       {/* Background Image (Using placeholder for now) */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('${imageUrl}')` }}
+        style={{ backgroundImage: `url('${detailImageUrl}')` }}
       />
       
       {/* Dark overlay for readability */}

@@ -9,6 +9,7 @@ export function CourseCard({
   level,
   title,
   shortDescription,
+  cardImageUrl,
   instructorName,
   numberOfLessons,
   numberOfStudents,
@@ -28,13 +29,13 @@ export function CourseCard({
     >
       <Link href={`/courses/${courseId}`} className="contents">
       {/* ─── Image Placeholder ─── */}
-      <div className="w-full aspect-4/3 rounded-xl flex items-center justify-center overflow-hidden">
+      <div className="w-full aspect-video rounded-xl flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/courses/course-cover.jpg"
-          alt="Courses Section"
+          src={cardImageUrl || "/images/courses/course-cover.jpg"}
+          alt={title || "Courses Section"}
           width={600}
           height={600}
-          className="rounded-xl border border-orange-500 object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+          className="rounded-xl border  object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
         />
       </div>
 

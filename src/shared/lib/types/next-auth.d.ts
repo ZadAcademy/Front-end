@@ -31,7 +31,7 @@ declare module "next-auth/jwt" {
     user: IUserData;
     token: string;
     refreshToken: string;
+    accessTokenExpires: number;
     error?: string;
-    expiresAt?: number;
   }
 }

@@ -3,6 +3,7 @@ export interface CourseCardProps {
   level: string;
   title: string;
   shortDescription: string;
+  cardImageUrl?: string;
   instructorName: string;
   numberOfLessons: number;
   numberOfStudents: number;

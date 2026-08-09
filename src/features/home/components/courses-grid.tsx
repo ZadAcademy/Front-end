@@ -75,6 +75,7 @@ export default function CoursesGrid({ courseData, isLoading, isError }: CoursesG
           level={getTranslatedLevel(course.level)}
           title={course.title}
           shortDescription={course.shortDescription}
+          cardImageUrl={course.cardImageUrl}
           instructorName={course.instructorName}
           numberOfLessons={course.numberOfLessons}
           numberOfStudents={course.numberOfStudents}

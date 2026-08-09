@@ -9,6 +9,8 @@ export const courseBasicInfoSchema = z.object({
   instructorName: z.string().nullable().optional(),
   canPreview: z.boolean().default(false),
   level: z.coerce.number().min(0, 'levelRequired').max(2, 'levelRequired'),
+  startDate: z.string().nullable().optional(),
+  initialStudentsCount: z.coerce.number().min(0, 'invalidStudentsCount').default(0),
   learningOutcomes: z.array(
     z.object({
       id: z.string().optional(), // For React array key and Dnd-kit identifier

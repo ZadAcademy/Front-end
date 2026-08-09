@@ -4,45 +4,37 @@ import { IApiResponse } from "./shared/lib/types/api";
 import { ILoginResponse } from "./shared/lib/types/auth";
 import { JWT } from "next-auth/jwt";
 
-/**
- * Calls the backend refresh-token endpoint to get a new access token.
- * Returns the updated JWT or marks the token with an error if refresh fails.
- */
 async function refreshAccessToken(token: JWT): Promise<JWT> {
     try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
         const response = await fetch(`${baseUrl}api/v1/auth/refresh-token`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ refreshToken: token.refreshToken }),
+            body: JSON.stringify({
+                accessToken: token.token,
+                refreshToken: token.refreshToken,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
         });
 
-        if (!response.ok) {
-            console.error("[Auth] Refresh token request failed:", response.status);
-            throw new Error("RefreshTokenFailed");
+        const responseData = await response.json();
+
+        if (!response.ok || !responseData.isSuccess) {
+            throw new Error(responseData.message || "Failed to refresh token");
         }
 
-        const result: IApiResponse<ILoginResponse> = await response.json();
-
-        if (!result.isSuccess) {
-            console.error("[Auth] Refresh token API error:", result.message);
-            throw new Error(result.message);
-        }
-
-        const refreshed = result.data;
-
-        console.log("[Auth] Access token refreshed successfully");
+        const refreshedData = responseData.data;
 
         return {
             ...token,
-            token: refreshed.accessToken,
-            refreshToken: refreshed.refreshToken,
-            expiresAt: Date.now() + refreshed.expiresIn * 1000,
-            error: undefined, // Clear any previous error
+            token: refreshedData.accessToken,
+            refreshToken: refreshedData.refreshToken ?? token.refreshToken, // Fall back to old refresh token
+            accessTokenExpires: Date.now() + (refreshedData.expiresIn * 1000),
+            error: undefined,
         };
     } catch (error) {
-        console.error("[Auth] Failed to refresh access token:", error);
+        console.error("Error refreshing access token", error);
         return {
             ...token,
             error: "RefreshAccessTokenError",
@@ -115,19 +107,18 @@ export const authOptions: NextAuthOptions = {
                 token.user = user.user;
                 token.token = user.accessToken;
                 token.refreshToken = user.refreshToken;
-                // user.expiresIn is in seconds
-                token.expiresAt = Date.now() + (user.expiresIn * 1000);
-                return token;
+                // NextAuth uses ms for Date.now(), we assume expiresIn is in seconds.
+                token.accessTokenExpires = Date.now() + (user.expiresIn * 1000);
             }
 
             // Return previous token if the access token has not expired yet
-            if (token.expiresAt && Date.now() < token.expiresAt) {
+            // Subtracting a 10-second buffer to ensure the token is still valid when it reaches the server
+            if (Date.now() < token.accessTokenExpires - 10000) {
                 return token;
             }
 
-            // Access token has expired — try to refresh it
-            console.log("[Auth] Access token expired, attempting refresh...");
-            return await refreshAccessToken(token);
+            // Access token has expired, try to update it
+            return refreshAccessToken(token);
         },
         session: ({ session, token }) => {
             session.user = token.user;
@@ -136,3 +127,4 @@ export const authOptions: NextAuthOptions = {
         },
     },
 };
+

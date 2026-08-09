@@ -15,12 +15,16 @@ export interface CourseDetails {
   instructorName?: string | null;
   canPreview?: boolean;
   level: string;
-  imageUrl?: string | null;
+  cardImageUrl?: string | null;
+  detailImageUrl?: string | null;
   rating: number;
   totalReviews: number;
   status: string;
   createdAt?: string;
   updatedAt?: string;
+  startDate?: string | null;
+  initialStudentsCount?: number | null;
+  numberOfStudents?: number;
   learningOutcomes: { id: string; description: string; sortOrder: number }[];
   prerequisites: { id: string; description: string; sortOrder: number }[];
   localizedPrices?: { id: string; countryCode: string; currencyCode: string; price: number; discountPrice?: number | null }[];

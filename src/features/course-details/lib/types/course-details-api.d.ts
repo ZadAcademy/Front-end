@@ -34,12 +34,14 @@ export interface CourseDetailsApiResponse {
   title: string;
   instructorName: string;
   shortDescription:string;
-  imageUrl:string;
+  cardImageUrl:string;
+  detailImageUrl:string;
   resolvedPrice?: { price: number; discountPrice?: number | null; currencyCode: string; } | null;
   level:string;
   rating: number;
   description: string;
   totalReviews:number;
+  numberOfStudents?: number;
   createdAt: string;
   updatedAt: string;
   status:string;
