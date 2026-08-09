@@ -3,7 +3,7 @@ import { createCourse } from '../api/create-course-api';
 import { updateCourse } from '../api/update-course-api';
 import { updateLocalizedPrices, deleteLocalizedPrice, CreateLocalizedPricesPayload } from '../api/localized-prices-api';
 import { updatePreviewVideos, deletePreviewVideo, CreatePreviewVideosPayload } from '../api/preview-videos-api';
-import { uploadCourseImage } from '../api/upload-course-image-api';
+import { uploadCardImage, uploadDetailImage } from '../api/upload-course-image-api';
 import { getCourseById } from '../api/get-course-by-id-api';
 import { updateCourseStatus } from '../api/update-course-status-api';
 import { updateCoursePreview } from '../api/update-course-preview-api';
@@ -50,11 +50,23 @@ export const useUpdateCourseMutation = () => {
   });
 };
 
-export const useUploadCourseImageMutation = () => {
+export const useUploadCardImageMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ courseId, formData }: { courseId: string; formData: FormData }) => uploadCourseImage(courseId, formData),
+    mutationFn: ({ courseId, formData }: { courseId: string; formData: FormData }) => uploadCardImage(courseId, formData),
+    onSuccess: (_, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: ['course', courseId] });
+      queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+    }
+  });
+};
+
+export const useUploadDetailImageMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ courseId, formData }: { courseId: string; formData: FormData }) => uploadDetailImage(courseId, formData),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });

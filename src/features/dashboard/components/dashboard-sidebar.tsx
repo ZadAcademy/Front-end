@@ -11,6 +11,8 @@ import {
   PlusCircle,
   ChevronDown,
   X,
+  Users,
+  Shield,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -55,6 +57,18 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         { label: t('listCourses'), href: '/dashboard/courses', icon: List },
         { label: t('addCourse'), href: '/dashboard/courses/add', icon: PlusCircle },
       ],
+    },
+    {
+      key: 'roles',
+      label: t('roles', { defaultValue: 'Roles & Permissions' }),
+      icon: Shield,
+      href: '/dashboard/roles',
+    },
+    {
+      key: 'users',
+      label: t('users', { defaultValue: 'Users' }),
+      icon: Users,
+      href: '/dashboard/users',
     },
   ];
 

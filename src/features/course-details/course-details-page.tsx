@@ -49,7 +49,7 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
         shortDescription={course.shortDescription || ''}
         level={course.level}
         isRTL={isRTL}
-        imageUrl={course.imageUrl || '/images/courses/course-cover.jpg'}
+        detailImageUrl={course.detailImageUrl || '/images/courses/course-cover.jpg'}
       />
 
       {/* ─── Main Content Layout ─── */}

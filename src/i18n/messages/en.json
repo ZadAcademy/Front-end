@@ -303,7 +303,9 @@
       "dashboard": "Dashboard",
       "courses": "Courses",
       "listCourses": "All Courses",
-      "addCourse": "Add Course"
+      "addCourse": "Add Course",
+      "roles": "Roles & Permissions",
+      "users": "Users"
     },
     "pages": {
       "dashboard": "Dashboard",
@@ -313,11 +315,14 @@
     "addCourse": {
       "createNewCourse": "Create New Course",
       "image": {
-        "title": "Course Image",
-        "description": "Upload a cover image for your course.",
-        "label": "Image File",
+        "title": "Course Images",
+        "description": "Upload a preview card image and a detail header image for your course.",
+        "cardImageLabel": "Card Image (Preview)",
+        "cardImageDescription": "This image will be displayed on course cards across the website.",
+        "detailImageLabel": "Detail Image (Header)",
+        "detailImageDescription": "This image will be used as the large background header on the course details page.",
         "uploadPlaceholder": "Click or drag to upload",
-        "submit": "Save and Continue"
+        "submit": "Save Images"
       },
       "basicInfo": {
         "title": "Basic Information",
@@ -468,6 +473,90 @@
         "next": "Next",
         "page": "Page",
         "of": "of"
+      }
+    },
+    "roles": {
+      "title": "Roles Management",
+      "createNewRole": "Create New Role",
+      "noRoles": "No roles found.",
+      "loading": "Loading...",
+      "error": "Failed to load roles",
+      "table": {
+        "name": "Role Name",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "disabled": "Disabled"
+      },
+      "actions": {
+        "edit": "Edit Role",
+        "enable": "Enable",
+        "disable": "Disable"
+      },
+      "toasts": {
+        "statusUpdated": "Role status updated successfully",
+        "statusUpdateFailed": "Failed to update role status"
+      },
+      "modal": {
+        "editRole": "Edit Role",
+        "createRole": "Create New Role",
+        "loading": "Loading data...",
+        "roleName": "Role Name",
+        "roleNamePlaceholder": "e.g. Content Creator",
+        "isDefault": "Assign this role to new users automatically",
+        "description": "Description (Optional)",
+        "descriptionPlaceholder": "Briefly describe this role...",
+        "permissions": "Permissions",
+        "cancel": "Cancel",
+        "saveChanges": "Save Changes",
+        "createSuccess": "Role created successfully",
+        "createFailed": "Failed to create role",
+        "updateSuccess": "Role updated successfully",
+        "updateFailed": "Failed to update role"
+      },
+      "errors": {
+        "roleNameRequired": "Role name is required",
+        "atLeastOnePermissionRequired": "At least one permission must be selected",
+        "generic": "Invalid value"
+      }
+    },
+    "users": {
+      "title": "User Management",
+      "searchPlaceholder": "Search by name or email...",
+      "noUsers": "No users found.",
+      "noRolesAssigned": "No roles",
+      "loading": "Loading users...",
+      "error": "Failed to load users",
+      "table": {
+        "user": "User",
+        "status": "Status",
+        "roles": "Assigned Roles",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "actions": {
+        "manageRoles": "Manage Roles"
+      },
+      "pagination": {
+        "showing": "Showing",
+        "of": "of",
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "modal": {
+        "title": "Manage User Roles",
+        "loading": "Loading roles...",
+        "selectRoles": "Select Roles for this User",
+        "noRolesAvailable": "No active roles available.",
+        "cancel": "Cancel",
+        "save": "Save Assignments",
+        "updateSuccess": "User roles updated successfully",
+        "updateFailed": "Failed to update user roles"
       }
     }
   }

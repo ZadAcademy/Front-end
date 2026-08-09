@@ -305,7 +305,9 @@
       "dashboard": "لوحة التحكم",
       "courses": "الدورات",
       "listCourses": "جميع الدورات",
-      "addCourse": "إضافة دورة"
+      "addCourse": "إضافة دورة",
+      "roles": "إدارة الصلاحيات",
+      "users": "إدارة المستخدمين"
     },
     "pages": {
       "dashboard": "لوحة التحكم",
@@ -315,11 +317,14 @@
     "addCourse": {
       "createNewCourse": "إنشاء دورة جديدة",
       "image": {
-        "title": "صورة الدورة",
-        "description": "قم برفع صورة الغلاف للدورة.",
-        "label": "ملف الصورة",
+        "title": "صور الدورة",
+        "description": "قم برفع صورة مصغرة للدورة وصورة غلاف لصفحة التفاصيل.",
+        "cardImageLabel": "الصورة المصغرة (للبطاقة)",
+        "cardImageDescription": "ستظهر هذه الصورة في بطاقات الدورات في الموقع.",
+        "detailImageLabel": "صورة الغلاف (للتفاصيل)",
+        "detailImageDescription": "ستستخدم هذه الصورة كخلفية علوية في صفحة تفاصيل الدورة.",
         "uploadPlaceholder": "اضغط أو اسحب الملف للرفع",
-        "submit": "حفظ ومتابعة"
+        "submit": "حفظ الصور"
       },
       "basicInfo": {
         "title": "المعلومات الأساسية",
@@ -470,6 +475,90 @@
         "next": "التالي",
         "page": "صفحة",
         "of": "من"
+      }
+    },
+    "roles": {
+      "title": "إدارة الصلاحيات",
+      "createNewRole": "إنشاء دور جديد",
+      "noRoles": "لم يتم العثور على أدوار.",
+      "loading": "جاري التحميل...",
+      "error": "فشل في تحميل الأدوار",
+      "table": {
+        "name": "اسم الدور",
+        "status": "الحالة",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "disabled": "معطل"
+      },
+      "actions": {
+        "edit": "تعديل الدور",
+        "enable": "تفعيل",
+        "disable": "تعطيل"
+      },
+      "toasts": {
+        "statusUpdated": "تم تحديث حالة الدور بنجاح",
+        "statusUpdateFailed": "فشل في تحديث حالة الدور"
+      },
+      "modal": {
+        "editRole": "تعديل الدور",
+        "createRole": "إنشاء دور جديد",
+        "loading": "جاري تحميل البيانات...",
+        "roleName": "اسم الدور",
+        "roleNamePlaceholder": "مثال: منشئ محتوى",
+        "isDefault": "تعيين هذا الدور للمستخدمين الجدد تلقائياً",
+        "description": "الوصف (اختياري)",
+        "descriptionPlaceholder": "صف هذا الدور باختصار...",
+        "permissions": "الصلاحيات",
+        "cancel": "إلغاء",
+        "saveChanges": "حفظ التغييرات",
+        "createSuccess": "تم إنشاء الدور بنجاح",
+        "createFailed": "فشل في إنشاء الدور",
+        "updateSuccess": "تم تحديث الدور بنجاح",
+        "updateFailed": "فشل في تحديث الدور"
+      },
+      "errors": {
+        "roleNameRequired": "اسم الدور مطلوب",
+        "atLeastOnePermissionRequired": "يجب اختيار صلاحية واحدة على الأقل",
+        "generic": "قيمة غير صالحة"
+      }
+    },
+    "users": {
+      "title": "إدارة المستخدمين",
+      "searchPlaceholder": "البحث بالاسم أو البريد الإلكتروني...",
+      "noUsers": "لم يتم العثور على مستخدمين.",
+      "noRolesAssigned": "لا يوجد أدوار",
+      "loading": "جاري تحميل المستخدمين...",
+      "error": "فشل في تحميل المستخدمين",
+      "table": {
+        "user": "المستخدم",
+        "status": "الحالة",
+        "roles": "الأدوار المعينة",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "غير نشط"
+      },
+      "actions": {
+        "manageRoles": "إدارة الأدوار"
+      },
+      "pagination": {
+        "showing": "عرض",
+        "of": "من",
+        "previous": "السابق",
+        "next": "التالي"
+      },
+      "modal": {
+        "title": "إدارة أدوار المستخدم",
+        "loading": "جاري تحميل الأدوار...",
+        "selectRoles": "اختر الأدوار لهذا المستخدم",
+        "noRolesAvailable": "لا توجد أدوار نشطة متاحة.",
+        "cancel": "إلغاء",
+        "save": "حفظ التعيينات",
+        "updateSuccess": "تم تحديث أدوار المستخدم بنجاح",
+        "updateFailed": "فشل في تحديث أدوار المستخدم"
       }
     }
   }

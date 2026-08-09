@@ -3,7 +3,8 @@ export interface CourseApiItem {
   title: string;
   instructorName: string;
   shortDescription: string;
-  imageUrl:string;
+  cardImageUrl:string;
+  detailImageUrl:string;
   price: number;
   discountPrice:number|null;
   courseHours:number;

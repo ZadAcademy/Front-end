@@ -93,7 +93,7 @@ export function CourseListTable({ data }: CourseListTableProps) {
   const columnHelper = createColumnHelper<CourseApiItem>();
 
   const columns = [
-    columnHelper.accessor('imageUrl', {
+    columnHelper.accessor('cardImageUrl', {
       header: () => t('table.image'),
       cell: (info) => (
         <div className="relative h-12 w-16 overflow-hidden rounded-md bg-gray-100">

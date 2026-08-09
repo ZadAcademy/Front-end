@@ -54,7 +54,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
             onClick={() => setIsVideoModalOpen(true)}
           >
             <Image
-              src={course.imageUrl || '/images/courses/course-cover.jpg'}
+              src={course.cardImageUrl || '/images/courses/course-cover.jpg'}
               alt={course.title}
               fill
               className="object-cover"
@@ -148,8 +148,7 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                     <span>{t('students')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">
-                    {/* {course.studentsCount} */}
-                    00
+                    {course.numberOfStudents || 0}
                   </span>
                 </li>
               </ul>
