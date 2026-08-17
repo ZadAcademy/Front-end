@@ -615,6 +615,7 @@
       "next": "التالي"
     },
     "public": "عام",
-    "toggleVisibility": "تغيير حالة الظهور"
+    "toggleVisibility": "تغيير حالة الظهور",
+    "imageTooLarge": "يجب ألا يتجاوز حجم الصورة 5 ميجابايت"
   }
 }
