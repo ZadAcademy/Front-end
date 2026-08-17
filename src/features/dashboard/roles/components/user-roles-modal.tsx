@@ -69,7 +69,7 @@ export default function UserRolesModal({ isOpen, onClose, user }: UserRolesModal
                       name="roles"
                       control={form.control}
                       render={({ field }) => {
-                        const isChecked = field.value.includes(role.name);
+                        const isChecked = field.value.includes(role.id);
                         return (
                           <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl border transition-colors group hover:bg-black/5 border-black/10">
                             <div className={`
@@ -91,8 +91,8 @@ export default function UserRolesModal({ isOpen, onClose, user }: UserRolesModal
                               checked={isChecked}
                               onChange={(e) => {
                                 const newRoles = e.target.checked 
-                                  ? [...field.value, role.name]
-                                  : field.value.filter(r => r !== role.name);
+                                  ? [...field.value, role.id]
+                                  : field.value.filter(r => r !== role.id);
                                 field.onChange(newRoles);
                               }}
                             />
@@ -120,7 +120,7 @@ export default function UserRolesModal({ isOpen, onClose, user }: UserRolesModal
             type="submit"
             form="user-roles-form"
             disabled={isSubmitting || isLoadingRoles}
-            className="bg-blueNormal text-white px-8 py-2.5 rounded-lg font-cairo-bold-md hover:bg-blueNormalHover transition-colors disabled:opacity-50 flex items-center gap-2"
+            className="bg-blueNormal text-white px-8 py-2.5 rounded-lg font-cairo-bold-base hover:bg-blueNormalHover transition-colors disabled:opacity-50 flex items-center gap-2"
           >
             {isSubmitting && <Loader2 className="size-4 animate-spin" />}
             {t('save', { defaultValue: 'Save Assignments' })}

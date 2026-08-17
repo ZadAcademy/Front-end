@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { Shield, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Shield, Search, ChevronLeft, ChevronRight, ArrowUp, ArrowDown, ArrowUpDown } from 'lucide-react';
 import { useGetUsersQuery } from '../hooks/use-users-api';
 import { UserWithRoles } from '../lib/types/roles-types';
 import UserRolesModal from './user-roles-modal';
@@ -19,7 +19,30 @@ export default function UsersList() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const pageSize = 10;
+  const [sortBy, setSortBy] = useState<string | undefined>();
+  const [sortDescending, setSortDescending] = useState<boolean | undefined>();
+  const pageSize = 12;
+
+  const handleSort = (columnId: string) => {
+    // Map 'user' column to 'firstName' for backend sorting
+    const sortKey = columnId === 'user' ? 'firstName' : columnId;
+    
+    if (sortBy === sortKey) {
+      if (sortDescending) {
+        // Reset sorting on third click
+        setSortBy(undefined);
+        setSortDescending(undefined);
+      } else {
+        // Toggle to descending
+        setSortDescending(true);
+      }
+    } else {
+      // First click: sort ascending
+      setSortBy(sortKey);
+      setSortDescending(false);
+    }
+    setPage(1);
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -43,7 +66,9 @@ export default function UsersList() {
   const { data, isLoading, isError } = useGetUsersQuery({
     page,
     pageSize,
-    search: debouncedSearch
+    search: debouncedSearch,
+    sortBy,
+    sortDescending
   });
 
   const [selectedUser, setSelectedUser] = useState<UserWithRoles | null>(null);
@@ -138,7 +163,7 @@ export default function UsersList() {
             value={search}
             onChange={handleSearchChange}
             placeholder={t('searchPlaceholder', { defaultValue: 'Search by name or email...' })}
-            className="w-72 h-10 pl-10 pr-4 rounded-lg border border-black/10 bg-white font-cairo-medium-sm focus:border-blueNormal outline-none transition-colors"
+            className="w-72 h-10 pl-10 pr-4 rounded-lg border border-black/10 bg-white text-greyDarker font-cairo-medium-sm focus:border-blueNormal outline-none transition-colors"
           />
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-greyNormal" />
         </form>
@@ -150,16 +175,37 @@ export default function UsersList() {
             <thead className="bg-black/5 border-b border-black/5 font-cairo-bold-base text-greyDark">
               {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id}>
-                  {headerGroup.headers.map(header => (
-                    <th key={header.id} className="px-6 py-4 text-start">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
+                  {headerGroup.headers.map(header => {
+                    const isSortable = header.id !== 'actions' && header.id !== 'roles';
+                    const sortKey = header.id === 'user' ? 'firstName' : header.id;
+                    const isSorted = sortBy === sortKey;
+
+                    return (
+                      <th 
+                        key={header.id} 
+                        className={`px-6 py-4 text-start ${isSortable ? 'cursor-pointer hover:bg-black/5 select-none transition-colors' : ''}`}
+                        onClick={() => isSortable && handleSort(header.id)}
+                      >
+                        <div className={`flex items-center gap-2 ${header.id === 'actions' ? 'justify-center' : ''}`}>
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                          {isSortable && (
+                            <span className="text-greyNormal flex items-center justify-center">
+                              {isSorted ? (
+                                sortDescending ? <ArrowDown className="size-4 text-blueNormal" /> : <ArrowUp className="size-4 text-blueNormal" />
+                              ) : (
+                                <ArrowUpDown className="size-4 opacity-30 group-hover:opacity-100 transition-opacity" />
+                              )}
+                            </span>
                           )}
-                    </th>
-                  ))}
+                        </div>
+                      </th>
+                    );
+                  })}
                 </tr>
               ))}
             </thead>

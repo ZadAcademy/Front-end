@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { CircleChevronRight, CirclePlus, Menu, X, Globe } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { usePathname, useRouter } from '@/i18n/navigation';
+import Link from 'next/link';
 import LoginModal from '@/features/auth/login/components/login-modal';
 import { useSession } from 'next-auth/react';
 import './navbar.css';
@@ -21,7 +22,8 @@ const NAV_ITEMS = [
   { key: 'testimonials', sectionId: 'testimonials' },
   { key: 'whyUs', sectionId: 'why-us' },
   { key: 'faq', sectionId: 'faq' },
-] as const;
+  { key: 'posts', href: '/posts' },
+];
 
 /* ─── Scroll threshold (px) before navbar turns solid ─── */
 const SCROLL_THRESHOLD = 50;
@@ -114,15 +116,28 @@ export default function Navbar() {
               DESKTOP NAV LINKS (hidden on mobile)
               ═══════════════════════════════════ */}
           <div className="hidden lg:flex lg:items-center lg:gap-8">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => scrollToSection(item.sectionId)}
-                className="nav-link font-cairo-medium-base text-black  transition-colors duration-200 cursor-pointer bg-transparent border-none"
-              >
-                {t(item.key)}
-              </button>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              if (item.href) {
+                return (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    className="nav-link font-cairo-medium-base text-black transition-colors duration-200 cursor-pointer bg-transparent border-none"
+                  >
+                    {t(item.key, { defaultValue: 'Posts' })}
+                  </Link>
+                );
+              }
+              return (
+                <button
+                  key={item.key}
+                  onClick={() => item.sectionId && scrollToSection(item.sectionId)}
+                  className="nav-link font-cairo-medium-base text-black transition-colors duration-200 cursor-pointer bg-transparent border-none"
+                >
+                  {t(item.key)}
+                </button>
+              );
+            })}
           </div>
 
           {/* ═══════════════════════════════════
@@ -201,15 +216,29 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="lg:hidden mobile-menu-enter bg-white/95 backdrop-blur-md border-t border-black/5 shadow-lg">
           <div className="px-4 py-4 flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => scrollToSection(item.sectionId)}
-                className="nav-link w-full text-start font-cairo-medium-base text-black hover:bg-black/5 rounded-lg px-4 py-3 transition-colors duration-200 cursor-pointer bg-transparent border-none"
-              >
-                {t(item.key)}
-              </button>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              if (item.href) {
+                return (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="nav-link w-full text-start font-cairo-medium-base text-black hover:bg-black/5 rounded-lg px-4 py-3 transition-colors duration-200 cursor-pointer bg-transparent border-none block"
+                  >
+                    {t(item.key, { defaultValue: 'Posts' })}
+                  </Link>
+                );
+              }
+              return (
+                <button
+                  key={item.key}
+                  onClick={() => item.sectionId && scrollToSection(item.sectionId)}
+                  className="nav-link w-full text-start font-cairo-medium-base text-black hover:bg-black/5 rounded-lg px-4 py-3 transition-colors duration-200 cursor-pointer bg-transparent border-none"
+                >
+                  {t(item.key)}
+                </button>
+              );
+            })}
 
             {/* ─── Mobile CTA Buttons (same style as desktop) ─── */}
             <div className="flex flex-col gap-3 mt-3 pt-3 border-t border-black/10">

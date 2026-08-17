@@ -13,6 +13,7 @@ import {
   X,
   Users,
   Shield,
+  FileText,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -69,6 +70,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
       label: t('users', { defaultValue: 'Users' }),
       icon: Users,
       href: '/dashboard/users',
+    },
+    {
+      key: 'posts',
+      label: t('posts', { defaultValue: 'Posts' }),
+      icon: FileText,
+      href: '/dashboard/posts',
     },
   ];
 

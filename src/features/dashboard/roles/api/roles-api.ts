@@ -173,6 +173,7 @@ export async function updateUserRoles(payload: UpdateUserRolesPayload): Promise<
     const errorData = await response.json().catch(() => null);
     throw new Error(errorData?.message || errorData?.errors?.[0] || 'Failed to assign user roles');
   }
+  console.log("update user roles api response",response)
 
   const resultData: IApiResponse<boolean> = await response.json();
   if (!resultData.isSuccess) {
