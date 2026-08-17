@@ -613,6 +613,7 @@
       "next": "Next"
     },
     "public": "Public",
-    "toggleVisibility": "Toggle Visibility"
+    "toggleVisibility": "Toggle Visibility",
+    "imageTooLarge": "Image size should not exceed 5MB"
   }
 }
