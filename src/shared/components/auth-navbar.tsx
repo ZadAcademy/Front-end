@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Bell, Globe, LogOut, User, LayoutDashboard, ChevronDown, Home } from 'lucide-react';
+import { Bell, Globe, LogOut, User, LayoutDashboard, ChevronDown, Home, MessageSquare, Compass } from 'lucide-react';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -86,25 +86,54 @@ export default function AuthNavbar() {
         <div className="flex h-16 items-center justify-between">
 
           {/* ═══════════ LOGO ═══════════ */}
-          <Link href="/home" className="shrink-0">
+          <Link href="/" className="shrink-0">
             <span className="font-cairo-bold-2xl text-black cursor-pointer select-none">
               زاد
             </span>
           </Link>
 
-          {/* ═══════════ RIGHT SIDE — Notifications + User Menu ═══════════ */}
-          <div className="flex items-center gap-3">
-
-            {/* ─── Home Link ─── */}
+          {/* ═══════════ CENTER — Main Navigation Links ═══════════ */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+            {/* ─── Explore / Landing Page Link ─── */}
             <Link
               href="/"
-              className="flex items-center gap-2 px-3 py-2 rounded-xl
-                         hover:bg-black/5 transition-colors cursor-pointer text-greyDark"
-              aria-label={t('home')}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl
+                         hover:bg-black/5 transition-colors cursor-pointer
+                         ${pathname === '/' ? 'text-blueNormal bg-blueNormal/10' : 'text-greyNormal'}`}
+              aria-label={t('explore', { defaultValue: 'Explore' })}
             >
-              <Home className="size-5" />
-              <span className="hidden sm:block font-cairo-medium-sm">{t('home')}</span>
+              <Compass className={`size-5 ${pathname === '/' ? 'fill-blueNormal' : ''}`} />
+              <span className="hidden sm:block font-cairo-bold-sm">{t('explore', { defaultValue: 'Explore' })}</span>
             </Link>
+            {/* ─── Home Link (Authenticated Only) ─── */}
+            {status === 'authenticated' && (
+              <Link
+                href="/home"
+                className={`flex items-center gap-2 px-6 py-2.5 rounded-xl
+                           hover:bg-black/5 transition-colors cursor-pointer
+                           ${pathname === '/home' ? 'text-blueNormal bg-blueNormal/10' : 'text-greyNormal'}`}
+                aria-label={t('home')}
+              >
+                <Home className={`size-5 ${pathname === '/home' ? 'fill-blueNormal' : ''}`} />
+                <span className="hidden sm:block font-cairo-bold-sm">{t('home')}</span>
+              </Link>
+            )}
+
+            {/* ─── Posts Link ─── */}
+            <Link
+              href="/posts"
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl
+                         hover:bg-black/5 transition-colors cursor-pointer
+                         ${pathname === '/posts' ? 'text-blueNormal bg-blueNormal/10' : 'text-greyNormal'}`}
+              aria-label={t('posts', { defaultValue: 'Posts' })}
+            >
+              <MessageSquare className={`size-5 ${pathname === '/posts' ? 'fill-blueNormal' : ''}`} />
+              <span className="hidden sm:block font-cairo-bold-sm">{t('posts', { defaultValue: 'Posts' })}</span>
+            </Link>
+          </div>
+
+          {/* ═══════════ RIGHT SIDE — Notifications + User Menu ═══════════ */}
+          <div className="flex items-center gap-3">
 
             {/* ─── Notification Bell & User Dropdown (Auth Only) ─── */}
             {status === 'authenticated' && (

@@ -48,7 +48,7 @@ export const useRoleForm = (roleId: string | null, onClose: () => void) => {
   const onSubmit = (data: RoleFormData) => {
     if (isEditing) {
       updateMutation.mutate(
-        { id: roleId!, newName: data.name, ...data },
+        { id: roleId!, newName: data.name, description: data.description, permissions: data.permissions, isDefault: data.isDefault },
         {
           onSuccess: () => {
             toast.success(t('updateSuccess', { defaultValue: 'Role updated successfully' }));

@@ -20,7 +20,8 @@
       "whyUs": "Why Us",
       "faq": "FAQ",
       "login": "Login",
-      "create-account": "Create Account"
+      "create-account": "Create Account",
+      "posts": "Posts"
     },
     "hero": {
       "title": "Learn Mechanical Engineering with a practical approach that prepares you for the job market in a",
@@ -234,7 +235,9 @@
       "dashboard": "Dashboard",
       "logout": "Logout",
       "language": "Language",
-      "home": "Home"
+      "home": "Home",
+      "posts": "Posts",
+      "explore": "Explore"
     },
     "filter": {
       "customSearch": "Click for Custom Search",
@@ -305,7 +308,8 @@
       "listCourses": "All Courses",
       "addCourse": "Add Course",
       "roles": "Roles & Permissions",
-      "users": "Users"
+      "users": "Users",
+      "posts": "Posts"
     },
     "pages": {
       "dashboard": "Dashboard",
@@ -559,5 +563,56 @@
         "updateFailed": "Failed to update user roles"
       }
     }
+  },
+  "Posts": {
+    "title": "Community Posts",
+    "createNewPost": "Create Post",
+    "noPostsYet": "No Posts Yet",
+    "beTheFirst": "Be the first to share something with the community!",
+    "endOfPosts": "You have seen all posts.",
+    "loading": "Loading...",
+    "error": "Failed to load posts",
+    "editPost": "Edit Post",
+    "createPost": "Create New Post",
+    "titlePlaceholder": "Enter post title...",
+    "content": "Content",
+    "contentPlaceholder": "What do you want to share?",
+    "image": "Post Image (Optional)",
+    "clickToUpload": "Click to upload an image",
+    "publicLabel": "Public (Visible to everyone)",
+    "privateLabel": "Private (Hidden from feed)",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel",
+    "createSuccess": "Post created successfully",
+    "createFailed": "Failed to create post",
+    "updateSuccess": "Post updated successfully",
+    "updateFailed": "Failed to update post",
+    "confirmDelete": "Are you sure you want to delete this post?",
+    "deleteSuccess": "Post deleted successfully",
+    "deleteFailed": "Failed to delete post",
+    "visibilitySuccess": "Visibility toggled successfully",
+    "visibilityFailed": "Failed to toggle visibility",
+    "private": "Private",
+    "edit": "Edit Post",
+    "makePrivate": "Make Private",
+    "makePublic": "Make Public",
+    "delete": "Delete Post",
+    "dashboardTitle": "Posts Management",
+    "noPostsFound": "No posts found.",
+    "table": {
+      "title": "Post Details",
+      "author": "Author",
+      "date": "Date",
+      "status": "Visibility",
+      "actions": "Actions"
+    },
+    "pagination": {
+      "showing": "Showing",
+      "of": "of",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "public": "Public",
+    "toggleVisibility": "Toggle Visibility"
   }
 }

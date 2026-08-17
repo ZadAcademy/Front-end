@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 
 export const useUserRolesForm = (user: UserWithRoles, onClose: () => void) => {
+  console.log("selected user",user);
   const t = useTranslations('Dashboard.users.modal');
   const { data: allRoles = [], isLoading: isLoadingRoles } = useGetRolesQuery(false);
   const updateMutation = useUpdateUserRolesMutation();
@@ -22,12 +23,13 @@ export const useUserRolesForm = (user: UserWithRoles, onClose: () => void) => {
   useEffect(() => {
     if (user && user.roles) {
       form.reset({
-        roles: user.roles.map(r => r.name)
+        roles: user.roles.map(r => r.id)
       });
     }
   }, [user, form]);
 
   const onSubmit = (data: UserRolesFormData) => {
+    console.log("upsate user roles",data);
     updateMutation.mutate(
       { userId: user.id, roles: data.roles },
       {

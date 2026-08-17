@@ -20,7 +20,8 @@
       "whyUs": "لماذا نحن",
       "faq": "الأسئلة الشائعة",
       "login": "تسجيل الدخول",
-      "create-account": "أنشئ حساب"
+      "create-account": "أنشئ حساب",
+      "posts": "المنشورات"
     },
     "hero": {
       "title": "تعلم الهندسة الميكانيكية بأسلوب عملي يجهزك لسوق العمل بشكل",
@@ -236,7 +237,9 @@
       "dashboard": "لوحة التحكم",
       "logout": "تسجيل الخروج",
       "language": "اللغة",
-      "home": "الرئيسية"
+      "home": "الرئيسية",
+      "posts": "المنشورات",
+      "explore": "استكشف"
     },
     "filter": {
       "customSearch": "اضغط للبحث المخصص",
@@ -307,7 +310,8 @@
       "listCourses": "جميع الدورات",
       "addCourse": "إضافة دورة",
       "roles": "إدارة الصلاحيات",
-      "users": "إدارة المستخدمين"
+      "users": "إدارة المستخدمين",
+      "posts": "المنشورات"
     },
     "pages": {
       "dashboard": "لوحة التحكم",
@@ -561,5 +565,56 @@
         "updateFailed": "فشل في تحديث أدوار المستخدم"
       }
     }
+  },
+  "Posts": {
+    "title": "عنوان المنشور",
+    "createNewPost": "إنشاء منشور",
+    "noPostsYet": "لا توجد منشورات حتى الآن",
+    "beTheFirst": "كن أول من يشارك شيئًا مع المجتمع!",
+    "endOfPosts": "لقد شاهدت جميع المنشورات.",
+    "loading": "جاري التحميل...",
+    "error": "فشل في تحميل المنشورات",
+    "editPost": "تعديل المنشور",
+    "createPost": "إنشاء منشور جديد",
+    "titlePlaceholder": "أدخل عنوان المنشور...",
+    "content": "المحتوى",
+    "contentPlaceholder": "ماذا تريد أن تشارك؟",
+    "image": "صورة المنشور (اختياري)",
+    "clickToUpload": "انقر لرفع صورة",
+    "publicLabel": "عام (مرئي للجميع)",
+    "privateLabel": "خاص (مخفي من الموجز)",
+    "saveChanges": "حفظ التغييرات",
+    "cancel": "إلغاء",
+    "createSuccess": "تم إنشاء المنشور بنجاح",
+    "createFailed": "فشل في إنشاء المنشور",
+    "updateSuccess": "تم تحديث المنشور بنجاح",
+    "updateFailed": "فشل في تحديث المنشور",
+    "confirmDelete": "هل أنت متأكد أنك تريد حذف هذا المنشور؟",
+    "deleteSuccess": "تم حذف المنشور بنجاح",
+    "deleteFailed": "فشل في حذف المنشور",
+    "visibilitySuccess": "تم تبديل حالة الرؤية بنجاح",
+    "visibilityFailed": "فشل في تبديل حالة الرؤية",
+    "private": "خاص",
+    "edit": "تعديل المنشور",
+    "makePrivate": "جعله خاصاً",
+    "makePublic": "جعله عاماً",
+    "delete": "حذف المنشور",
+    "dashboardTitle": "إدارة المنشورات",
+    "noPostsFound": "لم يتم العثور على منشورات.",
+    "table": {
+      "title": "تفاصيل المنشور",
+      "author": "الكاتب",
+      "date": "التاريخ",
+      "status": "الرؤية",
+      "actions": "الإجراءات"
+    },
+    "pagination": {
+      "showing": "عرض",
+      "of": "من",
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "public": "عام",
+    "toggleVisibility": "تغيير حالة الظهور"
   }
 }
