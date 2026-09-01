@@ -7,6 +7,7 @@ import CourseSidebar from './components/course-sidebar';
 import CourseObjectives from './components/course-objectives';
 import CourseSyllabus from './components/course-syllabus';
 import CourseRequirements from './components/course-requirements';
+import CourseReviewsSection from '../reviews/components/course-reviews-section';
 import { Loader2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 
@@ -56,10 +57,10 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
       {/* pb-24 on mobile gives space for the sticky bottom CTA bar */}
       <div className="mx-auto max-w-[1450px] w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12 pb-28 lg:pb-12">
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 relative items-start">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 relative lg:items-start w-full">
 
           {/* Main Content (What you'll learn, Syllabus, Requirements) */}
-          <div className="flex-1 flex flex-col gap-12 order-2 lg:order-0 min-w-0">
+          <div className="flex-1 w-full flex flex-col gap-12 order-2 lg:order-0 min-w-0">
             <CourseObjectives course={course} />
             <CourseSyllabus course={course} />
             <CourseRequirements course={course} />
@@ -70,6 +71,13 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
             <CourseSidebar course={course} />
           </div>
 
+        </div>
+      </div>
+
+      {/* ─── Reviews Section (full-width, above footer) ─── */}
+      <div className="w-full  py-12 lg:py-16 pb-28 lg:pb-16">
+        <div className="mx-auto max-w-[1450px] w-full px-4 sm:px-6 lg:px-8">
+          <CourseReviewsSection courseId={courseId} />
         </div>
       </div>
 
