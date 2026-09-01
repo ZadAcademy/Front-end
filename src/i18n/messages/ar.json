@@ -1,4 +1,22 @@
 {
+  "WatchingCourse": {
+    "courseContent": "محتوى الكورس",
+    "sectionsCount": "{count} أقسام",
+    "lessonsCount": "{count} درس",
+    "backToCourse": "العودة للكورس",
+    "previousLesson": "الدرس السابق",
+    "nextLesson": "الدرس التالي",
+    "lessonNotFound": "لم يتم العثور على الدرس",
+    "selectLessonPrompt": "يرجى اختيار درس من القائمة الجانبية",
+    "loadingContent": "جاري تحميل المحتوى...",
+    "videoLoading": "جاري تحميل الفيديو...",
+    "videoError": "حدث خطأ في تحميل الفيديو",
+    "videoErrorHint": "يرجى المحاولة مرة أخرى أو الاتصال بالدعم",
+    "retry": "إعادة المحاولة",
+    "pdfLoading": "جاري تحميل الملف...",
+    "pdfError": "حدث خطأ في تحميل الملف",
+    "pdfErrorHint": "يرجى المحاولة مرة أخرى أو الاتصال بالدعم"
+  },
   "IndexPage": {
     "title": "مرحبا بالعالم!",
     "button": {
@@ -408,6 +426,47 @@
         "loading": "جاري التحميل...",
         "noSections": "لم تتم إضافة أقسام بعد."
       },
+      "lessons": {
+        "addLesson": "إضافة درس جديد",
+        "lessonType": "نوع الدرس",
+        "videoLesson": "درس فيديو",
+        "pdfLesson": "درس PDF",
+        "lessonTitle": "عنوان الدرس",
+        "lessonTitlePlaceholder": "أدخل عنوان الدرس...",
+        "videoUrl": "رابط فيديو جوجل درايف",
+        "videoUrlPlaceholder": "الصق رابط المشاركة من جوجل درايف هنا",
+        "videoUrlHint": "شارك الفيديو من جوجل درايف والصق الرابط",
+        "duration": "تجاوز المدة (اختياري)",
+        "durationMinutes": "دقائق",
+        "durationSeconds": "ثواني",
+        "durationHint": "اتركه فارغاً للكشف التلقائي عن مدة الفيديو",
+        "pdfFile": "رفع ملف PDF",
+        "pdfMaxSize": "الحجم الأقصى للملف: 25 ميجابايت",
+        "clickToUploadPdf": "انقر للاستعراض أو اسحب وأفلت",
+        "pdfFormatHint": "صيغة PDF فقط (.pdf)",
+        "pdfSelected": "الملف المحدد",
+        "pdfChangeFile": "تغيير الملف",
+        "pdfFileSize": "حجم الملف",
+        "invalidPdfType": "يرجى اختيار ملف PDF صالح.",
+        "pdfTooLarge": "حجم الملف يتجاوز الحد الأقصى 25 ميجابايت.",
+        "cancel": "إلغاء",
+        "createLesson": "إنشاء الدرس",
+        "createVideoLesson": "إنشاء درس فيديو",
+        "createPdfLesson": "رفع درس PDF",
+        "lessonsCount": "دروس",
+        "noLessons": "لا توجد دروس في هذا القسم بعد.",
+        "pages": "صفحات",
+        "draft": "مسودة",
+        "confirmDelete": "هل أنت متأكد أنك تريد حذف هذا الدرس؟",
+        "editLesson": "تعديل الدرس",
+        "lessonDescription": "وصف الدرس (اختياري)",
+        "lessonDescriptionPlaceholder": "أدخل وصف الدرس...",
+        "isPublished": "منشور",
+        "isPublishedHint": "اجعل هذا الدرس مرئياً للطلاب",
+        "saveChanges": "حفظ التغييرات",
+        "publish": "نشر",
+        "unpublish": "إلغاء النشر"
+      },
       "errors": {
         "basicInfoRequiredWarning": "يرجى إكمال وإرسال المعلومات الأساسية أولاً.",
         "outcomeRequired": "وصف المخرج التعليمي لا يمكن أن يكون فارغاً.",
@@ -426,7 +485,12 @@
         "atLeastOnePriceRequired": "يجب إضافة سعر مخصص واحد على الأقل.",
         "videoTitleRequired": "عنوان الفيديو مطلوب.",
         "videoUrlRequired": "رابط الفيديو مطلوب.",
-        "invalidVideoUrl": "الرجاء إدخال رابط صحيح."
+        "invalidVideoUrl": "الرجاء إدخال رابط صحيح.",
+        "lessonTitleRequired": "عنوان الدرس مطلوب.",
+        "lessonVideoUrlRequired": "رابط فيديو جوجل درايف مطلوب.",
+        "pdfRequired": "يرجى اختيار ملف PDF للرفع.",
+        "pdfTooLarge": "يجب أن يكون حجم ملف PDF أقل من 25 ميجابايت.",
+        "invalidPdfType": "يسمح فقط بملفات PDF."
       },
       "toasts": {
         "previewVideoDeleted": "تم حذف الفيديو التعريفي بنجاح",
@@ -449,7 +513,10 @@
         "courseDeleteFailed": "فشل في حذف الدورة",
         "sectionCreated": "تم إنشاء القسم بنجاح",
         "sectionUpdated": "تم تحديث القسم بنجاح",
-        "sectionDeleted": "تم حذف القسم بنجاح"
+        "sectionDeleted": "تم حذف القسم بنجاح",
+        "lessonCreated": "تم إنشاء الدرس بنجاح",
+        "lessonUpdated": "تم تحديث الدرس بنجاح",
+        "lessonDeleted": "تم حذف الدرس بنجاح"
       }
     },
     "courseList": {

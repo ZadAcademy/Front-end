@@ -126,6 +126,7 @@ export function AddCourseSections() {
                   <SortableSectionItem
                     key={section.id}
                     section={section}
+                    courseId={courseId || ''}
                     onUpdate={handleUpdateSection}
                     onRemove={handleDeleteSection}
                     isUpdating={isUpdating}

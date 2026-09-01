@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { CourseDetails } from '@/features/dashboard/courses/api/get-course-by-id-api';
+import { useCourseSections } from '@/features/dashboard/courses/hooks/use-section-api';
 
 /** Extract YouTube video ID from various URL formats */
 function getYouTubeId(url: string): string | null {
@@ -27,6 +28,7 @@ interface CourseSidebarProps {
 
 export default function CourseSidebar({ course }: CourseSidebarProps) {
   const t = useTranslations('CourseDetails.sidebar');
+  const locale = useLocale();
   const { status } = useSession();
   const isAuth = status === 'authenticated';
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -35,6 +37,17 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
     previewVideos.length > 0 ? previewVideos[0].id : null
   );
   const [videoError, setVideoError] = useState(false);
+
+  // ─── TEMP: Fetch sections to get the first lesson ID for the "Watch" button ───
+  // TODO: Remove this once enrollment is implemented
+  const { data: sections = [] } = useCourseSections(course.id);
+  const firstLesson = sections
+    .sort((a, b) => a.order - b.order)
+    .flatMap((s) => s.lessons.sort((a, b) => a.order - b.order))
+    [0];
+  const watchCourseHref = firstLesson
+    ? `/${locale}/courses/${course.id}/learn/${firstLesson.id}`
+    : '#';
 
   const activeVideo = previewVideos.find(v => v.id === activeVideoId);
 
@@ -170,12 +183,24 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
               ) : isAuth && !course.resolvedPrice ? (
                 <span className="font-cairo-bold-2xl text-greyDark">مجاناً</span>
               ) : null}
-              <Link 
+              <Link
                 href={isAuth ? '#' : '/login'}
                 className="w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 flex items-center justify-center"
               >
                 {t('subscribeNow')}
               </Link>
+
+              {/* ─── TEMP: Watch Course Button ─── */}
+              {/* TODO: Remove once enrollment is implemented */}
+              {firstLesson && (
+                <Link
+                  href={watchCourseHref}
+                  className="w-full py-3.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-cairo-bold-lg transition-colors shadow-lg shadow-green-600/20 flex items-center justify-center gap-2"
+                >
+                  <Play className="size-5 fill-white" />
+                  مشاهدة الكورس (مؤقت)
+                </Link>
+              )}
             </div>
 
           </div>
@@ -277,8 +302,8 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
                       key={video.id}
                       onClick={() => handleVideoChange(video.id)}
                       className={`flex items-center gap-3 p-3.5 cursor-pointer transition-colors border-b border-white/5 ${video.id === activeVideoId
-                          ? 'bg-blueNormal/20 border-s-2 border-s-blueNormal'
-                          : 'hover:bg-white/5'
+                        ? 'bg-blueNormal/20 border-s-2 border-s-blueNormal'
+                        : 'hover:bg-white/5'
                         }`}
                     >
                       <div className="relative w-20 aspect-video bg-gray-800 rounded-lg overflow-hidden shrink-0 flex items-center justify-center">

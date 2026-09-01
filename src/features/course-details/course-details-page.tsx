@@ -5,7 +5,7 @@ import { useCourseDetails } from './hooks/use-course-details';
 import CourseHeader from './components/course-header';
 import CourseSidebar from './components/course-sidebar';
 import CourseObjectives from './components/course-objectives';
-// import CourseSyllabus from './components/course-syllabus';
+import CourseSyllabus from './components/course-syllabus';
 import CourseRequirements from './components/course-requirements';
 import { Loader2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
@@ -61,7 +61,7 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
           {/* Main Content (What you'll learn, Syllabus, Requirements) */}
           <div className="flex-1 flex flex-col gap-12 order-2 lg:order-0 min-w-0">
             <CourseObjectives course={course} />
-            {/* <CourseSyllabus course={course} /> */}
+            <CourseSyllabus course={course} />
             <CourseRequirements course={course} />
           </div>
 

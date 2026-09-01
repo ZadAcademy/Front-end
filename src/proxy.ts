@@ -9,6 +9,11 @@ const authPages = ['/login', '/register', '/forgot-password'];
 
 const protectedRoutes = ['/dashboard', '/profile', '/settings','/home'];
 
+// ─── Learn route pattern ───
+// Matches /courses/{courseId}/learn/{lessonId} — requires authentication
+// but keeps /courses/{courseId} (course details) public for everyone.
+const learnRoutePattern = /^\/courses\/[^/]+\/learn(\/|$)/;
+
 export async function proxy(req: NextRequest) {
   const token = await getToken({
     req,
@@ -21,9 +26,9 @@ export async function proxy(req: NextRequest) {
 
   const isAuthPage = authPages.some((route) => pathname.startsWith(route));
 
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    pathname.startsWith(route)
-  );
+  const isProtectedRoute =
+    protectedRoutes.some((route) => pathname.startsWith(route)) ||
+    learnRoutePattern.test(pathname);
 
   if (isLoggedIn && isAuthPage) {
     return NextResponse.redirect(new URL('/', req.url));

@@ -15,6 +15,29 @@ import { Post } from '../lib/types/posts-types';
 import { useDeletePostMutation, useTogglePostVisibilityMutation } from '../hooks/use-posts-api';
 import { toast } from 'sonner';
 
+const renderContentWithLinks = (text: string) => {
+  if (!text) return null;
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+  return parts.map((part, i) => {
+    if (part.match(urlRegex)) {
+      return (
+        <a 
+          key={i} 
+          href={part} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="text-blueNormal hover:underline break-all"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+};
+
 interface PostCardProps {
   post: Post;
   onEdit: (post: Post) => void;
@@ -159,7 +182,7 @@ export default function PostCard({ post, onEdit }: PostCardProps) {
           {post.title}
         </h3>
         <p className="font-cairo-medium-base text-greyDark whitespace-pre-line leading-relaxed">
-          {post.content}
+          {renderContentWithLinks(post.content)}
         </p>
       </div>
 
