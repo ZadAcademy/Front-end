@@ -52,12 +52,12 @@ export const getCourseReviews = async (
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || "Failed to fetch reviews.");
+    return { serverError: errorData?.message || "Failed to fetch reviews." };
   }
 
   const resultData: IApiResponse<PaginatedResult<CourseReviewResponse>> = await response.json();
   if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to fetch reviews.");
+    return { serverError: resultData.message || "Failed to fetch reviews." };
   }
 
   return resultData.data;
@@ -75,12 +75,12 @@ export const getMyReview = async (courseId: string) => {
   if (!response.ok) {
     if (response.status === 404 || response.status === 401) return null; // Not found or not auth'd
     const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || "Failed to fetch your review.");
+    return { serverError: errorData?.message || "Failed to fetch your review." };
   }
 
   const resultData: IApiResponse<CourseReviewResponse | null> = await response.json();
   if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to fetch your review.");
+    return { serverError: resultData.message || "Failed to fetch your review." };
   }
   return resultData.data;
 };
@@ -96,12 +96,12 @@ export const createReview = async ({courseId,data,}: {courseId: string;data: Cre
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || "Failed to submit review.");
+    return { serverError: errorData?.message || "Failed to submit review." };
   }
 
   const resultData: IApiResponse<string> = await response.json();
   if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to submit review.");
+    return { serverError: resultData.message || "Failed to submit review." };
   }
 
   return resultData.data;
@@ -118,12 +118,12 @@ export const updateReview = async ({courseId,reviewId,data,}: {courseId: string;
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || "Failed to update review.");
+    return { serverError: errorData?.message || "Failed to update review." };
   }
 
   const resultData: IApiResponse<boolean> = await response.json();
   if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to update review.");
+    return { serverError: resultData.message || "Failed to update review." };
   }
 
   return resultData.data;
@@ -145,12 +145,12 @@ export const deleteReview = async ({
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || "Failed to delete review.");
+    return { serverError: errorData?.message || "Failed to delete review." };
   }
 
   const resultData: IApiResponse<boolean> = await response.json();
   if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to delete review.");
+    return { serverError: resultData.message || "Failed to delete review." };
   }
 
   return resultData.data;

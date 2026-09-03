@@ -20,11 +20,20 @@ import {
 const REVIEWS_QUERY_KEY = 'course-reviews';
 const MY_REVIEW_QUERY_KEY = 'my-course-review';
 
+// Helper to unwrap server action responses that return { serverError: string }
+const unwrap = async <T>(promise: Promise<T | { serverError: string }>): Promise<T> => {
+  const res = await promise;
+  if (res && typeof res === 'object' && 'serverError' in res) {
+    throw new Error(res.serverError as string);
+  }
+  return res as T;
+};
+
 // ─── 1. Query: Get Course Reviews ───
 export function useCourseReviewsQuery(courseId: string, params: GetCourseReviewsQueryParams) {
   return useQuery({
     queryKey: [REVIEWS_QUERY_KEY, courseId, params],
-    queryFn: () => getCourseReviews(courseId, params),
+    queryFn: () => unwrap(getCourseReviews(courseId, params)),
     enabled: !!courseId,
   });
 }
@@ -33,7 +42,7 @@ export function useCourseReviewsQuery(courseId: string, params: GetCourseReviews
 export function useMyReviewQuery(courseId: string) {
   return useQuery({
     queryKey: [MY_REVIEW_QUERY_KEY, courseId],
-    queryFn: () => getMyReview(courseId),
+    queryFn: () => unwrap(getMyReview(courseId)),
     enabled: !!courseId,
   });
 }
@@ -45,7 +54,7 @@ export function useCreateReviewMutation(courseId: string) {
   const isAr = locale === 'ar';
 
   return useMutation({
-    mutationFn: (data: CreateReviewRequest) => createReview({ courseId, data }),
+    mutationFn: (data: CreateReviewRequest) => unwrap(createReview({ courseId, data })),
     onSuccess: () => {
       toast.success(isAr ? 'تم نشر التقييم بنجاح!' : 'Review submitted successfully!');
       // Invalidate queries so the list updates
@@ -75,7 +84,7 @@ export function useUpdateReviewMutation(courseId: string) {
 
   return useMutation({
     mutationFn: ({ reviewId, data }: { reviewId: string; data: UpdateReviewRequest }) =>
-      updateReview({ courseId, reviewId, data }),
+      unwrap(updateReview({ courseId, reviewId, data })),
     onSuccess: () => {
       toast.success(isAr ? 'تم تحديث التقييم بنجاح!' : 'Review updated successfully!');
       queryClient.invalidateQueries({ queryKey: [REVIEWS_QUERY_KEY, courseId] });
@@ -103,7 +112,7 @@ export function useDeleteReviewMutation(courseId: string) {
   const isAr = locale === 'ar';
 
   return useMutation({
-    mutationFn: (reviewId: string) => deleteReview({ courseId, reviewId }),
+    mutationFn: (reviewId: string) => unwrap(deleteReview({ courseId, reviewId })),
     onSuccess: () => {
       toast.success(isAr ? 'تم حذف التقييم بنجاح!' : 'Review deleted successfully!');
       queryClient.invalidateQueries({ queryKey: [REVIEWS_QUERY_KEY, courseId] });
