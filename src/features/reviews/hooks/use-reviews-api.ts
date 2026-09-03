@@ -21,7 +21,7 @@ const REVIEWS_QUERY_KEY = 'course-reviews';
 const MY_REVIEW_QUERY_KEY = 'my-course-review';
 
 // Helper to unwrap server action responses that return { serverError: string }
-const unwrap = async <T>(promise: Promise<T | { serverError: string }>): Promise<T> => {
+const unwrap = async <T>(promise: Promise<T | { serverError: any }>): Promise<T> => {
   const res = await promise;
   if (res && typeof res === 'object' && 'serverError' in res) {
     throw new Error(res.serverError as string);
