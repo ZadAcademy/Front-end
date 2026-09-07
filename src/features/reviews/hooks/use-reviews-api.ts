@@ -20,14 +20,7 @@ import {
 const REVIEWS_QUERY_KEY = 'course-reviews';
 const MY_REVIEW_QUERY_KEY = 'my-course-review';
 
-// Helper to unwrap server action responses that return { serverError: string }
-const unwrap = async <T>(promise: Promise<T | { serverError: any }>): Promise<T> => {
-  const res = await promise;
-  if (res && typeof res === 'object' && 'serverError' in res) {
-    throw new Error(res.serverError as string);
-  }
-  return res as T;
-};
+import { unwrap } from '@/shared/lib/utils/api-utils';
 
 // ─── 1. Query: Get Course Reviews ───
 export function useCourseReviewsQuery(courseId: string, params: GetCourseReviewsQueryParams) {

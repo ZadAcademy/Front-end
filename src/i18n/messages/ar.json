@@ -684,5 +684,38 @@
     "public": "عام",
     "toggleVisibility": "تغيير حالة الظهور",
     "imageTooLarge": "يجب ألا يتجاوز حجم الصورة 5 ميجابايت"
+  },
+  "Profile": {
+    "sidebar": {
+      "personalInfo": "المعلومات الشخصية",
+      "myCourses": "دوراتي",
+      "settings": "الإعدادات"
+    },
+    "title": "الملف الشخصي",
+    "uploadImage": "رفع صورة",
+    "deleteImage": "حذف",
+    "firstName": "الاسم الأول",
+    "lastName": "الاسم الأخير",
+    "countryCode": "كود الدولة",
+    "phoneNumber": "رقم الهاتف",
+    "specialty": "التخصص",
+    "specialtyPlaceholder": "اختر التخصص",
+    "loading": "جاري التحميل...",
+    "saveChanges": "حفظ التغييرات",
+    "error": "فشل في تحميل تفاصيل الملف الشخصي.",
+    "success": {
+      "profileUpdated": "تم تحديث الملف الشخصي بنجاح!"
+    },
+    "errors": {
+      "firstNameRequired": "الاسم الأول مطلوب",
+      "firstNameMax": "الاسم الأول يجب ألا يتجاوز 50 حرفاً",
+      "lastNameRequired": "الاسم الأخير مطلوب",
+      "lastNameMax": "الاسم الأخير يجب ألا يتجاوز 50 حرفاً",
+      "countryCodeRequired": "كود الدولة مطلوب",
+      "countryCodeMax": "كود الدولة طويل جداً",
+      "phoneNumberRequired": "رقم الهاتف مطلوب",
+      "phoneNumberMax": "رقم الهاتف يجب ألا يتجاوز 20 رقماً",
+      "updateFailed": "فشل في تحديث الملف الشخصي"
+    }
   }
 }

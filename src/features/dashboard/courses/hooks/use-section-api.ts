@@ -11,13 +11,14 @@ import {
   deleteSection,
 } from '../api/section-api';
 import { CreateSectionRequest, UpdateSectionRequest } from '../lib/types/section';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 
 const SECTIONS_QUERY_KEY = 'course-sections';
 
 export function useCourseSections(courseId: string) {
   return useQuery({
     queryKey: [SECTIONS_QUERY_KEY, courseId],
-    queryFn: () => getSectionsByCourseId(courseId),
+    queryFn: () => unwrap(getSectionsByCourseId(courseId)),
     enabled: !!courseId,
   });
 }
@@ -28,7 +29,7 @@ export function useCreateSectionMutation(courseId: string) {
   const tSuccess = useTranslations('Dashboard.addCourse.toasts');
 
   return useMutation({
-    mutationFn: (data: CreateSectionRequest) => createSection(data),
+    mutationFn: (data: CreateSectionRequest) => unwrap(createSection(data)),
     onSuccess: () => {
       toast.success(tSuccess('sectionCreated', { defaultValue: 'Section created successfully' }));
       queryClient.invalidateQueries({ queryKey: [SECTIONS_QUERY_KEY, courseId] });
@@ -45,7 +46,7 @@ export function useUpdateSectionMutation(courseId: string) {
   const tSuccess = useTranslations('Dashboard.addCourse.toasts');
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateSectionRequest }) => updateSection({ id, data }),
+    mutationFn: ({ id, data }: { id: string; data: UpdateSectionRequest }) => unwrap(updateSection({ id, data })),
     onSuccess: () => {
       toast.success(tSuccess('sectionUpdated', { defaultValue: 'Section updated successfully' }));
       queryClient.invalidateQueries({ queryKey: [SECTIONS_QUERY_KEY, courseId] });
@@ -62,7 +63,7 @@ export function useDeleteSectionMutation(courseId: string) {
   const tSuccess = useTranslations('Dashboard.addCourse.toasts');
 
   return useMutation({
-    mutationFn: (id: string) => deleteSection(id),
+    mutationFn: (id: string) => unwrap(deleteSection(id)),
     onSuccess: () => {
       toast.error(tSuccess('sectionDeleted', { defaultValue: 'Section deleted successfully' }));
       queryClient.invalidateQueries({ queryKey: [SECTIONS_QUERY_KEY, courseId] });

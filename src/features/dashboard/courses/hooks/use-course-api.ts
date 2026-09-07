@@ -9,6 +9,7 @@ import { updateCourseStatus } from '../api/update-course-status-api';
 import { updateCoursePreview } from '../api/update-course-preview-api';
 import { deleteCourse } from '../api/delete-course-api';
 import { CreateCoursePayload } from '../lib/types/course-basics';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 
 // ==========================================
 // COURSE QUERIES
@@ -17,7 +18,7 @@ import { CreateCoursePayload } from '../lib/types/course-basics';
 export const useGetCourseQuery = (courseId: string | null) => {
   return useQuery({
     queryKey: ['course', courseId],
-    queryFn: () => getCourseById(courseId!),
+    queryFn: () => unwrap(getCourseById(courseId!)),
     enabled: !!courseId,
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
@@ -30,7 +31,7 @@ export const useGetCourseQuery = (courseId: string | null) => {
 export const useCreateCourseMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: CreateCoursePayload) => createCourse(data),
+    mutationFn: (data: CreateCoursePayload) => unwrap(createCourse(data)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
     },
@@ -42,7 +43,7 @@ export const useUpdateCourseMutation = () => {
 
   return useMutation({
     mutationFn: ({ courseId, data }: { courseId: string; data: CreateCoursePayload }) =>
-      updateCourse(courseId, data),
+      unwrap(updateCourse(courseId, data)),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
@@ -54,7 +55,7 @@ export const useUploadCardImageMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ courseId, formData }: { courseId: string; formData: FormData }) => uploadCardImage(courseId, formData),
+    mutationFn: ({ courseId, formData }: { courseId: string; formData: FormData }) => unwrap(uploadCardImage(courseId, formData)),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
@@ -66,7 +67,7 @@ export const useUploadDetailImageMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ courseId, formData }: { courseId: string; formData: FormData }) => uploadDetailImage(courseId, formData),
+    mutationFn: ({ courseId, formData }: { courseId: string; formData: FormData }) => unwrap(uploadDetailImage(courseId, formData)),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
@@ -79,7 +80,7 @@ export const useUpdateCourseStatusMutation = () => {
 
   return useMutation({
     mutationFn: ({ courseId, newStatus }: { courseId: string; newStatus: number }) =>
-      updateCourseStatus(courseId, newStatus),
+      unwrap(updateCourseStatus(courseId, newStatus)),
     onSuccess: (_, { courseId }) => {
       console.log('updateCourseStatus mutation success', courseId);
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
@@ -93,7 +94,7 @@ export const useUpdateCoursePreviewMutation = () => {
 
   return useMutation({
     mutationFn: ({ courseId, canPreview }: { courseId: string; canPreview: boolean }) =>
-      updateCoursePreview(courseId, canPreview),
+      unwrap(updateCoursePreview(courseId, canPreview)),
     onSuccess: (_, { courseId }) => {
       console.log('updateCoursePreview mutation success', courseId);
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
@@ -106,7 +107,7 @@ export const useDeleteCourseMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ courseId }: { courseId: string }) => deleteCourse(courseId),
+    mutationFn: ({ courseId }: { courseId: string }) => unwrap(deleteCourse(courseId)),
     onSuccess: () => {
       // Invalidate the course list query after successful deletion
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
@@ -123,7 +124,7 @@ export const useUpdateLocalizedPricesMutation = () => {
 
   return useMutation({
     mutationFn: ({ courseId, data }: { courseId: string; data: CreateLocalizedPricesPayload }) =>
-      updateLocalizedPrices(courseId, data),
+      unwrap(updateLocalizedPrices(courseId, data)),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
@@ -136,7 +137,7 @@ export const useDeleteLocalizedPriceMutation = () => {
 
   return useMutation({
     mutationFn: ({ courseId, priceId }: { courseId: string; priceId: string }) =>
-      deleteLocalizedPrice(courseId, priceId),
+      unwrap(deleteLocalizedPrice(courseId, priceId)),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
@@ -153,7 +154,7 @@ export const useUpdatePreviewVideosMutation = () => {
 
   return useMutation({
     mutationFn: ({ courseId, data }: { courseId: string; data: CreatePreviewVideosPayload }) =>
-      updatePreviewVideos(courseId, data),
+      unwrap(updatePreviewVideos(courseId, data)),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
@@ -166,7 +167,7 @@ export const useDeletePreviewVideoMutation = () => {
 
   return useMutation({
     mutationFn: ({ courseId, videoId }: { courseId: string; videoId: string }) =>
-      deletePreviewVideo(courseId, videoId),
+      unwrap(deletePreviewVideo(courseId, videoId)),
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });

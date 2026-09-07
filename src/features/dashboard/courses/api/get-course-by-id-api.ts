@@ -31,39 +31,43 @@ export interface CourseDetails {
   previewVideos?: { id: string; title: string; videoUrl: string; sortOrder: number }[];
 }
 
-export const getCourseById = async (courseId: string): Promise<CourseDetails> => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
-  let decodedToken = null;
-  if (token) {
-    decodedToken = await decode({
-      token,
-      secret: process.env.NEXTAUTH_SECRET!,
+export const getCourseById = async (courseId: string) => {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
+    let decodedToken = null;
+    if (token) {
+      decodedToken = await decode({
+        token,
+        secret: process.env.NEXTAUTH_SECRET!,
+      });
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+
+    const response = await fetch(`${baseUrl}api/v1/courses/${courseId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(decodedToken?.token ? { 'Authorization': `Bearer ${decodedToken.token}` } : {})
+      },
+      // Adding no-store or revalidate depends on usage, but for editor it's best to always fetch fresh
+      cache: 'no-store'
     });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to fetch course details.' };
+    }
+
+    const resultData: IApiResponse<CourseDetails> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to fetch course details.' };
+    }
+    console.log("courseData", resultData);
+
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-
-  const response = await fetch(`${baseUrl}api/v1/courses/${courseId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(decodedToken?.token ? { 'Authorization': `Bearer ${decodedToken.token}` } : {})
-    },
-    // Adding no-store or revalidate depends on usage, but for editor it's best to always fetch fresh
-    cache: 'no-store'
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to fetch course details.');
-  }
-
-  const resultData: IApiResponse<CourseDetails> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to fetch course details.');
-  }
-  console.log("courseData", resultData);
-
-  return resultData.data;
 };

@@ -57,31 +57,33 @@ const getAuthHeadersForFormData = async () => {
 // POST /api/v1/lessons/google-drive-video  (JSON body)
 
 export const createGoogleDriveVideoLesson = async (data: CreateGoogleDriveVideoLessonRequest) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
-  const response = await fetch(
-    `${baseUrl}api/v1/lessons/google-drive-video`,
-    {
-      method: "POST",
-      headers: await getAuthHeaders(),
-      body: JSON.stringify(data),
-    }
-  );
-  console.log("video lesson response", response);
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(
-      errorData?.message || "Failed to create video lesson."
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+    const response = await fetch(
+      `${baseUrl}api/v1/lessons/google-drive-video`,
+      {
+        method: "POST",
+        headers: await getAuthHeaders(),
+        body: JSON.stringify(data),
+      }
     );
-  }
+    console.log("video lesson response", response);
 
-  const resultData: IApiResponse<{ lessonId: string }> =
-    await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to create video lesson");
-  }
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || "Failed to create video lesson." };
+    }
 
-  return resultData.data;
+    const resultData: IApiResponse<{ lessonId: string }> =
+      await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || "Failed to create video lesson" };
+    }
+
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
+  }
 };
 
 // ─── CREATE: PDF Lesson ───
@@ -89,53 +91,57 @@ export const createGoogleDriveVideoLesson = async (data: CreateGoogleDriveVideoL
 // File limit: max 25 MB, .pdf only
 
 export const createPdfLesson = async (formData: FormData) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
-  const response = await fetch(`${baseUrl}api/v1/lessons/pdf`, {
-    method: "POST",
-    headers: await getAuthHeadersForFormData(),
-    body: formData,
-  });
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+    const response = await fetch(`${baseUrl}api/v1/lessons/pdf`, {
+      method: "POST",
+      headers: await getAuthHeadersForFormData(),
+      body: formData,
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(
-      errorData?.message || "Failed to create PDF lesson."
-    );
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || "Failed to create PDF lesson." };
+    }
+
+    const resultData: IApiResponse<{ lessonId: string }> =
+      await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || "Failed to create PDF lesson" };
+    }
+
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<{ lessonId: string }> =
-    await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to create PDF lesson");
-  }
-
-  return resultData.data;
 };
 
 // ─── UPDATE: Full Lesson Details & Order ───
 // PUT /api/v1/lessons/{id}
 
 export const updateLesson = async ({id,data,}: {id: string;data: UpdateLessonRequest;}) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
-  const response = await fetch(`${baseUrl}api/v1/lessons/${id}`, {
-    method: "PUT",
-    headers: await getAuthHeaders(),
-    body: JSON.stringify(data),
-  });
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+    const response = await fetch(`${baseUrl}api/v1/lessons/${id}`, {
+      method: "PUT",
+      headers: await getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(
-      errorData?.message || "Failed to update lesson."
-    );
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || "Failed to update lesson." };
+    }
+
+    const resultData: IApiResponse<null> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || "Failed to update lesson" };
+    }
+
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<null> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to update lesson");
-  }
-
-  return resultData.data;
 };
 
 
@@ -144,23 +150,25 @@ export const updateLesson = async ({id,data,}: {id: string;data: UpdateLessonReq
 // Backend auto-reindexes sibling lessons after deletion.
 
 export const deleteLesson = async (id: string) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
-  const response = await fetch(`${baseUrl}api/v1/lessons/${id}`, {
-    method: "DELETE",
-    headers: await getAuthHeaders(),
-  });
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+    const response = await fetch(`${baseUrl}api/v1/lessons/${id}`, {
+      method: "DELETE",
+      headers: await getAuthHeaders(),
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(
-      errorData?.message || "Failed to delete lesson."
-    );
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || "Failed to delete lesson." };
+    }
+
+    const resultData: IApiResponse<null> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || "Failed to delete lesson" };
+    }
+
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<null> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || "Failed to delete lesson");
-  }
-
-  return resultData.data;
 };

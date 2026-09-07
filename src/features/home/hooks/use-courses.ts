@@ -3,6 +3,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { fetchCourses } from '../lib/api/courses-api';
 import { LevelFilter, PriceFilter, RatingFilter } from '../lib/types/filter';
 import { CoursesApiResponse, CoursesQueryParams } from '../lib/types/course-card-api';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 
 /* ─── Map UI level labels to backend enum values ─── */
 const LEVEL_MAP: Record<string, string> = {
@@ -44,9 +45,8 @@ export function useCourses(pageSize = 6, defaultStatus: string | null = null) {
 
   /* ─── TanStack Query ─── */
   const { data: courseData, isLoading, isError } = useQuery<CoursesApiResponse>({
-
     queryKey: ['coursesCard', currentPage, pageSize, level, price, rating, debouncedSearch],
-    queryFn: () => fetchCourses(queryParams),
+    queryFn: () => unwrap(fetchCourses(queryParams)),
     placeholderData: keepPreviousData,
     staleTime: 30 * 1000,
   });

@@ -22,45 +22,53 @@ const getAuthHeaders = async () => {
 };
 
 export const uploadCardImage = async (courseId: string, formData: FormData) => {
-  const headers = await getAuthHeaders();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+  try {
+    const headers = await getAuthHeaders();
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-  const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/card-image`, {
-    method: 'PUT',
-    headers,
-    body: formData,
-  });
+    const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/card-image`, {
+      method: 'PUT',
+      headers,
+      body: formData,
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to upload card image. Please try again.');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to upload card image. Please try again.' };
+    }
+
+    const resultData: IApiResponse<uploadCourseImageResponse> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to upload card image' };
+    }
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<uploadCourseImageResponse> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to upload card image');
-  }
-  return resultData.data;
 };
 
 export const uploadDetailImage = async (courseId: string, formData: FormData) => {
-  const headers = await getAuthHeaders();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+  try {
+    const headers = await getAuthHeaders();
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-  const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/detail-image`, {
-    method: 'PUT',
-    headers,
-    body: formData,
-  });
+    const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/detail-image`, {
+      method: 'PUT',
+      headers,
+      body: formData,
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to upload detail image. Please try again.');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to upload detail image. Please try again.' };
+    }
+
+    const resultData: IApiResponse<uploadCourseImageResponse> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to upload detail image' };
+    }
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<uploadCourseImageResponse> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to upload detail image');
-  }
-  return resultData.data;
 };

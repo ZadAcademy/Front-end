@@ -681,5 +681,38 @@
     "public": "Public",
     "toggleVisibility": "Toggle Visibility",
     "imageTooLarge": "Image size should not exceed 5MB"
+  },
+  "Profile": {
+    "sidebar": {
+      "personalInfo": "Personal Information",
+      "myCourses": "My Courses",
+      "settings": "Settings"
+    },
+    "title": "My Profile",
+    "uploadImage": "Upload",
+    "deleteImage": "Delete",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "countryCode": "Country Code",
+    "phoneNumber": "Phone Number",
+    "specialty": "Specialty",
+    "specialtyPlaceholder": "Select Specialty",
+    "loading": "Loading...",
+    "saveChanges": "Save Changes",
+    "error": "Failed to load profile details.",
+    "success": {
+      "profileUpdated": "Profile updated successfully!"
+    },
+    "errors": {
+      "firstNameRequired": "First name is required",
+      "firstNameMax": "First name cannot exceed 50 characters",
+      "lastNameRequired": "Last name is required",
+      "lastNameMax": "Last name cannot exceed 50 characters",
+      "countryCodeRequired": "Country code is required",
+      "countryCodeMax": "Country code is too long",
+      "phoneNumberRequired": "Phone number is required",
+      "phoneNumberMax": "Phone number cannot exceed 20 characters",
+      "updateFailed": "Failed to update profile"
+    }
   }
 }

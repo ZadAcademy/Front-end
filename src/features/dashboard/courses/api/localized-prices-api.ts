@@ -19,64 +19,72 @@ export interface CreateLocalizedPricesPayload {
 
 
 export const updateLocalizedPrices = async (courseId: string, data: CreateLocalizedPricesPayload) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
-  const decodedToken = await decode({
-    token,
-    secret: process.env.NEXTAUTH_SECRET!,
-  });
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
+    const decodedToken = await decode({
+      token,
+      secret: process.env.NEXTAUTH_SECRET!,
+    });
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-  const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/localized-prices`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${decodedToken?.token}`
-    },
-    body: JSON.stringify(data),
-  });
+    const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/localized-prices`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${decodedToken?.token}`
+      },
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to update localized prices. Please try again.');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to update localized prices. Please try again.' };
+    }
+
+    const resultData: IApiResponse<string> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to update localized prices' };
+    }
+
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<string> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to update localized prices');
-  }
-
-  return resultData.data;
 };
 
 export const deleteLocalizedPrice = async (courseId: string, priceId: string) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
-  const decodedToken = await decode({
-    token,
-    secret: process.env.NEXTAUTH_SECRET!,
-  });
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("__Secure-next-auth.session-token")?.value || cookieStore.get("next-auth.session-token")?.value;
+    const decodedToken = await decode({
+      token,
+      secret: process.env.NEXTAUTH_SECRET!,
+    });
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-  const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/localized-prices/${priceId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${decodedToken?.token}`
+    const response = await fetch(`${baseUrl}api/v1/courses/${courseId}/localized-prices/${priceId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${decodedToken?.token}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to delete localized price. Please try again.' };
     }
-  });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to delete localized price. Please try again.');
+    const resultData: IApiResponse<string> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to delete localized price' };
+    }
+
+    return resultData.data;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<string> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to delete localized price');
-  }
-
-  return resultData.data;
 };

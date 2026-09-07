@@ -29,172 +29,200 @@ async function getAuthHeaders(isFormData = false) {
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-export async function getPosts(params: GetPostsQueryParams = {}): Promise<PaginatedResult<Post>> {
-  const headers = await getAuthHeaders();
-  const url = new URL(`${baseUrl}api/v1/posts`);
-  
-  if (params.page !== undefined) url.searchParams.set('page', String(params.page));
-  if (params.pageSize !== undefined) url.searchParams.set('pageSize', String(params.pageSize));
-  if (params.isPublic !== undefined) url.searchParams.set('isPublic', String(params.isPublic));
+export async function getPosts(params: GetPostsQueryParams = {}) {
+  try {
+    const headers = await getAuthHeaders();
+    const url = new URL(`${baseUrl}api/v1/posts`);
+    
+    if (params.page !== undefined) url.searchParams.set('page', String(params.page));
+    if (params.pageSize !== undefined) url.searchParams.set('pageSize', String(params.pageSize));
+    if (params.isPublic !== undefined) url.searchParams.set('isPublic', String(params.isPublic));
 
-  const response = await fetch(url.toString(), {
-    method: 'GET',
-    headers,
-    cache: 'no-store'
-  });
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers,
+      cache: 'no-store'
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to fetch posts');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to fetch posts' };
+    }
+
+    const resultData: IApiResponse<PaginatedResult<Post>> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to fetch posts' };
+    }
+
+    return resultData.data as PaginatedResult<Post>;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<PaginatedResult<Post>> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to fetch posts');
-  }
-
-  return resultData.data as PaginatedResult<Post>;
 }
 
-export async function getPostById(id: string): Promise<Post> {
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${baseUrl}api/v1/posts/${id}`, {
-    method: 'GET',
-    headers,
-    cache: 'no-store'
-  });
+export async function getPostById(id: string) {
+  try {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${baseUrl}api/v1/posts/${id}`, {
+      method: 'GET',
+      headers,
+      cache: 'no-store'
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to fetch post');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to fetch post' };
+    }
+
+    const resultData: IApiResponse<Post> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to fetch post' };
+    }
+
+    return resultData.data as Post;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<Post> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to fetch post');
-  }
-
-  return resultData.data as Post;
 }
 
-export async function createPost(payload: CreatePostPayload): Promise<Post> {
-  const headers = await getAuthHeaders(true); // isFormData = true
-  
-  const formData = new FormData();
-  formData.append('Title', payload.Title);
-  formData.append('Content', payload.Content);
-  formData.append('IsPublic', String(payload.IsPublic));
-  
-  if (payload.Image) {
-    formData.append('Image', payload.Image);
+export async function createPost(payload: CreatePostPayload) {
+  try {
+    const headers = await getAuthHeaders(true); // isFormData = true
+    
+    const formData = new FormData();
+    formData.append('Title', payload.Title);
+    formData.append('Content', payload.Content);
+    formData.append('IsPublic', String(payload.IsPublic));
+    
+    if (payload.Image) {
+      formData.append('Image', payload.Image);
+    }
+
+    const response = await fetch(`${baseUrl}api/v1/posts`, {
+      method: 'POST',
+      headers,
+      body: formData,
+      cache: 'no-store'
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to create post' };
+    }
+
+    const resultData: IApiResponse<Post> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to create post' };
+    }
+
+    return resultData.data as Post;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const response = await fetch(`${baseUrl}api/v1/posts`, {
-    method: 'POST',
-    headers,
-    body: formData,
-    cache: 'no-store'
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to create post');
-  }
-
-  const resultData: IApiResponse<Post> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to create post');
-  }
-
-  return resultData.data as Post;
 }
 
-export async function updatePost(id: string, payload: UpdatePostPayload): Promise<boolean> {
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${baseUrl}api/v1/posts/${id}`, {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify(payload),
-    cache: 'no-store'
-  });
+export async function updatePost(id: string, payload: UpdatePostPayload) {
+  try {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${baseUrl}api/v1/posts/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(payload),
+      cache: 'no-store'
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to update post');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to update post' };
+    }
+
+    const resultData: IApiResponse<boolean> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to update post' };
+    }
+
+    return true;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<boolean> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to update post');
-  }
-
-  return true;
 }
 
-export async function deletePost(id: string): Promise<boolean> {
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${baseUrl}api/v1/posts/${id}`, {
-    method: 'DELETE',
-    headers,
-    cache: 'no-store'
-  });
+export async function deletePost(id: string) {
+  try {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${baseUrl}api/v1/posts/${id}`, {
+      method: 'DELETE',
+      headers,
+      cache: 'no-store'
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to delete post');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to delete post' };
+    }
+
+    const resultData: IApiResponse<boolean> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to delete post' };
+    }
+
+    return true;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<boolean> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to delete post');
-  }
-
-  return true;
 }
 
-export async function togglePostVisibility(id: string): Promise<boolean> {
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${baseUrl}api/v1/posts/${id}/visibility`, {
-    method: 'PUT',
-    headers,
-    cache: 'no-store'
-  });
+export async function togglePostVisibility(id: string) {
+  try {
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${baseUrl}api/v1/posts/${id}/visibility`, {
+      method: 'PUT',
+      headers,
+      cache: 'no-store'
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to toggle visibility');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to toggle visibility' };
+    }
+
+    const resultData: IApiResponse<boolean> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to toggle visibility' };
+    }
+
+    return true;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<boolean> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to toggle visibility');
-  }
-
-  return true;
 }
 
-export async function updatePostImage(id: string, image: File): Promise<boolean> {
-  const headers = await getAuthHeaders(true); // isFormData = true
-  
-  const formData = new FormData();
-  formData.append('Image', image);
+export async function updatePostImage(id: string, image: File) {
+  try {
+    const headers = await getAuthHeaders(true); // isFormData = true
+    
+    const formData = new FormData();
+    formData.append('Image', image);
 
-  const response = await fetch(`${baseUrl}api/v1/posts/${id}/image`, {
-    method: 'PUT',
-    headers,
-    body: formData,
-    cache: 'no-store'
-  });
+    const response = await fetch(`${baseUrl}api/v1/posts/${id}/image`, {
+      method: 'PUT',
+      headers,
+      body: formData,
+      cache: 'no-store'
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || 'Failed to update image');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      return { serverError: errorData?.message || 'Failed to update image' };
+    }
+
+    const resultData: IApiResponse<boolean> = await response.json();
+    if (!resultData.isSuccess) {
+      return { serverError: resultData.message || 'Failed to update image' };
+    }
+
+    return true;
+  } catch (error: any) {
+    return { serverError: error?.message || 'An unknown error occurred' };
   }
-
-  const resultData: IApiResponse<boolean> = await response.json();
-  if (!resultData.isSuccess) {
-    throw new Error(resultData.message || 'Failed to update image');
-  }
-
-  return true;
 }

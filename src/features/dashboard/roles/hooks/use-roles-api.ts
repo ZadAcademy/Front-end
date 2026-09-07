@@ -8,11 +8,12 @@ import {
   toggleRoleStatus,
   updateUserRoles
 } from '../api/roles-api';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 
 export const useGetRolesQuery = (includeDisabled = false) => {
   return useQuery({
     queryKey: ['roles', { includeDisabled }],
-    queryFn: () => getRoles(includeDisabled),
+    queryFn: () => unwrap(getRoles(includeDisabled)),
     staleTime: 1000 * 60 * 5,
   });
 };
@@ -20,7 +21,7 @@ export const useGetRolesQuery = (includeDisabled = false) => {
 export const useGetPermissionsQuery = () => {
   return useQuery({
     queryKey: ['permissions'],
-    queryFn: () => getPermissions(),
+    queryFn: () => unwrap(getPermissions()),
     staleTime: 1000 * 60 * 60, // Permissions rarely change
   });
 };
@@ -28,7 +29,7 @@ export const useGetPermissionsQuery = () => {
 export const useGetRoleByIdQuery = (roleId: string | null) => {
   return useQuery({
     queryKey: ['role', roleId],
-    queryFn: () => getRoleById(roleId!),
+    queryFn: () => unwrap(getRoleById(roleId!)),
     enabled: !!roleId,
     staleTime: 1000 * 60 * 5,
   });
@@ -37,7 +38,7 @@ export const useGetRoleByIdQuery = (roleId: string | null) => {
 export const useCreateRoleMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: createRole,
+    mutationFn: (payload: any) => unwrap(createRole(payload)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['roles'] });
     },
@@ -47,7 +48,7 @@ export const useCreateRoleMutation = () => {
 export const useUpdateRoleMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: updateRole,
+    mutationFn: (payload: any) => unwrap(updateRole(payload)),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['roles'] });
       queryClient.invalidateQueries({ queryKey: ['role', variables.id] });
@@ -58,7 +59,7 @@ export const useUpdateRoleMutation = () => {
 export const useToggleRoleStatusMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: toggleRoleStatus,
+    mutationFn: (payload: any) => unwrap(toggleRoleStatus(payload)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['roles'] });
     },
@@ -68,7 +69,7 @@ export const useToggleRoleStatusMutation = () => {
 export const useUpdateUserRolesMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: updateUserRoles,
+    mutationFn: (payload: any) => unwrap(updateUserRoles(payload)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
     },

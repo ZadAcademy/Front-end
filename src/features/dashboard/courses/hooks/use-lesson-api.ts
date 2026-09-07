@@ -23,6 +23,7 @@ import {
   CreateGoogleDriveVideoLessonRequest,
   UpdateLessonRequest,
 } from '../lib/types/lesson';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 
 // Same query key used in use-section-api.ts — lessons come inside sections
 const SECTIONS_QUERY_KEY = 'course-sections';
@@ -37,7 +38,7 @@ export function useCreateVideoLessonMutation(courseId: string) {
 
   return useMutation({
     mutationFn: (data: CreateGoogleDriveVideoLessonRequest) =>
-      createGoogleDriveVideoLesson(data),
+      unwrap(createGoogleDriveVideoLesson(data)),
     onSuccess: () => {
       toast.success(tSuccess('lessonCreated', { defaultValue: 'Lesson created successfully' }));
       queryClient.invalidateQueries({ queryKey: [SECTIONS_QUERY_KEY, courseId] });
@@ -59,7 +60,7 @@ export function useCreatePdfLessonMutation(courseId: string) {
   const tSuccess = useTranslations('Dashboard.addCourse.toasts');
 
   return useMutation({
-    mutationFn: (formData: FormData) => createPdfLesson(formData),
+    mutationFn: (formData: FormData) => unwrap(createPdfLesson(formData)),
     onSuccess: () => {
       toast.success(tSuccess('lessonCreated', { defaultValue: 'Lesson created successfully' }));
       queryClient.invalidateQueries({ queryKey: [SECTIONS_QUERY_KEY, courseId] });
@@ -80,7 +81,7 @@ export function useUpdateLessonMutation(courseId: string) {
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateLessonRequest }) =>
-      updateLesson({ id, data }),
+      unwrap(updateLesson({ id, data })),
     onSuccess: () => {
       toast.success(tSuccess('lessonUpdated', { defaultValue: 'Lesson updated successfully' }));
       queryClient.invalidateQueries({ queryKey: [SECTIONS_QUERY_KEY, courseId] });
@@ -102,7 +103,7 @@ export function useDeleteLessonMutation(courseId: string) {
   const tSuccess = useTranslations('Dashboard.addCourse.toasts');
 
   return useMutation({
-    mutationFn: (id: string) => deleteLesson(id),
+    mutationFn: (id: string) => unwrap(deleteLesson(id)),
     onSuccess: () => {
       toast.success(tSuccess('lessonDeleted', { defaultValue: 'Lesson deleted successfully' }));
       queryClient.invalidateQueries({ queryKey: [SECTIONS_QUERY_KEY, courseId] });

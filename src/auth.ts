@@ -56,52 +56,64 @@ export const authOptions: NextAuthOptions = {
                 password: {},
             },
             authorize: async (credentials) => {
-                const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+                try {
+                    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-                const response = await fetch(`${baseUrl}api/v1/auth/login`, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        email: credentials?.email,
-                        password: credentials?.password,
-                    }),
-                    headers: {
-                        "content-Type": "application/json",
-                    },
-                });
+                    const response = await fetch(`${baseUrl}api/v1/auth/login`, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            email: credentials?.email,
+                            password: credentials?.password,
+                        }),
+                        headers: {
+                            "content-Type": "application/json",
+                        },
+                    });
 
-                if (!response.ok) {
-                    const errorText = await response.clone().text();
-                    console.error("BACKEND ERROR DETAILS:", errorText);
+                    if (!response.ok) {
+                        const errorText = await response.clone().text();
+                        console.error("BACKEND ERROR DETAILS:", errorText);
+                    }
+
+                    const responseData: IApiResponse<ILoginResponse> = await response.json();
+                    if (!responseData.isSuccess) {
+                        throw new Error(responseData.message);
+                    }
+                    const loginData = responseData.data;
+                    const backendUser = loginData.user as any;
+
+                    const mappedUser = {
+                        id: backendUser.userId,
+                        firstName: backendUser.firstName,
+                        lastName: backendUser.lastName,
+                        email: backendUser.email,
+                        phone: backendUser.phoneNumber,
+                        role: backendUser.role,
+                    };
+
+                    return {
+                        id: mappedUser.id,
+                        accessToken: loginData.accessToken,
+                        refreshToken: loginData.refreshToken,
+                        expiresIn: loginData.expiresIn,
+                        user: mappedUser,
+                    };
+                } catch (error: any) {
+                    console.error("Error during authorize:", error);
+                    throw new Error(error?.message || "Authentication failed");
                 }
-
-                const responseData: IApiResponse<ILoginResponse> = await response.json();
-                if (!responseData.isSuccess) {
-                    throw new Error(responseData.message);
-                }
-                const loginData = responseData.data;
-                const backendUser = loginData.user as any;
-
-                const mappedUser = {
-                    id: backendUser.userId,
-                    firstName: backendUser.firstName,
-                    lastName: backendUser.lastName,
-                    email: backendUser.email,
-                    phone: backendUser.phoneNumber,
-                    role: backendUser.role,
-                };
-
-                return {
-                    id: mappedUser.id,
-                    accessToken: loginData.accessToken,
-                    refreshToken: loginData.refreshToken,
-                    expiresIn: loginData.expiresIn,
-                    user: mappedUser,
-                };
             },
         }),
     ],
     callbacks: {
-        jwt: async ({ token, user }) => {
+        jwt: async ({ token, user, trigger, session }) => {
+            if (trigger === "update" && session?.user) {
+                token.user = {
+                    ...token.user,
+                    ...session.user
+                };
+            }
+
             // Initial sign in — store everything from the authorize result
             if (user) {
                 token.user = user.user;

@@ -15,7 +15,7 @@ import {
 
 export default function UsersList() {
   const t = useTranslations('Dashboard.users');
-  
+
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -26,7 +26,7 @@ export default function UsersList() {
   const handleSort = (columnId: string) => {
     // Map 'user' column to 'firstName' for backend sorting
     const sortKey = columnId === 'user' ? 'firstName' : columnId;
-    
+
     if (sortBy === sortKey) {
       if (sortDescending) {
         // Reset sorting on third click
@@ -83,9 +83,20 @@ export default function UsersList() {
         cell: info => {
           const user = info.row.original;
           return (
-            <div className="flex flex-col">
-              <span className="font-cairo-bold-md">{user.firstName} {user.lastName}</span>
-              <span className="text-sm text-greyNormal">{user.email}</span>
+            <div className="flex items-center gap-3">
+              <div className="flex-shrink-0 size-10 rounded-full border border-black/10 overflow-hidden bg-gray-50 flex items-center justify-center">
+                {user.profileImageUrl ? (
+                  <img src={user.profileImageUrl} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="text-gray-400 font-cairo-bold-sm text-xs">
+                    {user.firstName.charAt(0)}{user.lastName.charAt(0)}
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col">
+                <span className="font-cairo-bold-md">{user.firstName} {user.lastName}</span>
+                <span className="text-sm text-greyNormal">{user.email}</span>
+              </div>
             </div>
           );
         },
@@ -95,9 +106,8 @@ export default function UsersList() {
         cell: info => {
           const isActive = info.getValue();
           return (
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-cairo-bold-sm ${
-              isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-            }`}>
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-cairo-bold-sm ${isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+              }`}>
               {isActive ? t('status.active', { defaultValue: 'Active' }) : t('status.inactive', { defaultValue: 'Inactive' })}
             </span>
           );
@@ -156,7 +166,7 @@ export default function UsersList() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h2 className="font-cairo-bold-2xl text-greyDark">{t('title', { defaultValue: 'User Management' })}</h2>
-        
+
         <form onSubmit={handleSearchSubmit} className="relative">
           <input
             type="text"
@@ -181,8 +191,8 @@ export default function UsersList() {
                     const isSorted = sortBy === sortKey;
 
                     return (
-                      <th 
-                        key={header.id} 
+                      <th
+                        key={header.id}
                         className={`px-6 py-4 text-start ${isSortable ? 'cursor-pointer hover:bg-black/5 select-none transition-colors' : ''}`}
                         onClick={() => isSortable && handleSort(header.id)}
                       >
@@ -190,9 +200,9 @@ export default function UsersList() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                           {isSortable && (
                             <span className="text-greyNormal flex items-center justify-center">
                               {isSorted ? (
