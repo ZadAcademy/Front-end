@@ -35,6 +35,7 @@ export interface UserWithRoles {
   lastName: string;
   countryCode: string;
   phoneNumber?: string | null;
+  profileImageUrl?: string | null;
   experience: string;
   isActive: boolean;
   createdAt: string;
