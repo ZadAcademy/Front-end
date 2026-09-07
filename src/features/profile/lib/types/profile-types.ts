@@ -10,8 +10,7 @@ export interface CurrentUserResponse {
   email: string;
   firstName: string;
   lastName: string;
-  countryCode: string;
-  phoneNumber: string | null;
+  phoneNumber?: string | null;
   experience: ExperienceLevel | string;
   specialtyId: string | null;
   specialtyName: string | null;
@@ -24,7 +23,6 @@ export interface CurrentUserResponse {
 export interface UpdateProfileRequest {
   firstName: string;
   lastName: string;
-  countryCode: string;
   phoneNumber: string;
   specialtyId?: string | null;
 }

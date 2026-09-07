@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Loader2, Search, ChevronRight, ChevronLeft } from 'lucide-react';
 import { CourseListTable } from './components/course-list-table';
-import { useCourses } from '@/features/home/hooks/use-courses';
+import { useDashboardCourses } from './hooks/use-dashboard-courses';
 import { Button } from '@/shared/ui/button';
 
 export default function ListCoursesPage() {
@@ -20,7 +20,7 @@ export default function ListCoursesPage() {
     handlePageChange,
     search,
     handleSearchChange,
-  } = useCourses(10);
+  } = useDashboardCourses(10);
 
   return (
     <div className="space-y-6 animate-in fade-in zoom-in-95 duration-300">
@@ -33,7 +33,7 @@ export default function ListCoursesPage() {
         <div className="relative w-full sm:w-72">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder={tList('searchPlaceholder')}
             value={search}
             onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full h-10 pl-10 pr-4 rounded-lg border border-black/5 bg-white font-cairo-regular-sm text-greyDarker outline-none focus:border-orangeNormal transition-colors"
@@ -48,7 +48,7 @@ export default function ListCoursesPage() {
         </div>
       ) : isError ? (
         <div className="flex justify-center py-20 text-red-500 font-cairo-medium-base">
-          Something went wrong while fetching courses.
+          {tList('errorFetching')}
         </div>
       ) : (
         <div className="space-y-4">

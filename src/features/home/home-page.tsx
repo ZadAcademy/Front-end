@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import CourseFilter from './components/course-filter';
 import CoursesGrid from './components/courses-grid';
-import Pagination from './components/pagination';
 import { useCourses } from './hooks/use-courses';
 
 export default function HomePage() {
@@ -18,12 +17,12 @@ export default function HomePage() {
     handleRatingChange,
     handleSearchChange,
     handleReset,
-    currentPage,
-    totalPages,
-    handlePageChange,
     courseData,
     isLoading,
     isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   } = useCourses(6, "Published");
 
   return (
@@ -56,12 +55,18 @@ export default function HomePage() {
             isError={isError}
           />
 
-          {/* ─── Pagination ─── */}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+          {/* ─── Load More ─── */}
+          {hasNextPage && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => fetchNextPage()}
+                disabled={isFetchingNextPage}
+                className="px-6 py-3 bg-orangeNormal text-white font-cairo-bold-base cursor-pointer rounded-lg hover:bg-[#E57B24] transition-colors disabled:opacity-50"
+              >
+                {isFetchingNextPage ? t('loading', { defaultValue: 'Loading...' }) : t('loadMore', { defaultValue: 'Show More Courses' })}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

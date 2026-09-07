@@ -249,6 +249,8 @@
     }
   },
   "HomePage": {
+    "loadMore": "عرض المزيد من الدورات",
+    "loading": "جاري التحميل...",
     "authNavbar": {
       "notifications": "الإشعارات",
       "profile": "الملف الشخصي",
@@ -520,6 +522,14 @@
       }
     },
     "courseList": {
+      "searchPlaceholder": "ابحث...",
+      "errorFetching": "حدث خطأ أثناء جلب الدورات.",
+      "pagination": {
+        "previous": "السابق",
+        "next": "التالي",
+        "page": "صفحة",
+        "of": "من"
+      },
       "table": {
         "image": "الصورة",
         "title": "العنوان",

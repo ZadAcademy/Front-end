@@ -222,40 +222,6 @@ export default function ProfilePage() {
                 )}
               />
 
-              {/* Country Code */}
-              <Controller
-                name="countryCode"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={!!fieldState.error}>
-                    <FieldLabel className="font-cairo-semibold-base text-greyDarker">
-                      {t("countryCode", { defaultValue: "Country Code" })}
-                      <span className="text-red-500 ms-1">*</span>
-                    </FieldLabel>
-                    <input
-                      {...field}
-                      value={field.value ?? ""}
-                      type="text"
-                      aria-invalid={!!fieldState.error}
-                      className={`
-                        w-full h-12 px-4 rounded-lg border bg-white
-                        font-cairo-regular-base text-greyDarker
-                        placeholder:text-greyLightActive
-                        outline-none transition-colors duration-200
-                        ${fieldState.error
-                          ? "border-red-400 focus:border-red-500"
-                          : "border-greyLightActive focus:border-orangeNormal"
-                        }
-                      `}
-                    />
-                    {fieldState.error && (
-                      <FieldError>
-                        {t(`errors.${fieldState.error.message || "unknown"}`, { defaultValue: fieldState.error.message || "" })}
-                      </FieldError>
-                    )}
-                  </Field>
-                )}
-              />
 
               {/* Phone Number */}
               <Controller

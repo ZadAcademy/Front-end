@@ -22,7 +22,6 @@ export function useProfileForm() {
     defaultValues: {
       firstName: '',
       lastName: '',
-      countryCode: '+20',
       phoneNumber: '',
       specialtyId: null,
     },
@@ -33,7 +32,6 @@ export function useProfileForm() {
       form.reset({
         firstName: profile.firstName || '',
         lastName: profile.lastName || '',
-        countryCode: profile.countryCode || '+20',
         phoneNumber: profile.phoneNumber || '',
         specialtyId: profile.specialtyId || null,
       });
@@ -45,7 +43,6 @@ export function useProfileForm() {
       await updateMutation.mutateAsync({
         firstName: data.firstName,
         lastName: data.lastName,
-        countryCode: data.countryCode,
         phoneNumber: data.phoneNumber,
         specialtyId: data.specialtyId || null,
       });

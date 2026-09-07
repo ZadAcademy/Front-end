@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchCourses } from '../lib/api/courses-api';
 import { LevelFilter, PriceFilter, RatingFilter } from '../lib/types/filter';
 import { CoursesApiResponse, CoursesQueryParams } from '../lib/types/course-card-api';
@@ -33,8 +33,7 @@ export function useCourses(pageSize = 6, defaultStatus: string | null = null) {
   const [currentPage, setCurrentPage] = useState(1);
 
   /* ─── Build query params for the API ─── */
-  const queryParams: CoursesQueryParams = {
-    page: currentPage,
+  const queryParams: Omit<CoursesQueryParams, 'page'> = {
     pageSize,
     ...(level !== 'all' && { Level: LEVEL_MAP[level] }),
     ...(rating !== 'all' && { MinRating: rating }),
@@ -44,33 +43,43 @@ export function useCourses(pageSize = 6, defaultStatus: string | null = null) {
   };
 
   /* ─── TanStack Query ─── */
-  const { data: courseData, isLoading, isError } = useQuery<CoursesApiResponse>({
-    queryKey: ['coursesCard', currentPage, pageSize, level, price, rating, debouncedSearch],
-    queryFn: () => unwrap(fetchCourses(queryParams)),
-    placeholderData: keepPreviousData,
+  const {
+    data: infiniteData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useInfiniteQuery({
+    queryKey: ['coursesCard', pageSize, level, price, rating, debouncedSearch, defaultStatus],
+    queryFn: ({ pageParam = 1 }) => unwrap(fetchCourses({ ...queryParams, page: pageParam as number })),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => (lastPage.hasNextPage ? lastPage.page + 1 : undefined),
     staleTime: 30 * 1000,
   });
-  console.log(courseData?.items);
 
-  /* ─── Filter handlers (each resets page to 1) ─── */
+  const courseData = infiniteData
+    ? {
+        ...infiniteData.pages[0],
+        items: infiniteData.pages.flatMap((page) => page.items),
+      }
+    : undefined;
+
+  /* ─── Filter handlers ─── */
   const handleLevelChange = useCallback((value: LevelFilter) => {
     setLevel(value);
-    setCurrentPage(1);
   }, []);
 
   const handlePriceChange = useCallback((value: PriceFilter) => {
     setPrice(value);
-    setCurrentPage(1);
   }, []);
 
   const handleRatingChange = useCallback((value: RatingFilter) => {
     setRating(value);
-    setCurrentPage(1);
   }, []);
 
   const handleSearchChange = useCallback((value: string) => {
     setSearch(value);
-    setCurrentPage(1);
   }, []);
 
   const handleReset = useCallback(() => {
@@ -78,13 +87,6 @@ export function useCourses(pageSize = 6, defaultStatus: string | null = null) {
     setPrice('all');
     setRating('all');
     setSearch('');
-    setCurrentPage(1);
-  }, []);
-
-  /* ─── Pagination handlers ─── */
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   return {
@@ -101,14 +103,13 @@ export function useCourses(pageSize = 6, defaultStatus: string | null = null) {
     handleSearchChange,
     handleReset,
 
-    /* Pagination */
-    currentPage,
-    totalPages: courseData?.totalPages || 1,
-    handlePageChange,
 
     /* Query data */
     courseData,
     isLoading,
     isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   };
 }

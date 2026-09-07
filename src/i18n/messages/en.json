@@ -246,6 +246,8 @@
     }
   },
   "HomePage": {
+    "loadMore": "Show More Courses",
+    "loading": "Loading...",
     "authNavbar": {
       "notifications": "Notifications",
       "profile": "Profile",
@@ -517,6 +519,14 @@
       }
     },
     "courseList": {
+      "searchPlaceholder": "Search...",
+      "errorFetching": "Something went wrong while fetching courses.",
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "of": "of"
+      },
       "table": {
         "image": "Image",
         "title": "Title",
