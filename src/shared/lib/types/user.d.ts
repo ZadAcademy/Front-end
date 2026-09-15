@@ -6,7 +6,8 @@ export interface IUserData  {
     phone?:string,
     firstName:string,
     lastName:string,
-    role: 'SuperAdmin' | 'Admin' | 'Student'
+    role: 'SuperAdmin' | 'Admin' | 'Student',
+    profileImageUrl?: string;
 }
 
 export interface IUserPayload{

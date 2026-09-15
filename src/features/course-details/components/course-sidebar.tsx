@@ -24,9 +24,12 @@ function getYouTubeId(url: string): string | null {
 
 interface CourseSidebarProps {
   course: CourseDetails;
+  enrollment?: any;
+  isEnrollmentLoading?: boolean;
+  watchCourseHref: string;
 }
 
-export default function CourseSidebar({ course }: CourseSidebarProps) {
+export default function CourseSidebar({ course, enrollment, isEnrollmentLoading, watchCourseHref }: CourseSidebarProps) {
   const t = useTranslations('CourseDetails.sidebar');
   const locale = useLocale();
   const { status } = useSession();
@@ -37,17 +40,6 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
     previewVideos.length > 0 ? previewVideos[0].id : null
   );
   const [videoError, setVideoError] = useState(false);
-
-  // ─── TEMP: Fetch sections to get the first lesson ID for the "Watch" button ───
-  // TODO: Remove this once enrollment is implemented
-  const { data: sections = [] } = useCourseSections(course.id);
-  const firstLesson = sections
-    .sort((a, b) => a.order - b.order)
-    .flatMap((s) => s.lessons.sort((a, b) => a.order - b.order))
-    [0];
-  const watchCourseHref = firstLesson
-    ? `/${locale}/courses/${course.id}/learn/${firstLesson.id}`
-    : '#';
 
   const activeVideo = previewVideos.find(v => v.id === activeVideoId);
 
@@ -169,37 +161,42 @@ export default function CourseSidebar({ course }: CourseSidebarProps) {
 
             {/* ─── Subscribe CTA (desktop only — mobile has sticky bar) ─── */}
             <div className="hidden lg:flex flex-col gap-4 mt-2">
-              {isAuth && course.resolvedPrice ? (
-                <div className="flex items-center gap-3">
-                  {course.resolvedPrice.discountPrice ? (
-                    <>
-                      <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.discountPrice} {course.resolvedPrice.currencyCode}</span>
-                      <span className="font-cairo-medium-lg text-greyNormal line-through">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
-                    </>
-                  ) : (
-                    <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
-                  )}
-                </div>
-              ) : isAuth && !course.resolvedPrice ? (
-                <span className="font-cairo-bold-2xl text-greyDark">مجاناً</span>
-              ) : null}
-              <Link
-                href={isAuth ? '#' : '/login'}
-                className="w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 flex items-center justify-center"
-              >
-                {t('subscribeNow')}
-              </Link>
-
-              {/* ─── TEMP: Watch Course Button ─── */}
-              {/* TODO: Remove once enrollment is implemented */}
-              {firstLesson && (
+              {enrollment?.status === 'Enrolled' ? (
                 <Link
                   href={watchCourseHref}
                   className="w-full py-3.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-cairo-bold-lg transition-colors shadow-lg shadow-green-600/20 flex items-center justify-center gap-2"
                 >
                   <Play className="size-5 fill-white" />
-                  مشاهدة الكورس (مؤقت)
+                  {locale === 'ar' ? 'متابعة التعلم' : 'Continue Learning'}
                 </Link>
+              ) : enrollment?.status === 'PendingOrder' ? (
+                <div className="w-full py-3.5 rounded-xl bg-amber-100 text-amber-700 font-cairo-bold-lg border border-amber-200 flex items-center justify-center gap-2">
+                  <Calendar className="size-5" />
+                  {locale === 'ar' ? 'طلبك قيد المراجعة' : 'Order Pending Review'}
+                </div>
+              ) : (
+                <>
+                  {isAuth && course.resolvedPrice ? (
+                    <div className="flex items-center gap-3">
+                      {course.resolvedPrice.discountPrice ? (
+                        <>
+                          <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.discountPrice} {course.resolvedPrice.currencyCode}</span>
+                          <span className="font-cairo-medium-lg text-greyNormal line-through">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                        </>
+                      ) : (
+                        <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                      )}
+                    </div>
+                  ) : isAuth && !course.resolvedPrice ? (
+                    <span className="font-cairo-bold-2xl text-greyDark">مجاناً</span>
+                  ) : null}
+                  <Link
+                    href={isAuth ? `/courses/${course.id}/checkout` : '/login'}
+                    className="w-full py-3.5 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg transition-colors shadow-lg shadow-blueNormal/20 flex items-center justify-center"
+                  >
+                    {t('subscribeNow')}
+                  </Link>
+                </>
               )}
             </div>
 

@@ -8,8 +8,11 @@ import CourseObjectives from './components/course-objectives';
 import CourseSyllabus from './components/course-syllabus';
 import CourseRequirements from './components/course-requirements';
 import CourseReviewsSection from '../reviews/components/course-reviews-section';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Play, Clock } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useEnrollmentStatusQuery } from './hooks/use-enrollment';
+import { useCourseSections } from '@/features/dashboard/courses/hooks/use-section-api';
 
 interface CourseDetailsPageProps {
   courseId: string;
@@ -24,6 +27,16 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
 
 
   const { data: course, isLoading, isError } = useCourseDetails(courseId);
+  const { data: enrollment, isLoading: isEnrollmentLoading } = useEnrollmentStatusQuery(courseId);
+  const { data: sections = [] } = useCourseSections(courseId);
+
+  const firstLesson = sections
+    .sort((a, b) => a.order - b.order)
+    .flatMap((s) => s.lessons.sort((a, b) => a.order - b.order))
+    [0];
+  const watchCourseHref = firstLesson
+    ? `/${locale}/courses/${courseId}/learn/${firstLesson.id}`
+    : '#';
 
   if (isLoading) {
     return (
@@ -68,7 +81,7 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
 
           {/* Sidebar — sticky on desktop, normal flow on mobile */}
           <div className="order-1 lg:order-0 w-full lg:w-auto">
-            <CourseSidebar course={course} />
+            <CourseSidebar course={course} enrollment={enrollment?.data} isEnrollmentLoading={isEnrollmentLoading} watchCourseHref={watchCourseHref} />
           </div>
 
         </div>
@@ -83,26 +96,46 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
 
       {/* ─── Mobile Sticky Bottom CTA (like Udemy) ─── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black/10 px-4 py-3 z-50 flex items-center justify-between shadow-[0_-4px_20px_-4px_rgba(0,0,0,0.1)]">
-        <div className="flex flex-col">
-          {isAuth && course.resolvedPrice ? (
-            <div className="flex items-center gap-2">
-              {course.resolvedPrice.discountPrice ? (
-                <>
-                  <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.discountPrice} {course.resolvedPrice.currencyCode}</span>
-                  <span className="font-cairo-medium-sm text-greyNormal line-through">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
-                </>
-              ) : (
-                <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
-              )}
+        {enrollment?.data?.status === 'Enrolled' ? (
+          <Link
+            href={watchCourseHref}
+            className="w-full px-8 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-cairo-bold-lg shadow-lg shadow-green-600/20 flex items-center justify-center gap-2 transition-colors"
+          >
+            <Play className="size-5 fill-white" />
+            {isRTL ? 'متابعة التعلم' : 'Continue Learning'}
+          </Link>
+        ) : enrollment?.data?.status === 'PendingOrder' ? (
+          <div className="w-full px-8 py-3 rounded-xl bg-amber-100 text-amber-700 font-cairo-bold-lg border border-amber-200 flex items-center justify-center gap-2">
+            <Clock className="size-5" />
+            {isRTL ? 'طلبك قيد المراجعة' : 'Order Pending Review'}
+          </div>
+        ) : (
+          <>
+            <div className="flex flex-col">
+              {isAuth && course.resolvedPrice ? (
+                <div className="flex items-center gap-2">
+                  {course.resolvedPrice.discountPrice ? (
+                    <>
+                      <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.discountPrice} {course.resolvedPrice.currencyCode}</span>
+                      <span className="font-cairo-medium-sm text-greyNormal line-through">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                    </>
+                  ) : (
+                    <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                  )}
+                </div>
+              ) : isAuth && !course.resolvedPrice ? (
+                <span className="font-cairo-bold-xl text-greyDark">مجاناً</span>
+              ) : null}
+              <span className="font-cairo-medium-xs text-greyNormal">شاملة الشهادة</span>
             </div>
-          ) : isAuth && !course.resolvedPrice ? (
-            <span className="font-cairo-bold-xl text-greyDark">مجاناً</span>
-          ) : null}
-          <span className="font-cairo-medium-xs text-greyNormal">شاملة الشهادة</span>
-        </div>
-        <button className="px-8 py-3 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg shadow-lg shadow-blueNormal/20 cursor-pointer transition-colors">
-          {t('subscribeNow')}
-        </button>
+            <Link
+              href={isAuth ? `/courses/${courseId}/checkout` : '/login'}
+              className="px-8 py-3 rounded-xl bg-blueNormal hover:bg-blueNormalHover text-white font-cairo-bold-lg shadow-lg shadow-blueNormal/20 cursor-pointer transition-colors"
+            >
+              {t('subscribeNow')}
+            </Link>
+          </>
+        )}
       </div>
 
     </div>

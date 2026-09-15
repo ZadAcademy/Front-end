@@ -14,6 +14,10 @@ const protectedRoutes = ['/dashboard', '/profile', '/settings','/home'];
 // but keeps /courses/{courseId} (course details) public for everyone.
 const learnRoutePattern = /^\/courses\/[^/]+\/learn(\/|$)/;
 
+// ─── Checkout route pattern ───
+// Matches /courses/{courseId}/checkout — requires authentication
+const checkoutRoutePattern = /^\/courses\/[^/]+\/checkout(\/|$)/;
+
 export async function proxy(req: NextRequest) {
   const token = await getToken({
     req,
@@ -28,7 +32,8 @@ export async function proxy(req: NextRequest) {
 
   const isProtectedRoute =
     protectedRoutes.some((route) => pathname.startsWith(route)) ||
-    learnRoutePattern.test(pathname);
+    learnRoutePattern.test(pathname) ||
+    checkoutRoutePattern.test(pathname);
 
   if (isLoggedIn && isAuthPage) {
     return NextResponse.redirect(new URL('/', req.url));

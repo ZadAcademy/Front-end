@@ -89,6 +89,7 @@ export const authOptions: NextAuthOptions = {
                         email: backendUser.email,
                         phone: backendUser.phoneNumber,
                         role: backendUser.role,
+                        profileImageUrl: backendUser.profileImageUrl || backendUser.imageUrl,
                     };
 
                     return {

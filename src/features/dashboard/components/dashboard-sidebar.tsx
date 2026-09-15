@@ -14,6 +14,8 @@ import {
   Users,
   Shield,
   FileText,
+  CreditCard,
+  Receipt,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -60,6 +62,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
       ],
     },
     {
+      key: 'orders',
+      label: t('orders', { defaultValue: 'Orders' }),
+      icon: Receipt,
+      href: '/dashboard/orders',
+    },
+    {
       key: 'roles',
       label: t('roles', { defaultValue: 'Roles & Permissions' }),
       icon: Shield,
@@ -76,6 +84,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
       label: t('posts', { defaultValue: 'Posts' }),
       icon: FileText,
       href: '/dashboard/posts',
+    },
+    {
+      key: 'paymentMethods',
+      label: t('paymentMethods', { defaultValue: 'Payment Methods' }),
+      icon: CreditCard,
+      href: '/dashboard/payment-methods',
     },
   ];
 

@@ -26,10 +26,28 @@ export default function ReviewCard({ review, isAuthor, onEdit, onDelete }: Revie
     locale: locale === 'ar' ? ar : enUS,
   });
 
+  const getValidImageUrl = (url: string | null) => {
+    if (!url) return '';
+    if (url.startsWith('http') || url.startsWith('/')) return url;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/';
+    return `${baseUrl.replace(/\/$/, '')}/${url}`;
+  };
+
+  const validProfileImageUrl = getValidImageUrl(review.userProfileImageUrl);
+
   return (
     <div className="h-full bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-      {/* Quote icon */}
-      <Quote className="size-7 text-blueNormal/15 mb-3 rotate-180" />
+      <div className="flex items-start justify-between mb-3">
+        {/* Quote icon */}
+        <Quote className="size-7 text-blueNormal/15 rotate-180" />
+        
+        {/* Author Badge */}
+        {isAuthor && (
+          <div className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-cairo-bold-sm shadow-sm border border-amber-200">
+            {isRTL ? 'تقييمك' : 'Your Review'}
+          </div>
+        )}
+      </div>
 
       {/* Comment */}
       {review.comment && (
@@ -49,11 +67,12 @@ export default function ReviewCard({ review, isAuthor, onEdit, onDelete }: Revie
           {/* User info */}
           <div className="flex items-center gap-3">
             <div className="relative size-10 rounded-full overflow-hidden bg-slate-100 flex-shrink-0 border border-slate-200">
-              {review.userProfileImageUrl ? (
+              {validProfileImageUrl ? (
                 <Image
-                  src={review.userProfileImageUrl}
+                  src={validProfileImageUrl}
                   alt={review.userName}
                   fill
+                  sizes="40px"
                   className="object-cover"
                 />
               ) : (
@@ -74,21 +93,21 @@ export default function ReviewCard({ review, isAuthor, onEdit, onDelete }: Revie
 
           {/* Author actions */}
           {isAuthor && (
-            <div className="relative">
+            <div className="relative z-50">
               <button
-                onClick={() => setShowMenu(!showMenu)}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(!showMenu); }}
                 className="p-1.5 hover:bg-slate-100 rounded-full transition-colors focus:outline-none"
               >
-                <MoreVertical className="size-4 text-slate-400" />
+                <MoreVertical className="size-5 text-slate-400" />
               </button>
 
               {showMenu && (
                 <>
                   <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setShowMenu(false)}
+                    className="fixed inset-0 z-40 bg-transparent"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(false); }}
                   />
-                  <div className={`absolute ${locale === 'ar' ? 'left-0' : 'right-0'} bottom-full mb-1 w-32 bg-white rounded-xl shadow-lg border border-black/5 py-1.5 z-50 flex flex-col`}>
+                  <div className={`absolute ${isRTL ? 'left-0' : 'right-0'} bottom-full mb-2 w-36 bg-white rounded-xl shadow-xl border border-slate-100 py-1.5 z-50 flex flex-col`}>
                     <button
                       onClick={() => { setShowMenu(false); onEdit?.(); }}
                       className="w-full flex items-center gap-2.5 px-3.5 py-2 hover:bg-slate-50 transition-colors font-cairo-medium-sm text-greyDark"

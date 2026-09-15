@@ -31,7 +31,8 @@ export default function StarRating({
 
   return (
     <div
-      className={cn('flex items-center gap-1', className)}
+      dir="ltr"
+      className={cn('inline-flex items-center gap-1', className)}
       onMouseLeave={() => interactive && setHoverValue(null)}
     >
       {[1, 2, 3, 4, 5].map((starIndex) => {

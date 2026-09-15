@@ -328,7 +328,9 @@
       "addCourse": "Add Course",
       "roles": "Roles & Permissions",
       "users": "Users",
-      "posts": "Posts"
+      "posts": "Posts",
+      "paymentMethods": "Payment Methods",
+      "orders": "Orders"
     },
     "pages": {
       "dashboard": "Dashboard",
@@ -638,6 +640,158 @@
         "updateSuccess": "User roles updated successfully",
         "updateFailed": "Failed to update user roles"
       }
+    },
+    "orders": {
+      "title": "Orders Management",
+      "subtitle": "Review and manage student payment receipts",
+      "tabs": {
+        "pending": "Pending Orders",
+        "history": "Order History"
+      },
+      "searchPlaceholder": "Search by name, email, course...",
+      "filter": {
+        "all": "All Status",
+        "accepted": "Accepted",
+        "denied": "Denied"
+      },
+      "statusNames": {
+        "pending": "Pending",
+        "accepted": "Accepted",
+        "denied": "Denied"
+      },
+      "table": {
+        "student": "Student",
+        "course": "Course",
+        "status": "Status",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "actions": {
+        "review": "Review"
+      },
+      "loading": "Loading orders...",
+      "error": "Failed to load orders",
+      "empty": "No orders found",
+      "modal": {
+        "title": "Review Receipt",
+        "expiredReceipt": "Receipt Expired",
+        "expiredDescription": "This receipt image was deleted due to the 30-day retention policy.",
+        "studentInfo": "Student Information",
+        "course": "Course",
+        "submissionDate": "Submission Date",
+        "accept": "Accept & Enroll",
+        "deny": "Deny",
+        "acceptSuccess": "Order accepted successfully",
+        "denySuccess": "Order denied successfully"
+      }
+    },
+    "paymentMethods": {
+      "title": "Payment Methods",
+      "addNew": "Add Payment Method",
+      "loading": "Loading...",
+      "error": "Failed to load payment methods",
+      "noMethods": "No payment methods found.",
+      "filter": {
+        "all": "All Countries"
+      },
+      "table": {
+        "logo": "Logo",
+        "title": "Title",
+        "countryCode": "Country",
+        "accountIdentifier": "Account / Wallet",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "toasts": {
+        "deleteSuccess": "Payment method deleted successfully",
+        "deleteFailed": "Failed to delete payment method"
+      },
+      "modal": {
+        "createTitle": "Add Payment Method",
+        "editTitle": "Edit Payment Method",
+        "countryCode": "Country Code",
+        "countryCodePlaceholder": "e.g. EG, SA",
+        "title": "Title",
+        "titlePlaceholder": "e.g. Vodafone Cash",
+        "accountIdentifier": "Account / Wallet Number",
+        "accountIdentifierPlaceholder": "e.g. 01012345678 or IBAN",
+        "instructionDescription": "Payment Instructions",
+        "instructionDescriptionPlaceholder": "Step-by-step instructions shown to the student...",
+        "logo": "Logo",
+        "logoOptional": "optional — keep current if empty",
+        "chooseLogo": "Choose logo file",
+        "cancel": "Cancel",
+        "saveChanges": "Save Changes",
+        "create": "Add Method",
+        "updateSuccess": "Payment method updated successfully",
+        "updateFailed": "Failed to update payment method",
+        "createSuccess": "Payment method created successfully",
+        "createFailed": "Failed to create payment method"
+      },
+      "delete": {
+        "title": "Delete Payment Method",
+        "confirmMessage": "Are you sure you want to delete this payment method?",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      },
+      "errors": {
+        "countryCodeRequired": "Country code is required",
+        "countryCodeMax": "Country code must be 5 characters or less",
+        "titleRequired": "Title is required",
+        "titleMax": "Title must be 150 characters or less",
+        "accountIdentifierRequired": "Account identifier is required",
+        "accountIdentifierMax": "Account identifier must be 250 characters or less",
+        "instructionDescriptionRequired": "Instructions are required",
+        "instructionDescriptionMax": "Instructions must be 2000 characters or less",
+        "logoRequired": "Logo image is required",
+        "generic": "An error occurred"
+      }
+    }
+  },
+  "Checkout": {
+    "backToCourse": "Back to course",
+    "backToCourses": "Back to courses",
+    "courseNotFound": "Course not found",
+    "completeSubscription": "Complete Subscription",
+    "completeSteps": "Complete the following steps to activate your subscription in the course",
+    "step1": "Payment Method",
+    "step2": "Send Receipt",
+    "step3": "Order Review",
+    "step4": "Course Activation",
+    "transferNotice": "Please transfer the required amount to one of the payment methods available in your country below, then send a clear picture of the transfer receipt.",
+    "availableMethods": "Available Payment Methods in",
+    "chooseMethod": "Choose any of the following methods to transfer the amount",
+    "empty": "No payment methods available for your country yet.",
+    "summaryTitle": "Subscription Summary",
+    "originalPrice": "Original Price",
+    "discount": "Discount",
+    "requiredAmount": "Required Amount",
+    "free": "Free",
+    "country": "Country",
+    "selectedMethod": "Payment Method",
+    "notSelected": "Not selected yet",
+    "secureData": "100% Secure Data",
+    "secureDataDesc": "We do not share your data with any external party and it is used only to activate your subscription.",
+    "paymentCard": {
+      "accountNumber": "Account Number / Wallet",
+      "copyData": "Copy Data",
+      "importantInstructions": "Important Instructions:"
+    },
+    "receiptUpload": {
+      "title": "Send Transfer Receipt",
+      "uploadInstruction": "Upload a clear image of the transfer receipt",
+      "supportedFormats": "(Supported formats: JPG, PNG, WEBP - Max size 10MB)",
+      "chooseFile": "Choose Receipt Image",
+      "remove": "Remove",
+      "sendReceipt": "Send Receipt",
+      "reviewNotice": "The transfer receipt will be reviewed by the Zad Academy team within 24 hours as a maximum. You will receive a WhatsApp message and an email confirming the payment and activating the course.",
+      "successTitle": "Receipt Sent Successfully",
+      "successDescription": "Your transfer receipt will be reviewed by the Zad Academy team within 24 hours. You will receive an email upon course activation.",
+      "uploadFailed": "Failed to upload receipt. Please try again.",
+      "alreadySubmitted": "You already have a pending order or are enrolled in this course."
     }
   },
   "Posts": {

@@ -22,64 +22,6 @@ interface CourseReviewsSectionProps {
   courseId: string;
 }
 
-// ─── Dummy data so you can see the cards while the API isn't connected ───
-const DUMMY_REVIEWS: CourseReviewResponse[] = [
-  {
-    id: 'dummy-1',
-    courseId: '',
-    userId: 'user-1',
-    userName: 'أحمد محمود',
-    userProfileImageUrl: null,
-    rating: 5,
-    comment: 'كورس ممتاز جداً! الشرح واضح والتطبيق العملي فادني كتير في شغلي. بصراحة أنصح به أي حد بيبدأ في المجال.',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(),
-    updatedAt: null,
-  },
-  {
-    id: 'dummy-2',
-    courseId: '',
-    userId: 'user-2',
-    userName: 'سارة خالد',
-    userProfileImageUrl: null,
-    rating: 4,
-    comment: 'محتوى رائع ومنظم، بس كنت أتمنى يكون فيه أمثلة أكتر في الجزء الأخير. بشكل عام تجربة ممتازة.',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(),
-    updatedAt: null,
-  },
-  {
-    id: 'dummy-3',
-    courseId: '',
-    userId: 'user-3',
-    userName: 'محمد علي',
-    userProfileImageUrl: null,
-    rating: 5,
-    comment: 'من أفضل الكورسات اللي درستها. المدرب عنده أسلوب سهل وبسيط في توصيل المعلومة.',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 8).toISOString(),
-    updatedAt: null,
-  },
-  {
-    id: 'dummy-4',
-    courseId: '',
-    userId: 'user-4',
-    userName: 'فاطمة حسن',
-    userProfileImageUrl: null,
-    rating: 3,
-    comment: 'الكورس كويس بس محتاج تحديث لبعض الأجزاء. الجزء النظري كان أطول من اللازم.',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 12).toISOString(),
-    updatedAt: null,
-  },
-  {
-    id: 'dummy-5',
-    courseId: '',
-    userId: 'user-5',
-    userName: 'يوسف عبدالله',
-    userProfileImageUrl: null,
-    rating: 5,
-    comment: 'استفدت جداً من هذا الكورس. الشهادة كانت إضافة ممتازة لسيرتي الذاتية.',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 15).toISOString(),
-    updatedAt: null,
-  },
-];
 
 export default function CourseReviewsSection({ courseId }: CourseReviewsSectionProps) {
   const locale = useLocale();
@@ -132,8 +74,8 @@ export default function CourseReviewsSection({ courseId }: CourseReviewsSectionP
   const otherApiReviews = apiReviews.filter((r: CourseReviewResponse) => r.id !== myReview?.id);
   allReviews.push(...otherApiReviews);
 
-  // If no real reviews exist, show dummy data
-  const displayReviews = allReviews.length > 0 ? allReviews : DUMMY_REVIEWS;
+  // Removed dummy fallback
+  const displayReviews = allReviews;
 
   // Navigation icons (flipped for RTL)
   const PrevIcon = isRTL ? ChevronRight : ChevronLeft;
@@ -174,9 +116,10 @@ export default function CourseReviewsSection({ courseId }: CourseReviewsSectionP
       )}
 
       {/* ─── Reviews Swiper ─── */}
-      {!isLoading && (
+      {!isLoading && displayReviews.length > 0 && (
         <div className="relative w-full">
           <Swiper
+            dir={isRTL ? 'rtl' : 'ltr'}
             modules={[Navigation, Autoplay]}
             autoplay={{ delay: 5000, disableOnInteraction: true }}
             loop={displayReviews.length > 3}
@@ -197,11 +140,7 @@ export default function CourseReviewsSection({ courseId }: CourseReviewsSectionP
             {displayReviews.map((review) => (
               <SwiperSlide key={review.id} className="h-auto">
                 <div className="relative h-full">
-                  {myReview?.id === review.id && (
-                    <div className={`absolute ${isRTL ? '-right-3' : '-left-3'} -top-3 z-10 bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-cairo-bold-sm shadow-sm border border-amber-200`}>
-                      {isRTL ? 'تقييمك' : 'Your Review'}
-                    </div>
-                  )}
+
                   <ReviewCard
                     review={review}
                     isAuthor={myReview?.id === review.id}
@@ -225,15 +164,16 @@ export default function CourseReviewsSection({ courseId }: CourseReviewsSectionP
         </div>
       )}
 
-      {/* ─── Empty State (only when API returned nothing and no dummy) ─── */}
+      {/* ─── Empty State ─── */}
       {!isLoading && displayReviews.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-20 text-slate-400 bg-slate-50/50 rounded-2xl border border-slate-200 border-dashed">
-          <Star className="size-14 text-slate-200 mb-4" />
-          <p className="font-cairo-medium-lg text-slate-400">
-            {isRTL ? 'لا توجد تقييمات حتى الآن' : 'No reviews yet'}
+        <div className="py-16 text-center text-greyNormal bg-gray-50 rounded-2xl border border-black/5 flex flex-col items-center gap-3">
+          <Star className="size-10 text-gray-300" />
+          <p className="font-cairo-medium-lg">
+            {isRTL ? 'لا توجد تقييمات حتى الآن. كن أول من يضيف تقييماً!' : 'No reviews yet. Be the first to write a review!'}
           </p>
         </div>
       )}
+
 
       {/* ─── Form Modal ─── */}
       <ReviewFormModal

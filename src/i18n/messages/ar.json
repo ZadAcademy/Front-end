@@ -331,7 +331,9 @@
       "addCourse": "إضافة دورة",
       "roles": "إدارة الصلاحيات",
       "users": "إدارة المستخدمين",
-      "posts": "المنشورات"
+      "posts": "المنشورات",
+      "paymentMethods": "طرق الدفع",
+      "orders": "الطلبات"
     },
     "pages": {
       "dashboard": "لوحة التحكم",
@@ -641,6 +643,158 @@
         "updateSuccess": "تم تحديث أدوار المستخدم بنجاح",
         "updateFailed": "فشل في تحديث أدوار المستخدم"
       }
+    },
+    "orders": {
+      "title": "إدارة الطلبات",
+      "subtitle": "مراجعة وإدارة إيصالات دفع الطلاب",
+      "tabs": {
+        "pending": "طلبات قيد الانتظار",
+        "history": "سجل الطلبات"
+      },
+      "searchPlaceholder": "ابحث بالاسم، البريد، الكورس...",
+      "filter": {
+        "all": "كل الحالات",
+        "accepted": "مقبول",
+        "denied": "مرفوض"
+      },
+      "statusNames": {
+        "pending": "قيد الانتظار",
+        "accepted": "مقبول",
+        "denied": "مرفوض"
+      },
+      "table": {
+        "student": "الطالب",
+        "course": "الكورس",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "review": "مراجعة"
+      },
+      "loading": "جاري تحميل الطلبات...",
+      "error": "فشل في تحميل الطلبات",
+      "empty": "لم يتم العثور على طلبات",
+      "modal": {
+        "title": "مراجعة الإيصال",
+        "expiredReceipt": "الإيصال منتهي",
+        "expiredDescription": "تم حذف صورة هذا الإيصال بناءً على سياسة الاحتفاظ بالبيانات لمدة 30 يومًا.",
+        "studentInfo": "معلومات الطالب",
+        "course": "الكورس",
+        "submissionDate": "تاريخ التقديم",
+        "accept": "قبول وتسجيل الطالب",
+        "deny": "رفض الإيصال",
+        "acceptSuccess": "تم قبول الطلب وتفعيل الاشتراك بنجاح",
+        "denySuccess": "تم رفض الطلب بنجاح"
+      }
+    },
+    "paymentMethods": {
+      "title": "طرق الدفع",
+      "addNew": "إضافة طريقة دفع",
+      "loading": "جاري التحميل...",
+      "error": "فشل في تحميل طرق الدفع",
+      "noMethods": "لا توجد طرق دفع.",
+      "filter": {
+        "all": "كل الدول"
+      },
+      "table": {
+        "logo": "الشعار",
+        "title": "العنوان",
+        "countryCode": "الدولة",
+        "accountIdentifier": "رقم الحساب / المحفظة",
+        "actions": "إجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "toasts": {
+        "deleteSuccess": "تم حذف طريقة الدفع بنجاح",
+        "deleteFailed": "فشل في حذف طريقة الدفع"
+      },
+      "modal": {
+        "createTitle": "إضافة طريقة دفع",
+        "editTitle": "تعديل طريقة الدفع",
+        "countryCode": "كود الدولة",
+        "countryCodePlaceholder": "مثال: EG, SA",
+        "title": "العنوان",
+        "titlePlaceholder": "مثال: فودافون كاش",
+        "accountIdentifier": "رقم الحساب / المحفظة",
+        "accountIdentifierPlaceholder": "مثال: 01012345678 أو IBAN",
+        "instructionDescription": "تعليمات الدفع",
+        "instructionDescriptionPlaceholder": "تعليمات خطوة بخطوة للطلاب...",
+        "logo": "الشعار",
+        "logoOptional": "اختياري - اترك فارغاً للاحتفاظ بالحالي",
+        "chooseLogo": "اختر ملف الشعار",
+        "cancel": "إلغاء",
+        "saveChanges": "حفظ التغييرات",
+        "create": "إضافة طريقة",
+        "updateSuccess": "تم تحديث طريقة الدفع بنجاح",
+        "updateFailed": "فشل في تحديث طريقة الدفع",
+        "createSuccess": "تم إنشاء طريقة الدفع بنجاح",
+        "createFailed": "فشل في إنشاء طريقة الدفع"
+      },
+      "delete": {
+        "title": "حذف طريقة الدفع",
+        "confirmMessage": "هل أنت متأكد من رغبتك في حذف طريقة الدفع هذه؟",
+        "cancel": "إلغاء",
+        "confirm": "حذف"
+      },
+      "errors": {
+        "countryCodeRequired": "كود الدولة مطلوب",
+        "countryCodeMax": "يجب ألا يتجاوز كود الدولة 5 أحرف",
+        "titleRequired": "العنوان مطلوب",
+        "titleMax": "يجب ألا يتجاوز العنوان 150 حرفاً",
+        "accountIdentifierRequired": "رقم الحساب مطلوب",
+        "accountIdentifierMax": "يجب ألا يتجاوز رقم الحساب 250 حرفاً",
+        "instructionDescriptionRequired": "التعليمات مطلوبة",
+        "instructionDescriptionMax": "يجب ألا تتجاوز التعليمات 2000 حرف",
+        "logoRequired": "صورة الشعار مطلوبة",
+        "generic": "حدث خطأ ما"
+      }
+    }
+  },
+  "Checkout": {
+    "backToCourse": "العودة للكورس",
+    "backToCourses": "العودة للدورات",
+    "courseNotFound": "لم يتم العثور على الكورس",
+    "completeSubscription": "إتمام الاشتراك",
+    "completeSteps": "أكمل الخطوات التالية لتفعيل اشتراكك في الكورس",
+    "step1": "طريقة الدفع",
+    "step2": "إرسال إيصال التحويل",
+    "step3": "مراجعة الطلب",
+    "step4": "تفعيل الكورس",
+    "transferNotice": "قم بتحويل المبلغ المطلوب إلى إحدى طرق الدفع المتاحة في بلدك الموضحة أدناه، ثم أرسل صورة واضحة من إيصال التحويل.",
+    "availableMethods": "طرق الدفع المتاحة في",
+    "chooseMethod": "اختر أي طريقة من الطرق التالية لتحويل المبلغ",
+    "empty": "لا توجد طرق دفع متاحة لدولتك حالياً.",
+    "summaryTitle": "ملخص الاشتراك",
+    "originalPrice": "السعر الأصلي",
+    "discount": "الخصم",
+    "requiredAmount": "المبلغ المطلوب",
+    "free": "مجاناً",
+    "country": "الدولة",
+    "selectedMethod": "طريقة الدفع",
+    "notSelected": "سنختار من الطرق المتاحة",
+    "secureData": "بياناتك آمنة 100%",
+    "secureDataDesc": "نحن لا نشارك بياناتك مع أي جهة خارجية ونستخدمها فقط لتفعيل اشتراكك.",
+    "paymentCard": {
+      "accountNumber": "رقم الحساب / المحفظة",
+      "copyData": "نسخ البيانات",
+      "importantInstructions": "تعليمات مهمة:"
+    },
+    "receiptUpload": {
+      "title": "أرسل إيصال التحويل",
+      "uploadInstruction": "قم برفع صورة واضحة من إيصال التحويل",
+      "supportedFormats": "(الصيغ المدعومة: JPG, PNG, WEBP - الحد الأقصى 10MB)",
+      "chooseFile": "اختر صورة الإيصال",
+      "remove": "إزالة",
+      "sendReceipt": "إرسال الإيصال",
+      "reviewNotice": "سيتم مراجعة إيصال التحويل من قبل فريق أكاديمية زاد خلال 24 ساعة كحد أقصى. ستصلك رسالة عبر واتساب وبريدك الإلكتروني بعد تأكيد الدفع وتفعيل الكورس.",
+      "successTitle": "تم إرسال الإيصال بنجاح",
+      "successDescription": "سيتم مراجعة إيصال التحويل الخاص بك وتفعيل اشتراكك خلال 24 ساعة. ستصلك رسالة بريد إلكتروني عند تفعيل الكورس.",
+      "uploadFailed": "فشل في رفع الإيصال. يرجى المحاولة مرة أخرى.",
+      "alreadySubmitted": "لديك بالفعل طلب قيد المراجعة أو أنك مشترك بالفعل في هذا الكورس."
     }
   },
   "Posts": {
