@@ -165,10 +165,18 @@ export default function AuthNavbar() {
                       {userName}
                     </span>
                     {/* User avatar circle */}
-                    <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center">
-                      <span className="font-cairo-bold-sm text-white leading-none">
-                        {userInitials}
-                      </span>
+                    <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center overflow-hidden shrink-0 border border-black/5">
+                      {session?.user?.profileImageUrl ? (
+                        <img
+                          src={session.user.profileImageUrl}
+                          alt={userName}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="font-cairo-bold-sm text-white leading-none">
+                          {userInitials}
+                        </span>
+                      )}
                     </div>
                     <ChevronDown
                       className={`size-4 text-greyNormal transition-transform duration-200 ${

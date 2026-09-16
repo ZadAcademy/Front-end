@@ -337,6 +337,24 @@
       "listCourses": "All Courses",
       "addCourse": "Add New Course"
     },
+    "analytics": {
+      "totalUsers": "Total Users",
+      "totalStudents": "Total Students",
+      "totalCourses": "Total Courses",
+      "totalEnrollments": "Total Enrollments",
+      "enrollmentTrend": "Enrollment Trend",
+      "topCourses": "Top Courses",
+      "courseName": "Course Name",
+      "enrollments": "Enrollments",
+      "ordersSummary": "Orders Summary",
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "denied": "Denied",
+      "acceptanceRate": "Acceptance Rate",
+      "totalOrders": "Total Orders",
+      "loading": "Loading...",
+      "noData": "No data available"
+    },
     "addCourse": {
       "createNewCourse": "Create New Course",
       "image": {

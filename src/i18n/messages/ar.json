@@ -340,6 +340,24 @@
       "listCourses": "جميع الدورات",
       "addCourse": "إضافة دورة جديدة"
     },
+    "analytics": {
+      "totalUsers": "إجمالي المستخدمين",
+      "totalStudents": "إجمالي الطلاب",
+      "totalCourses": "إجمالي الدورات",
+      "totalEnrollments": "إجمالي التسجيلات",
+      "enrollmentTrend": "اتجاه التسجيلات",
+      "topCourses": "أفضل الدورات",
+      "courseName": "اسم الدورة",
+      "enrollments": "التسجيلات",
+      "ordersSummary": "ملخص الطلبات",
+      "pending": "قيد الانتظار",
+      "accepted": "مقبول",
+      "denied": "مرفوض",
+      "acceptanceRate": "نسبة القبول",
+      "totalOrders": "إجمالي الطلبات",
+      "loading": "جاري التحميل...",
+      "noData": "لا توجد بيانات"
+    },
     "addCourse": {
       "createNewCourse": "إنشاء دورة جديدة",
       "image": {

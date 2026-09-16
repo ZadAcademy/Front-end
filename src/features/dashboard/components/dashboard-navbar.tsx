@@ -83,10 +83,18 @@ export default function DashboardNavbar({ onMenuToggle }: NavbarProps) {
           </button>
 
           {/* User avatar */}
-          <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center">
-            <span className="font-cairo-bold-sm text-white leading-none">
-              {userInitials}
-            </span>
+          <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center overflow-hidden shrink-0 border border-black/5">
+            {session?.user?.profileImageUrl ? (
+              <img
+                src={session.user.profileImageUrl}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="font-cairo-bold-sm text-white leading-none">
+                {userInitials}
+              </span>
+            )}
           </div>
         </div>
       </div>
