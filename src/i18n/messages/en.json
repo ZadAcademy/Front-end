@@ -868,7 +868,12 @@
     "sidebar": {
       "personalInfo": "Personal Information",
       "myCourses": "My Courses",
-      "settings": "Settings"
+      "settings": "Settings",
+      "errorLoading": "Failed to load your courses",
+      "tryAgain": "Try Again",
+      "noCoursesYet": "No courses enrolled yet",
+      "exploreCatalog": "Looks like you haven't enrolled in any courses. Explore our catalog and start learning today!",
+      "continueLearning": "Continue Learning"
     },
     "title": "My Profile",
     "uploadImage": "Upload",

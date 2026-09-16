@@ -871,7 +871,12 @@
     "sidebar": {
       "personalInfo": "المعلومات الشخصية",
       "myCourses": "دوراتي",
-      "settings": "الإعدادات"
+      "settings": "الإعدادات",
+      "errorLoading": "فشل في تحميل دوراتك",
+      "tryAgain": "حاول مرة أخرى",
+      "noCoursesYet": "لم تشترك في أي دورات بعد",
+      "exploreCatalog": "يبدو أنك لم تشترك في أي دورة. تصفح دوراتنا وابدأ التعلم اليوم!",
+      "continueLearning": "متابعة التعلم"
     },
     "title": "الملف الشخصي",
     "uploadImage": "رفع صورة",

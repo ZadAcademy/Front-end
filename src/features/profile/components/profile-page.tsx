@@ -267,7 +267,7 @@ export default function ProfilePage() {
                     <FieldLabel className="font-cairo-semibold-base text-greyDarker">
                       {t("specialty", { defaultValue: "Specialty" })}
                     </FieldLabel>
-                    <Select value={field.value || undefined} onValueChange={field.onChange}>
+                    <Select value={field.value || ""} onValueChange={field.onChange}>
                       <SelectTrigger
                         aria-invalid={!!fieldState.error}
                         className={`
