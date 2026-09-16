@@ -26,8 +26,6 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
   const { data: course, isLoading: isLoadingCourse } = useCourseDetails(courseId);
   const { data: enrollment, isLoading: isEnrollmentLoading } = useEnrollmentStatusQuery(courseId);
 
-  const [selectedMethodId, setSelectedMethodId] = useState<string | null>(null);
-
   if (enrollment?.data?.status === 'Enrolled' || enrollment?.data?.status === 'PendingOrder') {
     // Avoid rendering the checkout if already enrolled or pending. 
     // They shouldn't be here. Redirect back to course page.
@@ -106,8 +104,6 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
                       title={method.title}
                       accountIdentifier={method.accountIdentifier}
                       instructionDescription={method.instructionDescription}
-                      isSelected={selectedMethodId === method.id}
-                      onClick={() => setSelectedMethodId(method.id)}
                     />
                   ))}
                 </div>
@@ -184,15 +180,6 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
                     ) : (
                       <span className="text-greyDark font-cairo-bold-sm">—</span>
                     )}
-                  </div>
-                  <div className="flex items-center justify-between font-cairo-medium-sm">
-                    <span className="text-greyNormal">{t('selectedMethod', { defaultValue: 'Payment Method' })}</span>
-                    <span className="text-blueNormal font-cairo-bold-sm">
-                      {selectedMethodId 
-                        ? paymentMethods.find(m => m.id === selectedMethodId)?.title 
-                        : t('notSelected', { defaultValue: 'Not selected yet' })
-                      }
-                    </span>
                   </div>
                 </div>
               </div>

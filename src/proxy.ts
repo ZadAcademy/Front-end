@@ -30,6 +30,8 @@ export async function proxy(req: NextRequest) {
 
   const isAuthPage = authPages.some((route) => pathname.startsWith(route));
 
+  const isDashboardRoute = pathname.startsWith('/dashboard');
+
   const isProtectedRoute =
     protectedRoutes.some((route) => pathname.startsWith(route)) ||
     learnRoutePattern.test(pathname) ||
@@ -37,6 +39,14 @@ export async function proxy(req: NextRequest) {
 
   if (isLoggedIn && isAuthPage) {
     return NextResponse.redirect(new URL('/', req.url));
+  }
+
+  // ─── Role-based Dashboard Protection ───
+  if (isLoggedIn && isDashboardRoute) {
+    const userRole = token.user?.role;
+    if (userRole !== 'Admin' && userRole !== 'SuperAdmin') {
+      return NextResponse.redirect(new URL('/home', req.url));
+    }
   }
 
   if (!isLoggedIn && isProtectedRoute) {
