@@ -76,7 +76,7 @@ export default function PdfViewer({ lessonId, title, pdfUrl }: PdfViewerProps) {
       {/* ─── PDF iframe — uses the direct backend URL ─── */}
       <iframe
         key={lessonId} // Force re-mount when lesson changes
-        src={pdfUrl}
+        src={`${pdfUrl}#toolbar=0`}
         title={title}
         className="w-full h-[80vh] border-none"
         onLoad={() => {

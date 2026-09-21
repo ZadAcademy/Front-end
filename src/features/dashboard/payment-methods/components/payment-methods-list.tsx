@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { COUNTRIES } from '@/shared/lib/countries';
 import { Pencil, Trash2, Plus, Filter } from 'lucide-react';
 import {
   useGetAllPaymentMethodsQuery,
@@ -20,9 +21,17 @@ import {
 
 export default function PaymentMethodsList() {
   const t = useTranslations('Dashboard.paymentMethods');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  
   const { data: paymentMethods = [], isLoading, isError } =
     useGetAllPaymentMethodsQuery();
   const deleteMutation = useDeletePaymentMethodMutation();
+
+  const getCountryNameWithCode = (code: string) => {
+    const country = COUNTRIES.find((c) => c.code === code);
+    return country ? `${isRTL ? country.nameAr : country.nameEn} (${code})` : code;
+  };
 
   /* ─── Modal state ─── */
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -115,7 +124,7 @@ export default function PaymentMethodsList() {
         header: () => t('table.countryCode', { defaultValue: 'Country' }),
         cell: (info) => (
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-cairo-bold-sm bg-blueLight/50 text-blueNormal">
-            {info.getValue()}
+            {getCountryNameWithCode(info.getValue())}
           </span>
         ),
       }),
@@ -202,7 +211,7 @@ export default function PaymentMethodsList() {
                 </option>
                 {uniqueCountries.map((code) => (
                   <option key={code} value={code}>
-                    {code}
+                    {getCountryNameWithCode(code)}
                   </option>
                 ))}
               </select>

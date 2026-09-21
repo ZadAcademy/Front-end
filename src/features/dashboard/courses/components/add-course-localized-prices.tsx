@@ -16,17 +16,7 @@ import {
 } from '@/shared/components/ui/select';
 
 import { useCourseLocalizedPricesForm } from '../hooks/use-course-localized-prices-form';
-
-export const SUPPORTED_COUNTRIES = [
-  { code: 'SA', nameEn: 'Saudi Arabia', nameAr: 'السعودية', currency: 'SAR' },
-  { code: 'EG', nameEn: 'Egypt', nameAr: 'مصر', currency: 'EGP' },
-  { code: 'AE', nameEn: 'United Arab Emirates', nameAr: 'الإمارات', currency: 'AED' },
-  { code: 'KW', nameEn: 'Kuwait', nameAr: 'الكويت', currency: 'KWD' },
-  { code: 'QA', nameEn: 'Qatar', nameAr: 'قطر', currency: 'QAR' },
-  { code: 'JO', nameEn: 'Jordan', nameAr: 'الأردن', currency: 'JOD' },
-  { code: 'US', nameEn: 'United States', nameAr: 'الولايات المتحدة', currency: 'USD' },
-  { code: 'GB', nameEn: 'United Kingdom', nameAr: 'المملكة المتحدة', currency: 'GBP' },
-];
+import { COUNTRIES as SUPPORTED_COUNTRIES } from '@/shared/lib/countries';
 
 export function AddCourseLocalizedPrices() {
   const t = useTranslations('Dashboard.addCourse.localizedPrices');

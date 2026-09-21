@@ -278,7 +278,9 @@
     },
     "pagination": {
       "previous": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "page": "Page",
+      "of": "of"
     },
     "title": "All Courses",
     "noCoursesFound": "No courses found",

@@ -4,10 +4,10 @@ import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Camera, Trash2, User } from "lucide-react";
 import { Controller } from "react-hook-form";
-import { 
-  useGetProfileQuery, 
-  useUpdateProfileImageMutation, 
-  useDeleteProfileImageMutation 
+import {
+  useGetProfileQuery,
+  useUpdateProfileImageMutation,
+  useDeleteProfileImageMutation
 } from "../hooks/use-profile-api";
 import { useProfileForm } from "../hooks/use-profile-form";
 import { Button } from "@/shared/ui/button";
@@ -71,7 +71,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-8">
+    <div className="w-full py-8">
       <div className="bg-white rounded-2xl shadow-sm border border-black/5 p-8 sm:p-10">
         <h2 className="lg:font-cairo-bold-3xl font-cairo-bold-lg text-greyDarker mb-8 border-b pb-4">
           {t("title", { defaultValue: "My Profile" })}
@@ -90,8 +90,8 @@ export default function ProfilePage() {
               ) : (
                 <User className="size-12 text-gray-400" />
               )}
-              
-              <div 
+
+              <div
                 className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                 onClick={handleImageClick}
               >
@@ -113,7 +113,7 @@ export default function ProfilePage() {
                 <Trash2 className="size-4" />
               </button>
             )}
-            
+
             <input
               type="file"
               ref={fileInputRef}
@@ -148,7 +148,7 @@ export default function ProfilePage() {
                 </FieldError>
               </div>
             )}
-            
+
 
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

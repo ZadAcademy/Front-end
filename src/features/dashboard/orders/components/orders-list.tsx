@@ -112,7 +112,7 @@ export default function OrdersList() {
 
       <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden">
         {/* Tabs & Filters */}
-        <div className="p-5 border-b border-black/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="p-5 border-b border-black/5 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
           
           <div className="flex bg-gray-100 p-1 rounded-xl">
             <button
@@ -140,8 +140,8 @@ export default function OrdersList() {
             </button>
           </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <div className="relative flex-1 sm:w-64">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full xl:w-auto">
+            <div className="relative w-full sm:w-64 lg:w-80">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-greyLightActive" />
               <input
                 type="text"

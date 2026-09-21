@@ -16,14 +16,17 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
   const t = useTranslations('Dashboard.orders.modal');
   const updateMutation = useUpdateOrderStatusMutation();
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<OrderStatus | null>(null);
 
   if (!order) return null;
 
   const handleUpdateStatus = (newStatus: OrderStatus.Accepted | OrderStatus.Denied) => {
+    setPendingAction(newStatus);
     updateMutation.mutate(
       { orderId: order.id, request: { status: newStatus } },
       {
         onSuccess: () => {
+          setPendingAction(null);
           toast.success(
             newStatus === OrderStatus.Accepted
               ? t('acceptSuccess', { defaultValue: 'Order accepted successfully' })
@@ -31,6 +34,9 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
           );
           onClose();
         },
+        onError: () => {
+          setPendingAction(null);
+        }
       }
     );
   };
@@ -115,17 +121,17 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
                 <button
                   onClick={() => handleUpdateStatus(OrderStatus.Accepted)}
                   disabled={updateMutation.isPending}
-                  className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-cairo-bold-base rounded-xl transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-cairo-bold-base rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {updateMutation.isPending ? <Loader2 className="size-5 animate-spin" /> : <Check className="size-5" />}
+                  {pendingAction === OrderStatus.Accepted ? <Loader2 className="size-5 animate-spin" /> : <Check className="size-5" />}
                   {t('accept', { defaultValue: 'Accept & Enroll' })}
                 </button>
                 <button
                   onClick={() => handleUpdateStatus(OrderStatus.Denied)}
                   disabled={updateMutation.isPending}
-                  className="w-full py-3 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-cairo-bold-base rounded-xl transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-cairo-bold-base rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {updateMutation.isPending ? <Loader2 className="size-5 animate-spin" /> : <X className="size-5" />}
+                  {pendingAction === OrderStatus.Denied ? <Loader2 className="size-5 animate-spin" /> : <X className="size-5" />}
                   {t('deny', { defaultValue: 'Deny' })}
                 </button>
               </div>

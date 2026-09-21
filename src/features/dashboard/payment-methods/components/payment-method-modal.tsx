@@ -1,11 +1,19 @@
 "use client";
 
 import { useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Controller } from 'react-hook-form';
 import { X, Loader2, Upload, Image as ImageIcon } from 'lucide-react';
 import { usePaymentMethodForm } from '../hooks/use-payment-method-form';
 import { CountryPaymentMethodResponse } from '../lib/types/payment-method-types';
+import { COUNTRIES } from '@/shared/lib/countries';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/select';
 
 interface PaymentMethodModalProps {
   isOpen: boolean;
@@ -20,6 +28,8 @@ export default function PaymentMethodModal({
 }: PaymentMethodModalProps) {
   const t = useTranslations('Dashboard.paymentMethods.modal');
   const tErrors = useTranslations('Dashboard.paymentMethods.errors');
+  const locale = useLocale();
+  const isAr = locale === 'ar';
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
@@ -92,18 +102,27 @@ export default function PaymentMethodModal({
                     <label className="font-cairo-semibold-base text-greyDarker">
                       {t('countryCode', { defaultValue: 'Country Code' })} *
                     </label>
-                    <input
-                      {...field}
-                      type="text"
-                      maxLength={5}
-                      placeholder={t('countryCodePlaceholder', {
-                        defaultValue: 'e.g. EG, SA',
-                      })}
-                      className={inputClasses(!!fieldState.error)}
-                      onChange={(e) =>
-                        field.onChange(e.target.value.toUpperCase())
-                      }
-                    />
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
+                      <SelectTrigger
+                        className={`h-12 bg-white rounded-lg border focus:ring-1 focus:ring-blueNormal outline-none text-greyDarker font-cairo-regular-base ${fieldState.error ? 'border-red-400 focus:border-red-500' : 'border-greyLightActive focus:border-blueNormal'}`}
+                      >
+                        <SelectValue placeholder={t('countryCodePlaceholder', { defaultValue: 'Select Country' })}>
+                          {field.value && COUNTRIES.find(c => c.code === field.value)
+                            ? `${isAr ? COUNTRIES.find(c => c.code === field.value)?.nameAr : COUNTRIES.find(c => c.code === field.value)?.nameEn} (${field.value})`
+                            : field.value}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {COUNTRIES.map((country) => (
+                          <SelectItem key={country.code} value={country.code}>
+                            {isAr ? country.nameAr : country.nameEn} ({country.code})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     {fieldState.error && (
                       <span className="text-red-500 text-sm font-cairo-medium-sm">
                         {tErrors(fieldState.error.message || 'generic')}

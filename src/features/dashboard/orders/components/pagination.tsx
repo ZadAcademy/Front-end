@@ -10,7 +10,7 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
-  const t = useTranslations('courseList.pagination');
+  const t = useTranslations('Dashboard.courseList.pagination');
 
   if (totalPages <= 1) return null;
 
@@ -21,12 +21,12 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         disabled={currentPage === 1}
         className="p-2 rounded-lg border border-black/10 hover:bg-black/5 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <ChevronRight className="size-4 rtl:hidden" />
-        <ChevronLeft className="size-4 hidden rtl:block" />
+        <ChevronLeft className="size-4 rtl:hidden" />
+        <ChevronRight className="size-4 hidden rtl:block" />
       </button>
       
       <span className="font-cairo-medium-sm text-greyDark px-4">
-        {t('page', { defaultValue: 'Page' })} {currentPage} {t('of', { defaultValue: 'of' })} {totalPages}
+        {t('page')} {currentPage} {t('of')} {totalPages}
       </span>
 
       <button
@@ -34,8 +34,8 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         disabled={currentPage === totalPages}
         className="p-2 rounded-lg border border-black/10 hover:bg-black/5 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <ChevronLeft className="size-4 rtl:hidden" />
-        <ChevronRight className="size-4 hidden rtl:block" />
+        <ChevronRight className="size-4 rtl:hidden" />
+        <ChevronLeft className="size-4 hidden rtl:block" />
       </button>
     </div>
   );

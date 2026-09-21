@@ -16,7 +16,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
         
         {/* Main Content */}
         <div className="flex-1 w-full p-4 sm:p-8 lg:p-12">
-          <div className="max-w-5xl mx-auto">
+          <div className="w-full">
             {children}
           </div>
         </div>

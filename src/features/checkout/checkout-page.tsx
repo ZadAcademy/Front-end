@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Loader2, ArrowRight, ArrowLeft, ShieldCheck, Info } from 'lucide-react';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ import { useEnrollmentStatusQuery } from '@/features/course-details/hooks/use-en
 import PaymentMethodCard from './components/payment-method-card';
 import ReceiptUploadForm from './components/receipt-upload-form';
 import { useRouter } from 'next/navigation';
+import { COUNTRIES } from '@/shared/lib/countries';
 
 interface CheckoutPageProps {
   courseId: string;
@@ -26,10 +27,20 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
   const { data: course, isLoading: isLoadingCourse } = useCourseDetails(courseId);
   const { data: enrollment, isLoading: isEnrollmentLoading } = useEnrollmentStatusQuery(courseId);
 
+  const getCountryNameWithCode = (code: string) => {
+    const country = COUNTRIES.find((c) => c.code === code);
+    return country ? `${isRTL ? country.nameAr : country.nameEn} (${code})` : code;
+  };
+
+  useEffect(() => {
+    if (enrollment?.data?.status === 'Enrolled' || enrollment?.data?.status === 'PendingOrder') {
+      router.replace(`/${locale}/courses/${courseId}`);
+    }
+  }, [enrollment?.data?.status, locale, courseId, router]);
+
   if (enrollment?.data?.status === 'Enrolled' || enrollment?.data?.status === 'PendingOrder') {
     // Avoid rendering the checkout if already enrolled or pending. 
-    // They shouldn't be here. Redirect back to course page.
-    router.replace(`/${locale}/courses/${courseId}`);
+    // The useEffect above will redirect them.
     return null;
   }
 
@@ -89,7 +100,7 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
                   {/* Flag placeholder based on country code if possible, or generic icon */}
                   <span className="text-2xl">🌍</span>
                   <h2 className="font-cairo-bold-xl text-[#1a1a2e]">
-                    {t('availableMethods', { defaultValue: 'Available Payment Methods in' })} {paymentMethods[0].countryCode}
+                    {t('availableMethods', { defaultValue: 'Available Payment Methods in' })} {getCountryNameWithCode(paymentMethods[0].countryCode)}
                   </h2>
                 </div>
                 <p className="font-cairo-medium-base text-greyNormal mb-6">
@@ -175,7 +186,7 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
                     <span className="text-greyNormal">{t('country', { defaultValue: 'Country' })}</span>
                     {paymentMethods[0] ? (
                        <span className="text-greyDark font-cairo-bold-sm flex items-center gap-2">
-                         {paymentMethods[0].countryCode} 🌍
+                         {getCountryNameWithCode(paymentMethods[0].countryCode)} 🌍
                        </span>
                     ) : (
                       <span className="text-greyDark font-cairo-bold-sm">—</span>

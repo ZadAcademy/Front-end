@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { submitOrder } from '../api/checkout-api';
 
 // Simple unwrap that can handle custom status codes (like 409)
@@ -12,7 +12,12 @@ const unwrapCheckout = async (promise: Promise<any>) => {
 };
 
 export const useSubmitOrderMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (formData: FormData) => unwrapCheckout(submitOrder(formData)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['enrollment-status'] });
+      queryClient.invalidateQueries({ queryKey: ['course'] });
+    }
   });
 };

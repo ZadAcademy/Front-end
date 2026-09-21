@@ -38,6 +38,8 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
     ? `/${locale}/courses/${courseId}/learn/${firstLesson.id}`
     : '#';
 
+  const isCourseFree = course ? (!course.resolvedPrice || course.resolvedPrice.price === 0) : false;
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -109,10 +111,24 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
             <Clock className="size-5" />
             {isRTL ? 'طلبك قيد المراجعة' : 'Order Pending Review'}
           </div>
+        ) : isCourseFree ? (
+          <>
+            <div className="flex flex-col">
+              <span className="font-cairo-bold-xl text-greyDark">{isRTL ? 'مجاناً' : 'Free'}</span>
+              <span className="font-cairo-medium-xs text-greyNormal">{isRTL ? 'شاملة الشهادة' : 'Includes Certificate'}</span>
+            </div>
+            <Link
+              href={!isAuth ? '/login' : watchCourseHref}
+              className="px-8 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-cairo-bold-lg shadow-lg shadow-green-600/20 flex items-center justify-center gap-2 transition-colors"
+            >
+              <Play className="size-5 fill-white" />
+              {isRTL ? 'متابعة التعلم' : 'Continue Learning'}
+            </Link>
+          </>
         ) : (
           <>
             <div className="flex flex-col">
-              {isAuth && course.resolvedPrice ? (
+              {isAuth && !isCourseFree && course.resolvedPrice ? (
                 <div className="flex items-center gap-2">
                   {course.resolvedPrice.discountPrice ? (
                     <>
@@ -123,10 +139,8 @@ export default function CourseDetailsPage({ courseId }: CourseDetailsPageProps) 
                     <span className="font-cairo-bold-xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
                   )}
                 </div>
-              ) : isAuth && !course.resolvedPrice ? (
-                <span className="font-cairo-bold-xl text-greyDark">مجاناً</span>
               ) : null}
-              <span className="font-cairo-medium-xs text-greyNormal">شاملة الشهادة</span>
+              <span className="font-cairo-medium-xs text-greyNormal">{isRTL ? 'شاملة الشهادة' : 'Includes Certificate'}</span>
             </div>
             <Link
               href={isAuth ? `/courses/${courseId}/checkout` : '/login'}

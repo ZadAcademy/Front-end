@@ -32,7 +32,7 @@ export const useUpdateOrderStatusMutation = () => {
       updateOrderStatus(orderId, request),
     onSuccess: (_, variables) => {
       // Invalidate both global and course-specific orders
-      queryClient.invalidateQueries({ queryKey: queryKeys.allOrders });
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error: any) => {
       toast.error(error.message || 'Failed to update order status');

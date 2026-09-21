@@ -34,6 +34,7 @@ export const useCreateCourseMutation = () => {
     mutationFn: (data: CreateCoursePayload) => unwrap(createCourse(data)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardCourses'] });
     },
   });
 };
@@ -47,6 +48,7 @@ export const useUpdateCourseMutation = () => {
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardCourses'] });
     },
   });
 };
@@ -59,6 +61,7 @@ export const useUploadCardImageMutation = () => {
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardCourses'] });
     }
   });
 };
@@ -71,6 +74,7 @@ export const useUploadDetailImageMutation = () => {
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardCourses'] });
     }
   });
 };
@@ -85,6 +89,7 @@ export const useUpdateCourseStatusMutation = () => {
       console.log('updateCourseStatus mutation success', courseId);
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardCourses'] });
     },
   });
 };
@@ -99,6 +104,7 @@ export const useUpdateCoursePreviewMutation = () => {
       console.log('updateCoursePreview mutation success', courseId);
       queryClient.invalidateQueries({ queryKey: ['course', courseId] });
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardCourses'] });
     },
   });
 };
@@ -111,6 +117,7 @@ export const useDeleteCourseMutation = () => {
     onSuccess: () => {
       // Invalidate the course list query after successful deletion
       queryClient.invalidateQueries({ queryKey: ['coursesCard'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboardCourses'] });
     },
   });
 };

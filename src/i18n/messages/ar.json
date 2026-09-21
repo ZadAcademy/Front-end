@@ -281,7 +281,9 @@
     },
     "pagination": {
       "previous": "السابق",
-      "next": "التالي"
+      "next": "التالي",
+      "page": "صفحة",
+      "of": "من"
     },
     "title": "جميع الدورات",
     "noCoursesFound": "لا يوجد دورات",

@@ -42,6 +42,7 @@ export default function CourseSidebar({ course, enrollment, isEnrollmentLoading,
   const [videoError, setVideoError] = useState(false);
 
   const activeVideo = previewVideos.find(v => v.id === activeVideoId);
+  const isCourseFree = !course.resolvedPrice || course.resolvedPrice.price === 0;
 
   const handleVideoChange = (videoId: string) => {
     setActiveVideoId(videoId);
@@ -135,7 +136,7 @@ export default function CourseSidebar({ course, enrollment, isEnrollmentLoading,
                     <span>{t('certificate')}</span>
                   </div>
                   <span className="font-cairo-bold-sm text-blueNormal">
-                    {/* {course.certificate ? t('certificateYes') : ''} */}
+                    {locale === 'ar' ? 'نعم' : 'Yes'}
                   </span>
                 </li>
 
@@ -161,14 +162,19 @@ export default function CourseSidebar({ course, enrollment, isEnrollmentLoading,
 
             {/* ─── Subscribe CTA (desktop only — mobile has sticky bar) ─── */}
             <div className="hidden lg:flex flex-col gap-4 mt-2">
-              {enrollment?.status === 'Enrolled' ? (
-                <Link
-                  href={watchCourseHref}
-                  className="w-full py-3.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-cairo-bold-lg transition-colors shadow-lg shadow-green-600/20 flex items-center justify-center gap-2"
-                >
-                  <Play className="size-5 fill-white" />
-                  {locale === 'ar' ? 'متابعة التعلم' : 'Continue Learning'}
-                </Link>
+              {enrollment?.status === 'Enrolled' || isCourseFree ? (
+                <>
+                  {isCourseFree && enrollment?.status !== 'Enrolled' && (
+                    <span className="font-cairo-bold-2xl text-greyDark">{locale === 'ar' ? 'مجاناً' : 'Free'}</span>
+                  )}
+                  <Link
+                    href={!isAuth ? '/login' : watchCourseHref}
+                    className="w-full py-3.5 rounded-xl bg-green-600 hover:bg-green-700 text-white font-cairo-bold-lg transition-colors shadow-lg shadow-green-600/20 flex items-center justify-center gap-2"
+                  >
+                    <Play className="size-5 fill-white" />
+                    {locale === 'ar' ? 'متابعة التعلم' : 'Continue Learning'}
+                  </Link>
+                </>
               ) : enrollment?.status === 'PendingOrder' ? (
                 <div className="w-full py-3.5 rounded-xl bg-amber-100 text-amber-700 font-cairo-bold-lg border border-amber-200 flex items-center justify-center gap-2">
                   <Calendar className="size-5" />
@@ -176,7 +182,7 @@ export default function CourseSidebar({ course, enrollment, isEnrollmentLoading,
                 </div>
               ) : (
                 <>
-                  {isAuth && course.resolvedPrice ? (
+                  {isAuth && !isCourseFree && course.resolvedPrice ? (
                     <div className="flex items-center gap-3">
                       {course.resolvedPrice.discountPrice ? (
                         <>
@@ -187,8 +193,6 @@ export default function CourseSidebar({ course, enrollment, isEnrollmentLoading,
                         <span className="font-cairo-bold-2xl text-greyDark">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
                       )}
                     </div>
-                  ) : isAuth && !course.resolvedPrice ? (
-                    <span className="font-cairo-bold-2xl text-greyDark">مجاناً</span>
                   ) : null}
                   <Link
                     href={isAuth ? `/courses/${course.id}/checkout` : '/login'}
