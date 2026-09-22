@@ -21,7 +21,10 @@ async function refreshAccessToken(token: JWT): Promise<JWT> {
         const responseData = await response.json();
 
         if (!response.ok || !responseData.isSuccess) {
-            throw new Error(responseData.message || "Failed to refresh token");
+            return {
+                ...token,
+                error: "RefreshAccessTokenError",
+            };
         }
 
         const refreshedData = responseData.data;

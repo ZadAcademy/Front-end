@@ -124,6 +124,18 @@
       "newsletterDescription": "اشترك ليصلك أحدث الدورات والتحديثات.",
       "subscribe": "اشترك",
       "rights": "جميع الحقوق محفوظة لأكاديمية زاد © 2026"
+    },
+    "marketing": {
+      "title": "العروض والباقات الخاصة",
+      "subtitle": "لا تفوت أحدث عروضنا لبدء رحلتك التعليمية بأفضل الأسعار.",
+      "promo1Title": "تخفيضات الخريف!",
+      "promo1Desc": "احصل على خصم 50٪ على جميع دورات تقنية المعلومات والبرمجة هذا الشهر.",
+      "promo1Code": "AUTUMN50",
+      "promo2Title": "باقة المبتدئين",
+      "promo2Desc": "اشترِ أي دورتين للمبتدئين واحصل على الثالثة مجاناً!",
+      "promo2Code": "LEARN3",
+      "copyCode": "نسخ الكود",
+      "codeCopied": "تم النسخ!"
     }
   },
   "Auth": {
@@ -288,7 +300,30 @@
     "title": "جميع الدورات",
     "noCoursesFound": "لا يوجد دورات",
     "error": "حدث خطأ ما. حاول مرة أخرى",
-    "loading": "جاري التحميل..."
+    "Hero": {
+      "title": "أطلق العنان لقدراتك مع أكاديمية زاد",
+      "subtitle": "انضم إلى آلاف الطلاب في اكتشاف دورات متميزة مصممة للارتقاء بمهاراتك ومسيرتك المهنية. تعلم من الأفضل، في أي وقت ومكان.",
+      "ctaPrimary": "ابدأ التعلم",
+      "ctaSecondary": "عرض العروض",
+      "statStudents": "+10آلاف",
+      "statStudentsLabel": "طالب نشط",
+      "statRating": "4.9/5",
+      "statRatingLabel": "متوسط التقييم",
+      "statCourses": "+150",
+      "statCoursesLabel": "دورة متميزة"
+    },
+    "Marketing": {
+      "title": "العروض والباقات الخاصة",
+      "subtitle": "لا تفوت أحدث عروضنا لبدء رحلتك التعليمية بأفضل الأسعار.",
+      "promo1Title": "تخفيضات الخريف!",
+      "promo1Desc": "احصل على خصم 50٪ على جميع دورات تقنية المعلومات والبرمجة هذا الشهر.",
+      "promo1Code": "AUTUMN50",
+      "promo2Title": "باقة المبتدئين",
+      "promo2Desc": "اشترِ أي دورتين للمبتدئين واحصل على الثالثة مجاناً!",
+      "promo2Code": "LEARN3",
+      "copyCode": "نسخ الكود",
+      "codeCopied": "تم النسخ!"
+    }
   },
   "CourseCard": {
     "subscribeNow": "اشترك الآن",
@@ -335,7 +370,8 @@
       "users": "إدارة المستخدمين",
       "posts": "المنشورات",
       "paymentMethods": "طرق الدفع",
-      "orders": "الطلبات"
+      "orders": "الطلبات",
+      "notifications": "الإشعارات"
     },
     "pages": {
       "dashboard": "لوحة التحكم",
@@ -572,12 +608,6 @@
         "delete": "حذف الدورة",
         "confirmDelete": "هل أنت متأكد من حذف هذه الدورة؟",
         "noCourses": "لا يوجد دورات متاحة."
-      },
-      "pagination": {
-        "previous": "السابق",
-        "next": "التالي",
-        "page": "صفحة",
-        "of": "من"
       }
     },
     "roles": {
@@ -772,6 +802,62 @@
         "logoRequired": "صورة الشعار مطلوبة",
         "generic": "حدث خطأ ما"
       }
+    },
+    "notifications": {
+      "tabSend": "إرسال إشعار",
+      "tabHistory": "السجل",
+      "tabExpiry": "إدارة الانتهاء",
+      "tabPrice": "تنبيهات الأسعار",
+      "pageTitle": "إدارة الإشعارات",
+      "pageSubtitle": "إرسال رسائل جماعية، وإدارة الانتهاء، وعرض السجل.",
+      "sendTitle": "إرسال إشعار",
+      "notifTitle": "العنوان",
+      "titlePlaceholder": "عنوان الإشعار...",
+      "message": "الرسالة",
+      "messagePlaceholder": "اكتب رسالة الإشعار...",
+      "type": "النوع",
+      "target": "إرسال إلى",
+      "targetAll": "جميع المستخدمين",
+      "targetCourse": "طلاب الدورة",
+      "targetUsers": "مستخدمين محددين",
+      "courseId": "  Course ID",
+      "courseIdPlaceholder": "أدخل ID الدورة...",
+      "userIds": "ID المستخدمين (مفصولة بفاصلة)",
+      "userIdsPlaceholder": "مثال: uuid-1, uuid-2, uuid-3",
+      "send": "إرسال الإشعار",
+      "tableTitle": "العنوان",
+      "tableType": "النوع",
+      "tableRecipients": "المستلمين",
+      "tableSentAt": "تاريخ الإرسال",
+      "tableActions": "الإجراءات",
+      "confirmDelete": "هل أنت متأكد من حذف دفعة الإشعارات هذه لجميع المستخدمين؟",
+      "delete": "حذف",
+      "historyError": "فشل في تحميل سجل الإشعارات.",
+      "noHistory": "لا يوجد سجل للإشعارات.",
+      "prev": "السابق",
+      "next": "التالي",
+      "expiryTitle": "فحص انتهاء الاشتراك",
+      "expiryDesc": "تشغيل الفحص في الخلفية للبحث عن الاشتراكات التي ستنتهي (حد 6 أشهر)، وإرسال تحذيرات، وإلغاء تفعيل المنتهية.",
+      "triggerCheck": "تشغيل فحص الانتهاء",
+      "confirmTrigger": "سيقوم هذا الإجراء بفحص جميع الاشتراكات، وإرسال إشعارات الانتهاء، وإلغاء تفعيل المنتهية. المتابعة؟",
+      "previewUpcoming": "معاينة الانتهاءات القادمة",
+      "withinDays": "خلال الأيام:",
+      "user": "المستخدم",
+      "course": "الدورة",
+      "enrolledAt": "تاريخ الاشتراك",
+      "expiresAt": "تاريخ الانتهاء",
+      "daysRemaining": "الأيام المتبقية",
+      "previewError": "فشل في تحميل بيانات المعاينة.",
+      "noExpirations": "لا توجد اشتراكات تنتهي في هذا الإطار الزمني.",
+      "priceAlertTitle": "إرسال تنبيه سعر",
+      "selectCourse": "اختيار الدورة",
+      "coursePlaceholder": "ابحث واختر الدورة...",
+      "searchCourses": "البحث في الدورات...",
+      "noCoursesFound": "لا توجد دورات.",
+      "customMessage": "رسالة مخصصة (اختياري)",
+      "customMessagePlaceholder": "أضف رسالة اختيارية مع التنبيه...",
+      "sendAlert": "إرسال التنبيه",
+      "cancel": "إلغاء"
     }
   },
   "Checkout": {
@@ -906,5 +992,25 @@
       "phoneNumberMax": "رقم الهاتف يجب ألا يتجاوز 20 رقماً",
       "updateFailed": "فشل في تحديث الملف الشخصي"
     }
+  },
+  "Notifications": {
+    "bell": "الإشعارات",
+    "title": "الإشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "empty": "لا توجد إشعارات بعد",
+    "viewAll": "عرض كل الإشعارات",
+    "pageTitle": "الإشعارات",
+    "pageSubtitle": "ابق على اطلاع بآخر أنشطتك",
+    "filterAll": "الكل",
+    "filterUnread": "غير مقروءة",
+    "filterRead": "مقروءة",
+    "noNotifications": "لا توجد إشعارات لعرضها",
+    "enabled": "مفعل",
+    "disabled": "معطل",
+    "markRead": "تحديد كمقروء",
+    "delete": "حذف",
+    "prev": "السابق",
+    "next": "التالي",
+    "receiveNotifications": "تفعيل الإشعارات "
   }
 }

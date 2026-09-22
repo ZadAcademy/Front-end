@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Bell, Globe, LogOut, User, LayoutDashboard, ChevronDown, Home, MessageSquare, Compass } from 'lucide-react';
+import { Globe, LogOut, User, LayoutDashboard, ChevronDown, Home, MessageSquare, Compass } from 'lucide-react';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import NotificationBell from '@/features/notifications/components/notification-bell';
 
 /* ─── Scroll threshold (px) before navbar turns solid ─── */
 const SCROLL_THRESHOLD = 50;
@@ -139,15 +140,7 @@ export default function AuthNavbar() {
             {status === 'authenticated' && (
               <>
                 {/* ─── Notification Bell ─── */}
-                <button
-                  className="relative flex items-center justify-center w-10 h-10 rounded-full
-                             hover:bg-black/5 transition-colors cursor-pointer bg-transparent border-none"
-                  aria-label={t('notifications')}
-                >
-                  <Bell className="size-5 text-greyDark" />
-                  {/* Notification dot indicator */}
-                  <span className="absolute top-2 right-2 w-2 h-2 bg-orangeNormal rounded-full" />
-                </button>
+                <NotificationBell />
 
                 {/* ─── User Profile Dropdown ─── */}
                 <div className="relative" ref={dropdownRef}>

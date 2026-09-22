@@ -142,13 +142,13 @@ export default function OrdersList() {
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full xl:w-auto">
             <div className="relative w-full sm:w-64 lg:w-80">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-greyLightActive" />
+              <Search className="absolute start-3 top-1/2 -translate-y-1/2 size-4 text-greyLightActive" />
               <input
                 type="text"
                 placeholder={t('searchPlaceholder', { defaultValue: 'Search by name, email, course...' })}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal text-sm font-cairo-medium-sm"
+                className="w-full ps-10 pe-4 py-2 bg-gray-50 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal text-sm font-cairo-medium-sm"
               />
             </div>
             
@@ -160,7 +160,7 @@ export default function OrdersList() {
                   setStatusFilter(val === '' ? undefined : Number(val) as OrderStatus);
                   setPage(1);
                 }}
-                className="py-2 pl-3 pr-8 bg-gray-50 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal text-sm font-cairo-medium-sm"
+                className="py-2 ps-3 pe-8 bg-gray-50 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal text-sm font-cairo-medium-sm"
               >
                 <option value="">{t('filter.all', { defaultValue: 'All Status' })}</option>
                 <option value={OrderStatus.Accepted}>{t('filter.accepted', { defaultValue: 'Accepted' })}</option>

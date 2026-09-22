@@ -16,6 +16,7 @@ import {
   FileText,
   CreditCard,
   Receipt,
+  Bell,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -90,6 +91,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
       label: t('paymentMethods', { defaultValue: 'Payment Methods' }),
       icon: CreditCard,
       href: '/dashboard/payment-methods',
+    },
+    {
+      key: 'notifications',
+      label: t('notifications', { defaultValue: 'Notifications' }),
+      icon: Bell,
+      href: '/dashboard/notifications',
     },
   ];
 

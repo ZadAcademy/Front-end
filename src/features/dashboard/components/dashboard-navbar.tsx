@@ -6,6 +6,7 @@ import { usePathname, useRouter } from '@/i18n/navigation';
 import { useSession } from 'next-auth/react';
 import { Menu, Globe, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import NotificationBell from '@/features/notifications/components/notification-bell';
 
 interface NavbarProps {
   onMenuToggle: () => void;
@@ -81,6 +82,9 @@ export default function DashboardNavbar({ onMenuToggle }: NavbarProps) {
               {locale === 'ar' ? 'EN' : 'AR'}
             </span>
           </button>
+
+          {/* ─── Notification Bell ─── */}
+          <NotificationBell />
 
           {/* User avatar */}
           <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center overflow-hidden shrink-0 border border-black/5">

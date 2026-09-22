@@ -18,20 +18,20 @@ export default function NumbersSection() {
   return (
     <section className="mx-auto max-w-[1450px] px-4 sm:px-6 lg:px-8">
       <div className="bg-blueNormal rounded-2xl py-2 px-2 lg:px-3 lg:py-4 mt-8">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-        {stats.map((stat) => (
-          <div key={stat.labelKey} className="flex flex-col items-center gap-1">
-            {/* ─── Number ─── */}
-            <span className="font-cairo-medium-4xl lg:font-cairo-bold-5xl text-white">
-              {t(stat.countKey)}
-            </span>
-            {/* ─── Label ─── */}
-            <span className="font-cairo-medium-lg lg:font-cairo-bold-4xl text-white">
-              {t(stat.labelKey)}
-            </span>
-          </div>
-        ))}
-      </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+          {stats.map((stat) => (
+            <div key={stat.labelKey} className="flex flex-col items-center gap-1">
+              {/* ─── Number ─── */}
+              <span className="font-cairo-medium-4xl lg:font-cairo-bold-5xl text-white">
+                {t(stat.countKey)}
+              </span>
+              {/* ─── Label ─── */}
+              <span className="font-cairo-medium-lg lg:font-cairo-bold-4xl text-white">
+                {t(stat.labelKey)}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -124,6 +124,18 @@
       "newsletterDescription": "Subscribe to get the latest courses and updates.",
       "subscribe": "Subscribe",
       "rights": "All rights reserved Zad Academy © 2026"
+    },
+    "marketing": {
+      "title": "Special Offers & Bundles",
+      "subtitle": "Don't miss out on our latest deals to kickstart your learning journey.",
+      "promo1Title": "Autumn Sale!",
+      "promo1Desc": "Get 50% off all IT and Programming courses this month.",
+      "promo1Code": "AUTUMN50",
+      "promo2Title": "Beginner Bundle",
+      "promo2Desc": "Buy any 2 beginner courses and get the 3rd for free!",
+      "promo2Code": "LEARN3",
+      "copyCode": "Copy Code",
+      "codeCopied": "Copied!"
     }
   },
   "Auth": {
@@ -285,7 +297,30 @@
     "title": "All Courses",
     "noCoursesFound": "No courses found",
     "error": "Something went wrong. Try again",
-    "loading": "Loading..."
+    "Hero": {
+      "title": "Unlock Your Potential with Zad Academy",
+      "subtitle": "Join thousands of students in discovering premium courses designed to elevate your skills and career. Learn from the best, anywhere, anytime.",
+      "ctaPrimary": "Start Learning",
+      "ctaSecondary": "View Offers",
+      "statStudents": "10K+",
+      "statStudentsLabel": "Active Students",
+      "statRating": "4.9/5",
+      "statRatingLabel": "Average Rating",
+      "statCourses": "150+",
+      "statCoursesLabel": "Premium Courses"
+    },
+    "Marketing": {
+      "title": "Special Offers & Bundles",
+      "subtitle": "Don't miss out on our latest deals to kickstart your learning journey.",
+      "promo1Title": "Autumn Sale!",
+      "promo1Desc": "Get 50% off all IT and Programming courses this month.",
+      "promo1Code": "AUTUMN50",
+      "promo2Title": "Beginner Bundle",
+      "promo2Desc": "Buy any 2 beginner courses and get the 3rd for free!",
+      "promo2Code": "LEARN3",
+      "copyCode": "Copy Code",
+      "codeCopied": "Copied!"
+    }
   },
   "CourseCard": {
     "subscribeNow": "Subscribe Now",
@@ -332,7 +367,8 @@
       "users": "Users",
       "posts": "Posts",
       "paymentMethods": "Payment Methods",
-      "orders": "Orders"
+      "orders": "Orders",
+      "notifications": "Notifications"
     },
     "pages": {
       "dashboard": "Dashboard",
@@ -569,12 +605,6 @@
         "delete": "Delete Course",
         "confirmDelete": "Are you sure you want to delete this course?",
         "noCourses": "No courses found."
-      },
-      "pagination": {
-        "previous": "Previous",
-        "next": "Next",
-        "page": "Page",
-        "of": "of"
       }
     },
     "roles": {
@@ -769,6 +799,62 @@
         "logoRequired": "Logo image is required",
         "generic": "An error occurred"
       }
+    },
+    "notifications": {
+      "tabSend": "Send Notification",
+      "tabHistory": "History",
+      "tabExpiry": "Expiry Management",
+      "tabPrice": "Price Alerts",
+      "pageTitle": "Notifications Management",
+      "pageSubtitle": "Send broadcasts, manage expirations, and view history.",
+      "sendTitle": "Send Notification",
+      "notifTitle": "Title",
+      "titlePlaceholder": "Notification title...",
+      "message": "Message",
+      "messagePlaceholder": "Write the notification message...",
+      "type": "Type",
+      "target": "Send To",
+      "targetAll": "All Users",
+      "targetCourse": "Course Students",
+      "targetUsers": "Specific Users",
+      "courseId": "Course ID",
+      "courseIdPlaceholder": "Enter course ID...",
+      "userIds": "User IDs (comma separated)",
+      "userIdsPlaceholder": "e.g. uuid-1, uuid-2, uuid-3",
+      "send": "Send Notification",
+      "tableTitle": "Title",
+      "tableType": "Type",
+      "tableRecipients": "Recipients",
+      "tableSentAt": "Sent At",
+      "tableActions": "Actions",
+      "confirmDelete": "Are you sure you want to delete this notification batch for all users?",
+      "delete": "Delete",
+      "historyError": "Failed to load notification history.",
+      "noHistory": "No notification history found.",
+      "prev": "Previous",
+      "next": "Next",
+      "expiryTitle": "Enrollment Expiry Check",
+      "expiryDesc": "Trigger the background job to check for expiring enrollments (6 months limit), send warning notifications, and deactivate expired ones.",
+      "triggerCheck": "Run Expiry Check",
+      "confirmTrigger": "This will check all enrollments, send expiration notices, and deactivate expired ones. Proceed?",
+      "previewUpcoming": "Preview Upcoming Expirations",
+      "withinDays": "Within Days:",
+      "user": "User",
+      "course": "Course",
+      "enrolledAt": "Enrolled",
+      "expiresAt": "Expires",
+      "daysRemaining": "Days Left",
+      "previewError": "Failed to load preview data.",
+      "noExpirations": "No enrollments expiring in this timeframe.",
+      "priceAlertTitle": "Send Price Alert",
+      "selectCourse": "Select Course",
+      "coursePlaceholder": "Search and select a course...",
+      "searchCourses": "Search courses...",
+      "noCoursesFound": "No courses found.",
+      "customMessage": "Custom Message (Optional)",
+      "customMessagePlaceholder": "Add an optional message along with the alert...",
+      "sendAlert": "Send Alert",
+      "cancel": "Cancel"
     }
   },
   "Checkout": {
@@ -903,5 +989,25 @@
       "phoneNumberMax": "Phone number cannot exceed 20 characters",
       "updateFailed": "Failed to update profile"
     }
+  },
+  "Notifications": {
+    "bell": "Notifications",
+    "title": "Notifications",
+    "markAllRead": "Mark all read",
+    "empty": "No notifications yet",
+    "viewAll": "View all notifications",
+    "pageTitle": "Notifications",
+    "pageSubtitle": "Stay updated with your latest activity",
+    "filterAll": "All",
+    "filterUnread": "Unread",
+    "filterRead": "Read",
+    "noNotifications": "No notifications to show",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "markRead": "Mark as read",
+    "delete": "Delete",
+    "prev": "Previous",
+    "next": "Next",
+    "receiveNotifications": "Receive Notifications"
   }
 }
