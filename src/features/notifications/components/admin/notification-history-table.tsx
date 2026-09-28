@@ -60,7 +60,7 @@ export default function NotificationHistoryTable() {
       header: () => t('tableType', { defaultValue: 'Type' }),
       cell: (info) => (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-cairo-bold-sm bg-blueLight/50 text-blueNormal">
-          {getNotificationTypeLabel(info.getValue(), isRTL)}
+          {getNotificationTypeLabel(info.getValue(), isRTL, info.row.original.customType)}
         </span>
       ),
     }),

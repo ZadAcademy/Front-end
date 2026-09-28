@@ -31,7 +31,10 @@ export function getNotificationDestination(notification: NotificationItem): stri
 /**
  * Returns a user-friendly label for the notification type.
  */
-export function getNotificationTypeLabel(type: NotificationType, isArabic: boolean): string {
+export function getNotificationTypeLabel(type: NotificationType, isArabic: boolean, customType?: string | null): string {
+  if (customType) {
+    return customType;
+  }
   const labels: Record<NotificationType, { ar: string; en: string }> = {
     [NotificationType.EnrollmentExpiry]: { ar: 'انتهاء الاشتراك', en: 'Enrollment Expiry' },
     [NotificationType.NewCoursePublished]: { ar: 'كورس جديد', en: 'New Course' },

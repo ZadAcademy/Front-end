@@ -6,7 +6,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { useSendNotificationMutation } from '../../hooks/use-admin-notifications-api';
-import { NotificationType } from '../../lib/types/notification-types';
+import { NotificationType, SendNotificationRequest } from '../../lib/types/notification-types';
 import { CourseSelector } from '@/shared/components/selectors/course-selector';
 import { UserMultiSelector } from '@/shared/components/selectors/user-multi-selector';
 import { sendNotificationSchema, SendNotificationFormValues } from '../../lib/schemas/send-notification-schema';
@@ -35,6 +35,7 @@ export default function SendNotificationForm() {
     defaultValues: {
       title: '',
       message: '',
+      customType: '',
       targetMode: 'all',
       selectedCourse: null,
       selectedUsers: [],
@@ -44,10 +45,11 @@ export default function SendNotificationForm() {
   const targetMode = watch('targetMode');
 
   const onSubmit = (data: SendNotificationFormValues) => {
-    const payload: any = {
+    const payload: SendNotificationRequest = {
       title: data.title.trim(),
       message: data.message.trim(),
-      type: 2, // 2 = Announcement
+      type: data.customType ? NotificationType.AdminCustom : NotificationType.Announcement,
+      customType: data.customType ? data.customType.trim() : undefined,
       broadcastToAll: data.targetMode === 'all',
     };
 
@@ -62,9 +64,9 @@ export default function SendNotificationForm() {
       payload,
       {
         onSuccess: (result) => {
-          toast.success(t('notificationSentCount', { 
-            count: result.recipientCount.toString(), 
-            defaultValue: `Notification sent to ${result.recipientCount} user(s)` 
+          toast.success(t('notificationSentCount', {
+            count: result.recipientCount.toString(),
+            defaultValue: `Notification sent to ${result.recipientCount} user(s)`
           }));
           reset();
         },
@@ -105,13 +107,28 @@ export default function SendNotificationForm() {
           type="text"
           placeholder={t('titlePlaceholder', { defaultValue: 'Notification title...' })}
           className={`h-12 px-4 rounded-xl border bg-gray-50 font-cairo-medium-sm text-greyDarker
-                     outline-none focus:bg-white focus:ring-4 transition-all ${
-                       errors.title ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal/10'
-                     }`}
+                     outline-none focus:bg-white focus:ring-4 transition-all ${errors.title ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal/10'
+            }`}
         />
         {errors.title && <p className="text-red-500 text-xs font-cairo-bold-sm">{errors.title.message}</p>}
       </div>
 
+      {/* Custom Type */}
+      <div className="flex flex-col gap-2">
+        <label className="font-cairo-bold-sm text-greyDark">
+          {t('customTypeTitleLabel', { defaultValue: 'Notification Type Label' })}
+        </label>
+        <input
+          {...register('customType')}
+          type="text"
+          placeholder={t('customTypeTitlePlaceholder', { defaultValue: 'e.g. Announcement, Alert, Update...' })}
+          className={`h-12 px-4 rounded-xl border bg-gray-50 font-cairo-medium-sm text-greyDarker
+                     outline-none focus:bg-white focus:ring-4 transition-all ${
+                       errors.customType ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal/10'
+                     }`}
+        />
+        {errors.customType && <p className="text-red-500 text-xs font-cairo-bold-sm">{errors.customType.message}</p>}
+      </div>
       {/* Message */}
       <div className="flex flex-col gap-2">
         <label className="font-cairo-bold-sm text-greyDark">
@@ -122,9 +139,8 @@ export default function SendNotificationForm() {
           placeholder={t('messagePlaceholder', { defaultValue: 'Write the notification message...' })}
           rows={4}
           className={`px-4 py-3 rounded-xl border bg-gray-50 font-cairo-medium-sm text-greyDarker
-                     outline-none focus:bg-white focus:ring-4 transition-all resize-none ${
-                       errors.message ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal/10'
-                     }`}
+                     outline-none focus:bg-white focus:ring-4 transition-all resize-none ${errors.message ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal/10'
+            }`}
         />
         {errors.message && <p className="text-red-500 text-xs font-cairo-bold-sm">{errors.message.message}</p>}
       </div>

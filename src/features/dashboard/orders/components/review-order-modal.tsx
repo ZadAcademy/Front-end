@@ -30,6 +30,7 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
 
   const [notificationTitle, setNotificationTitle] = useState('');
   const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationCustomType, setNotificationCustomType] = useState('');
 
   if (!order) return null;
 
@@ -60,6 +61,7 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
     setChosenAction(action);
     setNotificationTitle(getDefaultTitle(action));
     setNotificationMessage(getDefaultMessage(action));
+    setNotificationCustomType('');
     setStep('confirm');
   };
 
@@ -74,7 +76,8 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
             {
               title: notificationTitle.trim(),
               message: notificationMessage.trim(),
-              type: NotificationType.OrderConfirmation,
+              type: notificationCustomType ? 8 : NotificationType.OrderConfirmation,
+              customType: notificationCustomType.trim() || undefined,
               targetCourseId: order.courseId,
               targetUserIds: [order.userId],
               broadcastToAll: false,
@@ -252,6 +255,22 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
 
                   <div className="flex flex-col gap-2">
                     <label className="font-cairo-bold-sm text-greyDark">
+                      {t('customTypeLabel', { defaultValue: 'Notification Type Label (Optional)' })}
+                    </label>
+                    <input
+                      type="text"
+                      value={notificationCustomType}
+                      onChange={(e) => setNotificationCustomType(e.target.value)}
+                      disabled={isProcessing}
+                      placeholder={t('customTypePlaceholder', { defaultValue: 'e.g. Announcement, Alert...' })}
+                      className="h-12 px-4 rounded-xl border bg-gray-50 font-cairo-medium-sm text-greyDarker
+                                outline-none focus:bg-white focus:ring-4 transition-all border-black/10 focus:border-blueNormal focus:ring-blueNormal/10
+                                disabled:opacity-60"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="font-cairo-bold-sm text-greyDark">
                       {t('notifMessage', { defaultValue: 'Notification Message' })}
                     </label>
                     <textarea
@@ -296,6 +315,8 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
                       : t('confirmDenyBtn', { defaultValue: 'Deny & Send Notification' })}
                   </button>
                 </div>
+                {/* Spacer to prevent scroll cutoff */}
+                <div className="h-0.5 shrink-0 w-full" />
               </div>
             )}
 

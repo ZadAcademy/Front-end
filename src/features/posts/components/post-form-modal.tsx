@@ -44,6 +44,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
       sendNotification: false,
       notificationMessage: '',
       targetMode: 'all',
+      notificationCustomType: '',
       selectedCourse: null,
       selectedUsers: []
     },
@@ -59,12 +60,13 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
         sendNotification: false,
         notificationMessage: '',
         targetMode: 'all',
+        notificationCustomType: '',
         selectedCourse: null,
         selectedUsers: []
       });
       setImagePreview(postToEdit.imageUrl || null);
     } else if (!isEditing) {
-      form.reset({ title: '', content: '', isPublic: true, image: undefined, sendNotification: false, notificationMessage: '', targetMode: 'all', selectedCourse: null, selectedUsers: [] });
+      form.reset({ title: '', content: '', isPublic: true, image: undefined, sendNotification: false, notificationMessage: '', notificationCustomType: '', targetMode: 'all', selectedCourse: null, selectedUsers: [] });
       setImagePreview(null);
     }
   }, [isEditing, postToEdit, form]);
@@ -115,7 +117,8 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
               const payload: any = {
                 title: data.title,
                 message: data.notificationMessage || '',
-                type: 2, // 2 = Announcement
+                type: data.notificationCustomType ? 8 : 2,
+                customType: data.notificationCustomType?.trim() || undefined,
                 broadcastToAll: data.targetMode === 'all',
               };
 
@@ -341,6 +344,27 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
                 {form.watch('sendNotification') && (
                   <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-200 bg-gray-50 p-4 rounded-xl border border-black/5">
                     
+                    {/* Custom Notification Type */}
+                    <Controller
+                      name="notificationCustomType"
+                      control={form.control}
+                      render={({ field, fieldState }) => (
+                        <div className="flex flex-col gap-2">
+                          <label className="font-cairo-semibold-sm text-greyDarker">
+                            {/* We can re-use a generic translation or add one. Assuming t('customTypeTitleLabel', { defaultValue: 'Notification Type Label' }) might not be in posts namespace, I'll provide a defaultValue */}
+                            {t('customTypeLabel', { defaultValue: 'Notification Type Label (Optional)' })}
+                          </label>
+                          <input
+                            {...field}
+                            type="text"
+                            placeholder={t('customTypePlaceholder', { defaultValue: 'e.g. Announcement, Alert...' })}
+                            className={`${inputClasses(!!fieldState.error)} bg-white`}
+                          />
+                          {fieldState.error && <span className="text-red-500 text-sm font-cairo-medium-sm">{fieldState.error.message}</span>}
+                        </div>
+                      )}
+                    />
+
                     {/* Notification Message Textarea */}
                     <Controller
                       name="notificationMessage"

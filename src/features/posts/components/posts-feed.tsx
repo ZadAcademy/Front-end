@@ -65,7 +65,7 @@ export default function PostsFeed() {
         {canCreate && (
           <button
             onClick={handleCreate}
-            className="bg-blueNormal self-start sm:self-auto text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-lg  sm:font-cairo-bold-2xl font-cairo-bold-sm hover:bg-blueNormalHover transition-colors shadow-sm flex items-center gap-2"
+            className="bg-blueNormal self-start sm:self-auto text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-lg  sm:font-cairo-bold-base font-cairo-bold-sm hover:bg-blueNormalHover transition-colors shadow-sm flex items-center gap-2"
           >
             <Plus className="size-4 sm:size-5" />
             {t('createNewPost', { defaultValue: 'Create Post' })}

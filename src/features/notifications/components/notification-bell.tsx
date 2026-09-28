@@ -174,7 +174,7 @@ export default function NotificationBell() {
                       {item.message}
                     </p>
                     <span className="inline-block mt-1 text-[10px] font-cairo-bold-xs text-blueNormal bg-blueLight/30 px-2 py-0.5 rounded-full">
-                      {getNotificationTypeLabel(item.type, isRTL)}
+                      {getNotificationTypeLabel(item.type, isRTL, item.customType)}
                     </span>
                   </div>
                 </div>

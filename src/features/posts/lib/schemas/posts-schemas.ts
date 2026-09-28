@@ -16,6 +16,7 @@ export const postSchema = z.object({
     .optional(),
   sendNotification: z.boolean().default(false).optional(),
   notificationMessage: z.string().optional(),
+  notificationCustomType: z.string().optional(),
   targetMode: z.enum(['all', 'course', 'users']).optional(),
   selectedCourse: z.any().nullable().optional(),
   selectedUsers: z.array(z.any()).optional(),

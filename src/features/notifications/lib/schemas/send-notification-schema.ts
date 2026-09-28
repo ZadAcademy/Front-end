@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const sendNotificationSchema = z.object({
   title: z.string().min(1, "Title is required"),
   message: z.string().min(1, "Message is required"),
+  customType: z.string().optional(),
   targetMode: z.enum(['all', 'course', 'users']),
   selectedCourse: z.any().nullable().optional(),
   selectedUsers: z.array(z.any()).optional(),

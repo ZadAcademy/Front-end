@@ -17,6 +17,7 @@ export interface NotificationItem {
   title: string;
   message: string;
   type: NotificationType;
+  customType?: string | null;
   referenceId: string | null;
   isRead: boolean;
   readAt: string | null;
@@ -55,6 +56,7 @@ export interface SendNotificationRequest {
   title: string;
   message: string;
   type?: NotificationType;
+  customType?: string | null;
   targetCourseId?: string | null;
   targetUserIds?: string[] | null;
   broadcastToAll?: boolean;
@@ -71,6 +73,7 @@ export interface AdminNotificationHistoryItem {
   title: string;
   message: string;
   type: NotificationType;
+  customType?: string | null;
   referenceId: string | null;
   sentAt: string;
   recipientCount: number;

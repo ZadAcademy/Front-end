@@ -224,7 +224,7 @@ export default function NotificationsPage() {
                       {item.message}
                     </p>
                     <span className="inline-block mt-2 text-[10px] font-cairo-bold-xs text-blueNormal bg-blueLight/30 px-2.5 py-0.5 rounded-full">
-                      {getNotificationTypeLabel(item.type, isRTL)}
+                      {getNotificationTypeLabel(item.type, isRTL, item.customType)}
                     </span>
                   </div>
 
