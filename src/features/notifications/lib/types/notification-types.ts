@@ -8,7 +8,8 @@ export enum NotificationType {
   ReviewThankYou = 4,
   Welcome = 5,
   PriceAlert = 6,
-  AdminCustom = 7,
+  OrderConfirmation = 7,
+  AdminCustom = 8
 }
 
 export interface NotificationItem {
@@ -56,6 +57,7 @@ export interface SendNotificationRequest {
   type?: NotificationType;
   targetCourseId?: string | null;
   targetUserIds?: string[] | null;
+  broadcastToAll?: boolean;
 }
 
 export interface SendNotificationResponse {

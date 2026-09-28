@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Providers from "@/shared/providers/global/providers";
 import { Toaster } from "@/shared/components/ui/sonner";
+import { Suspense } from "react";
+import VerifyCertificateModal from "@/features/certificates/components/verify-certificate-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -70,6 +72,9 @@ export default async function LocaleLayout({ children, params }: Props) {
               <main className="flex-1 w-full">
               {children}
             </main>
+            <Suspense fallback={null}>
+              <VerifyCertificateModal />
+            </Suspense>
           </ThemeProvider>
         </Providers>
         <Toaster />

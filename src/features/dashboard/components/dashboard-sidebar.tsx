@@ -17,6 +17,7 @@ import {
   CreditCard,
   Receipt,
   Bell,
+  Award,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -91,6 +92,15 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
       label: t('paymentMethods', { defaultValue: 'Payment Methods' }),
       icon: CreditCard,
       href: '/dashboard/payment-methods',
+    },
+    {
+      key: 'certificates',
+      label: t('certificates', { defaultValue: 'Certificates' }),
+      icon: Award,
+      children: [
+        { label: t('listCertificates', { defaultValue: 'List Certificates' }), href: '/dashboard/certificates', icon: List },
+        { label: t('importCertificate', { defaultValue: 'Import Certificate' }), href: '/dashboard/certificates/import', icon: PlusCircle },
+      ],
     },
     {
       key: 'notifications',

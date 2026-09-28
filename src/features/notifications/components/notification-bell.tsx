@@ -168,9 +168,7 @@ export default function NotificationBell() {
                       <p className="font-cairo-bold-sm text-greyDark line-clamp-1">
                         {item.title}
                       </p>
-                      <span className="text-[10px] text-greyLightActive whitespace-nowrap font-cairo-medium-xs shrink-0">
-                        {timeAgo(item.createdAt)}
-                      </span>
+                     
                     </div>
                     <p className="font-cairo-medium-sm text-greyNormal mt-1 leading-relaxed whitespace-pre-wrap">
                       {item.message}

@@ -12,7 +12,6 @@ interface PaginationProps {
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
   const t = useTranslations('Dashboard.courseList.pagination');
 
-  if (totalPages <= 1) return null;
 
   return (
     <div className="flex items-center gap-2">

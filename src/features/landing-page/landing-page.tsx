@@ -6,6 +6,7 @@ import ExpertsSection from './components/experts/experts-section';
 import TestimonialsSection from './components/testimonials/testimonials-section';
 import WhyUsSection from './components/why-us/why-us-section';
 import FAQSection from './components/faq/faq-section';
+import VerifyCertificateSection from './components/verify-certificate/verify-certificate-section';
 import CtaSection from './components/cta/cta-section';
 import Footer from './components/footer/footer';
 
@@ -28,6 +29,10 @@ export default function LandingPage() {
 
       {/* ─── Courses Section ─── */}
       <CoursesSection />
+            
+      {/* ─── Verify Certificate Section ─── */}
+      <VerifyCertificateSection />
+
 
       {/* ─── Experts Section ─── */}
       <ExpertsSection />

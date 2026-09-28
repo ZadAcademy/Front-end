@@ -19,7 +19,7 @@ export default async function CheckoutSuccessPage({ params }: CheckoutSuccessPag
   const isRTL = locale === 'ar';
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50/50 p-4">
+    <div className="min-h-[80vh] flex items-center justify-center  p-4">
       <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-black/5 max-w-lg w-full flex flex-col items-center text-center">
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
           <CheckCircle2 className="size-10 text-green-600" />

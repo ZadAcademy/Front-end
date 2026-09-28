@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Camera, Trash2, User } from "lucide-react";
+import { Camera, Trash2, User, Loader2 } from "lucide-react";
 import { Controller } from "react-hook-form";
 import {
   useGetProfileQuery,
@@ -57,7 +57,7 @@ export default function ProfilePage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blueNormal"></div>
+        <Loader2 className="size-10 animate-spin text-blueNormal" />
       </div>
     );
   }

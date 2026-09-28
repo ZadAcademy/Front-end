@@ -276,9 +276,9 @@ export function AddCourseBasicInfo() {
                 <input
                   {...field}
                   type="date"
-                  value={field.value ? field.value.split('T')[0] : ''}
+                  value={field.value ? new Date(field.value).toISOString().split('T')[0] : ''}
                   onChange={(e) => field.onChange(e.target.value || null)}
-                  className={inputClasses(!!fieldState.error)}
+                  className={`${inputClasses(!!fieldState.error)} [&::-webkit-calendar-picker-indicator]:opacity-100 [&::-webkit-calendar-picker-indicator]:block [&::-webkit-calendar-picker-indicator]:cursor-pointer`}
                 />
                 {fieldState.error && <FieldError>{tErrors(fieldState.error.message || 'generic')}</FieldError>}
               </Field>

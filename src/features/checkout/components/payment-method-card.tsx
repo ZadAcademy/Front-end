@@ -47,7 +47,7 @@ export default function PaymentMethodCard({
       <div className="flex flex-col sm:flex-row items-center sm:justify-between p-5">
         
         {/* Left side: Logo */}
-        <div className="flex items-center gap-4 w-full sm:w-auto">
+        <div className="flex items-center justify-center sm:justify-start gap-4 w-full sm:w-auto">
           <div className="w-24 h-16 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 border border-black/5 p-2">
             {logoUrl ? (
               <img
@@ -62,7 +62,7 @@ export default function PaymentMethodCard({
         </div>
 
         {/* Center: Title and Number */}
-        <div className="flex flex-col items-center sm:items-end justify-center w-full sm:w-auto mt-5 sm:mt-0 flex-1 px-4 text-center sm:text-end">
+        <div className="flex flex-col items-center sm:items-start justify-center w-full sm:w-auto mt-5 sm:mt-0 flex-1 px-4 text-center sm:text-start">
           <span className="font-cairo-bold-lg text-greyDark">{title}</span>
           <span className="font-cairo-medium-sm text-greyNormal mt-1">{t('accountNumber', { defaultValue: 'Account Number' })}</span>
           <span className="font-mono font-cairo-bold-xl text-blueNormal tracking-wide mt-1" dir="ltr">
@@ -71,7 +71,7 @@ export default function PaymentMethodCard({
         </div>
 
         {/* Right side: Copy Button */}
-        <div className="w-full sm:w-auto flex justify-center sm:justify-start mt-5 sm:mt-0 shrink-0 sm:border-s sm:ps-6 border-black/5">
+        <div className="w-full sm:w-auto flex justify-center sm:justify-end mt-5 sm:mt-0 shrink-0 sm:border-s sm:ps-6 border-black/5">
           <button
             onClick={handleCopy}
             className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-blueLight/10 text-blueNormal font-cairo-bold-sm hover:bg-blueNormal hover:text-white transition-colors w-full sm:w-auto cursor-pointer border border-blueNormal/10 hover:border-transparent"

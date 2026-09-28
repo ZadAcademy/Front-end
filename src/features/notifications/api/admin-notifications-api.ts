@@ -62,6 +62,7 @@ export async function sendNotification(
     headers,
     body: JSON.stringify(data),
   });
+  console.log("response from the back", response);
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);
@@ -71,7 +72,6 @@ export async function sendNotification(
   }
 
   const result: IApiResponse<SendNotificationResponse> = await response.json();
-
   if (!result.isSuccess || !result.data) {
     throw new Error(result.message || "Failed to send notification");
   }

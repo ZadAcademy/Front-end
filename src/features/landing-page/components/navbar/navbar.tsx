@@ -23,6 +23,7 @@ const NAV_ITEMS = [
   { key: 'whyUs', sectionId: 'why-us' },
   { key: 'faq', sectionId: 'faq' },
   { key: 'posts', href: '/posts' },
+  { key: 'verifyCertificate', sectionId: 'verify-certificate' },
 ];
 
 /* ─── Scroll threshold (px) before navbar turns solid ─── */
@@ -148,11 +149,11 @@ export default function Navbar() {
             {/* ─── Language Toggle Button (Visible on all devices) ─── */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-black hover:bg-black/5 transition-colors cursor-pointer font-cairo-semibold-sm"
+              className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-lg text-black hover:bg-black/5 transition-colors cursor-pointer font-cairo-semibold-sm"
               aria-label="Toggle language"
             >
-              <Globe className="size-5" />
-              <span>{locale === 'ar' ? 'English' : 'العربية'}</span>
+              <Globe className="size-5 shrink-0" />
+              <span className="hidden sm:inline-block">{locale === 'ar' ? 'English' : 'العربية'}</span>
             </button>
 
             {/* ─── DESKTOP CTA BUTTONS (hidden on mobile) ─── */}
@@ -194,7 +195,7 @@ export default function Navbar() {
 
             {/* ─── MOBILE MENU TOGGLE (hidden on desktop) ─── */}
             <button
-              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-black hover:bg-black/5 transition-colors duration-200 cursor-pointer bg-transparent border-none"
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg text-black hover:bg-black/5 transition-colors duration-200 cursor-pointer bg-transparent border-none shrink-0"
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -214,7 +215,7 @@ export default function Navbar() {
           Only rendered when open.
           ═══════════════════════════════════ */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden mobile-menu-enter bg-white/95 backdrop-blur-md border-t border-black/5 shadow-lg">
+        <div className="lg:hidden mobile-menu-enter bg-white/95 backdrop-blur-md border-t border-black/5 shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="px-4 py-4 flex flex-col gap-2">
             {NAV_ITEMS.map((item) => {
               if (item.href) {

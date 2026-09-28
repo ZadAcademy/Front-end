@@ -87,7 +87,10 @@ export default function DashboardNavbar({ onMenuToggle }: NavbarProps) {
           <NotificationBell />
 
           {/* User avatar */}
-          <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center overflow-hidden shrink-0 border border-black/5">
+          <Link 
+            href="/home"
+            className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center overflow-hidden shrink-0 border border-black/5 hover:ring-2 hover:ring-blueNormal/50 transition-all"
+          >
             {session?.user?.profileImageUrl ? (
               <img
                 src={session.user.profileImageUrl}
@@ -99,7 +102,7 @@ export default function DashboardNavbar({ onMenuToggle }: NavbarProps) {
                 {userInitials}
               </span>
             )}
-          </div>
+          </Link>
         </div>
       </div>
     </header>

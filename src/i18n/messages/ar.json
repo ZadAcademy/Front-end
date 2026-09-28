@@ -29,6 +29,23 @@
     },
     "badge": "شارة"
   },
+  "VerifyCertificate": {
+    "title": "التحقق من الشهادة",
+    "subtitle": "أدخل رمز الشهادة أدناه للتحقق من صحتها وعرض تفاصيل الطالب.",
+    "codePlaceholder": "مثال: CERT-12345",
+    "verifyButton": "تحقق الآن",
+    "loading": "جاري التحقق...",
+    "successMessage": "تم التحقق من الشهادة بنجاح",
+    "errorMessage": "لم يتم العثور على الشهادة أو الرمز غير صالح.",
+    "studentName": "اسم الطالب",
+    "certificateCode": "رمز الشهادة",
+    "country": "البلد",
+    "courseName": "اسم الدورة",
+    "courseNumber": "رقم الدورة",
+    "date": "تاريخ الإصدار",
+    "notFound": "رمز الشهادة غير صالح",
+    "backToHome": "العودة للرئيسية"
+  },
   "LandingPage": {
     "navbar": {
       "home": " جميع الدورات",
@@ -39,7 +56,8 @@
       "faq": "الأسئلة الشائعة",
       "login": "تسجيل الدخول",
       "create-account": "أنشئ حساب",
-      "posts": "المنشورات"
+      "posts": "المنشورات",
+      "verifyCertificate": "التحقق من الشهادة"
     },
     "hero": {
       "title": "تعلم الهندسة الميكانيكية بأسلوب عملي يجهزك لسوق العمل بشكل",
@@ -88,6 +106,14 @@
           "description": "بعد الانتهاء من الدورة يتم حصول المتدرب علي شهادة معتمدة خاصة به هو فقط"
         }
       }
+    },
+    "verifyCertificateSection": {
+      "title": "تحقق من شهادتك",
+      "description": "تحقق من صحة أي شهادة صادرة من أكاديمية زاد فوراً عن طريق إدخال الرمز الخاص بالشهادة.",
+      "feature1": "تحقق فوري عبر الإنترنت",
+      "feature2": "عرض تفاصيل الطالب والدورة",
+      "feature3": "موثوق وآمن 100%",
+      "button": "تحقق الآن"
     },
     "faqSection": {
       "title": "نجاوبك علي أكثر الأسئلة الشائعة",
@@ -271,7 +297,8 @@
       "language": "اللغة",
       "home": "الرئيسية",
       "posts": "المنشورات",
-      "explore": "استكشف"
+      "explore": "استكشف",
+      "verifyCertificate": "التحقق من الشهادة"
     },
     "filter": {
       "customSearch": "اضغط للبحث المخصص",
@@ -298,6 +325,7 @@
       "of": "من"
     },
     "title": "جميع الدورات",
+    "verifyCertificate": "التحقق من الشهادة",
     "noCoursesFound": "لا يوجد دورات",
     "error": "حدث خطأ ما. حاول مرة أخرى",
     "Hero": {
@@ -371,7 +399,56 @@
       "posts": "المنشورات",
       "paymentMethods": "طرق الدفع",
       "orders": "الطلبات",
-      "notifications": "الإشعارات"
+      "notifications": "الإشعارات",
+      "certificates": "الشهادات",
+      "listCertificates": "جميع الشهادات",
+      "importCertificate": "استيراد شهادة"
+    },
+    "certificates": {
+      "title": "إدارة الشهادات",
+      "subtitle": "عرض وإدارة شهادات الطلاب",
+      "searchPlaceholder": "البحث بالاسم، الكود، الدورة...",
+      "loading": "جاري تحميل الشهادات...",
+      "error": "فشل في تحميل الشهادات",
+      "empty": "لم يتم العثور على شهادات",
+      "editCertificate": "تعديل الشهادة",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "save": "حفظ التغييرات",
+      "updateSuccess": "تم تحديث الشهادة بنجاح",
+      "updateError": "فشل في تحديث الشهادة",
+      "deleteSuccess": "تم حذف الشهادة بنجاح",
+      "deleteError": "فشل في حذف الشهادة",
+      "deleteTitle": "حذف الشهادة",
+      "deleteMessage": "هل أنت متأكد من أنك تريد حذف هذه الشهادة؟ لا يمكن التراجع عن هذا الإجراء.",
+      "deleteConfirm": "حذف",
+      "table": {
+        "studentName": "اسم الطالب",
+        "code": "الكود",
+        "country": "البلد",
+        "courseName": "الدورة",
+        "courseNumber": "رقم الدورة",
+        "date": "التاريخ",
+        "actions": "الإجراءات"
+      },
+      "pageTitle": "استيراد الشهادات",
+      "pageSubtitle": "قم برفع ملف لاستيراد شهادات الطلاب دفعة واحدة إلى النظام.",
+      "importTitle": "استيراد الشهادات",
+      "uploadFile": "رفع ملف",
+      "dragAndDrop": "انقر أو اسحب الملف إلى هذه المنطقة للرفع",
+      "supportedFormats": "الصيغ المدعومة: .xlsx, .csv",
+      "importSummary": "ملخص الاستيراد",
+      "totalRows": "إجمالي الصفوف",
+      "inserted": "تم إدراجه",
+      "skipped": "تم تخطيه",
+      "errors": "الأخطاء",
+      "row": "الصف",
+      "column": "العمود",
+      "message": "الرسالة",
+      "uploadButton": "رفع الملف",
+      "importSuccess": "تم استيراد {inserted} شهادات بنجاح. تم تخطي: {skipped}",
+      "importError": "حدث خطأ أثناء استيراد الشهادات"
     },
     "pages": {
       "dashboard": "لوحة التحكم",
@@ -735,7 +812,20 @@
         "accept": "قبول وتسجيل الطالب",
         "deny": "رفض الإيصال",
         "acceptSuccess": "تم قبول الطلب وتفعيل الاشتراك بنجاح",
-        "denySuccess": "تم رفض الطلب بنجاح"
+        "denySuccess": "تم رفض الطلب بنجاح",
+        "acceptSuccessWithNotif": "تم قبول الطلب وإرسال الإشعار للطالب",
+        "denySuccessWithNotif": "تم رفض الطلب وإرسال الإشعار للطالب",
+        "notifFailed": "تم تحديث الطلب ولكن فشل إرسال الإشعار.",
+        "updateFailed": "فشل تحديث حالة الطلب",
+        "confirmTitle": "تأكيد وإشعار الطالب",
+        "confirmAccept": "أنت على وشك قبول هذا الطلب",
+        "confirmDeny": "أنت على وشك رفض هذا الطلب",
+        "notifyDesc": "سيتم إرسال إشعار. يمكنك تخصيص الرسالة أدناه.",
+        "notifTitle": "عنوان الإشعار",
+        "notifMessage": "رسالة الإشعار",
+        "goBack": "رجوع",
+        "confirmAcceptBtn": "قبول وإرسال الإشعار",
+        "confirmDenyBtn": "رفض وإرسال الإشعار"
       }
     },
     "paymentMethods": {
@@ -811,20 +901,25 @@
       "pageTitle": "إدارة الإشعارات",
       "pageSubtitle": "إرسال رسائل جماعية، وإدارة الانتهاء، وعرض السجل.",
       "sendTitle": "إرسال إشعار",
+      "sendSubtitle": "قم بكتابة وإرسال إشعار للمستخدمين.",
       "notifTitle": "العنوان",
       "titlePlaceholder": "عنوان الإشعار...",
       "message": "الرسالة",
       "messagePlaceholder": "اكتب رسالة الإشعار...",
-      "type": "النوع",
       "target": "إرسال إلى",
       "targetAll": "جميع المستخدمين",
       "targetCourse": "طلاب الدورة",
       "targetUsers": "مستخدمين محددين",
-      "courseId": "  Course ID",
-      "courseIdPlaceholder": "أدخل ID الدورة...",
-      "userIds": "ID المستخدمين (مفصولة بفاصلة)",
-      "userIdsPlaceholder": "مثال: uuid-1, uuid-2, uuid-3",
+      "selectCourse": "اختيار الدورة",
+      "searchCourse": "ابحث واختر دورة...",
+      "searchCoursePlaceholder": "اكتب للبحث في الدورات...",
+      "noCourses": "لا توجد دورات",
+      "selectUsers": "اختيار المستخدمين",
+      "searchUsers": "ابحث واختر مستخدمين...",
+      "searchUsersPlaceholder": "ابحث بالاسم أو البريد الإلكتروني...",
+      "noUsers": "لا يوجد مستخدمين",
       "send": "إرسال الإشعار",
+      "notificationSentCount": "تم إرسال الإشعار إلى {count} مستخدم/مستخدمين",
       "tableTitle": "العنوان",
       "tableType": "النوع",
       "tableRecipients": "المستلمين",
@@ -850,13 +945,14 @@
       "previewError": "فشل في تحميل بيانات المعاينة.",
       "noExpirations": "لا توجد اشتراكات تنتهي في هذا الإطار الزمني.",
       "priceAlertTitle": "إرسال تنبيه سعر",
-      "selectCourse": "اختيار الدورة",
       "coursePlaceholder": "ابحث واختر الدورة...",
       "searchCourses": "البحث في الدورات...",
       "noCoursesFound": "لا توجد دورات.",
       "customMessage": "رسالة مخصصة (اختياري)",
       "customMessagePlaceholder": "أضف رسالة اختيارية مع التنبيه...",
       "sendAlert": "إرسال التنبيه",
+      "priceAlertSentSuccess": "تم إرسال تنبيه السعر إلى {count} مستخدم(ين)",
+      "priceAlertFailed": "فشل في إرسال تنبيه السعر",
       "cancel": "إلغاء"
     }
   },
@@ -945,6 +1041,24 @@
       "status": "الرؤية",
       "actions": "الإجراءات"
     },
+    "sendNotification": "إرسال إشعار للمستخدمين",
+    "notificationMessage": "رسالة الإشعار",
+    "notificationMessagePlaceholder": "أدخل رسالة الإشعار...",
+    "target": "إرسال إلى",
+    "targetAll": "جميع المستخدمين",
+    "targetCourse": "طلاب دورة",
+    "targetUsers": "مستخدمين محددين",
+    "selectCourse": "اختر الدورة",
+    "selectUsers": "اختر المستخدمين",
+    "searchCourse": "ابحث واختر دورة...",
+    "searchCoursePlaceholder": "اكتب للبحث عن الدورات...",
+    "noCourses": "لم يتم العثور على دورات",
+    "searchUsers": "ابحث واختر مستخدمين...",
+    "searchUsersPlaceholder": "ابحث بالاسم أو البريد الإلكتروني...",
+    "noUsers": "لم يتم العثور على مستخدمين",
+    "notificationSent": "تم إرسال الإشعار بنجاح",
+    "notificationSentCount": "تم إرسال الإشعار إلى {count} مستخدم/مستخدمين",
+    "notificationFailed": "فشل في إرسال الإشعار",
     "pagination": {
       "showing": "عرض",
       "of": "من",
@@ -1012,5 +1126,11 @@
     "prev": "السابق",
     "next": "التالي",
     "receiveNotifications": "تفعيل الإشعارات "
+  },
+  "WelcomePage": {
+    "title": "مرحباً بك في أكاديمية زاد!",
+    "subtitle": "نحن سعداء بوجودك معنا. استكشف دوراتنا وابدأ التعلم لتطوير مهاراتك. رحلتك تبدأ الآن.",
+    "browseCourses": "تصفح الدورات",
+    "goHome": "الذهاب للرئيسية"
   }
 }

@@ -42,6 +42,7 @@ export default function Footer() {
               <li><Link href="#courses" className="hover:text-orangeNormal transition-colors">{tNav('courses')}</Link></li>
               <li><Link href="#experts" className="hover:text-orangeNormal transition-colors">{tNav('experts')}</Link></li>
               <li><Link href="#faq" className="hover:text-orangeNormal transition-colors">{tNav('faq')}</Link></li>
+              <li><Link href="?verify=true" scroll={false} className="hover:text-orangeNormal transition-colors">{tNav('verifyCertificate', { defaultValue: 'Verify Certificate' })}</Link></li>
             </ul>
           </div>
 

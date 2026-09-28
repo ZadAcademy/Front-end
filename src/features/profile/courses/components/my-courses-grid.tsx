@@ -73,15 +73,13 @@ export function MyCoursesGrid() {
         ))}
       </div>
 
-      {totalPages > 1 && (
-        <div className="flex justify-center border-t border-black/5 pt-8">
-          <Pagination
-            currentPage={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </div>
-      )}
+      <div className="flex justify-center border-t border-black/5 pt-8">
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages || 1}
+          onPageChange={setPage}
+        />
+      </div>
     </div>
   );
 }

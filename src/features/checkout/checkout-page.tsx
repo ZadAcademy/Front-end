@@ -133,7 +133,7 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
           </div>
 
           {/* ─── Sidebar Summary (Left in RTL) ─── */}
-          <div className="w-full lg:w-[380px] shrink-0 order-1 lg:order-2 sticky top-24">
+          <div className="w-full lg:w-[380px] shrink-0 order-1 lg:order-2 static lg:sticky top-24">
             <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden">
               <div className="p-5 border-b border-black/5 bg-gray-50 flex items-center justify-center gap-2">
                 <h3 className="font-cairo-bold-lg text-greyDark text-center">{t('summaryTitle', { defaultValue: 'Subscription Summary' })}</h3>

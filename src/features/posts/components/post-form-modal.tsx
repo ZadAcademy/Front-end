@@ -9,6 +9,11 @@ import { toast } from 'sonner';
 import { postSchema, PostFormData } from '../lib/schemas/posts-schemas';
 import { useCreatePostMutation, useUpdatePostMutation, useUpdatePostImageMutation } from '../hooks/use-posts-api';
 import { Post } from '../lib/types/posts-types';
+import { Users, BookOpen, UserPlus, Bell } from 'lucide-react';
+import { useSendNotificationMutation } from '@/features/notifications/hooks/use-admin-notifications-api';
+import { CourseSelector } from '@/shared/components/selectors/course-selector';
+import { UserMultiSelector } from '@/shared/components/selectors/user-multi-selector';
+import { NotificationType } from '@/features/notifications/lib/types/notification-types';
 
 interface PostFormModalProps {
   isOpen: boolean;
@@ -19,11 +24,12 @@ interface PostFormModalProps {
 export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormModalProps) {
   const t = useTranslations('Posts');
   const isEditing = !!postToEdit;
-  
+
   const createMutation = useCreatePostMutation();
   const updateMutation = useUpdatePostMutation();
   const updateImageMutation = useUpdatePostImageMutation();
-  const isSubmitting = createMutation.isPending || updateMutation.isPending || updateImageMutation.isPending;
+  const sendNotificationMutation = useSendNotificationMutation();
+  const isSubmitting = createMutation.isPending || updateMutation.isPending || updateImageMutation.isPending || sendNotificationMutation.isPending;
 
   const [imagePreview, setImagePreview] = useState<string | null>(postToEdit?.imageUrl || null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +40,12 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
       title: '',
       content: '',
       isPublic: true,
-      image: undefined
+      image: undefined,
+      sendNotification: false,
+      notificationMessage: '',
+      targetMode: 'all',
+      selectedCourse: null,
+      selectedUsers: []
     },
   });
 
@@ -44,11 +55,16 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
         title: postToEdit.title || '',
         content: postToEdit.content || '',
         isPublic: postToEdit.isPublic,
-        image: undefined // Image update is separate API usually, but we handle create here
+        image: undefined,
+        sendNotification: false,
+        notificationMessage: '',
+        targetMode: 'all',
+        selectedCourse: null,
+        selectedUsers: []
       });
       setImagePreview(postToEdit.imageUrl || null);
     } else if (!isEditing) {
-      form.reset({ title: '', content: '', isPublic: true, image: undefined });
+      form.reset({ title: '', content: '', isPublic: true, image: undefined, sendNotification: false, notificationMessage: '', targetMode: 'all', selectedCourse: null, selectedUsers: [] });
       setImagePreview(null);
     }
   }, [isEditing, postToEdit, form]);
@@ -85,16 +101,50 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
       );
     } else {
       createMutation.mutate(
-        { 
-          Title: data.title, 
-          Content: data.content, 
+        {
+          Title: data.title,
+          Content: data.content,
           IsPublic: data.isPublic,
           Image: data.image
-        }, 
+        },
         {
           onSuccess: () => {
             toast.success(t('createSuccess', { defaultValue: 'Post created successfully' }));
-            onClose();
+            
+            if (data.sendNotification) {
+              const payload: any = {
+                title: data.title,
+                message: data.notificationMessage || '',
+                type: 2, // 2 = Announcement
+                broadcastToAll: data.targetMode === 'all',
+              };
+
+              if (data.targetMode === 'course' && data.selectedCourse?.id) {
+                payload.targetCourseId = data.selectedCourse.id;
+              }
+              if (data.targetMode === 'users' && data.selectedUsers?.length) {
+                payload.targetUserIds = data.selectedUsers.map((u: any) => u.id);
+              }
+
+              sendNotificationMutation.mutate(
+                payload,
+                {
+                  onSuccess: (result) => {
+                    toast.success(t('notificationSentCount', { 
+                      count: result.recipientCount.toString(), 
+                      defaultValue: `Notification sent to ${result.recipientCount} user(s)` 
+                    }));
+                    onClose();
+                  },
+                  onError: () => {
+                    toast.error(t('notificationFailed', { defaultValue: 'Failed to send notification' }));
+                    onClose();
+                  }
+                }
+              );
+            } else {
+              onClose();
+            }
           },
           onError: (error) => {
             toast.error(error.message || t('createFailed', { defaultValue: 'Failed to create post' }));
@@ -156,7 +206,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6">
           <form id="post-form" onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-            
+
             {/* Title */}
             <Controller
               name="title"
@@ -201,13 +251,13 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
               <label className="font-cairo-semibold-base text-greyDarker">
                 {t('image', { defaultValue: 'Post Image (Optional)' })}
               </label>
-              
+
               {imagePreview ? (
                 <div className="relative w-full h-48 rounded-lg overflow-hidden border border-black/10 group">
                   <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={clearImage}
                       className="p-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg"
                     >
@@ -216,7 +266,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
                   </div>
                 </div>
               ) : (
-                <div 
+                <div
                   onClick={() => fileInputRef.current?.click()}
                   className="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-black/5 hover:border-blueNormal transition-colors text-greyNormal hover:text-blueNormal"
                 >
@@ -254,14 +304,125 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
                     />
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blueNormal"></div>
                     <span className="ms-3 font-cairo-semibold-base text-greyDarker">
-                      {field.value 
-                        ? t('publicLabel', { defaultValue: 'Public (Visible to everyone)' }) 
+                      {field.value
+                        ? t('publicLabel', { defaultValue: 'Public (Visible to everyone)' })
                         : t('privateLabel', { defaultValue: 'Private (Hidden from feed)' })}
                     </span>
                   </label>
                 </div>
               )}
             />
+
+            {/* Notification Module (Only when creating) */}
+            {!isEditing && (
+              <div className="border-t border-black/5 pt-4 mt-2">
+                <Controller
+                  name="sendNotification"
+                  control={form.control}
+                  render={({ field }) => (
+                    <div className="flex items-center gap-3 mb-4">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={field.value}
+                          onChange={field.onChange}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                        <span className="ms-3 font-cairo-semibold-base text-greyDarker flex items-center gap-2">
+                          <Bell className="size-4 text-green-600" />
+                          {t('sendNotification', { defaultValue: 'Send Notification to Users' })}
+                        </span>
+                      </label>
+                    </div>
+                  )}
+                />
+
+                {form.watch('sendNotification') && (
+                  <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-200 bg-gray-50 p-4 rounded-xl border border-black/5">
+                    
+                    {/* Notification Message Textarea */}
+                    <Controller
+                      name="notificationMessage"
+                      control={form.control}
+                      render={({ field, fieldState }) => (
+                        <div className="flex flex-col gap-2">
+                          <label className="font-cairo-semibold-sm text-greyDarker">
+                            {t('notificationMessage', { defaultValue: 'Notification Message' })} *
+                          </label>
+                          <textarea
+                            {...field}
+                            placeholder={t('notificationMessagePlaceholder', { defaultValue: 'Enter the notification message...' })}
+                            className={`${inputClasses(!!fieldState.error)} min-h-[100px] py-3 resize-y bg-white`}
+                          />
+                          {fieldState.error && <span className="text-red-500 text-sm font-cairo-medium-sm">{fieldState.error.message}</span>}
+                        </div>
+                      )}
+                    />
+
+                    <label className="font-cairo-bold-sm text-greyDark">
+                      {t('target', { defaultValue: 'Send To' })}
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { key: 'all' as const, icon: Users, label: t('targetAll', { defaultValue: 'All Users' }) },
+                        { key: 'course' as const, icon: BookOpen, label: t('targetCourse', { defaultValue: 'Course Students' }) },
+                        { key: 'users' as const, icon: UserPlus, label: t('targetUsers', { defaultValue: 'Specific Users' }) },
+                      ].map(({ key, icon: Icon, label }) => (
+                        <button
+                          key={key}
+                          type="button"
+                          onClick={() => {
+                            form.setValue('targetMode', key, { shouldValidate: true });
+                            if (key !== 'course') form.setValue('selectedCourse', null, { shouldValidate: true });
+                            if (key !== 'users') form.setValue('selectedUsers', [], { shouldValidate: true });
+                          }}
+                          className={`flex flex-col items-center gap-2 px-3 py-3 rounded-xl font-cairo-bold-sm transition-all cursor-pointer border-2 ${form.watch('targetMode') === key
+                            ? 'bg-blueLight/20 border-blueNormal text-blueNormal shadow-sm'
+                            : 'bg-white border-transparent text-greyNormal hover:bg-white/80 border-black/5'
+                            }`}
+                        >
+                          <Icon className="size-5" />
+                          <span className="text-xs text-center leading-tight">{label}</span>
+                        </button>
+                      ))}
+                    </div>
+
+                    {form.watch('targetMode') === 'course' && (
+                      <div className="flex flex-col gap-2 mt-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <label className="font-cairo-bold-sm text-greyDark">
+                          {t('selectCourse', { defaultValue: 'Select Course' })}
+                        </label>
+                        <Controller
+                          control={form.control}
+                          name="selectedCourse"
+                          render={({ field: { value, onChange } }) => (
+                            <CourseSelector value={value} onChange={onChange} t={t} />
+                          )}
+                        />
+                        {form.formState.errors.selectedCourse?.message && <p className="text-red-500 text-xs font-cairo-bold-sm">{form.formState.errors.selectedCourse.message as string}</p>}
+                      </div>
+                    )}
+
+                    {form.watch('targetMode') === 'users' && (
+                      <div className="flex flex-col gap-2 mt-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <label className="font-cairo-bold-sm text-greyDark">
+                          {t('selectUsers', { defaultValue: 'Select Users' })}
+                        </label>
+                        <Controller
+                          control={form.control}
+                          name="selectedUsers"
+                          render={({ field: { value, onChange } }) => (
+                            <UserMultiSelector value={value || []} onChange={onChange} t={t} />
+                          )}
+                        />
+                        {form.formState.errors.selectedUsers?.message && <p className="text-red-500 text-xs font-cairo-bold-sm">{form.formState.errors.selectedUsers.message as string}</p>}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
 
           </form>
         </div>

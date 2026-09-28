@@ -93,6 +93,7 @@ export const useCourseBasicInfoForm = () => {
           description: prereq.description,
           sortOrder: index + 1,
         })),
+        startDate: data.startDate ? new Date(data.startDate).toISOString() : null,
       };
 
       if (courseId) {

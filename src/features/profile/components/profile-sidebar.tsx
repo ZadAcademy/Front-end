@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { User, BookOpen, Settings, LogOut, ChevronRight } from "lucide-react";
+import { User, BookOpen, LogOut, ChevronRight } from "lucide-react";
 import { useGetProfileQuery } from "../hooks/use-profile-api";
 
 export default function ProfileSidebar() {
@@ -27,12 +27,6 @@ export default function ProfileSidebar() {
       href: `/${locale}/profile/courses`,
       icon: BookOpen,
       isActive: pathname.startsWith(`/${locale}/profile/courses`),
-    },
-    {
-      name: t("settings", { defaultValue: "Settings" }),
-      href: `/${locale}/profile/settings`,
-      icon: Settings,
-      isActive: pathname.startsWith(`/${locale}/profile/settings`),
     },
   ];
 

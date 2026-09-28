@@ -17,7 +17,7 @@ export default function AdminNotificationsPage() {
   const tabs = [
     { key: 'send' as const, label: t('tabSend', { defaultValue: 'Send Notification' }), icon: BellRing },
     { key: 'history' as const, label: t('tabHistory', { defaultValue: 'History' }), icon: History },
-    { key: 'expiry' as const, label: t('tabExpiry', { defaultValue: 'Expiry Management' }), icon: CalendarClock },
+    //{ key: 'expiry' as const, label: t('tabExpiry', { defaultValue: 'Expiry Management' }), icon: CalendarClock },
     { key: 'price' as const, label: t('tabPrice', { defaultValue: 'Price Alerts' }), icon: BadgeDollarSign },
   ];
 
@@ -55,7 +55,7 @@ export default function AdminNotificationsPage() {
       <div className="min-h-[500px]">
         {activeTab === 'send' && <SendNotificationForm />}
         {activeTab === 'history' && <NotificationHistoryTable />}
-        {activeTab === 'expiry' && <ExpiryManagement />}
+        {/* {activeTab === 'expiry' && <ExpiryManagement />} */}
         {activeTab === 'price' && <PriceAlertForm />}
       </div>
     </div>

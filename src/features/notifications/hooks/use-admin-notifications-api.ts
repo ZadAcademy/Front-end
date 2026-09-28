@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import {
   sendNotification,
@@ -13,6 +14,7 @@ import {
   SendNotificationRequest,
   SendPriceAlertRequest,
 } from '../lib/types/notification-types';
+import { notificationKeys } from './use-notifications-api';
 
 /* ─── Query Keys ─── */
 export const adminNotificationKeys = {
@@ -33,7 +35,7 @@ export const useSendNotificationMutation = () => {
     mutationFn: (data: SendNotificationRequest) => sendNotification(data),
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: adminNotificationKeys.all });
-      toast.success(`Notification sent to ${result.recipientCount} user(s)`);
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all }); // Invalidate user notifications
     },
     onError: (error: any) => {
       toast.error(error.message || 'Failed to send notification');
@@ -104,15 +106,16 @@ export const usePreviewExpiryQuery = (days = 7, enabled = true) => {
    ────────────────────────────────────────────────────────── */
 export const useSendPriceAlertMutation = () => {
   const queryClient = useQueryClient();
+  const t = useTranslations('Dashboard.notifications');
 
   return useMutation({
     mutationFn: (data: SendPriceAlertRequest) => sendPriceAlert(data),
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: adminNotificationKeys.all });
-      toast.success(`Price alert sent to ${result.recipientCount} user(s)`);
+      toast.success(t('priceAlertSentSuccess', { count: result.recipientCount, defaultValue: `Price alert sent to ${result.recipientCount} user(s)` }));
     },
     onError: (error: any) => {
-      toast.error(error.message || 'Failed to send price alert');
+      toast.error(error.message || t('priceAlertFailed', { defaultValue: 'Failed to send price alert' }));
     },
   });
 };

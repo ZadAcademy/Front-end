@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { Globe, LogOut, User, LayoutDashboard, ChevronDown, Home, MessageSquare, Compass } from 'lucide-react';
+import { Globe, LogOut, User, LayoutDashboard, ChevronDown, Home, MessageSquare, Compass, Award } from 'lucide-react';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -94,28 +94,28 @@ export default function AuthNavbar() {
           </Link>
 
           {/* ═══════════ CENTER — Main Navigation Links ═══════════ */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+          <div className="flex-1 flex justify-center items-center gap-1 sm:gap-2 lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:w-auto overflow-x-auto no-scrollbar">
             {/* ─── Explore / Landing Page Link ─── */}
             <Link
               href="/"
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl
-                         hover:bg-black/5 transition-colors cursor-pointer
+              className={`flex items-center gap-2 px-3 sm:px-6 py-2.5 rounded-xl
+                         hover:bg-black/5 transition-colors cursor-pointer shrink-0
                          ${pathname === '/' ? 'text-blueNormal bg-blueNormal/10' : 'text-greyNormal'}`}
               aria-label={t('explore', { defaultValue: 'Explore' })}
             >
-              <Compass className={`size-5 ${pathname === '/' ? 'fill-blueNormal' : ''}`} />
+              <Compass className={`size-5 shrink-0 ${pathname === '/' ? 'fill-blueNormal' : ''}`} />
               <span className="hidden sm:block font-cairo-bold-sm">{t('explore', { defaultValue: 'Explore' })}</span>
             </Link>
             {/* ─── Home Link (Authenticated Only) ─── */}
             {status === 'authenticated' && (
               <Link
                 href="/home"
-                className={`flex items-center gap-2 px-6 py-2.5 rounded-xl
-                           hover:bg-black/5 transition-colors cursor-pointer
+                className={`flex items-center gap-2 px-3 sm:px-6 py-2.5 rounded-xl
+                           hover:bg-black/5 transition-colors cursor-pointer shrink-0
                            ${pathname === '/home' ? 'text-blueNormal bg-blueNormal/10' : 'text-greyNormal'}`}
                 aria-label={t('home')}
               >
-                <Home className={`size-5 ${pathname === '/home' ? 'fill-blueNormal' : ''}`} />
+                <Home className={`size-5 shrink-0 ${pathname === '/home' ? 'fill-blueNormal' : ''}`} />
                 <span className="hidden sm:block font-cairo-bold-sm">{t('home')}</span>
               </Link>
             )}
@@ -123,18 +123,18 @@ export default function AuthNavbar() {
             {/* ─── Posts Link ─── */}
             <Link
               href="/posts"
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl
-                         hover:bg-black/5 transition-colors cursor-pointer
+              className={`flex items-center gap-2 px-3 sm:px-6 py-2.5 rounded-xl
+                         hover:bg-black/5 transition-colors cursor-pointer shrink-0
                          ${pathname === '/posts' ? 'text-blueNormal bg-blueNormal/10' : 'text-greyNormal'}`}
               aria-label={t('posts', { defaultValue: 'Posts' })}
             >
-              <MessageSquare className={`size-5 ${pathname === '/posts' ? 'fill-blueNormal' : ''}`} />
+              <MessageSquare className={`size-5 shrink-0 ${pathname === '/posts' ? 'fill-blueNormal' : ''}`} />
               <span className="hidden sm:block font-cairo-bold-sm">{t('posts', { defaultValue: 'Posts' })}</span>
             </Link>
           </div>
 
           {/* ═══════════ RIGHT SIDE — Notifications + User Menu ═══════════ */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-3 shrink-0">
 
             {/* ─── Notification Bell & User Dropdown (Auth Only) ─── */}
             {status === 'authenticated' && (
@@ -143,11 +143,11 @@ export default function AuthNavbar() {
                 <NotificationBell />
 
                 {/* ─── User Profile Dropdown ─── */}
-                <div className="relative" ref={dropdownRef}>
+                <div className="relative shrink-0" ref={dropdownRef}>
                   {/* Trigger button — avatar + name + chevron */}
                   <button
                     onClick={() => setIsDropdownOpen((prev) => !prev)}
-                    className="flex items-center gap-2 px-2 py-1.5 rounded-xl
+                    className="flex items-center gap-1 sm:gap-2 px-1 sm:px-2 py-1.5 rounded-xl
                                hover:bg-black/5 transition-colors cursor-pointer
                                bg-transparent border-none"
                     aria-expanded={isDropdownOpen}
@@ -158,7 +158,7 @@ export default function AuthNavbar() {
                       {userName}
                     </span>
                     {/* User avatar circle */}
-                    <div className="w-9 h-9 rounded-full bg-blueNormal flex items-center justify-center overflow-hidden shrink-0 border border-black/5">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-blueNormal flex items-center justify-center overflow-hidden shrink-0 border border-black/5">
                       {session?.user?.profileImageUrl ? (
                         <img
                           src={session.user.profileImageUrl}
@@ -172,7 +172,7 @@ export default function AuthNavbar() {
                       )}
                     </div>
                     <ChevronDown
-                      className={`size-4 text-greyNormal transition-transform duration-200 ${
+                      className={`size-4 text-greyNormal shrink-0 transition-transform duration-200 ${
                         isDropdownOpen ? 'rotate-180' : ''
                       }`}
                     />
@@ -218,6 +218,22 @@ export default function AuthNavbar() {
                           <Globe className="size-4 text-greyNormal" />
                           <span className="font-cairo-medium-sm text-greyDark">
                             {locale === 'ar' ? 'English' : 'العربية'}
+                          </span>
+                        </button>
+                        
+                        {/* Verify Certificate */}
+                        <button
+                          onClick={() => { 
+                            setIsDropdownOpen(false); 
+                            router.push(`${pathname}?verify=true`, { scroll: false }); 
+                          }}
+                          className="w-full flex items-center gap-3 px-4 py-2.5
+                                     hover:bg-black/5 transition-colors cursor-pointer
+                                     bg-transparent border-none text-start"
+                        >
+                          <Award className="size-4 text-greyNormal" />
+                          <span className="font-cairo-medium-sm text-greyDark">
+                            {t('verifyCertificate', { defaultValue: 'Verify Certificate' })}
                           </span>
                         </button>
 

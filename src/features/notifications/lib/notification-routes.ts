@@ -13,13 +13,16 @@ export function getNotificationDestination(notification: NotificationItem): stri
     case NotificationType.ReviewThankYou:
     case NotificationType.NewLessonAdded:
     case NotificationType.EnrollmentExpiry:
+    case NotificationType.OrderConfirmation:
+    case NotificationType.AdminCustom:
       return referenceId ? `/courses/${referenceId}` : '/courses';
 
     case NotificationType.Announcement:
       return referenceId ? `/posts/${referenceId}` : '/posts';
 
     case NotificationType.Welcome:
-    case NotificationType.AdminCustom:
+      return '/welcome';
+
     default:
       return referenceId ? `/courses/${referenceId}` : '/courses';
   }
@@ -37,6 +40,7 @@ export function getNotificationTypeLabel(type: NotificationType, isArabic: boole
     [NotificationType.ReviewThankYou]: { ar: 'شكر على التقييم', en: 'Review Thanks' },
     [NotificationType.Welcome]: { ar: 'ترحيب', en: 'Welcome' },
     [NotificationType.PriceAlert]: { ar: 'تنبيه سعر', en: 'Price Alert' },
+    [NotificationType.OrderConfirmation]: { ar: 'تأكيد الطلب', en: 'Order Confirmation' },
     [NotificationType.AdminCustom]: { ar: 'رسالة مخصصة', en: 'Custom Message' },
   };
   return labels[type]?.[isArabic ? 'ar' : 'en'] ?? (isArabic ? 'إشعار' : 'Notification');

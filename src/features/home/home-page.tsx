@@ -4,6 +4,8 @@ import { useTranslations } from 'next-intl';
 import CourseFilter from './components/course-filter';
 import CoursesGrid from './components/courses-grid';
 import { useCourses } from './hooks/use-courses';
+import Link from 'next/link';
+import { Award } from 'lucide-react';
 
 export default function HomePage() {
   const t = useTranslations('HomePage');
@@ -30,10 +32,20 @@ export default function HomePage() {
       <div className="mx-auto max-w-[1450px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6">
 
-          {/* ─── Page Title ─── */}
-          <h1 className="font-cairo-bold-3xl text-greyDark">
-            {t('title')}
-          </h1>
+          {/* ─── Page Title & Actions ─── */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <h1 className="font-cairo-bold-3xl text-greyDark">
+              {t('title')}
+            </h1>
+            <Link 
+              href="?verify=true"
+              scroll={false}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blueNormal text-white font-cairo-bold-base rounded-xl shadow-sm shadow-blueNormal/30 hover:shadow-xl hover:scale-105 transition-all duration-300 w-fit"
+            >
+              <Award className="size-5" />
+              {t('verifyCertificate', { defaultValue: 'Verify Certificate' })}
+            </Link>
+          </div>
 
           {/* ─── Filter Panel ─── */}
           <CourseFilter

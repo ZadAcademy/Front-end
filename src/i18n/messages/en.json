@@ -29,6 +29,23 @@
       "confirm": "Confirm"
     }
   },
+  "VerifyCertificate": {
+    "title": "Verify Certificate",
+    "subtitle": "Enter the certificate code below to verify its authenticity and view student details.",
+    "codePlaceholder": "e.g. CERT-12345",
+    "verifyButton": "Verify Now",
+    "loading": "Verifying...",
+    "successMessage": "Certificate Verified Successfully",
+    "errorMessage": "Certificate not found or invalid code.",
+    "studentName": "Student Name",
+    "certificateCode": "Certificate Code",
+    "country": "Country",
+    "courseName": "Course Name",
+    "courseNumber": "Course Number",
+    "date": "Issue Date",
+    "notFound": "Invalid Certificate Code",
+    "backToHome": "Back to Home"
+  },
   "LandingPage": {
     "navbar": {
       "home": "All courses",
@@ -39,7 +56,8 @@
       "faq": "FAQ",
       "login": "Login",
       "create-account": "Create Account",
-      "posts": "Posts"
+      "posts": "Posts",
+      "verifyCertificate": "Verify Certificate"
     },
     "hero": {
       "title": "Learn Mechanical Engineering with a practical approach that prepares you for the job market in a",
@@ -88,6 +106,14 @@
           "description": "After completing the course, the trainee receives a certified certificate of his own"
         }
       }
+    },
+    "verifyCertificateSection": {
+      "title": "Verify Your Certificate",
+      "description": "Validate the authenticity of any Zad Academy certificate instantly by entering the unique certificate code.",
+      "feature1": "Instant online verification",
+      "feature2": "Check student and course details",
+      "feature3": "100% secure and authentic",
+      "button": "Verify Now"
     },
     "faqSection": {
       "title": "We answer your most common questions",
@@ -268,7 +294,8 @@
       "language": "Language",
       "home": "Home",
       "posts": "Posts",
-      "explore": "Explore"
+      "explore": "Explore",
+      "verifyCertificate": "Verify Certificate"
     },
     "filter": {
       "customSearch": "Click for Custom Search",
@@ -295,6 +322,7 @@
       "of": "of"
     },
     "title": "All Courses",
+    "verifyCertificate": "Verify Certificate",
     "noCoursesFound": "No courses found",
     "error": "Something went wrong. Try again",
     "Hero": {
@@ -368,7 +396,56 @@
       "posts": "Posts",
       "paymentMethods": "Payment Methods",
       "orders": "Orders",
-      "notifications": "Notifications"
+      "notifications": "Notifications",
+      "certificates": "Certificates",
+      "listCertificates": "All Certificates",
+      "importCertificate": "Import Certificate"
+    },
+    "certificates": {
+      "title": "Certificates Management",
+      "subtitle": "View and manage student certificates",
+      "searchPlaceholder": "Search by name, code, course...",
+      "loading": "Loading certificates...",
+      "error": "Failed to load certificates",
+      "empty": "No certificates found",
+      "editCertificate": "Edit Certificate",
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "updateSuccess": "Certificate updated successfully",
+      "updateError": "Failed to update certificate",
+      "deleteSuccess": "Certificate deleted successfully",
+      "deleteError": "Failed to delete certificate",
+      "deleteTitle": "Delete Certificate",
+      "deleteMessage": "Are you sure you want to delete this certificate? This action cannot be undone.",
+      "deleteConfirm": "Delete",
+      "table": {
+        "studentName": "Student Name",
+        "code": "Code",
+        "country": "Country",
+        "courseName": "Course",
+        "courseNumber": "Course No.",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "pageTitle": "Import Certificates",
+      "pageSubtitle": "Upload a file to bulk import student certificates into the system.",
+      "importTitle": "Import Certificates",
+      "uploadFile": "Upload File",
+      "dragAndDrop": "Click or drag file to this area to upload",
+      "supportedFormats": "Supported formats: .xlsx, .csv",
+      "importSummary": "Import Summary",
+      "totalRows": "Total Rows",
+      "inserted": "Inserted",
+      "skipped": "Skipped",
+      "errors": "Errors",
+      "row": "Row",
+      "column": "Column",
+      "message": "Message",
+      "uploadButton": "Upload File",
+      "importSuccess": "Successfully imported {inserted} certificates. Skipped: {skipped}",
+      "importError": "Failed to import certificates"
     },
     "pages": {
       "dashboard": "Dashboard",
@@ -732,7 +809,20 @@
         "accept": "Accept & Enroll",
         "deny": "Deny",
         "acceptSuccess": "Order accepted successfully",
-        "denySuccess": "Order denied successfully"
+        "denySuccess": "Order denied successfully",
+        "acceptSuccessWithNotif": "Order accepted & notification sent to the student",
+        "denySuccessWithNotif": "Order denied & notification sent to the student",
+        "notifFailed": "Order updated but notification failed to send.",
+        "updateFailed": "Failed to update order status",
+        "confirmTitle": "Confirm & Notify",
+        "confirmAccept": "You are about to accept this order",
+        "confirmDeny": "You are about to deny this order",
+        "notifyDesc": "A notification will be sent. Customize the message below.",
+        "notifTitle": "Notification Title",
+        "notifMessage": "Notification Message",
+        "goBack": "Go Back",
+        "confirmAcceptBtn": "Accept & Send Notification",
+        "confirmDenyBtn": "Deny & Send Notification"
       }
     },
     "paymentMethods": {
@@ -808,20 +898,25 @@
       "pageTitle": "Notifications Management",
       "pageSubtitle": "Send broadcasts, manage expirations, and view history.",
       "sendTitle": "Send Notification",
+      "sendSubtitle": "Compose and send a notification to your users.",
       "notifTitle": "Title",
       "titlePlaceholder": "Notification title...",
       "message": "Message",
       "messagePlaceholder": "Write the notification message...",
-      "type": "Type",
       "target": "Send To",
       "targetAll": "All Users",
       "targetCourse": "Course Students",
       "targetUsers": "Specific Users",
-      "courseId": "Course ID",
-      "courseIdPlaceholder": "Enter course ID...",
-      "userIds": "User IDs (comma separated)",
-      "userIdsPlaceholder": "e.g. uuid-1, uuid-2, uuid-3",
+      "selectCourse": "Select Course",
+      "searchCourse": "Search and select a course...",
+      "searchCoursePlaceholder": "Type to search courses...",
+      "noCourses": "No courses found",
+      "selectUsers": "Select Users",
+      "searchUsers": "Search and select users...",
+      "searchUsersPlaceholder": "Search by name or email...",
+      "noUsers": "No users found",
       "send": "Send Notification",
+      "notificationSentCount": "Notification sent to {count} user(s)",
       "tableTitle": "Title",
       "tableType": "Type",
       "tableRecipients": "Recipients",
@@ -847,13 +942,14 @@
       "previewError": "Failed to load preview data.",
       "noExpirations": "No enrollments expiring in this timeframe.",
       "priceAlertTitle": "Send Price Alert",
-      "selectCourse": "Select Course",
       "coursePlaceholder": "Search and select a course...",
       "searchCourses": "Search courses...",
       "noCoursesFound": "No courses found.",
       "customMessage": "Custom Message (Optional)",
       "customMessagePlaceholder": "Add an optional message along with the alert...",
       "sendAlert": "Send Alert",
+      "priceAlertSentSuccess": "Price alert sent to {count} user(s)",
+      "priceAlertFailed": "Failed to send price alert",
       "cancel": "Cancel"
     }
   },
@@ -942,6 +1038,24 @@
       "status": "Visibility",
       "actions": "Actions"
     },
+    "sendNotification": "Send Notification to Users",
+    "notificationMessage": "Notification Message",
+    "notificationMessagePlaceholder": "Enter the notification message...",
+    "target": "Send To",
+    "targetAll": "All Users",
+    "targetCourse": "Course Students",
+    "targetUsers": "Specific Users",
+    "selectCourse": "Select Course",
+    "selectUsers": "Select Users",
+    "searchCourse": "Search and select a course...",
+    "searchCoursePlaceholder": "Type to search courses...",
+    "noCourses": "No courses found",
+    "searchUsers": "Search and select users...",
+    "searchUsersPlaceholder": "Search by name or email...",
+    "noUsers": "No users found",
+    "notificationSent": "Notification sent successfully",
+    "notificationSentCount": "Notification sent to {count} user(s)",
+    "notificationFailed": "Failed to send notification",
     "pagination": {
       "showing": "Showing",
       "of": "of",
@@ -1009,5 +1123,11 @@
     "prev": "Previous",
     "next": "Next",
     "receiveNotifications": "Receive Notifications"
+  },
+  "WelcomePage": {
+    "title": "Welcome to Zad Academy!",
+    "subtitle": "We are thrilled to have you here. Explore our courses, start learning, and take your skills to the next level. Your journey begins now.",
+    "browseCourses": "Browse Courses",
+    "goHome": "Go to Homepage"
   }
 }
