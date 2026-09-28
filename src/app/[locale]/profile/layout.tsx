@@ -8,9 +8,9 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
       <AuthNavbar />
 
       {/* ─── Page Content ─── */}
-      <div className="bg-gray-50 flex min-h-screen pt-16">
+      <div className="bg-gray-50 flex flex-col lg:flex-row min-h-screen pt-16">
         {/* Sidebar */}
-        <div className="hidden lg:block w-72 flex-shrink-0 bg-white border-e border-black/5 min-h-[calc(100vh-64px)] sticky top-16 overflow-y-auto shadow-sm z-10">
+        <div className="w-full lg:w-72 flex-shrink-0 bg-white border-b lg:border-b-0 lg:border-e border-black/5 lg:min-h-[calc(100vh-64px)] lg:sticky top-16 lg:overflow-y-auto shadow-sm z-10">
           <ProfileSidebar />
         </div>
         

@@ -86,7 +86,7 @@ export default function CourseReviewsSection({ courseId }: CourseReviewsSectionP
   return (
     <section className="w-full">
       {/* ─── Section Header ─── */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
         <div className="flex flex-col gap-1">
           <h3 className="font-cairo-bold-2xl text-greyDark">
             {isRTL ? 'التقييمات والمراجعات' : 'Reviews & Ratings'}

@@ -34,43 +34,43 @@ export default function ProfileSidebar() {
     <div className="flex flex-col h-full overflow-y-auto">
       {/* User Mini Profile Header */}
       {profile && (
-        <div className="p-6 border-b border-black/5 bg-gray-50/50 flex flex-col items-center text-center">
-          <div className="size-20 rounded-full border-2 border-white shadow-sm overflow-hidden bg-white mb-3 flex items-center justify-center">
+        <div className="p-4 lg:p-6 border-b border-black/5 bg-gray-50/50 flex flex-col items-center text-center">
+          <div className="size-16 lg:size-20 rounded-full border-2 border-white shadow-sm overflow-hidden bg-white mb-3 flex items-center justify-center">
             {profile.profileImageUrl ? (
               <img src={profile.profileImageUrl} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
               <User className="size-8 text-gray-300" />
             )}
           </div>
-          <h3 className="font-cairo-bold-lg text-greyDarker">
+          <h3 className="font-cairo-bold-base lg:font-cairo-bold-lg text-greyDarker">
             {profile.firstName} {profile.lastName}
           </h3>
-          <p className="text-sm font-cairo-medium-sm text-greyNormal truncate w-full px-2">
+          <p className="text-xs lg:text-sm font-cairo-medium-sm text-greyNormal truncate w-full px-2">
             {profile.email}
           </p>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="flex flex-col p-4 gap-1">
+      <nav className="flex flex-row lg:flex-col p-4 gap-2 overflow-x-auto lg:overflow-visible no-scrollbar">
         {navItems.map((item) => (
           <Link
             key={item.name}
             href={item.href}
             className={`
-              group flex items-center justify-between px-4 py-3.5 rounded-xl transition-all duration-200 font-cairo-semibold-base
+              group flex items-center justify-center lg:justify-between px-4 py-2.5 lg:py-3.5 rounded-xl transition-all duration-200 font-cairo-semibold-sm lg:font-cairo-semibold-base flex-shrink-0
               ${item.isActive 
                 ? "bg-blueNormal text-white shadow-md shadow-blueNormal/20" 
-                : "text-greyDark hover:bg-gray-100 hover:text-blueNormal"
+                : "text-greyDark hover:bg-gray-100 hover:text-blueNormal bg-gray-50 lg:bg-transparent"
               }
             `}
           >
-            <div className="flex items-center gap-3">
-              <item.icon className={`size-5 transition-colors ${item.isActive ? "text-white" : "text-greyNormal group-hover:text-blueNormal"}`} />
-              <span>{item.name}</span>
+            <div className="flex items-center gap-2 lg:gap-3">
+              <item.icon className={`size-4 lg:size-5 transition-colors ${item.isActive ? "text-white" : "text-greyNormal group-hover:text-blueNormal"}`} />
+              <span className="whitespace-nowrap">{item.name}</span>
             </div>
             {!item.isActive && (
-              <ChevronRight className="size-4 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 rtl:rotate-180" />
+              <ChevronRight className="hidden lg:block size-4 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 rtl:rotate-180" />
             )}
           </Link>
         ))}

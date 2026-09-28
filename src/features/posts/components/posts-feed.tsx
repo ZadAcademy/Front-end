@@ -59,15 +59,15 @@ export default function PostsFeed() {
 
   return (
     <div className="flex flex-col gap-8 max-w-4xl mx-auto w-full">
-      <div className="flex items-center justify-between">
-        <h2 className="font-cairo-bold-3xl text-greyDark">{t('title', { defaultValue: 'Community Posts' })}</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <h2 className=" sm:font-cairo-bold-2xl font-cairo-bold-xl text-greyDark">{t('title', { defaultValue: 'Community Posts' })}</h2>
         
         {canCreate && (
           <button
             onClick={handleCreate}
-            className="bg-blueNormal text-white px-6 py-2.5 rounded-lg font-cairo-bold-base hover:bg-blueNormalHover transition-colors shadow-sm flex items-center gap-2"
+            className="bg-blueNormal self-start sm:self-auto text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-lg  sm:font-cairo-bold-2xl font-cairo-bold-sm hover:bg-blueNormalHover transition-colors shadow-sm flex items-center gap-2"
           >
-            <Plus className="size-5" />
+            <Plus className="size-4 sm:size-5" />
             {t('createNewPost', { defaultValue: 'Create Post' })}
           </button>
         )}

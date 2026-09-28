@@ -13,7 +13,7 @@ export default function CourseRequirements({ course }: CourseRequirementsProps) 
     <div className="flex flex-col gap-5  ">
       <div className="flex items-center gap-3 pb-4">
         <Info className="size-6 text-orangeNormal" />
-        <h2 className="font-cairo-bold-2xl text-greyDark">{t('requirements')}</h2>
+        <h2 className="md:font-cairo-bold-2xl font-cairo-bold-xl text-greyDark">{t('requirements')}</h2>
       </div>
       
       <ul className="flex flex-col gap-3.5 bg-white p-4 rounded-lg shadow-md">

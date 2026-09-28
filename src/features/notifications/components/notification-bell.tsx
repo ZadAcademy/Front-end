@@ -105,7 +105,7 @@ export default function NotificationBell() {
       {/* ─── Dropdown Panel ─── */}
       {isOpen && (
         <div
-          className="absolute top-full mt-2 end-0 w-80 sm:w-96
+          className="fixed top-[70px] left-4 right-4 sm:absolute sm:top-full sm:mt-2 sm:inset-auto sm:end-0 sm:w-96
                      bg-white rounded-2xl shadow-xl border border-black/10
                      z-[60] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
         >

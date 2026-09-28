@@ -6,7 +6,7 @@
 // to navigate between lessons.
 
 import { useTranslations } from 'next-intl';
-import { PlayCircle, FileText, Loader2, ChevronDown } from 'lucide-react';
+import { PlayCircle, FileText, Loader2, ChevronDown, X } from 'lucide-react';
 import { LessonType, LessonDto } from '@/features/dashboard/courses/lib/types/lesson';
 import { SectionDto } from '@/features/dashboard/courses/lib/types/section';
 import {
@@ -21,6 +21,7 @@ interface CourseContentSidebarProps {
   activeLessonId: string;
   onLessonClick: (lessonId: string) => void;
   isLoading: boolean;
+  onCloseSidebar?: () => void;
 }
 
 // ─── Format helper for duration ───
@@ -36,6 +37,7 @@ export default function CourseContentSidebar({
   activeLessonId,
   onLessonClick,
   isLoading,
+  onCloseSidebar,
 }: CourseContentSidebarProps) {
   const t = useTranslations('WatchingCourse');
   // Calculate total lessons across all sections
@@ -57,17 +59,28 @@ export default function CourseContentSidebar({
   return (
     <div className="flex flex-col h-full bg-white select-none">
       {/* ─── Header ─── */}
-      <div className="px-5 py-4 border-b border-black/5 bg-slate-50/70 shrink-0">
-        <h3 className="font-cairo-bold-base text-greyDark tracking-tight">{t('courseContent')}</h3>
-        <div className="flex items-center gap-2 mt-1">
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-cairo-medium-xs bg-blueNormal/10 text-blueNormal">
-            {t('sectionsCount', { count: sections.length })}
-          </span>
-          <span className="text-xs text-greyNormal">•</span>
-          <span className="text-xs font-cairo-medium-xs text-greyNormal">
-            {t('lessonsCount', { count: totalLessons })}
-          </span>
+      <div className="px-5 py-4 border-b border-black/5 bg-slate-50/70 shrink-0 flex items-center justify-between">
+        <div>
+          <h3 className="font-cairo-bold-base text-greyDark tracking-tight">{t('courseContent')}</h3>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-cairo-medium-xs bg-blueNormal/10 text-blueNormal">
+              {t('sectionsCount', { count: sections.length })}
+            </span>
+            <span className="text-xs text-greyNormal">•</span>
+            <span className="text-xs font-cairo-medium-xs text-greyNormal">
+              {t('lessonsCount', { count: totalLessons })}
+            </span>
+          </div>
         </div>
+        {onCloseSidebar && (
+          <button
+            onClick={onCloseSidebar}
+            className="lg:hidden p-2 -me-2 text-greyNormal hover:bg-black/5 hover:text-greyDark rounded-xl transition-colors cursor-pointer"
+            aria-label="Close sidebar"
+          >
+            <X className="size-5" />
+          </button>
+        )}
       </div>
 
       {/* ─── Sections Accordion ─── */}

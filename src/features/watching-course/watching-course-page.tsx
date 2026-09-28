@@ -181,6 +181,7 @@ export default function WatchingCoursePage({ courseId, lessonId }: WatchingCours
             activeLessonId={activeLessonId}
             onLessonClick={handleLessonClick}
             isLoading={isSectionsLoading}
+            onCloseSidebar={() => setIsSidebarOpen(false)}
           />
         </aside>
 
