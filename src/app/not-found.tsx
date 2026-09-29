@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import './[locale]/globals.css';
+import '../globals-generated.css';
 import { Cairo } from 'next/font/google';
 import { Button } from '@/shared/ui/button';
 

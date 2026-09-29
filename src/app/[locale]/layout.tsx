@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Sarabun, Tajawal, Cairo } from "next/font/google";
-import "./globals.css";
+import "../../globals-generated.css";
 import { ThemeProvider } from '@/shared/theme/theme-provider';
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";

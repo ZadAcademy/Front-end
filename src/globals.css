@@ -1,5 +1,8 @@
 @import "tailwindcss";
-@source "../../";
+@config "../tailwind.config.ts";
+@source "./src/features";
+@source "./src/shared";
+@source "./src/app";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -175,7 +178,7 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -255,7 +258,7 @@
   --font-sarabun: var(--font-sarabun);
   --font-tajawal: var(--font-tajawal);
   --font-cairo: var(--font-cairo)
-};
+}
 
 :root {
    /* BACKGROUND COLORS */

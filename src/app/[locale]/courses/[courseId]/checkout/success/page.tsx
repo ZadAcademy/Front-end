@@ -4,10 +4,10 @@ import { CheckCircle2, ArrowRight, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 interface CheckoutSuccessPageProps {
-  params: {
+  params: Promise<{
     locale: string;
     courseId: string;
-  };
+  }>;
 }
 
 export default async function CheckoutSuccessPage({ params }: CheckoutSuccessPageProps) {
