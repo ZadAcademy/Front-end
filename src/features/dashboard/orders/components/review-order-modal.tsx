@@ -76,7 +76,7 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
             {
               title: notificationTitle.trim(),
               message: notificationMessage.trim(),
-              type: notificationCustomType ? 8 : NotificationType.OrderConfirmation,
+              type: NotificationType.OrderConfirmation,
               customType: notificationCustomType.trim() || undefined,
               targetCourseId: order.courseId,
               targetUserIds: [order.userId],
@@ -315,8 +315,6 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
                       : t('confirmDenyBtn', { defaultValue: 'Deny & Send Notification' })}
                   </button>
                 </div>
-                {/* Spacer to prevent scroll cutoff */}
-                <div className="h-0.5 shrink-0 w-full" />
               </div>
             )}
 

@@ -120,7 +120,7 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
                 value={formData.studentName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm"
+                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
             
@@ -132,7 +132,7 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
                 value={formData.code}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm font-mono"
+                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm font-mono text-greyDarker bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
 
@@ -144,7 +144,7 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
                 value={formData.country}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm"
+                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
 
@@ -156,7 +156,7 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
                 value={formData.courseName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm"
+                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
 
@@ -168,7 +168,7 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
                 value={formData.courseNumber}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm"
+                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
 
@@ -180,7 +180,7 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
                 value={formData.date}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm"
+                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
               />
             </div>
           </div>

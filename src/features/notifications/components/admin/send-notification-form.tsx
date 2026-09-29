@@ -6,7 +6,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { useSendNotificationMutation } from '../../hooks/use-admin-notifications-api';
-import { NotificationType, SendNotificationRequest } from '../../lib/types/notification-types';
+import { NotificationType } from '../../lib/types/notification-types';
 import { CourseSelector } from '@/shared/components/selectors/course-selector';
 import { UserMultiSelector } from '@/shared/components/selectors/user-multi-selector';
 import { sendNotificationSchema, SendNotificationFormValues } from '../../lib/schemas/send-notification-schema';
@@ -35,7 +35,6 @@ export default function SendNotificationForm() {
     defaultValues: {
       title: '',
       message: '',
-      customType: '',
       targetMode: 'all',
       selectedCourse: null,
       selectedUsers: [],
@@ -45,11 +44,11 @@ export default function SendNotificationForm() {
   const targetMode = watch('targetMode');
 
   const onSubmit = (data: SendNotificationFormValues) => {
-    const payload: SendNotificationRequest = {
+    const payload: any = {
       title: data.title.trim(),
       message: data.message.trim(),
-      type: data.customType ? NotificationType.AdminCustom : NotificationType.Announcement,
-      customType: data.customType ? data.customType.trim() : undefined,
+      type: 2, // 2 = Announcement
+      customType: data.customType?.trim() || undefined,
       broadcastToAll: data.targetMode === 'all',
     };
 
@@ -123,9 +122,8 @@ export default function SendNotificationForm() {
           type="text"
           placeholder={t('customTypeTitlePlaceholder', { defaultValue: 'e.g. Announcement, Alert, Update...' })}
           className={`h-12 px-4 rounded-xl border bg-gray-50 font-cairo-medium-sm text-greyDarker
-                     outline-none focus:bg-white focus:ring-4 transition-all ${
-                       errors.customType ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal/10'
-                     }`}
+                     outline-none focus:bg-white focus:ring-4 transition-all ${errors.customType ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal/10'
+            }`}
         />
         {errors.customType && <p className="text-red-500 text-xs font-cairo-bold-sm">{errors.customType.message}</p>}
       </div>

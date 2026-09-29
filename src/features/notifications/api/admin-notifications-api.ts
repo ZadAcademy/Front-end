@@ -62,7 +62,6 @@ export async function sendNotification(
     headers,
     body: JSON.stringify(data),
   });
-  console.log("response from the back", response);
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => null);

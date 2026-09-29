@@ -407,6 +407,19 @@
     "certificates": {
       "pageTitle": "استيراد الشهادات",
       "pageSubtitle": "قم برفع ملف لاستيراد شهادات الطلاب دفعة واحدة إلى النظام.",
+      "title": "إدارة الشهادات",
+      "subtitle": "عرض وإدارة شهادات الطلاب",
+      "searchPlaceholder": "البحث بالاسم، الكود، الكورس...",
+      "loading": "جاري تحميل الشهادات...",
+      "error": "فشل في تحميل الشهادات",
+      "empty": "لا توجد شهادات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "deleteSuccess": "تم حذف الشهادة بنجاح",
+      "deleteError": "فشل في حذف الشهادة",
+      "deleteTitle": "حذف الشهادة",
+      "deleteMessage": "هل أنت متأكد أنك تريد حذف هذه الشهادة؟ لا يمكن التراجع عن هذا الإجراء.",
+      "deleteConfirm": "حذف",
       "importTitle": "استيراد الشهادات",
       "uploadFile": "رفع ملف",
       "dragAndDrop": "انقر أو اسحب الملف إلى هذه المنطقة للرفع",
@@ -421,7 +434,16 @@
       "message": "الرسالة",
       "uploadButton": "رفع الملف",
       "importSuccess": "تم استيراد {inserted} شهادات بنجاح. تم تخطي: {skipped}",
-      "importError": "حدث خطأ أثناء استيراد الشهادات"
+      "importError": "حدث خطأ أثناء استيراد الشهادات",
+      "table": {
+        "studentName": "اسم الطالب",
+        "code": "كود الشهادة",
+        "country": "البلد",
+        "courseName": "الكورس",
+        "courseNumber": "رقم الكورس",
+        "date": "التاريخ",
+        "actions": "الإجراءات"
+      }
     },
     "pages": {
       "dashboard": "لوحة التحكم",

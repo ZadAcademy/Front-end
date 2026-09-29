@@ -117,7 +117,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
               const payload: any = {
                 title: data.title,
                 message: data.notificationMessage || '',
-                type: data.notificationCustomType ? 8 : 2,
+                type: 2,
                 customType: data.notificationCustomType?.trim() || undefined,
                 broadcastToAll: data.targetMode === 'all',
               };

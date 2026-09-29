@@ -404,6 +404,19 @@
     "certificates": {
       "pageTitle": "Import Certificates",
       "pageSubtitle": "Upload a file to bulk import student certificates into the system.",
+      "title": "Certificates Management",
+      "subtitle": "View and manage student certificates",
+      "searchPlaceholder": "Search by name, code, course...",
+      "loading": "Loading certificates...",
+      "error": "Failed to load certificates",
+      "empty": "No certificates found",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteSuccess": "Certificate deleted successfully",
+      "deleteError": "Failed to delete certificate",
+      "deleteTitle": "Delete Certificate",
+      "deleteMessage": "Are you sure you want to delete this certificate? This action cannot be undone.",
+      "deleteConfirm": "Delete",
       "importTitle": "Import Certificates",
       "uploadFile": "Upload File",
       "dragAndDrop": "Click or drag file to this area to upload",
@@ -418,7 +431,16 @@
       "message": "Message",
       "uploadButton": "Upload File",
       "importSuccess": "Successfully imported {inserted} certificates. Skipped: {skipped}",
-      "importError": "Failed to import certificates"
+      "importError": "Failed to import certificates",
+      "table": {
+        "studentName": "Student Name",
+        "code": "Code",
+        "country": "Country",
+        "courseName": "Course",
+        "courseNumber": "Course No.",
+        "date": "Date",
+        "actions": "Actions"
+      }
     },
     "pages": {
       "dashboard": "Dashboard",
