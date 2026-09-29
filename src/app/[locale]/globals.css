@@ -1,7 +1,7 @@
 @import "tailwindcss";
+@source "../../";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-
 
 /* ─── SARABUN REGULAR (400) ─── */
 @utility font-sarabun-regular-7xl  { font-family: var(--font-sarabun); font-weight: 400; font-size: 72px; }
