@@ -435,6 +435,11 @@
       "uploadButton": "رفع الملف",
       "importSuccess": "تم استيراد {inserted} شهادات بنجاح. تم تخطي: {skipped}",
       "importError": "حدث خطأ أثناء استيراد الشهادات",
+      "editCertificate": "تعديل الشهادة",
+      "updateSuccess": "تم تحديث الشهادة بنجاح",
+      "updateError": "فشل في تحديث الشهادة",
+      "cancel": "إلغاء",
+      "save": "حفظ التغييرات",
       "table": {
         "studentName": "اسم الطالب",
         "code": "كود الشهادة",
@@ -1133,5 +1138,20 @@
     "subtitle": "نحن سعداء بوجودك معنا. استكشف دوراتنا وابدأ التعلم لتطوير مهاراتك. رحلتك تبدأ الآن.",
     "browseCourses": "تصفح الدورات",
     "goHome": "الذهاب للرئيسية"
+  },
+  "VerifyCertificate": {
+    "title": "تحقق من شهادتك",
+    "subtitle": "أدخل رمز الشهادة الفريد للتحقق من صحتها.",
+    "codePlaceholder": "أدخل رمز الشهادة...",
+    "verifyButton": "تحقق",
+    "notFound": "الشهادة غير موجودة",
+    "successMessage": "تم التحقق من الشهادة بنجاح",
+    "errorMessage": "الشهادة غير موجودة أو الرمز غير صالح.",
+    "certificateCode": "رمز الشهادة",
+    "studentName": "اسم الطالب",
+    "courseName": "اسم الدورة",
+    "courseNumber": "رقم الدورة",
+    "date": "التاريخ",
+    "country": "البلد"
   }
 }

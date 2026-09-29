@@ -23,7 +23,7 @@ export default function CertificatesPagination({ currentPage, totalPages, onPage
       </button>
 
       <span className="font-cairo-medium-sm text-greyDark px-4">
-        {t('page')} {currentPage} {t('of')} {totalPages}
+        {t('page', { defaultValue: 'Page' })} {currentPage} {t('of', { defaultValue: 'of' })} {totalPages}
       </span>
 
       <button

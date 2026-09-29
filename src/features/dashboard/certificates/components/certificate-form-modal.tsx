@@ -4,8 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { AdminCertificate, UpdateCertificateRequest } from '../lib/types/admin-certificates-types';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AdminCertificate } from '../lib/types/admin-certificates-types';
 import { updateCertificate } from '../api/admin-certificates-api';
+import { updateCertificateSchema, UpdateCertificateFormValues } from '../lib/schemas/certificate-schema';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -22,13 +25,22 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
   const [mounted, setMounted] = useState(false);
   
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState<UpdateCertificateRequest>({
-    code: '',
-    country: '',
-    courseName: '',
-    courseNumber: '',
-    date: '',
-    studentName: ''
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm<UpdateCertificateFormValues>({
+    resolver: zodResolver(updateCertificateSchema),
+    defaultValues: {
+      code: '',
+      country: '',
+      courseName: '',
+      courseNumber: '',
+      date: '',
+      studentName: ''
+    }
   });
 
   useEffect(() => {
@@ -36,8 +48,8 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
   }, []);
 
   useEffect(() => {
-    if (certificate) {
-      setFormData({
+    if (certificate && isOpen) {
+      reset({
         code: certificate.code || '',
         country: certificate.country || '',
         courseName: certificate.courseName || '',
@@ -46,7 +58,7 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
         studentName: certificate.studentName || ''
       });
     }
-  }, [certificate]);
+  }, [certificate, isOpen, reset]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -68,18 +80,12 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: UpdateCertificateFormValues) => {
     if (!certificate) return;
 
     setIsLoading(true);
     try {
-      await updateCertificate(certificate.id, formData);
+      await updateCertificate(certificate.id, data);
       toast.success(t('updateSuccess', { defaultValue: 'Certificate updated successfully' }));
       queryClient.invalidateQueries({ queryKey: ['admin-certificates'] });
       onClose();
@@ -110,78 +116,66 @@ export default function CertificateFormModal({ isOpen, onClose, certificate }: C
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-1">
               <label className="text-sm font-cairo-semibold-sm text-greyDark">{t('table.studentName', { defaultValue: 'Student Name' })}</label>
               <input
                 type="text"
-                name="studentName"
-                value={formData.studentName}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
+                {...register('studentName')}
+                className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors ${errors.studentName ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal'}`}
               />
+              {errors.studentName && <p className="text-xs text-red-500">{errors.studentName.message}</p>}
             </div>
             
             <div className="space-y-1">
               <label className="text-sm font-cairo-semibold-sm text-greyDark">{t('table.code', { defaultValue: 'Code' })}</label>
               <input
                 type="text"
-                name="code"
-                value={formData.code}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm font-mono text-greyDarker bg-gray-50 focus:bg-white transition-colors"
+                {...register('code')}
+                className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 font-cairo-medium-sm font-mono text-greyDarker bg-gray-50 focus:bg-white transition-colors ${errors.code ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal'}`}
               />
+              {errors.code && <p className="text-xs text-red-500">{errors.code.message}</p>}
             </div>
 
             <div className="space-y-1">
               <label className="text-sm font-cairo-semibold-sm text-greyDark">{t('table.country', { defaultValue: 'Country' })}</label>
               <input
                 type="text"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
+                {...register('country')}
+                className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors ${errors.country ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal'}`}
               />
+              {errors.country && <p className="text-xs text-red-500">{errors.country.message}</p>}
             </div>
 
             <div className="space-y-1">
               <label className="text-sm font-cairo-semibold-sm text-greyDark">{t('table.courseName', { defaultValue: 'Course' })}</label>
               <input
                 type="text"
-                name="courseName"
-                value={formData.courseName}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
+                {...register('courseName')}
+                className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors ${errors.courseName ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal'}`}
               />
+              {errors.courseName && <p className="text-xs text-red-500">{errors.courseName.message}</p>}
             </div>
 
             <div className="space-y-1">
               <label className="text-sm font-cairo-semibold-sm text-greyDark">{t('table.courseNumber', { defaultValue: 'Course No.' })}</label>
               <input
                 type="text"
-                name="courseNumber"
-                value={formData.courseNumber}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
+                {...register('courseNumber')}
+                className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors ${errors.courseNumber ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal'}`}
               />
+              {errors.courseNumber && <p className="text-xs text-red-500">{errors.courseNumber.message}</p>}
             </div>
 
             <div className="space-y-1">
               <label className="text-sm font-cairo-semibold-sm text-greyDark">{t('table.date', { defaultValue: 'Date' })}</label>
               <input
                 type="text"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-black/10 rounded-xl focus:outline-none focus:border-blueNormal focus:ring-1 focus:ring-blueNormal font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors"
+                {...register('date')}
+                className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 font-cairo-medium-sm text-greyDarker bg-gray-50 focus:bg-white transition-colors ${errors.date ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-black/10 focus:border-blueNormal focus:ring-blueNormal'}`}
               />
+              {errors.date && <p className="text-xs text-red-500">{errors.date.message}</p>}
             </div>
           </div>
 

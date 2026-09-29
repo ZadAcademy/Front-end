@@ -42,9 +42,9 @@ export default function VerifyCertificateForm() {
           <Award className="size-8" />
         </div>
         <div>
-          <h2 className="font-cairo-bold-2xl text-greyDark">{t('title')}</h2>
+          <h2 className="font-cairo-bold-2xl text-greyDark">{t('title', { defaultValue: 'Verify Your Certificate' })}</h2>
           <p className="font-cairo-medium-base text-greyNormal mt-2 max-w-lg mx-auto">
-            {t('subtitle')}
+            {t('subtitle', { defaultValue: 'Enter your unique certificate code to verify its authenticity.' })}
           </p>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function VerifyCertificateForm() {
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder={t('codePlaceholder')}
+              placeholder={t('codePlaceholder', { defaultValue: 'Enter certificate code...' })}
               className="w-full h-14 pl-12 pr-4 rtl:pl-4 rtl:pr-12 rounded-xl border border-black/10 bg-gray-50 
                          font-cairo-medium-lg text-greyDarker outline-none focus:border-blueNormal focus:bg-white 
                          focus:ring-4 focus:ring-blueNormal/10 transition-all uppercase"
@@ -78,7 +78,7 @@ export default function VerifyCertificateForm() {
             ) : (
               <Award className="size-5" />
             )}
-            {t('verifyButton')}
+            {t('verifyButton', { defaultValue: 'Verify' })}
           </button>
         </form>
 
@@ -87,7 +87,7 @@ export default function VerifyCertificateForm() {
           {errorMsg && (
             <div className="bg-red-50 border border-red-100 rounded-2xl p-6 flex flex-col items-center text-center animate-in fade-in zoom-in-95">
               <AlertCircle className="size-12 text-red-500 mb-3" />
-              <h3 className="font-cairo-bold-xl text-red-700">{t('notFound')}</h3>
+              <h3 className="font-cairo-bold-xl text-red-700">{t('notFound', { defaultValue: 'Certificate Not Found' })}</h3>
               <p className="font-cairo-medium-base text-red-600 mt-1">{errorMsg}</p>
             </div>
           )}
@@ -98,43 +98,43 @@ export default function VerifyCertificateForm() {
                 <div className="flex items-center gap-3 mb-6 pb-6 border-b border-black/5">
                   <CheckCircle2 className="size-8 text-green-600 shrink-0" />
                   <div>
-                    <h3 className="font-cairo-bold-xl text-green-700">{t('successMessage')}</h3>
-                    <p className="font-cairo-medium-sm text-greyNormal">{t('certificateCode')}: <span className="font-cairo-bold-sm text-greyDark uppercase">{result.code}</span></p>
+                    <h3 className="font-cairo-bold-xl text-green-700">{t('successMessage', { defaultValue: 'Certificate Verified Successfully' })}</h3>
+                    <p className="font-cairo-medium-sm text-greyNormal">{t('certificateCode', { defaultValue: 'Certificate Code' })}: <span className="font-cairo-bold-sm text-greyDark uppercase">{result.code}</span></p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8">
                   <div className="flex flex-col gap-1.5">
                     <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
-                      <User className="size-4" /> {t('studentName')}
+                      <User className="size-4" /> {t('studentName', { defaultValue: 'Student Name' })}
                     </span>
                     <span className="font-cairo-bold-lg text-greyDark">{result.studentName}</span>
                   </div>
                   
                   <div className="flex flex-col gap-1.5">
                     <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
-                      <BookOpen className="size-4" /> {t('courseName')}
+                      <BookOpen className="size-4" /> {t('courseName', { defaultValue: 'Course Name' })}
                     </span>
                     <span className="font-cairo-bold-lg text-blueNormal">{result.courseName}</span>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
                     <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
-                      <Hash className="size-4" /> {t('courseNumber')}
+                      <Hash className="size-4" /> {t('courseNumber', { defaultValue: 'Course Number' })}
                     </span>
                     <span className="font-cairo-bold-base text-greyDark">{result.courseNumber}</span>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
                     <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
-                      <Calendar className="size-4" /> {t('date')}
+                      <Calendar className="size-4" /> {t('date', { defaultValue: 'Date' })}
                     </span>
                     <span className="font-cairo-bold-base text-greyDark">{result.date}</span>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
                     <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
-                      <MapPin className="size-4" /> {t('country')}
+                      <MapPin className="size-4" /> {t('country', { defaultValue: 'Country' })}
                     </span>
                     <span className="font-cairo-bold-base text-greyDark">{result.country}</span>
                   </div>

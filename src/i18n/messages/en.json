@@ -432,6 +432,11 @@
       "uploadButton": "Upload File",
       "importSuccess": "Successfully imported {inserted} certificates. Skipped: {skipped}",
       "importError": "Failed to import certificates",
+      "editCertificate": "Edit Certificate",
+      "updateSuccess": "Certificate updated successfully",
+      "updateError": "Failed to update certificate",
+      "cancel": "Cancel",
+      "save": "Save Changes",
       "table": {
         "studentName": "Student Name",
         "code": "Code",
@@ -1130,5 +1135,20 @@
     "subtitle": "We are thrilled to have you here. Explore our courses, start learning, and take your skills to the next level. Your journey begins now.",
     "browseCourses": "Browse Courses",
     "goHome": "Go to Homepage"
+  },
+  "VerifyCertificate": {
+    "title": "Verify Your Certificate",
+    "subtitle": "Enter your unique certificate code to verify its authenticity.",
+    "codePlaceholder": "Enter certificate code...",
+    "verifyButton": "Verify",
+    "notFound": "Certificate Not Found",
+    "successMessage": "Certificate Verified Successfully",
+    "errorMessage": "Certificate not found or invalid code.",
+    "certificateCode": "Certificate Code",
+    "studentName": "Student Name",
+    "courseName": "Course Name",
+    "courseNumber": "Course Number",
+    "date": "Date",
+    "country": "Country"
   }
 }
