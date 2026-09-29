@@ -3,15 +3,19 @@
 import { useState, useMemo } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { COUNTRIES } from '@/shared/lib/countries';
-import { Pencil, Trash2, Plus, Filter } from 'lucide-react';
+import { Pencil, Trash2, Plus, Filter, X } from 'lucide-react';
 import {
   useGetAllPaymentMethodsQuery,
   useDeletePaymentMethodMutation,
 } from '../hooks/use-payment-methods-api';
+import { deletePaymentMethod } from '../api/payment-methods-api';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 import { CountryPaymentMethodResponse } from '../lib/types/payment-method-types';
 import { toast } from 'sonner';
 import PaymentMethodModal from './payment-method-modal';
 import { DeletePaymentMethodModal } from './delete-payment-method-modal';
+import { ConfirmModal } from '@/features/notifications/components/admin/confirm-modal';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   useReactTable,
   getCoreRowModel,
@@ -23,6 +27,7 @@ export default function PaymentMethodsList() {
   const t = useTranslations('Dashboard.paymentMethods');
   const locale = useLocale();
   const isRTL = locale === 'ar';
+  const queryClient = useQueryClient();
   
   const { data: paymentMethods = [], isLoading, isError } =
     useGetAllPaymentMethodsQuery();
@@ -42,6 +47,11 @@ export default function PaymentMethodsList() {
   const [deleteTarget, setDeleteTarget] =
     useState<CountryPaymentMethodResponse | null>(null);
 
+  /* ─── Bulk delete state ─── */
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   /* ─── Country filter ─── */
   const [countryFilter, setCountryFilter] = useState<string>('all');
 
@@ -54,6 +64,42 @@ export default function PaymentMethodsList() {
     if (countryFilter === 'all') return paymentMethods;
     return paymentMethods.filter((m) => m.countryCode === countryFilter);
   }, [paymentMethods, countryFilter]);
+
+  /* ─── Selection Logic ─── */
+  const allSelected = filteredMethods.length > 0 && filteredMethods.every((item) => selectedIds.has(item.id));
+  const someSelected = filteredMethods.some((item) => selectedIds.has(item.id));
+
+  const toggleSelectAll = () => {
+    if (allSelected) {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        filteredMethods.forEach((item) => next.delete(item.id));
+        return next;
+      });
+    } else {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        filteredMethods.forEach((item) => next.add(item.id));
+        return next;
+      });
+    }
+  };
+
+  const toggleSelectOne = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const clearSelection = () => {
+    setSelectedIds(new Set());
+  };
 
   /* ─── Handlers ─── */
   const openCreateModal = () => {
@@ -75,6 +121,11 @@ export default function PaymentMethodsList() {
             defaultValue: 'Payment method deleted successfully',
           })
         );
+        setSelectedIds((prev) => {
+          const next = new Set(prev);
+          next.delete(deleteTarget.id);
+          return next;
+        });
         setDeleteTarget(null);
       },
       onError: () => {
@@ -87,11 +138,72 @@ export default function PaymentMethodsList() {
     });
   };
 
+  const handleBulkDeleteConfirm = async () => {
+    if (selectedIds.size === 0) return;
+    setIsDeleting(true);
+
+    const idsToDelete = Array.from(selectedIds);
+    const results = await Promise.allSettled(
+      idsToDelete.map((id) => unwrap(deletePaymentMethod(id)))
+    );
+
+    const succeeded = results.filter((r) => r.status === 'fulfilled').length;
+    const failed = results.filter((r) => r.status === 'rejected').length;
+
+    if (failed === 0) {
+      toast.success(
+        t('bulkDeleteSuccess', {
+          defaultValue: `${succeeded} payment method(s) deleted successfully`,
+          count: succeeded,
+        })
+      );
+    } else if (succeeded > 0) {
+      toast.warning(
+        t('bulkDeletePartial', {
+          defaultValue: `${succeeded} deleted, ${failed} failed`,
+          succeeded,
+          failed,
+        })
+      );
+    } else {
+      toast.error(
+        t('bulkDeleteError', { defaultValue: 'Failed to delete payment methods' })
+      );
+    }
+
+    queryClient.invalidateQueries({ queryKey: ['paymentMethods'] });
+    setSelectedIds(new Set());
+    setIsBulkDeleteModalOpen(false);
+    setIsDeleting(false);
+  };
+
   /* ─── Table columns ─── */
   const columnHelper = createColumnHelper<CountryPaymentMethodResponse>();
 
   const columns = useMemo(
     () => [
+      columnHelper.display({
+        id: 'select',
+        header: () => (
+          <input
+            type="checkbox"
+            checked={allSelected}
+            ref={(el) => {
+              if (el) el.indeterminate = someSelected && !allSelected;
+            }}
+            onChange={toggleSelectAll}
+            className="size-4 rounded border-gray-300 text-blueNormal focus:ring-blueNormal cursor-pointer accent-[var(--color-blueNormal)]"
+          />
+        ),
+        cell: (info) => (
+          <input
+            type="checkbox"
+            checked={selectedIds.has(info.row.original.id)}
+            onChange={() => toggleSelectOne(info.row.original.id)}
+            className="size-4 rounded border-gray-300 text-blueNormal focus:ring-blueNormal cursor-pointer accent-[var(--color-blueNormal)]"
+          />
+        ),
+      }),
       columnHelper.display({
         id: 'logo',
         header: () => t('table.logo', { defaultValue: 'Logo' }),
@@ -167,7 +279,7 @@ export default function PaymentMethodsList() {
         },
       }),
     ],
-    [t]
+    [t, allSelected, someSelected, selectedIds]
   );
 
   const table = useReactTable({
@@ -230,13 +342,39 @@ export default function PaymentMethodsList() {
 
       {/* ─── Table ─── */}
       <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden">
+        
+        {/* Bulk Action Bar */}
+        {selectedIds.size > 0 && (
+          <div className="p-5 border-b border-black/5 flex justify-end">
+            <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-2 animate-in fade-in slide-in-from-right-4 duration-200">
+              <span className="font-cairo-semibold-sm text-red-700">
+                {selectedIds.size} {t('selected', { defaultValue: 'selected' })}
+              </span>
+              <button
+                onClick={() => setIsBulkDeleteModalOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg font-cairo-semibold-sm hover:bg-red-700 transition-colors cursor-pointer text-sm"
+              >
+                <Trash2 className="size-3.5" />
+                {t('deleteSelected', { defaultValue: 'Delete Selected' })}
+              </button>
+              <button
+                onClick={clearSelection}
+                className="p-1 text-red-400 hover:text-red-600 transition-colors cursor-pointer"
+                title={t('clearSelection', { defaultValue: 'Clear selection' })}
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="overflow-x-auto">
           <table className="w-full text-start">
-            <thead className="bg-black/5 border-b border-black/5 font-cairo-bold-base text-greyDark">
+            <thead className="bg-gray-50 border-b border-black/5">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <th key={header.id} className="px-6 py-4 text-start">
+                    <th key={header.id} className={`px-6 py-4 text-start font-cairo-semibold-sm text-greyNormal whitespace-nowrap ${header.id === 'select' ? 'w-12' : ''}`}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -248,7 +386,7 @@ export default function PaymentMethodsList() {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-black/5 font-cairo-medium-base text-greyDarker">
+            <tbody className="divide-y divide-black/5">
               {table.getRowModel().rows.length === 0 ? (
                 <tr>
                   <td
@@ -261,21 +399,26 @@ export default function PaymentMethodsList() {
                   </td>
                 </tr>
               ) : (
-                table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="hover:bg-black/5 transition-colors"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-6 py-4">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))
+                table.getRowModel().rows.map((row) => {
+                  const isRowSelected = selectedIds.has(row.original.id);
+                  return (
+                    <tr
+                      key={row.id}
+                      className={`border-b border-black/5 transition-colors ${
+                        isRowSelected ? 'bg-blue-50/60 hover:bg-blue-50' : 'hover:bg-gray-50'
+                      }`}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id} className="px-6 py-4">
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -291,7 +434,7 @@ export default function PaymentMethodsList() {
         />
       )}
 
-      {/* ─── Delete Confirmation Modal ─── */}
+      {/* ─── Single Delete Confirmation Modal ─── */}
       {deleteTarget && (
         <DeletePaymentMethodModal
           isOpen={!!deleteTarget}
@@ -301,6 +444,25 @@ export default function PaymentMethodsList() {
           methodTitle={deleteTarget.title}
         />
       )}
+
+      {/* ─── Bulk Delete Confirmation Modal ─── */}
+      <ConfirmModal
+        isOpen={isBulkDeleteModalOpen}
+        onClose={() => setIsBulkDeleteModalOpen(false)}
+        onConfirm={handleBulkDeleteConfirm}
+        title={t('bulkDeleteTitle', { defaultValue: 'Delete Selected Payment Methods' })}
+        message={t('bulkDeleteMessage', {
+          defaultValue: `Are you sure you want to delete ${selectedIds.size} payment method(s)? This action cannot be undone.`,
+          count: selectedIds.size,
+        })}
+        confirmText={t('bulkDeleteConfirm', {
+          defaultValue: `Delete ${selectedIds.size} Payment Method(s)`,
+          count: selectedIds.size,
+        })}
+        cancelText={t('modal.cancel', { defaultValue: 'Cancel' })}
+        isDestructive={true}
+        isLoading={isDeleting}
+      />
     </div>
   );
 }

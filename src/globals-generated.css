@@ -1816,6 +1816,12 @@
   .bg-blue-50 {
     background-color: var(--color-blue-50);
   }
+  .bg-blue-50\/60 {
+    background-color: color-mix(in srgb, oklch(97% 0.014 254.604) 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-blue-50) 60%, transparent);
+    }
+  }
   .bg-blueLight {
     background-color: var(--color-blueLight);
   }
@@ -2740,8 +2746,17 @@
   .text-\[\#1a1a2e\] {
     color: #1a1a2e;
   }
+  .text-\[\#005b9e\] {
+    color: #005b9e;
+  }
   .text-\[\#9CA3AF\] {
     color: #9CA3AF;
+  }
+  .text-\[\#404040\] {
+    color: #404040;
+  }
+  .text-\[\#c4c4c4\] {
+    color: #c4c4c4;
   }
   .text-\[\#e36a29\] {
     color: #e36a29;
@@ -3026,6 +3041,9 @@
   .antialiased {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  .accent-\[var\(--color-blueNormal\)\] {
+    accent-color: var(--color-blueNormal);
   }
   .opacity-0 {
     opacity: 0%;
@@ -3613,6 +3631,9 @@
       .hover\:bg-black\/\[0\.02\]:hover {
         background-color: color-mix(in oklab, var(--color-black) 2%, transparent);
       }
+    }
+    .hover\:bg-blue-50:hover {
+      background-color: var(--color-blue-50);
     }
     .hover\:bg-blueDark:hover {
       background-color: var(--color-blueDark);

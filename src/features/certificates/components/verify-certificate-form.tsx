@@ -54,7 +54,7 @@ export default function VerifyCertificateForm() {
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto relative z-10 ">
           <div className="relative flex-1">
             <div className="absolute inset-y-0 start-0 pl-4 rtl:pr-4 flex items-center pointer-events-none">
-              <Search className="size-5 text-greyNormal" />
+              <Search className="size-5 text-[#404040]" />
             </div>
             <input
               type="text"
@@ -105,35 +105,35 @@ export default function VerifyCertificateForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8">
                   <div className="flex flex-col gap-1.5">
-                    <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
+                    <span className="font-cairo-medium-sm text-[#404040] flex items-center gap-1.5">
                       <User className="size-4" /> {t('studentName', { defaultValue: 'Student Name' })}
                     </span>
                     <span className="font-cairo-bold-lg text-greyDark">{result.studentName}</span>
                   </div>
                   
                   <div className="flex flex-col gap-1.5">
-                    <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
+                    <span className="font-cairo-medium-sm text-[#404040] flex items-center gap-1.5">
                       <BookOpen className="size-4" /> {t('courseName', { defaultValue: 'Course Name' })}
                     </span>
                     <span className="font-cairo-bold-lg text-blueNormal">{result.courseName}</span>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
+                    <span className="font-cairo-medium-sm text-[#404040] flex items-center gap-1.5">
                       <Hash className="size-4" /> {t('courseNumber', { defaultValue: 'Course Number' })}
                     </span>
                     <span className="font-cairo-bold-base text-greyDark">{result.courseNumber}</span>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
+                    <span className="font-cairo-medium-sm text-[#404040] flex items-center gap-1.5">
                       <Calendar className="size-4" /> {t('date', { defaultValue: 'Date' })}
                     </span>
                     <span className="font-cairo-bold-base text-greyDark">{result.date}</span>
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <span className="font-cairo-medium-sm text-greyNormal flex items-center gap-1.5">
+                    <span className="font-cairo-medium-sm text-[#404040] flex items-center gap-1.5">
                       <MapPin className="size-4" /> {t('country', { defaultValue: 'Country' })}
                     </span>
                     <span className="font-cairo-bold-base text-greyDark">{result.country}</span>

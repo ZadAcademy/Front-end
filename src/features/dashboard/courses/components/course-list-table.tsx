@@ -3,8 +3,9 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Pencil, Trash2, Loader2 } from 'lucide-react';
+import { Pencil, Trash2, Loader2, X } from 'lucide-react';
 import { toast } from 'sonner';
+import { useState, useMemo } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -28,7 +29,10 @@ import {
   useDeleteCourseMutation,
 } from '../hooks/use-course-api';
 import { DeleteCourseModal } from './delete-course-modal';
-import { useState } from 'react';
+import { ConfirmModal } from '@/features/notifications/components/admin/confirm-modal';
+import { useQueryClient } from '@tanstack/react-query';
+import { deleteCourse as deleteCourseApi } from '../api/delete-course-api';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 
 interface CourseListTableProps {
   data: CourseApiItem[];
@@ -37,12 +41,54 @@ interface CourseListTableProps {
 export function CourseListTable({ data }: CourseListTableProps) {
   const t = useTranslations('Dashboard.courseList');
   const tDashboard = useTranslations('Dashboard');
+  const queryClient = useQueryClient();
 
   const { mutate: updateStatus, isPending: isUpdatingStatus } = useUpdateCourseStatusMutation();
   const { mutate: updatePreview, isPending: isUpdatingPreview } = useUpdateCoursePreviewMutation();
   const { mutate: deleteCourse, isPending: isDeleting } = useDeleteCourseMutation();
 
   const [courseToDelete, setCourseToDelete] = useState<string | null>(null);
+
+  /* ─── Bulk delete state ─── */
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] = useState(false);
+  const [isBulkDeleting, setIsBulkDeleting] = useState(false);
+
+  /* ─── Selection Logic ─── */
+  const allSelected = data.length > 0 && data.every((item) => selectedIds.has(String(item.id)));
+  const someSelected = data.some((item) => selectedIds.has(String(item.id)));
+
+  const toggleSelectAll = () => {
+    if (allSelected) {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        data.forEach((item) => next.delete(String(item.id)));
+        return next;
+      });
+    } else {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        data.forEach((item) => next.add(String(item.id)));
+        return next;
+      });
+    }
+  };
+
+  const toggleSelectOne = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const clearSelection = () => {
+    setSelectedIds(new Set());
+  };
 
   const handleStatusChange = (courseId: string, newStatusStr: string) => {
     const newStatus = Number(newStatusStr);
@@ -80,6 +126,11 @@ export function CourseListTable({ data }: CourseListTableProps) {
         {
           onSuccess: () => {
             toast.success(tDashboard('addCourse.toasts.courseDeleted'));
+            setSelectedIds((prev) => {
+              const next = new Set(prev);
+              next.delete(courseToDelete);
+              return next;
+            });
             setCourseToDelete(null);
           },
           onError: () => {
@@ -91,9 +142,71 @@ export function CourseListTable({ data }: CourseListTableProps) {
     }
   };
 
+  const handleBulkDeleteConfirm = async () => {
+    if (selectedIds.size === 0) return;
+    setIsBulkDeleting(true);
+
+    const idsToDelete = Array.from(selectedIds);
+    const results = await Promise.allSettled(
+      idsToDelete.map((id) => unwrap(deleteCourseApi(id)))
+    );
+
+    const succeeded = results.filter((r) => r.status === 'fulfilled').length;
+    const failed = results.filter((r) => r.status === 'rejected').length;
+
+    if (failed === 0) {
+      toast.success(
+        t('bulkDeleteSuccess', {
+          defaultValue: `${succeeded} course(s) deleted successfully`,
+          count: succeeded,
+        })
+      );
+    } else if (succeeded > 0) {
+      toast.warning(
+        t('bulkDeletePartial', {
+          defaultValue: `${succeeded} deleted, ${failed} failed`,
+          succeeded,
+          failed,
+        })
+      );
+    } else {
+      toast.error(
+        t('bulkDeleteError', { defaultValue: 'Failed to delete courses' })
+      );
+    }
+
+    queryClient.invalidateQueries({ queryKey: ['courses'] });
+    queryClient.invalidateQueries({ queryKey: ['admin-courses'] });
+    setSelectedIds(new Set());
+    setIsBulkDeleteModalOpen(false);
+    setIsBulkDeleting(false);
+  };
+
   const columnHelper = createColumnHelper<CourseApiItem>();
 
-  const columns = [
+  const columns = useMemo(() => [
+    columnHelper.display({
+      id: 'select',
+      header: () => (
+        <input
+          type="checkbox"
+          checked={allSelected}
+          ref={(el) => {
+            if (el) el.indeterminate = someSelected && !allSelected;
+          }}
+          onChange={toggleSelectAll}
+          className="size-4 rounded border-gray-300 text-blueNormal focus:ring-blueNormal cursor-pointer accent-[var(--color-blueNormal)]"
+        />
+      ),
+      cell: (info) => (
+        <input
+          type="checkbox"
+          checked={selectedIds.has(String(info.row.original.id))}
+          onChange={() => toggleSelectOne(String(info.row.original.id))}
+          className="size-4 rounded border-gray-300 text-blueNormal focus:ring-blueNormal cursor-pointer accent-[var(--color-blueNormal)]"
+        />
+      ),
+    }),
     columnHelper.accessor('cardImageUrl', {
       header: () => t('table.image'),
       cell: (info) => (
@@ -106,7 +219,9 @@ export function CourseListTable({ data }: CourseListTableProps) {
               className="object-cover"
             />
           ) : (
-            <div className="h-full w-full bg-gray-200"></div>
+            <div className="h-full w-full bg-gray-200 border border-black/5 flex items-center justify-center">
+              <span className="text-[10px] text-gray-400 font-cairo-medium-sm text-center px-1">No Image</span>
+            </div>
           )}
         </div>
       ),
@@ -208,7 +323,7 @@ export function CourseListTable({ data }: CourseListTableProps) {
         </div>
       ),
     }),
-  ];
+  ], [t, tDashboard, allSelected, someSelected, selectedIds, isDeleting, isUpdatingStatus, isUpdatingPreview]);
 
   const table = useReactTable({
     data,
@@ -218,14 +333,40 @@ export function CourseListTable({ data }: CourseListTableProps) {
 
   return (
     <>
-      <div className="w-full bg-white rounded-xl shadow-sm border border-black/5 overflow-hidden">
+      <div className="w-full bg-white rounded-xl shadow-sm border border-black/5 overflow-hidden flex flex-col">
+        
+        {/* Bulk Action Bar */}
+        {selectedIds.size > 0 && (
+          <div className="p-5 border-b border-black/5 flex justify-end">
+            <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-2 animate-in fade-in slide-in-from-right-4 duration-200">
+              <span className="font-cairo-semibold-sm text-red-700">
+                {selectedIds.size} {t('selected', { defaultValue: 'selected' })}
+              </span>
+              <button
+                onClick={() => setIsBulkDeleteModalOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg font-cairo-semibold-sm hover:bg-red-700 transition-colors cursor-pointer text-sm"
+              >
+                <Trash2 className="size-3.5" />
+                {t('deleteSelected', { defaultValue: 'Delete Selected' })}
+              </button>
+              <button
+                onClick={clearSelection}
+                className="p-1 text-red-400 hover:text-red-600 transition-colors cursor-pointer"
+                title={t('clearSelection', { defaultValue: 'Clear selection' })}
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-          <thead className="text-xs text-greyDarker uppercase bg-gray-50 border-b border-black/5 font-cairo-bold-sm">
+          <table className="w-full text-start">
+          <thead className="bg-gray-50 border-b border-black/5">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="px-6 py-4 whitespace-nowrap">
+                  <th key={header.id} className={`px-6 py-4 text-start font-cairo-semibold-sm text-greyNormal whitespace-nowrap ${header.id === 'select' ? 'w-12' : ''}`}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -234,20 +375,25 @@ export function CourseListTable({ data }: CourseListTableProps) {
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-black/5">
             {table.getRowModel().rows.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
-                <tr
-                  key={row.id}
-                  className="bg-white border-b border-black/5 hover:bg-gray-50 transition-colors"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
-                </tr>
-              ))
+              table.getRowModel().rows.map((row) => {
+                const isRowSelected = selectedIds.has(String(row.original.id));
+                return (
+                  <tr
+                    key={row.id}
+                    className={`border-b border-black/5 transition-colors ${
+                      isRowSelected ? 'bg-blue-50/60 hover:bg-blue-50' : 'hover:bg-gray-50'
+                    }`}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })
             ) : (
               <tr>
                 <td
@@ -267,6 +413,24 @@ export function CourseListTable({ data }: CourseListTableProps) {
       onClose={() => setCourseToDelete(null)}
       onConfirm={confirmDelete}
       isDeleting={isDeleting}
+    />
+
+    <ConfirmModal
+      isOpen={isBulkDeleteModalOpen}
+      onClose={() => setIsBulkDeleteModalOpen(false)}
+      onConfirm={handleBulkDeleteConfirm}
+      title={t('bulkDeleteTitle', { defaultValue: 'Delete Selected Courses' })}
+      message={t('bulkDeleteMessage', {
+        defaultValue: `Are you sure you want to delete ${selectedIds.size} course(s)? This action cannot be undone.`,
+        count: selectedIds.size,
+      })}
+      confirmText={t('bulkDeleteConfirm', {
+        defaultValue: `Delete ${selectedIds.size} Course(s)`,
+        count: selectedIds.size,
+      })}
+      cancelText={t('cancel', { defaultValue: 'Cancel' })}
+      isDestructive={true}
+      isLoading={isBulkDeleting}
     />
   </>
   );

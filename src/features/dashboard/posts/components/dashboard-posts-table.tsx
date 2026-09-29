@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
-import { Eye, EyeOff, Edit, Trash2, Plus, Loader2, Image as ImageIcon } from 'lucide-react';
+import { Eye, EyeOff, Edit, Trash2, Plus, Loader2, Image as ImageIcon, X } from 'lucide-react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -13,12 +13,17 @@ import {
 import { toast } from 'sonner';
 
 import { useGetPostsQuery, useDeletePostMutation, useTogglePostVisibilityMutation } from '@/features/posts/hooks/use-posts-api';
+import { deletePost } from '@/features/posts/api/posts-api';
+import { unwrap } from '@/shared/lib/utils/api-utils';
 import PostFormModal from '@/features/posts/components/post-form-modal';
 import { Post } from '@/features/posts/lib/types/posts-types';
+import { ConfirmModal } from '@/features/notifications/components/admin/confirm-modal';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function DashboardPostsTable() {
   const t = useTranslations('Posts');
   const { data: session } = useSession();
+  const queryClient = useQueryClient();
   
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -26,7 +31,14 @@ export default function DashboardPostsTable() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
 
+  /* ─── Bulk delete state ─── */
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const { data, isLoading, isError } = useGetPostsQuery({ page, pageSize });
+  const posts = useMemo(() => data?.items || [], [data?.items]);
+
   const deleteMutation = useDeletePostMutation();
   const toggleVisibilityMutation = useTogglePostVisibilityMutation();
 
@@ -34,6 +46,42 @@ export default function DashboardPostsTable() {
   const canCreate = permissions.includes('posts:create') || (session?.user as any)?.role === 'SuperAdmin';
   const canUpdate = permissions.includes('posts:update') || (session?.user as any)?.role === 'SuperAdmin';
   const canDelete = permissions.includes('posts:delete') || (session?.user as any)?.role === 'SuperAdmin';
+
+  /* ─── Selection Logic ─── */
+  const allSelected = posts.length > 0 && posts.every((item) => selectedIds.has(item.id));
+  const someSelected = posts.some((item) => selectedIds.has(item.id));
+
+  const toggleSelectAll = () => {
+    if (allSelected) {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        posts.forEach((item) => next.delete(item.id));
+        return next;
+      });
+    } else {
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        posts.forEach((item) => next.add(item.id));
+        return next;
+      });
+    }
+  };
+
+  const toggleSelectOne = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const clearSelection = () => {
+    setSelectedIds(new Set());
+  };
 
   const handleCreate = () => {
     setEditingPost(null);
@@ -48,10 +96,56 @@ export default function DashboardPostsTable() {
   const handleDelete = (id: string) => {
     if (confirm(t('confirmDelete', { defaultValue: 'Are you sure you want to delete this post?' }))) {
       deleteMutation.mutate(id, {
-        onSuccess: () => toast.success(t('deleteSuccess', { defaultValue: 'Post deleted successfully' })),
+        onSuccess: () => {
+          toast.success(t('deleteSuccess', { defaultValue: 'Post deleted successfully' }));
+          setSelectedIds((prev) => {
+            const next = new Set(prev);
+            next.delete(id);
+            return next;
+          });
+        },
         onError: (error) => toast.error(error.message || t('deleteFailed', { defaultValue: 'Failed to delete post' }))
       });
     }
+  };
+
+  const handleBulkDeleteConfirm = async () => {
+    if (selectedIds.size === 0) return;
+    setIsDeleting(true);
+
+    const idsToDelete = Array.from(selectedIds);
+    const results = await Promise.allSettled(
+      idsToDelete.map((id) => unwrap(deletePost(id)))
+    );
+
+    const succeeded = results.filter((r) => r.status === 'fulfilled').length;
+    const failed = results.filter((r) => r.status === 'rejected').length;
+
+    if (failed === 0) {
+      toast.success(
+        t('bulkDeleteSuccess', {
+          defaultValue: `${succeeded} post(s) deleted successfully`,
+          count: succeeded,
+        })
+      );
+    } else if (succeeded > 0) {
+      toast.warning(
+        t('bulkDeletePartial', {
+          defaultValue: `${succeeded} deleted, ${failed} failed`,
+          succeeded,
+          failed,
+        })
+      );
+    } else {
+      toast.error(
+        t('bulkDeleteError', { defaultValue: 'Failed to delete posts' })
+      );
+    }
+
+    queryClient.invalidateQueries({ queryKey: ['posts'] });
+    setSelectedIds(new Set());
+    setIsBulkDeleteModalOpen(false);
+    setIsDeleting(false);
   };
 
   const handleToggleVisibility = (id: string) => {
@@ -64,7 +158,36 @@ export default function DashboardPostsTable() {
   const columnHelper = createColumnHelper<Post>();
 
   const columns = useMemo(() => {
-    const cols: any[] = [
+    const cols: any[] = [];
+    
+    if (canDelete) {
+      cols.push(
+        columnHelper.display({
+          id: 'select',
+          header: () => (
+            <input
+              type="checkbox"
+              checked={allSelected}
+              ref={(el) => {
+                if (el) el.indeterminate = someSelected && !allSelected;
+              }}
+              onChange={toggleSelectAll}
+              className="size-4 rounded border-gray-300 text-blueNormal focus:ring-blueNormal cursor-pointer accent-[var(--color-blueNormal)]"
+            />
+          ),
+          cell: (info) => (
+            <input
+              type="checkbox"
+              checked={selectedIds.has(info.row.original.id)}
+              onChange={() => toggleSelectOne(info.row.original.id)}
+              className="size-4 rounded border-gray-300 text-blueNormal focus:ring-blueNormal cursor-pointer accent-[var(--color-blueNormal)]"
+            />
+          ),
+        })
+      );
+    }
+
+    cols.push(
       columnHelper.accessor('title', {
         header: () => t('table.title', { defaultValue: 'Post Details' }),
         cell: info => {
@@ -113,8 +236,8 @@ export default function DashboardPostsTable() {
             </span>
           );
         },
-      }),
-    ];
+      })
+    );
 
     if (canUpdate || canDelete) {
       cols.push(
@@ -129,7 +252,7 @@ export default function DashboardPostsTable() {
                   <>
                     <button
                       onClick={() => handleToggleVisibility(post.id)}
-                      className={`p-2 rounded-lg transition-colors ${
+                      className={`p-2 rounded-lg transition-colors cursor-pointer ${
                         post.isPublic 
                           ? 'text-green-500 bg-green-50 hover:bg-green-600 hover:text-white' 
                           : 'text-orange-500 bg-orange-50 hover:bg-orange-600 hover:text-white'
@@ -140,7 +263,7 @@ export default function DashboardPostsTable() {
                     </button>
                     <button
                       onClick={() => handleEdit(post)}
-                      className="p-2 text-blueNormal bg-blueNormal/10 rounded-lg hover:bg-blueNormal hover:text-white transition-colors"
+                      className="p-2 text-blueNormal bg-blueNormal/10 rounded-lg hover:bg-blueNormal hover:text-white transition-colors cursor-pointer"
                       title={t('edit', { defaultValue: 'Edit Post' })}
                     >
                       <Edit className="size-4" />
@@ -150,7 +273,7 @@ export default function DashboardPostsTable() {
                 {canDelete && (
                   <button
                     onClick={() => handleDelete(post.id)}
-                    className="p-2 text-red-600 bg-red-50 rounded-lg hover:bg-red-600 hover:text-white transition-colors"
+                    className="p-2 text-red-600 bg-red-50 rounded-lg hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
                     title={t('delete', { defaultValue: 'Delete Post' })}
                   >
                     <Trash2 className="size-4" />
@@ -164,10 +287,10 @@ export default function DashboardPostsTable() {
     }
 
     return cols;
-  }, [t, canUpdate, canDelete, toggleVisibilityMutation, deleteMutation]);
+  }, [t, canUpdate, canDelete, toggleVisibilityMutation, deleteMutation, allSelected, someSelected, selectedIds]);
 
   const table = useReactTable({
-    data: data?.items || [],
+    data: posts,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -191,20 +314,46 @@ export default function DashboardPostsTable() {
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden flex flex-col min-h-[400px]">
+        
+        {/* Bulk Action Bar */}
+        {selectedIds.size > 0 && (
+          <div className="p-5 border-b border-black/5 flex justify-end">
+            <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-4 py-2 animate-in fade-in slide-in-from-right-4 duration-200">
+              <span className="font-cairo-semibold-sm text-red-700">
+                {selectedIds.size} {t('selected', { defaultValue: 'selected' })}
+              </span>
+              <button
+                onClick={() => setIsBulkDeleteModalOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg font-cairo-semibold-sm hover:bg-red-700 transition-colors cursor-pointer text-sm"
+              >
+                <Trash2 className="size-3.5" />
+                {t('deleteSelected', { defaultValue: 'Delete Selected' })}
+              </button>
+              <button
+                onClick={clearSelection}
+                className="p-1 text-red-400 hover:text-red-600 transition-colors cursor-pointer"
+                title={t('clearSelection', { defaultValue: 'Clear selection' })}
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="overflow-x-auto flex-1">
           <table className="w-full text-start">
-            <thead className="bg-black/5 border-b border-black/5 font-cairo-bold-base text-greyDark">
+            <thead className="bg-gray-50 border-b border-black/5">
               {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map(header => (
-                    <th key={header.id} className="px-6 py-4 text-start">
+                    <th key={header.id} className={`px-6 py-4 text-start font-cairo-semibold-sm text-greyNormal whitespace-nowrap ${header.id === 'select' ? 'w-12' : ''}`}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </th>
                   ))}
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-black/5 font-cairo-medium-base text-greyDarker">
+            <tbody className="divide-y divide-black/5">
               {isLoading ? (
                 <tr>
                   <td colSpan={columns.length} className="px-6 py-12 text-center text-greyNormal">
@@ -221,15 +370,23 @@ export default function DashboardPostsTable() {
                   </td>
                 </tr>
               ) : (
-                table.getRowModel().rows.map(row => (
-                  <tr key={row.id} className="hover:bg-black/5 transition-colors">
-                    {row.getVisibleCells().map(cell => (
-                      <td key={cell.id} className="px-6 py-4">
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    ))}
-                  </tr>
-                ))
+                table.getRowModel().rows.map(row => {
+                  const isRowSelected = selectedIds.has(row.original.id);
+                  return (
+                    <tr 
+                      key={row.id} 
+                      className={`border-b border-black/5 transition-colors ${
+                        isRowSelected ? 'bg-blue-50/60 hover:bg-blue-50' : 'hover:bg-gray-50'
+                      }`}
+                    >
+                      {row.getVisibleCells().map(cell => (
+                        <td key={cell.id} className="px-6 py-4">
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -245,14 +402,14 @@ export default function DashboardPostsTable() {
               <button
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={!data.hasPreviousPage}
-                className="px-4 py-2 rounded-lg bg-black/5 text-greyDark font-cairo-bold-sm disabled:opacity-50 hover:bg-black/10 transition-colors"
+                className="px-4 py-2 rounded-lg bg-black/5 text-greyDark font-cairo-bold-sm disabled:opacity-50 hover:bg-black/10 transition-colors cursor-pointer"
               >
                 {t('pagination.previous', { defaultValue: 'Previous' })}
               </button>
               <button
                 onClick={() => setPage(p => Math.min(data.totalPages, p + 1))}
                 disabled={!data.hasNextPage}
-                className="px-4 py-2 rounded-lg bg-black/5 text-greyDark font-cairo-bold-sm disabled:opacity-50 hover:bg-black/10 transition-colors"
+                className="px-4 py-2 rounded-lg bg-black/5 text-greyDark font-cairo-bold-sm disabled:opacity-50 hover:bg-black/10 transition-colors cursor-pointer"
               >
                 {t('pagination.next', { defaultValue: 'Next' })}
               </button>
@@ -268,6 +425,25 @@ export default function DashboardPostsTable() {
           postToEdit={editingPost}
         />
       )}
+
+      {/* ─── Bulk Delete Confirmation Modal ─── */}
+      <ConfirmModal
+        isOpen={isBulkDeleteModalOpen}
+        onClose={() => setIsBulkDeleteModalOpen(false)}
+        onConfirm={handleBulkDeleteConfirm}
+        title={t('bulkDeleteTitle', { defaultValue: 'Delete Selected Posts' })}
+        message={t('bulkDeleteMessage', {
+          defaultValue: `Are you sure you want to delete ${selectedIds.size} post(s)? This action cannot be undone.`,
+          count: selectedIds.size,
+        })}
+        confirmText={t('bulkDeleteConfirm', {
+          defaultValue: `Delete ${selectedIds.size} Post(s)`,
+          count: selectedIds.size,
+        })}
+        cancelText={t('cancel', { defaultValue: 'Cancel' })}
+        isDestructive={true}
+        isLoading={isDeleting}
+      />
     </div>
   );
 }
