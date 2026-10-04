@@ -330,6 +330,9 @@
   .pointer-events-none {
     pointer-events: none;
   }
+  .invisible {
+    visibility: hidden;
+  }
   .visible {
     visibility: visible;
   }
@@ -5285,6 +5288,7 @@
   initial-value: 0;
 }
 :root {
+  color-scheme: light;
   --bg-plain: var(--color-white);
   --bg-subtle: var(--color-zinc-50);
   --bg-muted: var(--color-zinc-100);

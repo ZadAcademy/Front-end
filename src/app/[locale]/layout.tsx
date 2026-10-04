@@ -67,7 +67,10 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body suppressHydrationWarning
         className="min-h-full flex flex-col bg-gradient-to-r from-[#CADCEA] via-[#F5F5F5] to-[#D9E6F0]">
         <Providers>
-          <ThemeProvider attribute='data-theme' defaultTheme='system' enableSystem disableTransitionOnChange storageKey='theme'>
+          {/* The UI is designed for light mode only. Following the OS ("system") theme turned
+              <html> dark (data-theme="dark" + color-scheme: dark) on devices/browsers in dark mode,
+              making inputs, native checkboxes, date-picker icons and text invisible on white cards. */}
+          <ThemeProvider attribute='data-theme' forcedTheme='light' defaultTheme='light' enableSystem={false} disableTransitionOnChange storageKey='theme'>
               {/* Global content wrapper — sections manage their own max-width */}
               <main className="flex-1 w-full">
               {children}
