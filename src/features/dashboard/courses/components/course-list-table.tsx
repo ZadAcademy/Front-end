@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 import Link from 'next/link';
 import { Pencil, Trash2, Loader2, X } from 'lucide-react';
 import { toast } from 'sonner';

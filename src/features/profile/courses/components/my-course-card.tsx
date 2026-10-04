@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { Star, PlayCircle, Clock } from 'lucide-react';

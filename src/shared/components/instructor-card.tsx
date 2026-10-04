@@ -1,7 +1,7 @@
 import { User, Briefcase } from 'lucide-react';
 import { InstructorCardProps } from '../lib/types/expert';
 import { FaLinkedin,FaFacebookF  } from "react-icons/fa";
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 
 export function InstructorCard({
   name,

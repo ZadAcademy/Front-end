@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { CourseCard } from '@/shared/components/course-card';
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 import Link from 'next/link';
 import { fetchCourses } from '@/features/home/lib/api/courses-api';
 import { cookies } from 'next/headers';

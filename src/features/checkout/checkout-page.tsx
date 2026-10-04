@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Loader2, ArrowRight, ArrowLeft, ShieldCheck, Info } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 import { useGetMyPaymentMethodsQuery } from '@/features/dashboard/payment-methods/hooks/use-payment-methods-api';
 import { useCourseDetails } from '@/features/course-details/hooks/use-course-details';
 import { useEnrollmentStatusQuery } from '@/features/course-details/hooks/use-enrollment';

@@ -1,6 +1,6 @@
 import { User, Clock, SquarePlay, Image as ImageIcon, Star } from 'lucide-react';
 import { CourseCardProps } from '../lib/types/course';
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 

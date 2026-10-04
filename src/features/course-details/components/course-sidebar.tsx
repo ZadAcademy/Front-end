@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 import Link from 'next/link';
 import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
 import { useSession } from 'next-auth/react';

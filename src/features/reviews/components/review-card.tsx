@@ -5,7 +5,7 @@ import StarRating from './star-rating';
 import { useLocale } from 'next-intl';
 import { formatDistanceToNow } from 'date-fns';
 import { ar, enUS } from 'date-fns/locale';
-import Image from 'next/image';
+import Image from '@/shared/ui/app-image';
 import { MoreVertical, Edit2, Trash2, Quote } from 'lucide-react';
 import { useState } from 'react';
 
