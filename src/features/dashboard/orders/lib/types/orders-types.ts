@@ -18,6 +18,14 @@ export interface OrderResponse {
   statusName: string;
   createdAt: string;
   updatedAt: string | null;
+  discountRequestId: string | null;
+  discountType: number | null;
+  discountTypeName: string | null;
+  discountPolicyPercent: number | null;
+  discountProofData: string[] | null;
+  discountCourseName: string | null;
+  discountCourseNumber: string | null;
+  discountNotes: string | null;
 }
 
 export interface PaginatedResult<T> {

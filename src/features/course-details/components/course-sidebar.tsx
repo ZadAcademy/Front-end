@@ -8,6 +8,7 @@ import { Play, Calendar, Award, Star, Users, BarChart, X } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { CourseDetails } from '@/features/dashboard/courses/api/get-course-by-id-api';
 import { useCourseSections } from '@/features/dashboard/courses/hooks/use-section-api';
+import ViewDiscountsButton from '@/features/ambassador-programs/components/view-discounts-button';
 
 /** Extract YouTube video ID from various URL formats */
 function getYouTubeId(url: string): string | null {
@@ -204,7 +205,13 @@ export default function CourseSidebar({ course, enrollment, isEnrollmentLoading,
               )}
             </div>
 
+            {/* ─── Ambassador discounts (hidden for enrolled / free courses) ─── */}
+            {enrollment?.status !== 'Enrolled' && !isCourseFree && (
+              <ViewDiscountsButton courseId={course.id} courseTitle={course.title} />
+            )}
+
           </div>
+
         </div>
       </div>
 

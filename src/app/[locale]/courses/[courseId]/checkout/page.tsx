@@ -7,7 +7,7 @@ export const metadata = {
 export default async function CheckoutRoute({
   params,
 }: {
-  params: Promise<{ courseId: string }>;
+  params: Promise<{ courseId: string; locale: string }>;
 }) {
   const { courseId } = await params;
   return <CheckoutPage courseId={courseId} />;

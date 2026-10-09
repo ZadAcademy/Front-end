@@ -18,6 +18,7 @@ import {
   Receipt,
   Bell,
   Award,
+  BadgePercent,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -92,6 +93,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
       label: t('paymentMethods', { defaultValue: 'Payment Methods' }),
       icon: CreditCard,
       href: '/dashboard/payment-methods',
+    },
+    {
+      key: 'ambassadors',
+      label: t('ambassadors', { defaultValue: 'Zad Ambassadors' }),
+      icon: BadgePercent,
+      href: '/dashboard/ambassadors',
     },
     {
       key: 'certificates',

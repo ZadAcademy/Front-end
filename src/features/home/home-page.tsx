@@ -6,6 +6,7 @@ import CoursesGrid from './components/courses-grid';
 import { useCourses } from './hooks/use-courses';
 import Link from 'next/link';
 import { Award } from 'lucide-react';
+import AmbassadorBanner from '@/features/ambassador-programs/components/ambassador-banner';
 
 export default function HomePage() {
   const t = useTranslations('HomePage');
@@ -46,6 +47,9 @@ export default function HomePage() {
               {t('verifyCertificate', { defaultValue: 'Verify Certificate' })}
             </Link>
           </div>
+
+          {/* ─── Ambassador Discounts Banner ─── */}
+          <AmbassadorBanner />
 
           {/* ─── Filter Panel ─── */}
           <CourseFilter

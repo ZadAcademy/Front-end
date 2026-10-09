@@ -30,21 +30,19 @@
     }
   },
   "VerifyCertificate": {
-    "title": "Verify Certificate",
-    "subtitle": "Enter the certificate code below to verify its authenticity and view student details.",
-    "codePlaceholder": "e.g. CERT-12345",
-    "verifyButton": "Verify Now",
-    "loading": "Verifying...",
+    "title": "Verify Your Certificate",
+    "subtitle": "Enter your unique certificate code to verify its authenticity.",
+    "codePlaceholder": "Enter certificate code...",
+    "verifyButton": "Verify",
+    "notFound": "Certificate Not Found",
     "successMessage": "Certificate Verified Successfully",
     "errorMessage": "Certificate not found or invalid code.",
-    "studentName": "Student Name",
     "certificateCode": "Certificate Code",
-    "country": "Country",
+    "studentName": "Student Name",
     "courseName": "Course Name",
     "courseNumber": "Course Number",
-    "date": "Issue Date",
-    "notFound": "Invalid Certificate Code",
-    "backToHome": "Back to Home"
+    "date": "Date",
+    "country": "Country"
   },
   "LandingPage": {
     "navbar": {
@@ -395,6 +393,7 @@
       "users": "Users",
       "posts": "Posts",
       "paymentMethods": "Payment Methods",
+      "ambassadors": "Zad Ambassadors",
       "orders": "Orders",
       "notifications": "Notifications",
       "certificates": "Certificates",
@@ -843,7 +842,12 @@
         "notifMessage": "Notification Message",
         "goBack": "Go Back",
         "confirmAcceptBtn": "Accept & Send Notification",
-        "confirmDenyBtn": "Deny & Send Notification"
+        "confirmDenyBtn": "Deny & Send Notification",
+        "discountRequest": "Discount Request",
+        "discountType": "Type",
+        "prevCourse": "Previous Course",
+        "proofData": "Provided Proof",
+        "notes": "Notes"
       }
     },
     "paymentMethods": {
@@ -920,6 +924,86 @@
         "generic": "An error occurred"
       }
     },
+    "ambassadors": {
+      "title": "Zad Ambassadors",
+      "subtitle": "Manage the discount policies granted through the ambassadors program.",
+      "error": "Failed to load discount policies",
+      "retry": "Retry",
+      "refresh": "Refresh",
+      "empty": "No discount policies found.",
+      "stats": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "types": {
+        "groupEnrollment": {
+          "name": "Group Enrollment",
+          "description": "Discount when a group of students enrolls together."
+        },
+        "engineerLeads": {
+          "name": "Engineer Leads",
+          "description": "Discount for students referred by an engineer ambassador."
+        },
+        "returningStudent": {
+          "name": "Returning Student",
+          "description": "Discount for students who have enrolled in a previous course."
+        },
+        "groupLinks": {
+          "name": "Group Links",
+          "description": "Discount granted through shared group invitation links."
+        }
+      },
+      "card": {
+        "discount": "discount",
+        "minItems": "Min items",
+        "maxItems": "Max items",
+        "grantExpiryDays": "Grant expiry",
+        "noLimit": "No limit",
+        "never": "Never",
+        "days": "{count, plural, one {# day} other {# days}}",
+        "edit": "Edit",
+        "toggleActive": "Toggle active",
+        "lastUpdatedBy": "Updated by {name}",
+        "neverUpdated": "Not updated yet"
+      },
+      "toasts": {
+        "activated": "Policy activated",
+        "deactivated": "Policy deactivated",
+        "toggleFailed": "Failed to update policy status"
+      },
+      "modal": {
+        "title": "Edit Discount Policy",
+        "isActive": "Policy active",
+        "isActiveHint": "When disabled, this discount will not be applied to students.",
+        "percent": "Discount percentage",
+        "minItems": "Minimum items",
+        "maxItems": "Maximum items",
+        "noLimitPlaceholder": "Leave empty for no limit",
+        "grantExpiryDays": "Grant expiry (days)",
+        "grantExpiryDaysHint": "Number of days the granted discount stays valid for the student.",
+        "neverExpiresPlaceholder": "Leave empty to never expire",
+        "note": "Leave optional fields empty to remove the limit.",
+        "cancel": "Cancel",
+        "saveChanges": "Save Changes",
+        "updateSuccess": "Discount policy updated successfully",
+        "updateFailed": "Failed to update discount policy"
+      },
+      "errors": {
+        "percentRequired": "Discount percentage is required",
+        "percentMin": "Percentage cannot be negative",
+        "percentMax": "Percentage cannot exceed 100",
+        "mustBeNumber": "Must be a valid number",
+        "mustBeInteger": "Must be a whole number",
+        "mustBePositive": "Must be 0 or greater",
+        "expiryMin": "Must be at least 1 day",
+        "maxLessThanMin": "Maximum must be greater than or equal to minimum",
+        "generic": "An error occurred"
+      }
+    },
     "notifications": {
       "tabSend": "Send Notification",
       "tabHistory": "History",
@@ -991,8 +1075,7 @@
       "customMessagePlaceholder": "Add an optional message along with the alert...",
       "sendAlert": "Send Alert",
       "priceAlertSentSuccess": "Price alert sent to {count} user(s)",
-      "priceAlertFailed": "Failed to send price alert",
-      "cancel": "Cancel"
+      "priceAlertFailed": "Failed to send price alert"
     }
   },
   "Checkout": {
@@ -1183,19 +1266,59 @@
     "browseCourses": "Browse Courses",
     "goHome": "Go to Homepage"
   },
-  "VerifyCertificate": {
-    "title": "Verify Your Certificate",
-    "subtitle": "Enter your unique certificate code to verify its authenticity.",
-    "codePlaceholder": "Enter certificate code...",
-    "verifyButton": "Verify",
-    "notFound": "Certificate Not Found",
-    "successMessage": "Certificate Verified Successfully",
-    "errorMessage": "Certificate not found or invalid code.",
-    "certificateCode": "Certificate Code",
-    "studentName": "Student Name",
-    "courseName": "Course Name",
-    "courseNumber": "Course Number",
-    "date": "Date",
-    "country": "Country"
+  "AmbassadorPrograms": {
+    "badge": "Zad Ambassadors Program",
+    "title": "Save up to {percent}% with Zad Ambassadors discounts",
+    "subtitle": "Enroll with friends, colleagues, or as a returning student and unlock exclusive discounts on your courses.",
+    "cta": "Discover discounts",
+    "upTo": "Up to",
+    "off": "OFF",
+    "button": "View available discounts",
+    "modalTitle": "Zad Ambassadors Discounts",
+    "modalSubtitle": "Discount programs currently available to you",
+    "minItems": "From {count}",
+    "range": "{min} to {max} items",
+    "minOnly": "{min} items or more",
+    "maxOnly": "Up to {max} items",
+    "anyItems": "No minimum",
+    "close": "Close",
+    "empty": "No discount programs available right now.",
+    "error": "Failed to load discount programs",
+    "apply": "Apply for discount",
+    "selectCourse": "Select Course",
+    "selectCoursePlaceholder": "-- Select a course --",
+    "groupEmailsTitle": "Group Members' Emails",
+    "groupEmailsDesc": "Enter the email address for each group member ({min} to {max} members required)",
+    "addEmail": "Add email",
+    "engineerLeadsTitle": "Leads / Referred People Details",
+    "engineerLeadsDesc": "Enter details of referred people ({min} to {max} people required)",
+    "addPerson": "Add person",
+    "groupLinksTitle": "Group Invitation Links",
+    "groupLinksDesc": "Enter group links ({min} to {max} links required)",
+    "addLink": "Add link",
+    "prevCourseName": "Previous Course Name",
+    "prevCourseNamePlaceholder": "Enter the name of the course previously taken",
+    "prevCourseNumber": "Previous Course Code / Number",
+    "prevCourseNumberPlaceholder": "Enter course code (e.g. ZAD-101)",
+    "notesLabel": "Additional Notes (Optional)",
+    "notesPlaceholder": "Any additional notes or instructions...",
+    "submit": "Submit Discount Request",
+    "submitting": "Submitting...",
+    "back": "Back",
+    "successTitle": "Discount Request Submitted!",
+    "successDesc": "Your discount request ID is:",
+    "copyId": "Copy Code",
+    "copied": "Copied!",
+    "proceedCheckout": "Proceed to Checkout",
+    "loginRequired": "Please log in to submit a discount request.",
+    "loginBtn": "Log in",
+    "validation": {
+      "courseRequired": "Please select a course",
+      "minItems": "Please provide at least {min} items",
+      "maxItems": "Cannot provide more than {max} items",
+      "invalidEmail": "Please enter a valid email address",
+      "courseNameRequired": "Previous course name is required",
+      "courseNumberRequired": "Previous course code is required"
+    }
   }
 }

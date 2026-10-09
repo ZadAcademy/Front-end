@@ -6,6 +6,7 @@ export function useCourseDetails(courseId: string) {
   return useQuery<CourseDetails>({
     queryKey: ['courseDetails', courseId],
     queryFn: () => unwrap(getCourseById(courseId)),
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 }

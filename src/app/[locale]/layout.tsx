@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Sarabun, Tajawal, Cairo } from "next/font/google";
 import "../../globals-generated.css";
-import { ThemeProvider } from '@/shared/theme/theme-provider';
+
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
@@ -63,22 +63,19 @@ export default async function LocaleLayout({ children, params }: Props) {
       lang={locale}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
       className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} ${fontClassSwitches} h-full antialiased`}
+      data-theme="light"
+      style={{ colorScheme: 'light' }}
     >
       <body suppressHydrationWarning
         className="min-h-full flex flex-col bg-gradient-to-r from-[#CADCEA] via-[#F5F5F5] to-[#D9E6F0]">
         <Providers>
-          {/* The UI is designed for light mode only. Following the OS ("system") theme turned
-              <html> dark (data-theme="dark" + color-scheme: dark) on devices/browsers in dark mode,
-              making inputs, native checkboxes, date-picker icons and text invisible on white cards. */}
-          <ThemeProvider attribute='data-theme' forcedTheme='light' defaultTheme='light' enableSystem={false} disableTransitionOnChange storageKey='theme'>
-              {/* Global content wrapper — sections manage their own max-width */}
-              <main className="flex-1 w-full">
+            {/* Global content wrapper — sections manage their own max-width */}
+            <main className="flex-1 w-full">
               {children}
             </main>
             <Suspense fallback={null}>
               <VerifyCertificateModal />
             </Suspense>
-          </ThemeProvider>
         </Providers>
         <Toaster />
       </body>

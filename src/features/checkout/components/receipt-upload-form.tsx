@@ -12,9 +12,10 @@ import { toast } from 'sonner';
 
 interface ReceiptUploadFormProps {
   courseId: string;
+  discountRequestId?: string;
 }
 
-export default function ReceiptUploadForm({ courseId }: ReceiptUploadFormProps) {
+export default function ReceiptUploadForm({ courseId, discountRequestId }: ReceiptUploadFormProps) {
   const t = useTranslations('Checkout.receiptUpload');
   const locale = useLocale();
   const router = useRouter();
@@ -51,6 +52,9 @@ export default function ReceiptUploadForm({ courseId }: ReceiptUploadFormProps) 
     const formData = new FormData();
     formData.append('CourseId', data.courseId);
     formData.append('ReceiptImage', data.receiptImage);
+    if (discountRequestId) {
+      formData.append('DiscountRequestId', discountRequestId);
+    }
 
     submitMutation.mutate(formData, {
       onSuccess: () => {

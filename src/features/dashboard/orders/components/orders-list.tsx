@@ -55,7 +55,16 @@ export default function OrdersList() {
     }),
     columnHelper.accessor('courseTitle', {
       header: t('table.course', { defaultValue: 'Course' }),
-      cell: (info) => <span className="font-cairo-medium-sm text-greyDark">{info.getValue()}</span>,
+      cell: (info) => (
+        <div className="flex flex-col items-start gap-1">
+          <span className="font-cairo-medium-sm text-greyDark">{info.getValue()}</span>
+          {info.row.original.discountRequestId && (
+            <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md text-[10px] font-cairo-bold-xs">
+              {info.row.original.discountPolicyPercent}% Discount
+            </span>
+          )}
+        </div>
+      ),
     }),
     columnHelper.accessor('status', {
       header: t('table.status', { defaultValue: 'Status' }),

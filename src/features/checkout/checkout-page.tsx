@@ -10,7 +10,7 @@ import { useCourseDetails } from '@/features/course-details/hooks/use-course-det
 import { useEnrollmentStatusQuery } from '@/features/course-details/hooks/use-enrollment';
 import PaymentMethodCard from './components/payment-method-card';
 import ReceiptUploadForm from './components/receipt-upload-form';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { COUNTRIES } from '@/shared/lib/countries';
 
 interface CheckoutPageProps {
@@ -22,6 +22,10 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
   const locale = useLocale();
   const isRTL = locale === 'ar';
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const discountRequestId = searchParams.get('discountRequestId');
+  const discountPercentStr = searchParams.get('discountPercent');
+  const appliedDiscountPercent = discountPercentStr ? Number(discountPercentStr) : 0;
   
   const { data: paymentMethods = [], isLoading: isLoadingMethods } = useGetMyPaymentMethodsQuery();
   const { data: course, isLoading: isLoadingCourse } = useCourseDetails(courseId);
@@ -39,8 +43,6 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
   }, [enrollment?.data?.status, locale, courseId, router]);
 
   if (enrollment?.data?.status === 'Enrolled' || enrollment?.data?.status === 'PendingOrder') {
-    // Avoid rendering the checkout if already enrolled or pending. 
-    // The useEffect above will redirect them.
     return null;
   }
 
@@ -60,6 +62,16 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
       </div>
     );
   }
+
+  // Calculate Ambassador Discount
+  const originalPrice = course.resolvedPrice?.price || 0;
+  let ambassadorDiscountAmount = 0;
+  if (appliedDiscountPercent > 0) {
+    ambassadorDiscountAmount = (originalPrice * appliedDiscountPercent) / 100;
+  } else if (course.resolvedPrice?.discountPrice) {
+    ambassadorDiscountAmount = originalPrice - course.resolvedPrice.discountPrice;
+  }
+  const finalPrice = Math.max(0, originalPrice - ambassadorDiscountAmount);
 
   return (
     <div className="min-h-screen bg-gray-50/50 pb-20 pt-16 lg:pt-20">
@@ -97,7 +109,6 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
             {paymentMethods.length > 0 ? (
               <>
                 <div className="flex items-center gap-3 mb-6">
-                  {/* Flag placeholder based on country code if possible, or generic icon */}
                   <span className="text-2xl">🌍</span>
                   <h2 className="font-cairo-bold-xl text-[#1a1a2e]">
                     {t('availableMethods', { defaultValue: 'Available Payment Methods in' })} {getCountryNameWithCode(paymentMethods[0].countryCode)}
@@ -128,7 +139,7 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
             )}
 
             {/* Receipt Upload Form */}
-            <ReceiptUploadForm courseId={courseId} />
+            <ReceiptUploadForm courseId={courseId} discountRequestId={discountRequestId || undefined} />
 
           </div>
 
@@ -157,19 +168,25 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
                   <div className="flex flex-col gap-3 py-4 border-y border-black/5 mt-2">
                     <div className="flex items-center justify-between font-cairo-medium-sm text-greyNormal">
                       <span>{t('originalPrice', { defaultValue: 'Original Price' })}</span>
-                      <span className="line-through">{course.resolvedPrice.price} {course.resolvedPrice.currencyCode}</span>
+                      <span className="line-through">{originalPrice} {course.resolvedPrice.currencyCode}</span>
                     </div>
-                    {course.resolvedPrice.discountPrice && (
-                      <div className="flex items-center justify-between font-cairo-medium-sm text-green-600">
-                        <span>{t('discount', { defaultValue: 'Discount' })}</span>
-                        <span>-{(course.resolvedPrice.price - course.resolvedPrice.discountPrice).toFixed(2)} {course.resolvedPrice.currencyCode}</span>
+                    
+                    {ambassadorDiscountAmount > 0 && (
+                      <div className="flex items-center justify-between font-cairo-medium-sm text-green-600 bg-green-50 px-2.5 py-1.5 rounded-lg border border-green-100">
+                        <span>
+                          {appliedDiscountPercent > 0
+                            ? (isRTL ? `خصم سفراء زاد (${appliedDiscountPercent}%)` : `Ambassador Discount (${appliedDiscountPercent}%)`)
+                            : t('discount', { defaultValue: 'Discount' })}
+                        </span>
+                        <span className="font-bold">-{ambassadorDiscountAmount.toFixed(2)} {course.resolvedPrice.currencyCode}</span>
                       </div>
                     )}
+
                     <div className="flex flex-col gap-1 mt-2">
                       <span className="font-cairo-medium-sm text-greyNormal">{t('requiredAmount', { defaultValue: 'Required Amount' })}</span>
                       <div className="flex items-center justify-between">
                         <span className="font-cairo-bold-2xl text-orange-500">
-                          {course.resolvedPrice.discountPrice || course.resolvedPrice.price}
+                          {finalPrice.toFixed(2)}
                         </span>
                         <span className="font-cairo-bold-lg text-greyDark">{course.resolvedPrice.currencyCode}</span>
                       </div>

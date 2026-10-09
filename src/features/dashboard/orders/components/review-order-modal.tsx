@@ -199,6 +199,46 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
                     </span>
                   </div>
 
+                  {order.discountRequestId && (
+                    <div className="bg-orange-50/50 rounded-xl p-4 border border-orange-200/60">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="block font-cairo-bold-sm text-orange-700">{t('discountRequest', { defaultValue: 'Discount Request' })}</span>
+                        <span className="px-2 py-0.5 rounded-md bg-orange-100 text-orange-700 font-cairo-bold-xs">
+                          {order.discountPolicyPercent}% OFF
+                        </span>
+                      </div>
+                      
+                      <span className="block font-cairo-medium-xs text-orange-600/80 mb-1">{t('discountType', { defaultValue: 'Type' })}</span>
+                      <span className="block font-cairo-bold-sm text-orange-800 mb-3">{order.discountTypeName || 'N/A'}</span>
+
+                      {order.discountCourseName && (
+                        <div className="mb-3">
+                          <span className="block font-cairo-medium-xs text-orange-600/80 mb-1">{t('prevCourse', { defaultValue: 'Previous Course' })}</span>
+                          <span className="block font-cairo-medium-sm text-orange-800">{order.discountCourseName}</span>
+                          <span className="block font-cairo-regular-xs text-orange-800/80">{order.discountCourseNumber}</span>
+                        </div>
+                      )}
+
+                      {order.discountProofData && order.discountProofData.length > 0 && (
+                        <div className="mb-3">
+                          <span className="block font-cairo-medium-xs text-orange-600/80 mb-1">{t('proofData', { defaultValue: 'Provided Proof' })}</span>
+                          <ul className="list-disc list-inside space-y-1">
+                            {order.discountProofData.map((proof, idx) => (
+                              <li key={idx} className="font-cairo-medium-sm text-orange-800 break-all">{proof}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {order.discountNotes && (
+                        <div>
+                          <span className="block font-cairo-medium-xs text-orange-600/80 mb-1">{t('notes', { defaultValue: 'Notes' })}</span>
+                          <p className="font-cairo-regular-sm text-orange-800 bg-orange-100/50 p-2 rounded-lg text-sm">{order.discountNotes}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <div className="mt-auto pt-4 flex flex-col gap-3">
                     <button
                       onClick={() => handleActionClick(OrderStatus.Accepted)}

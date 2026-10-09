@@ -30,21 +30,19 @@
     "badge": "شارة"
   },
   "VerifyCertificate": {
-    "title": "التحقق من الشهادة",
-    "subtitle": "أدخل رمز الشهادة أدناه للتحقق من صحتها وعرض تفاصيل الطالب.",
-    "codePlaceholder": "مثال: CERT-12345",
-    "verifyButton": "تحقق الآن",
-    "loading": "جاري التحقق...",
+    "title": "تحقق من شهادتك",
+    "subtitle": "أدخل رمز الشهادة الفريد للتحقق من صحتها.",
+    "codePlaceholder": "أدخل رمز الشهادة...",
+    "verifyButton": "تحقق",
+    "notFound": "الشهادة غير موجودة",
     "successMessage": "تم التحقق من الشهادة بنجاح",
-    "errorMessage": "لم يتم العثور على الشهادة أو الرمز غير صالح.",
-    "studentName": "اسم الطالب",
+    "errorMessage": "الشهادة غير موجودة أو الرمز غير صالح.",
     "certificateCode": "رمز الشهادة",
-    "country": "البلد",
+    "studentName": "اسم الطالب",
     "courseName": "اسم الدورة",
     "courseNumber": "رقم الدورة",
-    "date": "تاريخ الإصدار",
-    "notFound": "رمز الشهادة غير صالح",
-    "backToHome": "العودة للرئيسية"
+    "date": "التاريخ",
+    "country": "البلد"
   },
   "LandingPage": {
     "navbar": {
@@ -398,6 +396,7 @@
       "users": "إدارة المستخدمين",
       "posts": "المنشورات",
       "paymentMethods": "طرق الدفع",
+      "ambassadors": "سفراء زاد",
       "orders": "الطلبات",
       "notifications": "الإشعارات",
       "certificates": "الشهادات",
@@ -846,7 +845,12 @@
         "notifMessage": "رسالة الإشعار",
         "goBack": "رجوع",
         "confirmAcceptBtn": "قبول وإرسال الإشعار",
-        "confirmDenyBtn": "رفض وإرسال الإشعار"
+        "confirmDenyBtn": "رفض وإرسال الإشعار",
+        "discountRequest": "طلب خصم",
+        "discountType": "النوع",
+        "prevCourse": "الدورة السابقة",
+        "proofData": "البيانات المقدمة",
+        "notes": "ملاحظات"
       }
     },
     "paymentMethods": {
@@ -923,6 +927,86 @@
         "generic": "حدث خطأ ما"
       }
     },
+    "ambassadors": {
+      "title": "سفراء زاد",
+      "subtitle": "إدارة سياسات الخصم الممنوحة من خلال برنامج سفراء زاد.",
+      "error": "فشل تحميل سياسات الخصم",
+      "retry": "إعادة المحاولة",
+      "refresh": "تحديث",
+      "empty": "لا توجد سياسات خصم.",
+      "stats": {
+        "active": "مفعّلة",
+        "inactive": "متوقفة"
+      },
+      "status": {
+        "active": "مفعّلة",
+        "inactive": "متوقفة"
+      },
+      "types": {
+        "groupEnrollment": {
+          "name": "التسجيل الجماعي",
+          "description": "خصم عند تسجيل مجموعة من الطلاب معاً."
+        },
+        "engineerLeads": {
+          "name": "ترشيحات المهندسين",
+          "description": "خصم للطلاب المرشَّحين عن طريق مهندس سفير."
+        },
+        "returningStudent": {
+          "name": "الطالب العائد",
+          "description": "خصم للطلاب الذين سبق لهم التسجيل في دورة."
+        },
+        "groupLinks": {
+          "name": "روابط المجموعات",
+          "description": "خصم يُمنح من خلال روابط الدعوة الجماعية المشتركة."
+        }
+      },
+      "card": {
+        "discount": "خصم",
+        "minItems": "الحد الأدنى",
+        "maxItems": "الحد الأقصى",
+        "grantExpiryDays": "مدة الصلاحية",
+        "noLimit": "بدون حد",
+        "never": "لا تنتهي",
+        "days": "{count} يوم",
+        "edit": "تعديل",
+        "toggleActive": "تفعيل / إيقاف",
+        "lastUpdatedBy": "آخر تعديل بواسطة {name}",
+        "neverUpdated": "لم يتم التعديل بعد"
+      },
+      "toasts": {
+        "activated": "تم تفعيل السياسة",
+        "deactivated": "تم إيقاف السياسة",
+        "toggleFailed": "فشل تحديث حالة السياسة"
+      },
+      "modal": {
+        "title": "تعديل سياسة الخصم",
+        "isActive": "تفعيل السياسة",
+        "isActiveHint": "عند الإيقاف لن يتم تطبيق هذا الخصم على الطلاب.",
+        "percent": "نسبة الخصم",
+        "minItems": "الحد الأدنى للعناصر",
+        "maxItems": "الحد الأقصى للعناصر",
+        "noLimitPlaceholder": "اتركه فارغاً لعدم وضع حد",
+        "grantExpiryDays": "مدة صلاحية الخصم (بالأيام)",
+        "grantExpiryDaysHint": "عدد الأيام التي يظل فيها الخصم الممنوح صالحاً للطالب.",
+        "neverExpiresPlaceholder": "اتركه فارغاً ليكون بدون انتهاء",
+        "note": "اترك الحقول الاختيارية فارغة لإلغاء الحد.",
+        "cancel": "إلغاء",
+        "saveChanges": "حفظ التغييرات",
+        "updateSuccess": "تم تحديث سياسة الخصم بنجاح",
+        "updateFailed": "فشل تحديث سياسة الخصم"
+      },
+      "errors": {
+        "percentRequired": "نسبة الخصم مطلوبة",
+        "percentMin": "لا يمكن أن تكون النسبة سالبة",
+        "percentMax": "لا يمكن أن تتجاوز النسبة 100",
+        "mustBeNumber": "يجب إدخال رقم صحيح",
+        "mustBeInteger": "يجب أن يكون رقماً صحيحاً بدون كسور",
+        "mustBePositive": "يجب أن يكون 0 أو أكبر",
+        "expiryMin": "يجب ألا تقل المدة عن يوم واحد",
+        "maxLessThanMin": "يجب أن يكون الحد الأقصى أكبر من أو يساوي الحد الأدنى",
+        "generic": "حدث خطأ ما"
+      }
+    },
     "notifications": {
       "tabSend": "إرسال إشعار",
       "tabHistory": "السجل",
@@ -994,8 +1078,7 @@
       "customMessagePlaceholder": "أضف رسالة اختيارية مع التنبيه...",
       "sendAlert": "إرسال التنبيه",
       "priceAlertSentSuccess": "تم إرسال تنبيه السعر إلى {count} مستخدم(ين)",
-      "priceAlertFailed": "فشل في إرسال تنبيه السعر",
-      "cancel": "إلغاء"
+      "priceAlertFailed": "فشل في إرسال تنبيه السعر"
     }
   },
   "Checkout": {
@@ -1186,19 +1269,59 @@
     "browseCourses": "تصفح الدورات",
     "goHome": "الذهاب للرئيسية"
   },
-  "VerifyCertificate": {
-    "title": "تحقق من شهادتك",
-    "subtitle": "أدخل رمز الشهادة الفريد للتحقق من صحتها.",
-    "codePlaceholder": "أدخل رمز الشهادة...",
-    "verifyButton": "تحقق",
-    "notFound": "الشهادة غير موجودة",
-    "successMessage": "تم التحقق من الشهادة بنجاح",
-    "errorMessage": "الشهادة غير موجودة أو الرمز غير صالح.",
-    "certificateCode": "رمز الشهادة",
-    "studentName": "اسم الطالب",
-    "courseName": "اسم الدورة",
-    "courseNumber": "رقم الدورة",
-    "date": "التاريخ",
-    "country": "البلد"
+  "AmbassadorPrograms": {
+    "badge": "برنامج سفراء زاد",
+    "title": "وفّر حتى {percent}% مع خصومات سفراء زاد",
+    "subtitle": "سجّل مع أصدقائك أو زملائك أو كطالب عائد واحصل على خصومات حصرية على دوراتك.",
+    "cta": "اكتشف الخصومات",
+    "upTo": "حتى",
+    "off": "خصم",
+    "button": "عرض الخصومات المتاحة",
+    "modalTitle": "خصومات سفراء زاد",
+    "modalSubtitle": "برامج الخصم المتاحة حالياً لك",
+    "minItems": "من {count}",
+    "range": "من {min} إلى {max} عناصر",
+    "minOnly": "{min} عناصر أو أكثر",
+    "maxOnly": "حتى {max} عناصر",
+    "anyItems": "بدون حد أدنى",
+    "close": "إغلاق",
+    "empty": "لا توجد برامج خصم متاحة حالياً.",
+    "error": "تعذر تحميل برامج الخصم",
+    "apply": "تقدم للحصول على الخصم",
+    "selectCourse": " الدورة التدريبية",
+    "selectCoursePlaceholder": "--  الدورة --",
+    "groupEmailsTitle": "البريد الإلكتروني لأعضاء المجموعة",
+    "groupEmailsDesc": "أدخل البريد الإلكتروني لكل عضو في المجموعة (العدد المطلوبة: من {min} إلى {max})",
+    "addEmail": "إضافة بريد إلكتروني",
+    "engineerLeadsTitle": "ارقام المرشحين / الطلاب",
+    "engineerLeadsDesc": "أدخل بيانات الأشخاص المرشحين (من {min} إلى {max} أشخاص)",
+    "addPerson": "إضافة شخص",
+    "groupLinksTitle": "روابط الدعوة للمجموعات",
+    "groupLinksDesc": "أدخل روابط المجموعات (من {min} إلى {max} روابط)",
+    "addLink": "إضافة رابط",
+    "prevCourseName": "اسم الدورة السابقة",
+    "prevCourseNamePlaceholder": "أدخل اسم الدورة التي درستها سابقاً",
+    "prevCourseNumber": "رمز / رقم الدورة السابقة",
+    "prevCourseNumberPlaceholder": "أدخل رمز الدورة (مثال: ZAD-101)",
+    "notesLabel": "ملاحظات إضافية (اختياري)",
+    "notesPlaceholder": "أي معلومات إضافية تود إضافتها...",
+    "submit": "إرسال طلب الخصم",
+    "submitting": "جاري إرسال الطلب...",
+    "back": "رجوع",
+    "successTitle": "تم تقديم طلب الخصم بنجاح!",
+    "successDesc": "رمز طلب الخصم الخاص بك هو:",
+    "copyId": "نسخ الرمز",
+    "copied": "تم النسخ!",
+    "proceedCheckout": "المتابعة لإكمال الاشتراك",
+    "loginRequired": "يرجى تسجيل الدخول أولاً لتتمكن من تقديم طلب الخصم.",
+    "loginBtn": "تسجيل الدخول",
+    "validation": {
+      "courseRequired": "يرجى اختيار الدورة",
+      "minItems": "يجب إدخال {min} عناصر على الأقل",
+      "maxItems": "لا يمكن إدخال أكثر من {max} عناصر",
+      "invalidEmail": "يرجى إدخال بريد إلكتروني صحيح",
+      "courseNameRequired": "اسم الدورة السابقة مطلوب",
+      "courseNumberRequired": "رقم الدورة السابقة مطلوب"
+    }
   }
 }

@@ -10,5 +10,5 @@
  */
 export function normalizeImageUrl(url: string | null | undefined): string {
   if (!url) return '';
-  return url.trim().replace(/\\/g, '/');
+  return url.trim().replace(/\\/g, '/').replace(/%5C/gi, '/');
 }
