@@ -97,6 +97,10 @@ export async function createPost(payload: CreatePostPayload) {
     if (payload.Image) {
       formData.append('Image', payload.Image);
     }
+    
+    if (payload.VideoUrl !== undefined) {
+      formData.append('VideoUrl', payload.VideoUrl);
+    }
 
     const response = await fetch(`${baseUrl}api/v1/posts`, {
       method: 'POST',

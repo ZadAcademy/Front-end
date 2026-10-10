@@ -3,6 +3,7 @@ export interface Post {
   title: string;
   content: string;
   imageUrl?: string | null;
+  videoUrl?: string | null;
   isPublic: boolean;
   createdAt: string;
   updatedAt?: string | null;
@@ -21,11 +22,13 @@ export interface CreatePostPayload {
   Title: string;
   Content: string;
   IsPublic: boolean;
-  Image?: File; 
+  Image?: File;
+  VideoUrl?: string;
 }
 
 export interface UpdatePostPayload {
   title: string;
   content: string;
   isPublic: boolean;
+  videoUrl?: string;
 }

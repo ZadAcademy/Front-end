@@ -13,6 +13,7 @@ interface AmbassadorProgramsModalProps {
   onClose: () => void;
   courseId?: string;
   courseTitle?: string;
+  readOnly?: boolean;
 }
 
 export default function AmbassadorProgramsModal({
@@ -20,6 +21,7 @@ export default function AmbassadorProgramsModal({
   onClose,
   courseId,
   courseTitle,
+  readOnly,
 }: AmbassadorProgramsModalProps) {
   const t = useTranslations('AmbassadorPrograms');
   const tTypes = useTranslations('Dashboard.ambassadors.types');
@@ -121,8 +123,14 @@ export default function AmbassadorProgramsModal({
                 return (
                   <div
                     key={program.type}
-                    onClick={() => setSelectedProgram(program)}
-                    className="group relative flex items-center justify-between gap-3 p-4 rounded-2xl border border-black/10 hover:border-blueNormal hover:shadow-lg hover:shadow-blueNormal/5 cursor-pointer transition-all duration-200 bg-white hover:bg-blue-50/20"
+                    onClick={() => {
+                      if (!readOnly) setSelectedProgram(program);
+                    }}
+                    className={`group relative flex items-center justify-between gap-3 p-4 rounded-2xl border border-black/10 transition-all duration-200 bg-white ${
+                      readOnly 
+                        ? 'cursor-default' 
+                        : 'hover:border-blueNormal hover:shadow-lg hover:shadow-blueNormal/5 cursor-pointer hover:bg-blue-50/20'
+                    }`}
                   >
                     {/* Icon + Title + Description */}
                     <div className="flex items-center gap-3.5 min-w-0 flex-1">
@@ -131,7 +139,7 @@ export default function AmbassadorProgramsModal({
                       </div>
 
                       <div className="flex flex-col min-w-0">
-                        <h3 className="font-cairo-bold-base text-greyDark group-hover:text-blueNormal transition-colors truncate">
+                        <h3 className={`font-cairo-bold-base text-greyDark transition-colors truncate ${!readOnly ? 'group-hover:text-blueNormal' : ''}`}>
                           {tTypes(`${config.key}.name`)}
                         </h3>
                         <p className="font-cairo-regular-xs text-greyNormal line-clamp-1 leading-relaxed">
@@ -148,7 +156,9 @@ export default function AmbassadorProgramsModal({
                       <div className="px-3 py-1.5 rounded-xl bg-orange-50 border border-orange-200/60 text-orange-600 font-cairo-bold-sm whitespace-nowrap">
                         {Number(program.percent)}% {t('off')}
                       </div>
-                      <ChevronLeft className="size-5 text-greyNormal/60 group-hover:text-blueNormal rtl:rotate-0 ltr:rotate-180 transition-transform shrink-0" />
+                      {!readOnly && (
+                        <ChevronLeft className="size-5 text-greyNormal/60 group-hover:text-blueNormal rtl:rotate-0 ltr:rotate-180 transition-transform shrink-0" />
+                      )}
                     </div>
                   </div>
                 );

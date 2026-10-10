@@ -1200,7 +1200,9 @@
     },
     "public": "Public",
     "toggleVisibility": "Toggle Visibility",
-    "imageTooLarge": "Image size should not exceed 5MB"
+    "imageTooLarge": "Image size should not exceed 5MB",
+    "videoUrl": "Video URL (Optional)",
+    "videoUrlPlaceholder": "Enter YouTube or Vimeo URL..."
   },
   "Profile": {
     "sidebar": {

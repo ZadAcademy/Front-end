@@ -1203,7 +1203,9 @@
     },
     "public": "عام",
     "toggleVisibility": "تغيير حالة الظهور",
-    "imageTooLarge": "يجب ألا يتجاوز حجم الصورة 5 ميجابايت"
+    "imageTooLarge": "يجب ألا يتجاوز حجم الصورة 5 ميجابايت",
+    "videoUrl": "رابط الفيديو (اختياري)",
+    "videoUrlPlaceholder": "أدخل رابط فيديو يوتيوب أو فيميو..."
   },
   "Profile": {
     "sidebar": {

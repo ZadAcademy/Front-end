@@ -6,7 +6,6 @@ import { BadgePercent, ChevronLeft, Sparkles } from 'lucide-react';
 import { useAmbassadorProgramsQuery } from '../hooks/use-ambassador-programs';
 import AmbassadorProgramsModal from './ambassador-programs-modal';
 
-/** Promotional banner shown at the top of the courses list. */
 export default function AmbassadorBanner() {
   const t = useTranslations('AmbassadorPrograms');
   const { data } = useAmbassadorProgramsQuery();
@@ -38,7 +37,6 @@ export default function AmbassadorBanner() {
             <h2 className="font-cairo-bold-2xl sm:font-cairo-bold-3xl mb-2">{t('title', { percent: maxPercent })}</h2>
             <p className="font-cairo-regular-base text-white/85 max-w-2xl">{t('subtitle')}</p>
           </div>
-
           <button
             onClick={() => setOpen(true)}
             className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-blueNormal font-cairo-bold-base cursor-pointer shadow-lg hover:scale-105 hover:shadow-2xl transition-all duration-300"
@@ -49,7 +47,7 @@ export default function AmbassadorBanner() {
         </div>
       </section>
 
-      <AmbassadorProgramsModal isOpen={open} onClose={() => setOpen(false)} />
+      <AmbassadorProgramsModal isOpen={open} onClose={() => setOpen(false)} readOnly={true} />
     </>
   );
 }

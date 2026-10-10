@@ -39,6 +39,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
     defaultValues: {
       title: '',
       content: '',
+      videoUrl: '',
       isPublic: true,
       image: undefined,
       sendNotification: false,
@@ -55,6 +56,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
       form.reset({
         title: postToEdit.title || '',
         content: postToEdit.content || '',
+        videoUrl: postToEdit.videoUrl || '',
         isPublic: postToEdit.isPublic,
         image: undefined,
         sendNotification: false,
@@ -66,7 +68,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
       });
       setImagePreview(postToEdit.imageUrl || null);
     } else if (!isEditing) {
-      form.reset({ title: '', content: '', isPublic: true, image: undefined, sendNotification: false, notificationMessage: '', notificationCustomType: '', targetMode: 'all', selectedCourse: null, selectedUsers: [] });
+      form.reset({ title: '', content: '', videoUrl: '', isPublic: true, image: undefined, sendNotification: false, notificationMessage: '', notificationCustomType: '', targetMode: 'all', selectedCourse: null, selectedUsers: [] });
       setImagePreview(null);
     }
   }, [isEditing, postToEdit, form]);
@@ -74,7 +76,7 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
   const onSubmit = (data: PostFormData) => {
     if (isEditing) {
       updateMutation.mutate(
-        { id: postToEdit!.id, data: { title: data.title, content: data.content, isPublic: data.isPublic } },
+        { id: postToEdit!.id, data: { title: data.title, content: data.content, isPublic: data.isPublic, videoUrl: data.videoUrl || undefined } },
         {
           onSuccess: () => {
             if (data.image && data.image instanceof File) {
@@ -107,7 +109,8 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
           Title: data.title,
           Content: data.content,
           IsPublic: data.isPublic,
-          Image: data.image
+          Image: data.image,
+          VideoUrl: data.videoUrl || undefined
         },
         {
           onSuccess: () => {
@@ -243,6 +246,27 @@ export default function PostFormModal({ isOpen, onClose, postToEdit }: PostFormM
                     {...field}
                     placeholder={t('contentPlaceholder', { defaultValue: 'What do you want to share?' })}
                     className={`${inputClasses(!!fieldState.error)} min-h-[150px] py-3 resize-y`}
+                  />
+                  {fieldState.error && <span className="text-red-500 text-sm font-cairo-medium-sm">{fieldState.error.message}</span>}
+                </div>
+              )}
+            />
+
+            {/* Video URL */}
+            <Controller
+              name="videoUrl"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-2">
+                  <label className="font-cairo-semibold-base text-greyDarker">
+                    {t('videoUrl', { defaultValue: 'Video URL (Optional)' })}
+                  </label>
+                  <input
+                    {...field}
+                    value={field.value || ''}
+                    type="url"
+                    placeholder={t('videoUrlPlaceholder', { defaultValue: 'Enter YouTube or Vimeo URL...' })}
+                    className={`${inputClasses(!!fieldState.error)} h-12`}
                   />
                   {fieldState.error && <span className="text-red-500 text-sm font-cairo-medium-sm">{fieldState.error.message}</span>}
                 </div>

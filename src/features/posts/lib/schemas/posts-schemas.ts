@@ -14,6 +14,7 @@ export const postSchema = z.object({
       "Only .jpg, .jpeg, .png and .webp formats are supported."
     )
     .optional(),
+  videoUrl: z.union([z.string().url('invalidUrl'), z.literal('')]).optional().nullable(),
   sendNotification: z.boolean().default(false).optional(),
   notificationMessage: z.string().optional(),
   notificationCustomType: z.string().optional(),

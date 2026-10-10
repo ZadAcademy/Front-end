@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
-import { Eye, EyeOff, Edit, Trash2, Plus, Loader2, Image as ImageIcon, X } from 'lucide-react';
+import { Eye, EyeOff, Edit, Trash2, Plus, Loader2, Image as ImageIcon, X, Video as VideoIcon } from 'lucide-react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -35,6 +35,8 @@ export default function DashboardPostsTable() {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  
+  const [postToDeleteId, setPostToDeleteId] = useState<string | null>(null);
 
   const { data, isLoading, isError } = useGetPostsQuery({ page, pageSize });
   const posts = useMemo(() => data?.items || [], [data?.items]);
@@ -94,19 +96,26 @@ export default function DashboardPostsTable() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm(t('confirmDelete', { defaultValue: 'Are you sure you want to delete this post?' }))) {
-      deleteMutation.mutate(id, {
-        onSuccess: () => {
-          toast.success(t('deleteSuccess', { defaultValue: 'Post deleted successfully' }));
-          setSelectedIds((prev) => {
-            const next = new Set(prev);
-            next.delete(id);
-            return next;
-          });
-        },
-        onError: (error) => toast.error(error.message || t('deleteFailed', { defaultValue: 'Failed to delete post' }))
-      });
-    }
+    setPostToDeleteId(id);
+  };
+
+  const handleConfirmSingleDelete = () => {
+    if (!postToDeleteId) return;
+    deleteMutation.mutate(postToDeleteId, {
+      onSuccess: () => {
+        toast.success(t('deleteSuccess', { defaultValue: 'Post deleted successfully' }));
+        setSelectedIds((prev) => {
+          const next = new Set(prev);
+          next.delete(postToDeleteId);
+          return next;
+        });
+        setPostToDeleteId(null);
+      },
+      onError: (error) => {
+        toast.error(error.message || t('deleteFailed', { defaultValue: 'Failed to delete post' }));
+        setPostToDeleteId(null);
+      }
+    });
   };
 
   const handleBulkDeleteConfirm = async () => {
@@ -196,6 +205,10 @@ export default function DashboardPostsTable() {
             <div className="flex items-center gap-4">
               {post.imageUrl ? (
                 <img src={post.imageUrl} alt={post.title} className="w-12 h-12 rounded-lg object-cover bg-gray-100" />
+              ) : post.videoUrl ? (
+                <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center border border-black/5">
+                  <VideoIcon className="size-5 text-gray-400" />
+                </div>
               ) : (
                 <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center border border-black/5">
                   <ImageIcon className="size-5 text-gray-300" />
@@ -443,6 +456,19 @@ export default function DashboardPostsTable() {
         cancelText={t('cancel', { defaultValue: 'Cancel' })}
         isDestructive={true}
         isLoading={isDeleting}
+      />
+
+      {/* ─── Single Delete Confirmation Modal ─── */}
+      <ConfirmModal
+        isOpen={!!postToDeleteId}
+        onClose={() => setPostToDeleteId(null)}
+        onConfirm={handleConfirmSingleDelete}
+        title={t('delete', { defaultValue: 'Delete Post' })}
+        message={t('confirmDelete', { defaultValue: 'Are you sure you want to delete this post?' })}
+        confirmText={t('delete', { defaultValue: 'Delete' })}
+        cancelText={t('cancel', { defaultValue: 'Cancel' })}
+        isDestructive={true}
+        isLoading={deleteMutation.isPending}
       />
     </div>
   );

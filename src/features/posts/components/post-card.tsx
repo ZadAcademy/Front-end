@@ -9,11 +9,14 @@ import {
   Trash2, 
   Eye, 
   EyeOff,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Video
 } from 'lucide-react';
+import ReactPlayer from 'react-player';
 import { Post } from '../lib/types/posts-types';
 import { useDeletePostMutation, useTogglePostVisibilityMutation } from '../hooks/use-posts-api';
 import { toast } from 'sonner';
+import { ConfirmModal } from '@/features/notifications/components/admin/confirm-modal';
 
 const renderContentWithLinks = (text: string) => {
   if (!text) return null;
@@ -47,6 +50,7 @@ export default function PostCard({ post, onEdit }: PostCardProps) {
   const t = useTranslations('Posts');
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   
   const deleteMutation = useDeletePostMutation();
   const toggleVisibilityMutation = useTogglePostVisibilityMutation();
@@ -60,18 +64,23 @@ export default function PostCard({ post, onEdit }: PostCardProps) {
   const hasActions = canUpdate || canDelete;
 
   const handleDelete = () => {
-    if (confirm(t('confirmDelete', { defaultValue: 'Are you sure you want to delete this post?' }))) {
-      deleteMutation.mutate(post.id, {
-        onSuccess: () => {
-          toast.success(t('deleteSuccess', { defaultValue: 'Post deleted successfully' }));
-          setIsMenuOpen(false);
-        },
-        onError: (error) => {
-          toast.error(error.message || t('deleteFailed', { defaultValue: 'Failed to delete post' }));
-        }
-      });
-    }
+    setIsDeleteModalOpen(true);
+    setIsMenuOpen(false);
   };
+
+  const handleConfirmDelete = () => {
+    deleteMutation.mutate(post.id, {
+      onSuccess: () => {
+        toast.success(t('deleteSuccess', { defaultValue: 'Post deleted successfully' }));
+        setIsDeleteModalOpen(false);
+      },
+      onError: (error) => {
+        toast.error(error.message || t('deleteFailed', { defaultValue: 'Failed to delete post' }));
+        setIsDeleteModalOpen(false);
+      }
+    });
+  };
+
 
   const handleToggleVisibility = () => {
     toggleVisibilityMutation.mutate(post.id, {
@@ -186,6 +195,19 @@ export default function PostCard({ post, onEdit }: PostCardProps) {
         </p>
       </div>
 
+      {/* ─── Video (if provided) ─── */}
+      {post.videoUrl && (
+        <div className="w-full rounded-xl overflow-hidden bg-gray-50 border border-black/5 mb-4 relative pt-[56.25%]">
+           <ReactPlayer 
+             src={post.videoUrl} 
+             width="100%" 
+             height="100%" 
+             className="absolute top-0 left-0"
+             controls 
+           />
+        </div>
+      )}
+
       {/* ─── Image (if provided) ─── */}
       {post.imageUrl && (
         <div className="w-full rounded-xl overflow-hidden bg-gray-50 border border-black/5">
@@ -196,6 +218,18 @@ export default function PostCard({ post, onEdit }: PostCardProps) {
           />
         </div>
       )}
+      
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        title={t('delete', { defaultValue: 'Delete Post' })}
+        message={t('confirmDelete', { defaultValue: 'Are you sure you want to delete this post?' })}
+        confirmText={t('delete', { defaultValue: 'Delete' })}
+        cancelText={t('cancel', { defaultValue: 'Cancel' })}
+        isDestructive={true}
+        isLoading={deleteMutation.isPending}
+        onConfirm={handleConfirmDelete}
+        onClose={() => setIsDeleteModalOpen(false)}
+      />
     </div>
   );
 }
