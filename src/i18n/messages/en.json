@@ -398,7 +398,8 @@
       "notifications": "Notifications",
       "certificates": "Certificates",
       "listCertificates": "All Certificates",
-      "importCertificate": "Import Certificate"
+      "importCertificate": "Import Certificate",
+      "enrollments": "Enrollments"
     },
     "certificates": {
       "pageTitle": "Import Certificates",
@@ -847,7 +848,8 @@
         "discountType": "Type",
         "prevCourse": "Previous Course",
         "proofData": "Provided Proof",
-        "notes": "Notes"
+        "notes": "Notes",
+        "orderInfo": "Order Information"
       }
     },
     "paymentMethods": {
@@ -1076,6 +1078,61 @@
       "sendAlert": "Send Alert",
       "priceAlertSentSuccess": "Price alert sent to {count} user(s)",
       "priceAlertFailed": "Failed to send price alert"
+    },
+    "enrollments": {
+      "pageTitle": "Enrollments Management",
+      "pageSubtitle": "Manage user access to courses and view enrollment statuses.",
+      "tabUsers": "By User",
+      "tabCourses": "By Course",
+      "searchUsers": "Search users by name or email...",
+      "searchCourses": "Search courses...",
+      "searchUsersInCourse": "Search users in course...",
+      "filterAll": "All",
+      "filterActive": "Active",
+      "filterInactive": "Inactive",
+      "colUser": "User",
+      "colPhone": "Phone",
+      "colStatus": "Status",
+      "colCourses": "Enrolled Courses",
+      "colJoined": "Joined",
+      "colActions": "Actions",
+      "colEnrolledAt": "Enrolled At",
+      "active": "Active",
+      "inactive": "Inactive",
+      "none": "None",
+      "manageCourses": "Manage courses",
+      "errorLoading": "Failed to load users",
+      "errorLoadingUsers": "Failed to load course users",
+      "noUsersFound": "No users found",
+      "noUsersMatch": "No users match the search criteria",
+      "status": {
+        "Enrolled": "Enrolled",
+        "PendingOrder": "Pending Order",
+        "NotEnrolled": "Not Enrolled",
+        "pendingOrderTooltip": "User has an unapproved order for this course."
+      },
+      "all": "All",
+      "remove": "Remove",
+      "enroll": "Enroll",
+      "enrolledInCount": "Enrolled in {count} courses",
+      "noCoursesFound": "No courses found",
+      "accessRemoved": "Access removed successfully",
+      "accessGranted": "Access granted successfully",
+      "toggleFailed": "Failed to update enrollment status",
+      "selectCourse": "Select a course",
+      "selectCoursePlaceholder": "Choose a course to view enrollments...",
+      "loading": "Loading...",
+      "courseUsersList": "Course Users",
+      "noCourseSelected": "No Course Selected",
+      "noCourseSelectedDesc": "Select a course from the dropdown above to view its enrolled users and pending orders.",
+      "modal": {
+        "removeTitle": "Remove access?",
+        "enrollTitle": "Enroll user?",
+        "removeMessage": "{user} will lose access to \"{course}\".",
+        "enrollMessage": "{user} will get access to \"{course}\".",
+        "enrollPendingMessage": "{user} will get access to \"{course}\". This user has a pending order for this course."
+      },
+      "cancel": "Cancel"
     }
   },
   "Checkout": {

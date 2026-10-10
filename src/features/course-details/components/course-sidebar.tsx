@@ -206,7 +206,7 @@ export default function CourseSidebar({ course, enrollment, isEnrollmentLoading,
             </div>
 
             {/* ─── Ambassador discounts (hidden for enrolled / free courses) ─── */}
-            {enrollment?.status !== 'Enrolled' && !isCourseFree && (
+            {enrollment?.status !== 'Enrolled' && enrollment?.status !== 'PendingOrder' && !isCourseFree && (
               <ViewDiscountsButton courseId={course.id} courseTitle={course.title} />
             )}
 

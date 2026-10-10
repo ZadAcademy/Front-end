@@ -207,7 +207,7 @@ export default function ReviewOrderModal({ order, onClose }: ReviewOrderModalPro
                           {order.discountPolicyPercent}% OFF
                         </span>
                       </div>
-                      
+
                       <span className="block font-cairo-medium-xs text-orange-600/80 mb-1">{t('discountType', { defaultValue: 'Type' })}</span>
                       <span className="block font-cairo-bold-sm text-orange-800 mb-3">{order.discountTypeName || 'N/A'}</span>
 

@@ -65,13 +65,16 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
 
   // Calculate Ambassador Discount
   const originalPrice = course.resolvedPrice?.price || 0;
+  const dashboardDiscountPrice = course.resolvedPrice?.discountPrice;
+  const hasDashboardDiscount = dashboardDiscountPrice !== undefined && dashboardDiscountPrice !== null;
+  const basePriceForDiscount = hasDashboardDiscount ? dashboardDiscountPrice : originalPrice;
+
   let ambassadorDiscountAmount = 0;
   if (appliedDiscountPercent > 0) {
-    ambassadorDiscountAmount = (originalPrice * appliedDiscountPercent) / 100;
-  } else if (course.resolvedPrice?.discountPrice) {
-    ambassadorDiscountAmount = originalPrice - course.resolvedPrice.discountPrice;
+    ambassadorDiscountAmount = (basePriceForDiscount * appliedDiscountPercent) / 100;
   }
-  const finalPrice = Math.max(0, originalPrice - ambassadorDiscountAmount);
+
+  const finalPrice = Math.max(0, basePriceForDiscount - ambassadorDiscountAmount);
 
   return (
     <div className="min-h-screen bg-gray-50/50 pb-20 pt-16 lg:pt-20">
@@ -170,13 +173,17 @@ export default function CheckoutPage({ courseId }: CheckoutPageProps) {
                       <span>{t('originalPrice', { defaultValue: 'Original Price' })}</span>
                       <span className="line-through">{originalPrice} {course.resolvedPrice.currencyCode}</span>
                     </div>
-                    
+                    {hasDashboardDiscount && originalPrice > dashboardDiscountPrice && (
+                      <div className="flex items-center justify-between font-cairo-medium-sm text-green-600 bg-green-50 px-2.5 py-1.5 rounded-lg border border-green-100 mb-2">
+                        <span>{t('discount', { defaultValue: 'Discount' })}</span>
+                        <span className="font-bold">-{(originalPrice - dashboardDiscountPrice).toFixed(2)} {course.resolvedPrice.currencyCode}</span>
+                      </div>
+                    )}
+
                     {ambassadorDiscountAmount > 0 && (
                       <div className="flex items-center justify-between font-cairo-medium-sm text-green-600 bg-green-50 px-2.5 py-1.5 rounded-lg border border-green-100">
                         <span>
-                          {appliedDiscountPercent > 0
-                            ? (isRTL ? `خصم سفراء زاد (${appliedDiscountPercent}%)` : `Ambassador Discount (${appliedDiscountPercent}%)`)
-                            : t('discount', { defaultValue: 'Discount' })}
+                          {isRTL ? `خصم سفراء زاد (${appliedDiscountPercent}%)` : `Ambassador Discount (${appliedDiscountPercent}%)`}
                         </span>
                         <span className="font-bold">-{ambassadorDiscountAmount.toFixed(2)} {course.resolvedPrice.currencyCode}</span>
                       </div>

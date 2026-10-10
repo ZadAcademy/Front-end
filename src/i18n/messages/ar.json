@@ -401,7 +401,8 @@
       "notifications": "الإشعارات",
       "certificates": "الشهادات",
       "listCertificates": "جميع الشهادات",
-      "importCertificate": "استيراد شهادة"
+      "importCertificate": "استيراد شهادة",
+      "enrollments": "الاشتراكات"
     },
     "certificates": {
       "pageTitle": "استيراد الشهادات",
@@ -850,7 +851,8 @@
         "discountType": "النوع",
         "prevCourse": "الدورة السابقة",
         "proofData": "البيانات المقدمة",
-        "notes": "ملاحظات"
+        "notes": "ملاحظات",
+        "orderInfo": "معلومات الطلب"
       }
     },
     "paymentMethods": {
@@ -1079,6 +1081,61 @@
       "sendAlert": "إرسال التنبيه",
       "priceAlertSentSuccess": "تم إرسال تنبيه السعر إلى {count} مستخدم(ين)",
       "priceAlertFailed": "فشل في إرسال تنبيه السعر"
+    },
+    "enrollments": {
+      "pageTitle": "إدارة الاشتراكات",
+      "pageSubtitle": "إدارة وصول المستخدمين للدورات وعرض حالات الاشتراك.",
+      "tabUsers": "حسب المستخدم",
+      "tabCourses": "حسب الدورة",
+      "searchUsers": "البحث عن مستخدمين بالاسم أو البريد...",
+      "searchCourses": "البحث عن دورات...",
+      "searchUsersInCourse": "البحث عن مستخدمين في الدورة...",
+      "filterAll": "الكل",
+      "filterActive": "نشط",
+      "filterInactive": "غير نشط",
+      "colUser": "المستخدم",
+      "colPhone": "رقم الهاتف",
+      "colStatus": "الحالة",
+      "colCourses": "الدورات المشترك بها",
+      "colJoined": "تاريخ الانضمام",
+      "colActions": "الإجراءات",
+      "colEnrolledAt": "تاريخ الاشتراك",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "none": "لا يوجد",
+      "manageCourses": "إدارة الدورات",
+      "errorLoading": "فشل تحميل المستخدمين",
+      "errorLoadingUsers": "فشل تحميل مستخدمي الدورة",
+      "noUsersFound": "لم يتم العثور على مستخدمين",
+      "noUsersMatch": "لا يوجد مستخدمين يطابقون شروط البحث",
+      "status": {
+        "Enrolled": "مشترك",
+        "PendingOrder": "طلب قيد الانتظار",
+        "NotEnrolled": "غير مشترك",
+        "pendingOrderTooltip": "المستخدم لديه طلب غير معتمد لهذه الدورة."
+      },
+      "all": "الكل",
+      "remove": "إزالة",
+      "enroll": "اشتراك",
+      "enrolledInCount": "مشترك في {count} دورات",
+      "noCoursesFound": "لم يتم العثور على دورات",
+      "accessRemoved": "تمت إزالة الوصول بنجاح",
+      "accessGranted": "تم منح الوصول بنجاح",
+      "toggleFailed": "فشل تحديث حالة الاشتراك",
+      "selectCourse": "اختر دورة",
+      "selectCoursePlaceholder": "اختر دورة لعرض الاشتراكات...",
+      "loading": "جاري التحميل...",
+      "courseUsersList": "مستخدمو الدورة",
+      "noCourseSelected": "لم يتم اختيار دورة",
+      "noCourseSelectedDesc": "اختر دورة من القائمة أعلاه لعرض المستخدمين المشتركين والطلبات قيد الانتظار.",
+      "modal": {
+        "removeTitle": "إزالة الوصول؟",
+        "enrollTitle": "تسجيل المستخدم؟",
+        "removeMessage": "سيفقد {user} إمكانية الوصول إلى \"{course}\".",
+        "enrollMessage": "سيحصل {user} على إمكانية الوصول إلى \"{course}\".",
+        "enrollPendingMessage": "سيحصل {user} على إمكانية الوصول إلى \"{course}\". هذا المستخدم لديه طلب قيد الانتظار لهذه الدورة."
+      },
+      "cancel": "إلغاء"
     }
   },
   "Checkout": {

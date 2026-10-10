@@ -19,6 +19,7 @@ import {
   Bell,
   Award,
   BadgePercent,
+  UserCheck,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -63,6 +64,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         { label: t('listCourses'), href: '/dashboard/courses', icon: List },
         { label: t('addCourse'), href: '/dashboard/courses/add', icon: PlusCircle },
       ],
+    },
+    {
+      key: 'enrollments',
+      label: t('enrollments', { defaultValue: 'Enrollments' }),
+      icon: UserCheck,
+      href: '/dashboard/enrollments',
     },
     {
       key: 'orders',
