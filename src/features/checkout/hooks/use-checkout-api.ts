@@ -18,6 +18,7 @@ export const useSubmitOrderMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['enrollment-status'] });
       queryClient.invalidateQueries({ queryKey: ['course'] });
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
     }
   });
 };

@@ -227,7 +227,7 @@
       "emailPlaceholder": "example24@gmail.com",
       "phone": "رقم الهاتف",
       "password": "كلمة المرور",
-      "passwordPlaceholder": "••••••••••••",
+      "passwordPlaceholder": "أدخل كلمة المرور",
       "phonePlaceholder": "+201010584465",
       "experience": "عدد سنين خبرتك",
       "experiencePlaceholder": "اختر عدد سنين الخبرة",
@@ -281,7 +281,9 @@
         "specializationRequired": "التخصص مطلوب",
         "otpInvalid": "رمز التحقق يجب أن يكون 6 أرقام",
         "generic": "حدث خطأ ما. حاول مرة أخرى"
-      }
+      },
+      "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أعد إدخال كلمة المرور"
     }
   },
   "HomePage": {

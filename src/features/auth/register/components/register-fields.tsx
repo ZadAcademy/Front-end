@@ -282,7 +282,9 @@ export default function RegisterFields({ form, onSubmit, isPending }: RegisterFi
                       }
                       `}
                   >
-                    <SelectValue placeholder={t('experiencePlaceholder')} />
+                    <SelectValue placeholder={t('experiencePlaceholder')}>
+                      {field.value ? t(`experienceOptions.${field.value}`) : undefined}
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {EXPERIENCE_OPTIONS.map((option) => (

@@ -80,6 +80,9 @@ export function EnrollmentsByCourse() {
     });
   };
 
+  // Compute selected course to display its title
+  const selectedCourse = courseData?.items.find(c => c.id.toString() === selectedCourseId);
+
   return (
     <div className="space-y-6">
       {/* Course Picker & Stats */}
@@ -89,7 +92,9 @@ export function EnrollmentsByCourse() {
             <label className="text-sm font-cairo-bold-sm text-greyDark">{t('selectCourse')}</label>
             <Select value={selectedCourseId} onValueChange={(val) => val && setSelectedCourseId(val)} disabled={isLoadingCourses}>
               <SelectTrigger className="w-full h-11 bg-gray-50 border-black/5 font-cairo-medium-base focus:ring-blueNormal">
-                <SelectValue placeholder={isLoadingCourses ? t('loading') : t('selectCoursePlaceholder')} />
+                <SelectValue placeholder={isLoadingCourses ? t('loading') : t('selectCoursePlaceholder')}>
+                  {selectedCourse ? selectedCourse.title : undefined}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {courseData?.items.map(course => (

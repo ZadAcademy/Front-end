@@ -278,7 +278,11 @@
         "specializationRequired": "Specialization is required",
         "otpInvalid": "OTP must be 6 digits",
         "generic": "Something went wrong. Try again"
-      }
+      },
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password"
     }
   },
   "HomePage": {
